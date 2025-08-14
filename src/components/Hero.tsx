@@ -33,8 +33,9 @@ export const Hero: React.FC = () => {
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
             <a
-              href="https://youtube.com/@aylabs"
+              href="https://youtube.com/@ay_labs"
               className="bg-red-600 hover:bg-red-700 text-white px-8 py-3 rounded-lg font-semibold transition-colors flex items-center justify-center space-x-2"
+              target='_blank'
             >
               <Play className="h-5 w-5" />
               <span>S'abonner à la chaîne</span>
@@ -51,7 +52,6 @@ export const Hero: React.FC = () => {
                 <Play className="h-8 w-8" />
               </div>
               <div className="font-medium">Vidéos</div>
-              <div className="text-sm opacity-80">Ce que j'ai produit</div>
             </button>
             
             <button
@@ -62,7 +62,6 @@ export const Hero: React.FC = () => {
                 <Handshake className="h-8 w-8" />
               </div>
               <div className="font-medium">Partenaires</div>
-              <div className="text-sm opacity-80">Mes collaborations</div>
             </button>
             
             <button
@@ -73,7 +72,6 @@ export const Hero: React.FC = () => {
                 <BarChart3 className="h-8 w-8" />
               </div>
               <div className="font-medium">Media Kit</div>
-              <div className="text-sm opacity-80">Mes statistiques</div>
             </button>
           </div>
         </div>

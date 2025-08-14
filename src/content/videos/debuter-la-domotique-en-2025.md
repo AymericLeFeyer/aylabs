@@ -17,7 +17,7 @@ Laissez-moi vous présenter **Home Assistant**. C’est un logiciel créé en 20
 
 En 2018, **Nabu Casa** voit le jour, c’est une société créée par les fondateurs historiques de Home Assistant avec pour objectif de le rentabiliser, et de pouvoir générer des fonds pour assurer le bon développement du logiciel
 
-![Logo de Nabu Casa](../../assets/videos/posts/hagreen-2.png)
+![Logo de Nabu Casa](/videos/hagreen-2.png)
 
 Comment font-ils ça ?
 
@@ -30,7 +30,7 @@ Pour résumer, si Home Assistant peux vivre et être le leader des logiciels dom
 
 La Home Assistant Green est en fait la dernière box de chez Nabu Casa, puisqu’ils ont déjà sorti la Blue en 2020 et la Yellow en 2021. La green est sortie en 2023. Oui, elle date un peu, mais je n’avais pas de chaîne YouTube à l’époque. Je ne vais pas traiter des différences entre les autres box, parce que je les ai pas testés
 
-![En partant de la gauche, Yellow, Green et Blue](../../assets/videos/posts/hagreen-3.png)
+![En partant de la gauche, Yellow, Green et Blue](/videos/hagreen-3.png)
 
 **Home Assistant Green**
 
@@ -43,7 +43,7 @@ Dans la boîte, on retrouve:
 - Un cable HDMI
 - Un super sticker Home Assistant
 
-![Boîte Home Assistant Green](../../assets/videos/posts/hagreen-4.png)
+![Boîte Home Assistant Green](/videos/hagreen-4.png)
 
 ### Premier démarrage
 
@@ -51,7 +51,7 @@ Lorsqu’on branche la box à internet et au courant, elle s’allume automatiqu
 
 Essayez de taper `homeassistant.local:8123`, et voilà !
 
-![Démarrage Home Assistant](../../assets/videos/posts/hagreen-5.png)
+![Démarrage Home Assistant](/videos/hagreen-5.png)
 
 C’est désormais le moment de créer sa maison connectée
 
@@ -62,7 +62,7 @@ C’est désormais le moment de créer sa maison connectée
 
 On remarque déjà que Home Assistant remonte des choses, chez moi il détecte la freebox, les chromecasts et le dongle sky connect
 
-![Home Assistant détecte déjà des appareils](../../assets/videos/posts/hagreen-6.png)
+![Home Assistant détecte déjà des appareils](/videos/hagreen-6.png)
 
 Home Assistant est déjà à jour, c’est parfait
 
@@ -72,17 +72,17 @@ Si on regarde de plus près la box, ce qu’on voit en premier c’est son énor
 
 On remarque d’ailleurs un détail de conception étonnant, la box n’est pas surélevée donc l’air aura un peu de mal a passé.
 
-![Dissipateur de chaleur](../../assets/videos/posts/hagreen-7.png)
+![Dissipateur de chaleur](/videos/hagreen-7.png)
 
 C’est un détail, puisque le processeur utilisé est un **Cortex A55**, un micro-processeur qui n’est pas ultra puissant, bien que suffisant pour Home Assistant, de part sa petite puissance, il ne chauffe pas beaucoup
 
-![Circuit imprimé arrière](../../assets/videos/posts/hagreen-8.png)
+![Circuit imprimé arrière](/videos/hagreen-8.png)
 
 Le tout est alimenté via un cable 12v sur un **port DC Jack**, pas d’USB C ici. Le transfo est en **12W**, on peut s’attendre à ce que la box ne consomme pas beaucoup d’énergie, c’est un très bon point !
 
 Ici vous voyez un emplacement pour une pile **CR2032**, c’est pour garder en mémoire l’heure de la machine. Elle n’est pas inclue, mais ce n’est pas grave parce qu’elle n’est pas obligatoire. Si n’en mettez pas, à chaque rédemarrage après une mise hors tension, l’heure se re-calibrera automatiquement via internet
 
-![Emplacement pour la pile CR2032](../../assets/videos/posts/hagreen-9.png)
+![Emplacement pour la pile CR2032](/videos/hagreen-9.png)
 
 Sur les côtés, on voit un port **HDMI** utilisé pour le diagnostic, et une **carte SD** utilisée pour la récupération et pour réinstaller le système.
 

@@ -43,10 +43,6 @@ export const PartnersSection: React.FC = () => {
             <Handshake className="h-8 w-8 text-[#398FBA]" />
             <span>Mes partenaires</span>
           </h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Découvrez les marques et services que je recommande et utilise 
-            dans mes projets domotique, homelab et tech.
-          </p>
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -56,7 +52,6 @@ export const PartnersSection: React.FC = () => {
               href={partner.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="group bg-gray-50 hover:bg-[#398FBA] rounded-lg p-6 transition-all duration-300 hover:shadow-lg hover:-translate-y-1"
               className="group bg-white hover:bg-[#398FBA] border border-gray-200 hover:border-[#398FBA] rounded-lg p-6 transition-all duration-300 hover:shadow-lg hover:-translate-y-1"
             >
               <div className="flex items-center justify-between mb-3">

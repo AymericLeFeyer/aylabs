@@ -3,7 +3,7 @@ title: "Je mesure la CONSOMMATION de mes GROS APPAREILS sur HOME ASSISTANT avec 
 description: "Les prises connectées, c'est bien, mais des pinces ampèremétriques, c'est mieux ! Surtout si c'est des gros appareils. Je découvre un module zigbee relié à des pinces dans cette vidéo."
 pubDate: "Jun 12 2025"
 code: "wmWm45Jo_TU"
-duration: "15:42"
+duration: "11:57"
 tags: ["Domotique"]
 ---
 

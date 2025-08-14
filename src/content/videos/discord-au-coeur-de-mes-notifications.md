@@ -25,7 +25,7 @@ Oui oui.. le seul « humain » 😉
 
 Bon allez je vous laisse 2 minutes, créez votre serveur discord, ajoutez quelques salons textuels, histoire de découper les notifications, personnellement j’ai mis « home » pour la domotique « media servers » pour les trucs liés à mon serveur multimédia et « homelab reports » pour toutes les alertes diverses et variées autour du homelab. Vous inquiètez pas, je détaillerais tout ensuite
 
-![](../../assets/videos/posts/discord-1.png)
+![](/videos/discord-1.png)
 
 Je sais que la plupart d’entre vous attendent les notifications home assistant, donc c’est parti !
 
@@ -51,7 +51,7 @@ Le lien pour créer une application Discord : [https://discord.com/developers/ap
 - Cela va ouvrir Discord, ajoutez le Bot à votre serveur
 - Il devrait apparaître dans les membres
 
-![](../../assets/videos/posts/discord-2.png)
+![](/videos/discord-2.png)
 
 - Sur Home Assistant, ajoutez l’intégration **Discord**
 - Le jeton à entrer dans le champ, c’est le **token** récupéré plus haut
@@ -70,7 +70,7 @@ Créez un nouveau script, et cherchez « notify with <le nom de votre bot> »
 
 Pour récupérer l’id du salon, activez le mode développeur sur discord, puis cliquez droit sur un salon > Copier l’identifiant du salon
 
-![](../../assets/videos/posts/discord-3.png)
+![](/videos/discord-3.png)
 
 # Personnalisation du message
 
@@ -136,19 +136,19 @@ sensor: !include sensors.yaml
 
 ### Home Assistant
 
-![](../../assets/videos/posts/discord-4.png)
+![](/videos/discord-4.png)
 
 [https://github.com/AyLabsCode/home-assistant-automations/blob/main/daily-reports/home-assistant.yaml](https://github.com/AyLabsCode/home-assistant-automations/blob/main/daily-reports/home-assistant.yaml)
 
 ### Proxmox
 
-![](../../assets/videos/posts/discord-5.png)
+![](/videos/discord-5.png)
 
 [https://github.com/AyLabsCode/home-assistant-automations/blob/main/daily-reports/proxmox.yaml](https://github.com/AyLabsCode/home-assistant-automations/blob/main/daily-reports/proxmox.yaml)
 
 ### Synology
 
-![](../../assets/videos/posts/discord-6.png)
+![](/videos/discord-6.png)
 
 [https://github.com/AyLabsCode/home-assistant-automations/blob/main/daily-reports/synology.yaml](https://github.com/AyLabsCode/home-assistant-automations/blob/main/daily-reports/synology.yaml)
 
@@ -180,7 +180,7 @@ Voir ceci pour plus d’informations : [https://www.home-assistant.io/integratio
 
 Pour créer un webhook discord, il suffit d’aller les paramètres du serveur, intégrations et là vous verrez l’option pour ajouter un webhook, vous pouvez mettre une image et bien sur choisir le salon sur lequel le webhook aura le droit d’envoyer les messages. Il faut donc faire un webhook pour chaque service qui doit communiquer avec votre discord.
 
-![](../../assets/videos/posts/discord-7.png)
+![](/videos/discord-7.png)
 
 Dans mon cas, j’ai Proxmox, Overseerr, qBittorrent, UptimeKuma, Tautulli et DSM
 
@@ -192,11 +192,11 @@ La documentation est souvent bien expliquée
 
 - Sur votre centre de données, allez dans Notifications
 
-![](../../assets/videos/posts/discord-8.png)
+![](/videos/discord-8.png)
 
 - Désactivez le **mail-to-root** si ce n’est pas configuré
 
-![](../../assets/videos/posts/discord-9.png)
+![](/videos/discord-9.png)
 
 - Créez un nouveau webhook, nommez le **Discord**
 - Méthode et URL : POST + votre webhook
@@ -233,7 +233,7 @@ La documentation est souvent bien expliquée
 - Cliquez sur **Notification**
 - Onglet **Webhooks**
 
-![](../../assets/videos/posts/discord-10.png)
+![](/videos/discord-10.png)
 
 - Ajouter
   - Fournisseur : Personnalisé

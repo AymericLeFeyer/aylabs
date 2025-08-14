@@ -3,7 +3,7 @@ title: "Mon QUORUM est enfin stable, grâce à mon NAS ! (Proxmox, Synology, Cor
 description: "Dans ma précédente vidéo sur le homelab, vous avez été nombreux à me parler du quorum proxmox. Je m'y suis penché de plus prêt, et je vous raconte mes aventures dans cette vidéo, car je n'ai pas trouvé beaucoup d'informations sur Internet."
 pubDate: "May 18 2025"
 code: "jpFCCgMhalY"
-duration: "15:42"
+duration: "10:41"
 tags: ["Homelab"]
 ---
 

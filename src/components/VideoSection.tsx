@@ -40,10 +40,6 @@ export const VideoSection: React.FC = () => {
             <Play className="h-8 w-8 text-[#398FBA]" />
             <span>Mes dernières vidéos</span>
           </h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Découvrez mes derniers tests, tutoriels domotique et projets créatifs 
-            pour vous inspirer dans vos bidouillages.
-          </p>
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">

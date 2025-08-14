@@ -31,7 +31,7 @@ Si vous me connaissez, vous savez que j’ai un homelab et que j’aime bien tes
 
 Si on fait une soupe avec tous ces critères … on obtient [Mealie](https://mealie.io) !
 
-![Interface d’un menu sur Mealie](../../assets/videos/posts/mealie-1.png)
+![Interface d’un menu sur Mealie](/videos/mealie-1.png)
 
 Mealie est assez complet, et est mis à jour [plusieurs fois par an](https://github.com/mealie-recipes/mealie/tags)
 
@@ -96,7 +96,7 @@ Selon moi, le plus important est de **mettre des photos sur les plats** (soit de
 
 Si vous souhaitez utiliser la fonctionnalité de **liste de course**, il sera alors impératif d’activer les quantité sur les ingrédients. Par défaut c’est désactivé
 
-![Activer les quantités](../../assets/videos/posts/mealie-2.png)
+![Activer les quantités](/videos/mealie-2.png)
 
 ## 💾 Une petite back-up ?
 
@@ -104,13 +104,13 @@ Petit bonus par rapport à la vidéo : les back-ups.
 
 Pensez à en faire une de temps en temps, et sauvegarder l’extract dans un endroit sûr.
 
-![Faire une backup](../../assets/videos/posts/mealie-3.png)
+![Faire une backup](/videos/mealie-3.png)
 
 ## 🏠 Intégration à Home Assistant
 
 La première chose à faire, est de récupérer votre **jeton d’accès API**
 
-![Jeton API](../../assets/videos/posts/mealie-4.png)
+![Jeton API](/videos/mealie-4.png)
 
 Une fois cela fait, direction Home Assistant et **ajoutez l’intégration Mealie** (native dans Home Assistant)
 
@@ -121,7 +121,7 @@ Jeton d'API: <ce qu'on vient de récupérer>
 
 Si tout se passe bien, vous devriez avoir **un tas d’informations**
 
-![Entités Home Assistant](../../assets/videos/posts/mealie-5.png)
+![Entités Home Assistant](/videos/mealie-5.png)
 
 Les plus importantes sont les **calendriers** :
 
@@ -132,7 +132,7 @@ Les plus importantes sont les **calendriers** :
 
 Ces calendriers peuvent être mis dans une carte Calendrier pour avoir un rendu de ce type :
 
-![Carte Calendrier](../../assets/videos/posts/mealie-6.png)
+![Carte Calendrier](/videos/mealie-6.png)
 
 ```yaml
 type: calendar
@@ -149,7 +149,7 @@ entities:
 
 Pour avoir un rendu de ce type :
 
-![Carte des repas](../../assets/videos/posts/mealie-7.png)
+![Carte des repas](/videos/mealie-7.png)
 
 Il faut :
 
@@ -176,7 +176,7 @@ Ajoutez ces capteurs :
   ...
 ```
 
-![Redémarrage config](../../assets/videos/posts/mealie-8.png)
+![Redémarrage config](/videos/mealie-8.png)
 
 Vous pouvez ensuite **redémarrer** la configuration de manière **sécurisée**
 
@@ -195,7 +195,7 @@ L’URL ressemble à ça :
 http://<ip>:9925/api/media/recipes/{{states('sensor.mealie_today_lunch_meal_id')}}/images/min-original.webp
 ```
 
-![Caméra générique](../../assets/videos/posts/mealie-9.png)
+![Caméra générique](/videos/mealie-9.png)
 
 > **URL d’image fixe** : on met l’url ci-dessus en adaptant le sensor_id
 
@@ -203,8 +203,8 @@ http://<ip>:9925/api/media/recipes/{{states('sensor.mealie_today_lunch_meal_id')
 
 Direction votre dashboard, et créez une **pile horizontale** pour afficher vos deux caméras
 
-![Pile horizontale](../../assets/videos/posts/mealie-10.png)
-![Carte caméra](../../assets/videos/posts/mealie-11.png)
+![Pile horizontale](/videos/mealie-10.png)
+![Carte caméra](/videos/mealie-11.png)
 
 ```yaml
 type: horizontal-stack

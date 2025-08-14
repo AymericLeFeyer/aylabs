@@ -15,7 +15,7 @@ Il faut que ce soit pratique, utile (et si possible joli, sinon les personnes qu
 
 Ah et aussi, un dashboard c’est personnel, il faut que ça vienne du coeur (j’abuse peut-être un poil). Un dashboard copié/collé c’est bien mais ça matchera peut-être pas tout à fait à votre besoin.
 
-![Dashboard Home Assistant](../../assets/videos/posts/dashboard-ha-1.png)
+![Dashboard Home Assistant](/videos/dashboard-ha-1.png)
 
 # 🍄 HACS et Mushroom
 
@@ -52,13 +52,13 @@ Mes sous-page sont en fait des onglets cachés (des sous-vue)
 
 J’ai deux types de sous-pages
 
-![Configuration d'une sous-vue](../../assets/videos/posts/dashboard-ha-2.png)
+![Configuration d'une sous-vue](/videos/dashboard-ha-2.png)
 
 ## Les groupes d’appareils
 
 J’ai une sous-page par groupe d’appareils (chauffages, volets, sécurité, éclairage, repas (oui)) que je gère via des chips tout en haut de mon dashboard. Ça ne prends pas de place, je sais qu’ils sont là, et ils sont mignons
 
-![Chips pour les groupes d'appareils](../../assets/videos/posts/dashboard-ha-3.png)
+![Chips pour les groupes d'appareils](/videos/dashboard-ha-3.png)
 
 ```yaml
 type: entity
@@ -82,7 +82,7 @@ Mais comme c’est un gros morceau .. transition !
 
 # 🛋️ Room Card
 
-![Exemple de ma carte Salon](../../assets/videos/posts/dashboard-ha-4.png)
+![Exemple de ma carte Salon](/videos/dashboard-ha-4.png)
 
 Sur chaque carte, j’associe des chips, sur cet exemple j’ai
 
@@ -195,7 +195,7 @@ card_mod:
     }
 ```
 
-![Room Card](../../assets/videos/posts/dashboard-ha-5.png)
+![Room Card](/videos/dashboard-ha-5.png)
 
 ### Le bloc final (exemple pour salon)
 
@@ -304,7 +304,7 @@ Jusqu’à maintenant c’était assez stylé, on va faire une petite pause et p
 
 Voilà de quoi je veux parler
 
-![Page par pièce](../../assets/videos/posts/dashboard-ha-6.png)
+![Page par pièce](/videos/dashboard-ha-6.png)
 
 ## Entêtes
 
@@ -345,8 +345,8 @@ On retourne sur quelque chose de stylé et un peu compliqué ?
 
 Je vous présente mes cartes pour monitorer mon Homelab & Home Assistant !
 
-![Monitoring Homelab](../../assets/videos/posts/dashboard-ha-7.png)
-![Monitoring HA](../../assets/videos/posts/dashboard-ha-8.png)
+![Monitoring Homelab](/videos/dashboard-ha-7.png)
+![Monitoring HA](/videos/dashboard-ha-8.png)
 
 Ces dashboards sont découpées en deux parties, les chips, et les cartes
 
@@ -378,7 +378,7 @@ cards:
 
 Okay, là ça devient sérieux
 
-![Carte](../../assets/videos/posts/dashboard-ha-9.png)
+![Carte](/videos/dashboard-ha-9.png)
 
 Il y a plusieurs paramètres pour cette carte
 
@@ -461,7 +461,7 @@ Le tout est géré dans une pile verticale
 
 J’ai ici deux lignes de chips, et ensuite une ligne par carte à monitorer
 
-![Pile verticale](../../assets/videos/posts/dashboard-ha-10.png)
+![Pile verticale](/videos/dashboard-ha-10.png)
 
 # 🫶 Auto Entities
 
@@ -481,24 +481,24 @@ C’est historique car désormais je monitore surtout ma consommation via le das
 
 C’est un ensemble d’entities qui remonte dans une grille en suivant un filtre. Par exemple pour mes batteries, lorsque j’ai un nouvel appareil, il s’ajoute automatiquement dans ma liste
 
-![Batteries](../../assets/videos/posts/dashboard-ha-11.png)
-![Consommation](../../assets/videos/posts/dashboard-ha-12.png)
+![Batteries](/videos/dashboard-ha-11.png)
+![Consommation](/videos/dashboard-ha-12.png)
 
 > Comment ça marche ?
 
 Une fois auto-entities installé (voir la première partie), il est possible de créer une carte auto entities
 
-![Rechercher dans les cartes](../../assets/videos/posts/dashboard-ha-13.png)
+![Rechercher dans les cartes](/videos/dashboard-ha-13.png)
 
 Personnellement, je suis passé par une grille, pour pouvoir mettre un titre et le nombre de colonnes souhaité
 
-![Configuration de la carte](../../assets/videos/posts/dashboard-ha-14.png)
+![Configuration de la carte](/videos/dashboard-ha-14.png)
 
 Auto-entities propose une interface graphique, super ! Voyons cela ensemble (le code complet est à la fin de ce paragraphe)
 
 # Les filtres
 
-![Les filtres](../../assets/videos/posts/dashboard-ha-15.png)
+![Les filtres](/videos/dashboard-ha-15.png)
 
 Ici on met tous les filtres souhaités, dans mon cas :
 
@@ -510,7 +510,7 @@ Ici on met tous les filtres souhaités, dans mon cas :
 
 # Le tri
 
-![Les tris](../../assets/videos/posts/dashboard-ha-16.png)
+![Les tris](/videos/dashboard-ha-16.png)
 
 Ici je trie mes résultats via un tri numérique (en gros du plus petit au plus grand)
 
@@ -707,17 +707,17 @@ Vous n’aimez pas les champignons ?
 
 Pas de soucis, il existe un autre dépôt assez stylé pour faire vos cartes, il s’agit de **Bubble Card** ! En voilà un exemple
 
-![Bubble card](../../assets/videos/posts/dashboard-ha-17.png)
+![Bubble card](/videos/dashboard-ha-17.png)
 
 Je suis encore au tout début, mais je voulais vous partager un comportement que je trouve génial, les **pop-ups** !
 
 Concrètement, ça c’est mon écran avec les pièces
 
-![Pièces](../../assets/videos/posts/dashboard-ha-18.png)
+![Pièces](/videos/dashboard-ha-18.png)
 
 Et quand je clique sur une pièce, ça s’affiche dans une pop-up !
 
-![Popup carte cuisine](../../assets/videos/posts/dashboard-ha-19.png)
+![Popup carte cuisine](/videos/dashboard-ha-19.png)
 
 Pour gérer cela, il faut
 
@@ -725,13 +725,13 @@ Pour gérer cela, il faut
 - le premier élément est la pop-up
 - les autres éléments sont les informations de la carte
 
-![Configuration carte](../../assets/videos/posts/dashboard-ha-20.png)
+![Configuration carte](/videos/dashboard-ha-20.png)
 
 Ensuite il faut associer le #kitchen sur le bouton qui doit lancer la pop-up
 
 _Vous n’êtes pas obligé d’utiliser une carte Bubble pour cela, mais je préfère pour garder de la cohérence_
 
-![Configuration carte](../../assets/videos/posts/dashboard-ha-21.png)
+![Configuration carte](/videos/dashboard-ha-21.png)
 
 # 👋 Conclusion
 

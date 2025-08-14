@@ -49,7 +49,7 @@ Le principal avantage du zigbee, c’est son **réseau maillé**. En effet, en z
 - les **routeurs** (appareils branchés au courant)
 - les **appareils terminaux** (souvent sur pile)
 
-![Schéma en étoile d’un réseau maillé](../../assets/videos/posts/protocoles-2.png)
+![Schéma en étoile d’un réseau maillé](/videos/protocoles-2.png)
 
 Donc en fin de compte, vous pouvez avoir un manoir, si vous disposez des appareils un peu partout, ça fonctionnera !
 
@@ -57,7 +57,7 @@ Bon c’est possible que l’information soit plus lente si le coordinateur est 
 
 Voici par exemple mon maillage zigbee à la maison. J’ai pour le moment **38 appareils zigbee sur 80 m²**
 
-![Mon maillage zigbee personnel](../../assets/videos/posts/protocoles-3.png)
+![Mon maillage zigbee personnel](/videos/protocoles-3.png)
 
 Vous voyez en bleu les **routeurs**, en vert les **appareils terminaux**, et l’étoile c’est le **coordinateur**. Un petit chiffre est présent entre chaque lien, c’est le LQI : la force du signal allant de 0 à 255
 
@@ -78,15 +78,15 @@ Le coordinateur c’est le cœur du réseau zigbee. Voici la **Sky Connect**, cl
 🛒 [https://go.aylabs.fr/domadoo/sky-connect](https://go.aylabs.fr/domadoo/sky-connect)  
 🎥 [https://youtu.be/ray-9VmMx0M](https://youtu.be/ray-9VmMx0M)
 
-![Contenu de la boîte](../../assets/videos/posts/protocoles-4.png)
+![Contenu de la boîte](/videos/protocoles-4.png)
 
 Il est **fortement recommandé de déporter le coordinateur** de la box avec une rallonge USB.
 
-![Déport du dongle](../../assets/videos/posts/protocoles-5.png)
+![Déport du dongle](/videos/protocoles-5.png)
 
 La Sky Connect se connecte très simplement à Home Assistant, c’est du plug & play. Elle configure automatiquement **ZHA**, le plugin Zigbee natif.
 
-![Début de la configuration](../../assets/videos/posts/protocoles-6.png)
+![Début de la configuration](/videos/protocoles-6.png)
 
 Il existe aussi **Zigbee2MQTT** (Z2M), très populaire. Je n’ai pas encore trouvé d’appareil incompatible avec l’un ou l’autre.
 

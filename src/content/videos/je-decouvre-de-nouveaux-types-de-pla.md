@@ -3,7 +3,7 @@ title: "Je découvre de nouveaux types de PLA ! (PLA+, Glow, Wood de chez SUNLU)
 description: "Le PLA. Quel matériau magnifique quand il s'agit d'impression 3D. Aujourd'hui, je vous présente 4 types de PLA pour vos plus beaux benchies. "
 pubDate: "Jun 25 2025"
 code: "7OZSokv8Zjs"
-duration: "15:42"
+duration: "20:05"
 tags: ["Impression 3D"]
 ---
 

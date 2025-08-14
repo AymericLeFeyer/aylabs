@@ -3,7 +3,7 @@ title: "Une SONNETTE CONNECTÉE, un indispensable ? (Aqara G4)"
 description: "Ding dong, c'est le facteur ! J'ai une nouvelle vidéo pour vous. "
 pubDate: "Jun 19 2025"
 code: "vAfmc1iEYuA"
-duration: "15:42"
+duration: "19:29"
 tags: ["Domotique"]
 ---
 

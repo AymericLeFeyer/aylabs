@@ -798,7 +798,7 @@ Le FTP vous l’avez sûrement rencontré pour upload des fichiers sur un serveu
 
 ## 👨‍💻 Mon Homelab a évolué
 
-![Schéma du Homelab](../../assets/videos/posts/nas-2.png)
+![Schéma du Homelab](/videos/nas-2.png)
 
 - Proxmox stocke ses backups dans le NAS
 - Home Assistant stocke ses backups dans le NAS
