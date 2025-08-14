@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Youtube, Twitter, Instagram, Github, Mail, Search, Home, Play, Package, BookOpen, BarChart3, MessageCircle, FileText, Users } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -11,6 +11,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
   const location = useLocation();
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const isActive = (path: string) => {
     return location.pathname === path;
@@ -23,6 +24,26 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
       setSearchQuery('');
     }
   };
+
+  // Fermer le menu mobile quand on change de page
+  useEffect(() => {
+    setIsMobileMenuOpen(false);
+  }, [location.pathname]);
+
+  // Fermer le menu mobile quand on clique en dehors
+  useEffect(() => {
+    const handleClickOutside = () => {
+      setIsMobileMenuOpen(false);
+    };
+
+    if (isMobileMenuOpen) {
+      document.addEventListener('click', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
+  }, [isMobileMenuOpen]);
 
   return (
     <div className="min-h-screen bg-white flex flex-col">
@@ -102,7 +123,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
               </form>
             </div>
             {/* Version mobile */}
-            <div className="md:hidden flex items-center space-x-2">
+            <div className="md:hidden flex items-center space-x-4">
               {/* Recherche mobile */}
               <form onSubmit={handleSearch} className="relative">
                 <input
@@ -110,18 +131,89 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
                   placeholder="Rechercher..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="bg-gray-700 text-white placeholder-gray-400 px-3 py-1 pl-8 rounded text-sm focus:outline-none focus:ring-2 focus:ring-[#398FBA] w-32"
+                  className="bg-gray-700 text-white placeholder-gray-400 px-3 py-2 pl-8 rounded text-sm focus:outline-none focus:ring-2 focus:ring-[#398FBA] w-40"
                 />
                 <Search className="absolute left-2 top-1/2 transform -translate-y-1/2 h-3 w-3 text-gray-400" />
               </form>
               
-              <button className="text-gray-300 hover:text-white">
+              <button 
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setIsMobileMenuOpen(!isMobileMenuOpen);
+                }}
+                className="text-gray-300 hover:text-white p-2"
+                aria-label="Menu"
+              >
                 <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                  {isMobileMenuOpen ? (
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  ) : (
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                  )}
                 </svg>
               </button>
             </div>
           </div>
+          
+          {/* Menu mobile */}
+          {isMobileMenuOpen && (
+            <div className="md:hidden bg-[#141414] border-t border-gray-700">
+              <div className="px-4 py-2 space-y-1">
+                <a
+                  href="/videos"
+                  className={`block px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                    location.pathname.startsWith('/video') 
+                      ? 'bg-[#398FBA] text-white' 
+                      : 'text-gray-300 hover:text-white hover:bg-gray-700'
+                  }`}
+                >
+                  <div className="flex items-center space-x-2">
+                    <Play className="h-4 w-4" />
+                    <span>Vidéos</span>
+                  </div>
+                </a>
+                <Link
+                  to="/produits-testes"
+                  className={`block px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                    location.pathname.startsWith('/produit') 
+                      ? 'bg-[#398FBA] text-white' 
+                      : 'text-gray-300 hover:text-white hover:bg-gray-700'
+                  }`}
+                >
+                  <div className="flex items-center space-x-2">
+                    <Package className="h-4 w-4" />
+                    <span>Produits Testés</span>
+                  </div>
+                </Link>
+                <Link
+                  to="/tutoriels"
+                  className={`block px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                    location.pathname.startsWith('/tutoriel') 
+                      ? 'bg-[#398FBA] text-white' 
+                      : 'text-gray-300 hover:text-white hover:bg-gray-700'
+                  }`}
+                >
+                  <div className="flex items-center space-x-2">
+                    <BookOpen className="h-4 w-4" />
+                    <span>Tutoriels</span>
+                  </div>
+                </Link>
+                <Link
+                  to="/reseaux"
+                  className={`block px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                    isActive('/reseaux') 
+                      ? 'bg-[#398FBA] text-white' 
+                      : 'text-gray-300 hover:text-white hover:bg-gray-700'
+                  }`}
+                >
+                  <div className="flex items-center space-x-2">
+                    <MessageCircle className="h-4 w-4" />
+                    <span>Réseaux</span>
+                  </div>
+                </Link>
+              </div>
+            </div>
+          )}
         </nav>
       </header>
 
