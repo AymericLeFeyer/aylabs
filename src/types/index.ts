@@ -42,6 +42,7 @@ export interface Product {
   videoCode?: string;
   amazonLink?: string;
   domadooLink?: string;
+  geekbuyingLink?: string;
   price: number;
   pros: string[];
   cons: string[];

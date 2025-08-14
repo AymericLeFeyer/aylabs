@@ -1,5 +1,5 @@
 import React from 'react';
-import { Mail, Youtube, Instagram, MessageCircle, Wrench } from 'lucide-react';
+import { Mail, Youtube, Instagram, Wrench } from 'lucide-react';
 
 export const Contact: React.FC = () => {
   return (
@@ -8,10 +8,10 @@ export const Contact: React.FC = () => {
       <div className="bg-gradient-to-br from-[#398FBA] to-[#2a6d94] text-white py-20">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-4xl md:text-5xl font-bold mb-6">
-            Rejoignez la communauté ! 🌐
+            Rejoignez la communauté ! 
           </h1>
           <p className="text-xl max-w-2xl mx-auto">
-            Connectons-nous sur mes différents réseaux ! Discussions tech, 
+            Connectons-nous sur mes différents réseaux ! Discussions, 
             partage de projets, entraide communautaire... Choisissez votre plateforme préférée !
           </p>
         </div>
@@ -23,7 +23,7 @@ export const Contact: React.FC = () => {
           <h2 className="text-3xl font-bold text-gray-900 text-center mb-4">Mes réseaux sociaux</h2>
           <p className="text-gray-600 text-center mb-12 max-w-2xl mx-auto">
             Retrouvez-moi sur vos plateformes préférées pour du contenu exclusif, 
-            des discussions en direct et une communauté passionnée de tech !
+            des discussions en direct et une communauté passionnée !
           </p>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -41,7 +41,6 @@ export const Contact: React.FC = () => {
                 <div>
                   <h3 className="text-xl font-bold text-gray-900">YouTube</h3>
                   <p className="text-gray-600">@ay_labs</p>
-                  <p className="text-sm text-gray-500 mt-1">Mes vidéos tech & domotique</p>
                 </div>
               </div>
             </a>
@@ -61,8 +60,7 @@ export const Contact: React.FC = () => {
                 </div>
                 <div>
                   <h3 className="text-xl font-bold text-gray-900">Discord</h3>
-                  <p className="text-gray-600">AyLabs Community</p>
-                  <p className="text-sm text-gray-500 mt-1">Discussions & entraide</p>
+                  <p className="text-gray-600">AyLabs</p>
                 </div>
               </div>
             </a>
@@ -81,7 +79,6 @@ export const Contact: React.FC = () => {
                 <div>
                   <h3 className="text-xl font-bold text-gray-900">Instagram</h3>
                   <p className="text-gray-600">@aylabs_yt</p>
-                  <p className="text-sm text-gray-500 mt-1">Coulisses & stories</p>
                 </div>
               </div>
             </a>
@@ -98,7 +95,6 @@ export const Contact: React.FC = () => {
                 <div>
                   <h3 className="text-xl font-bold text-gray-900">Email</h3>
                   <p className="text-gray-600">contact@aylabs.fr</p>
-                  <p className="text-sm text-gray-500 mt-1">Contact direct</p>
                 </div>
               </div>
             </a>
@@ -119,7 +115,6 @@ export const Contact: React.FC = () => {
                 <div>
                   <h3 className="text-xl font-bold text-gray-900">TikTok</h3>
                   <p className="text-gray-600">@ay_labs</p>
-                  <p className="text-sm text-gray-500 mt-1">Contenu court & fun</p>
                 </div>
               </div>
             </a>
@@ -138,7 +133,6 @@ export const Contact: React.FC = () => {
                 <div>
                   <h3 className="text-xl font-bold text-gray-900">MakerWorld</h3>
                   <p className="text-gray-600">@aylabs</p>
-                  <p className="text-sm text-gray-500 mt-1">Mes modèles 3D & créations</p>
                 </div>
               </div>
             </a>

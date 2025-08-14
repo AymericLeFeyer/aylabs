@@ -6,7 +6,8 @@ tags: ["Ordinateur", "Proxmox"]
 protocols: []
 compatible: []
 videoCode: "enGk4dGBcKo"
-buyLinks: ["https://go.aylabs.fr/amazon/beelink-mini-s12-pro"]
+buyLinks:
+  - "https://go.aylabs.fr/amazon/beelink-mini-s12-pro"
 pubDate: "Sep 3 2024"
 category: "Homelab"
 price: 239.99

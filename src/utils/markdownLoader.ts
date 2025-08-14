@@ -116,6 +116,7 @@ export const loadProducts = async () => {
     videoCode: parsed.frontmatter.videoCode,
     amazonLink: parsed.frontmatter.buyLinks?.find((link: string) => link.includes('amzn.to') || link.includes('amazon')),
     domadooLink: parsed.frontmatter.buyLinks?.find((link: string) => link.includes('domadoo')),
+    geekbuyingLink: parsed.frontmatter.buyLinks?.find((link: string) => link.includes('geekbuying')),
     pros: parsed.frontmatter.pros || [],
     cons: parsed.frontmatter.cons || [],
     verdict: parsed.frontmatter.verdict || '',

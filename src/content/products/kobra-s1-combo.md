@@ -6,8 +6,8 @@ tags: ["Imprimante 3D"]
 protocols: []
 compatible: []
 videoCode: "gFTc0dh-0N4"
-buyLinks: 
-  -  "https://go.aylabs.fr/geekbuying/kobra-s1-combo"
+buyLinks:
+  - "https://go.aylabs.fr/geekbuying/kobra-s1-combo"
 pubDate: "Jul 1 2025"
 category: "Impression 3D"
 price: 699.99

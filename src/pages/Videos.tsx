@@ -59,7 +59,7 @@ export const Videos: React.FC = () => {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h1 className="text-4xl md:text-5xl font-bold mb-4">Vidéos</h1>
             <p className="text-xl max-w-2xl mx-auto">
-              Découvrez toutes mes vidéos sur la domotique, le homelab et la tech.
+              Découvrez toutes mes vidéos sur la domotique, le homelab, l'impression 3D et la tech.
             </p>
           </div>
         </div>
@@ -78,7 +78,7 @@ export const Videos: React.FC = () => {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h1 className="text-4xl md:text-5xl font-bold mb-4">Vidéos</h1>
             <p className="text-xl max-w-2xl mx-auto">
-              Découvrez toutes mes vidéos sur la domotique, le homelab et la tech.
+              Découvrez toutes mes vidéos sur la domotique, le homelab, l'impression 3D et la tech.
             </p>
           </div>
         </div>
@@ -97,7 +97,7 @@ export const Videos: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">Vidéos</h1>
           <p className="text-xl max-w-2xl mx-auto">
-            Découvrez toutes mes vidéos sur la domotique, le homelab et la tech.
+            Découvrez toutes mes vidéos sur la domotique, le homelab, l'impression 3D et la tech.
           </p>
         </div>
       </div>

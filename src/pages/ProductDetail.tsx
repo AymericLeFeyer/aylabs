@@ -285,6 +285,19 @@ export const ProductDetail: React.FC = () => {
                             <span>Domadoo</span>
                           </a>
                         )}
+
+
+                        {product.geekbuyingLink && (
+                          <a
+                            href={product.geekbuyingLink}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center justify-center space-x-2 bg-red-600 hover:bg-red-700 text-white py-3 px-4 rounded-lg font-medium transition-colors"
+                          >
+                            <ShoppingCart className="h-4 w-4" />
+                            <span>GeekBuying</span>
+                          </a>
+                        )}
                       </div>
                     </div>
                   </div>

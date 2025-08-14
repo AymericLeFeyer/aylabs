@@ -35,7 +35,7 @@ export const Hero: React.FC = () => {
             <a
               href="https://youtube.com/@ay_labs"
               className="bg-red-600 hover:bg-red-700 text-white px-8 py-3 rounded-lg font-semibold transition-colors flex items-center justify-center space-x-2"
-              target='_blank'
+              target=''
             >
               <Play className="h-5 w-5" />
               <span>S'abonner à la chaîne</span>

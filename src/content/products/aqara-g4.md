@@ -6,9 +6,9 @@ tags: ["Sonnette", "Caméra", "Securité"]
 protocols: ["Wi-Fi"]
 compatible: ["Home Assistant", "Aqara Home", "HomeKit"]
 videoCode: "vAfmc1iEYuA"
-buyLinks: 
-  -  "https://go.aylabs.fr/domadoo/aqara-g4"
-  -  "https://amzn.to/44iMSNP"
+buyLinks:
+  - "https://go.aylabs.fr/domadoo/aqara-g4"
+  - "https://amzn.to/44iMSNP"
 pubDate: "Feb 5 2025"
 category: "Domotique"
 price: 119.99

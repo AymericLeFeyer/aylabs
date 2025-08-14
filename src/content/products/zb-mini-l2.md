@@ -7,9 +7,9 @@ tags: ["Éclairage"]
 protocols: ["Zigbee"]
 compatible: ["Home Assistant", "Zigbee2MQTT"]
 videoCode: "FQVFTVUruxM"
-buyLinks: 
-  -  "https://go.aylabs.fr/domadoo/zbminil2"
-  -  "https://amzn.to/4jWEhF0"
+buyLinks:
+  - "https://go.aylabs.fr/domadoo/zbminil2"
+  - "https://amzn.to/4jWEhF0"
 pubDate: "Sep 17 2024"
 category: "Domotique"
 price: 27.99
