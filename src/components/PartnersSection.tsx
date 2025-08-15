@@ -1,38 +1,38 @@
-import React from 'react';
-import { ExternalLink, Handshake } from 'lucide-react';
+import React from "react";
+import { ExternalLink, Handshake } from "lucide-react";
 
 export const PartnersSection: React.FC = () => {
   const partners = [
     {
-      name: 'Domadoo',
-      url: 'https://go.aylabs.fr/domadoo',
-      description: 'Domotique & objets connectés'
+      name: "Domadoo",
+      url: "https://go.aylabs.fr/domadoo",
+      description: "Domotique & objets connectés",
     },
     {
-      name: 'Sunlu',
-      url: 'https://go.aylabs.fr/sunlu',
-      description: 'Filaments impression 3D'
+      name: "Sunlu",
+      url: "https://go.aylabs.fr/sunlu",
+      description: "Filaments impression 3D",
     },
     {
-      name: 'GeekBuying',
-      url: 'https://go.aylabs.fr/geekbuying',
-      description: 'Électronique & gadgets'
+      name: "GeekBuying",
+      url: "https://go.aylabs.fr/geekbuying",
+      description: "Électronique & gadgets",
     },
     {
-      name: 'NordVPN',
-      url: 'https://go.aylabs.fr/nordvpn',
-      description: 'Sécurité & confidentialité'
+      name: "NordVPN",
+      url: "https://go.aylabs.fr/nordvpn",
+      description: "Sécurité & confidentialité",
     },
     {
-      name: 'Itead',
-      url: 'https://go.aylabs.fr/itead',
-      description: 'Solutions IoT & domotique'
+      name: "Itead",
+      url: "https://go.aylabs.fr/itead",
+      description: "Solutions IoT & domotique",
     },
     {
-      name: 'Reolink',
-      url: 'https://go.aylabs.fr/reolink',
-      description: 'Caméras de surveillance'
-    }
+      name: "Reolink",
+      url: "https://go.aylabs.fr/reolink/e1-zoom",
+      description: "Caméras de surveillance",
+    },
   ];
 
   return (
@@ -44,7 +44,7 @@ export const PartnersSection: React.FC = () => {
             <span>Mes partenaires</span>
           </h2>
         </div>
-        
+
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {partners.map((partner) => (
             <a
@@ -66,11 +66,11 @@ export const PartnersSection: React.FC = () => {
             </a>
           ))}
         </div>
-        
+
         <div className="text-center mt-8">
           <p className="text-sm text-gray-500">
-            Les liens ci-dessus sont des liens affiliés qui permettent de soutenir la chaîne 
-            sans coût supplémentaire pour vous.
+            Les liens ci-dessus sont des liens affiliés qui permettent de
+            soutenir la chaîne sans coût supplémentaire pour vous.
           </p>
         </div>
       </div>
