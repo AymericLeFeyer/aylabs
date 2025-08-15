@@ -2,6 +2,7 @@ import { MessageCircle, Send } from "lucide-react";
 import React from "react";
 import { AvatarImage } from "./AvatarImage";
 import { Comment } from "../types";
+import Cookies from "js-cookie";
 
 interface NewComment {
   author: string;
@@ -65,6 +66,9 @@ export const Comments: React.FC<CommentsProps> = ({
         newComment.content,
         newComment.email
       );
+
+      Cookies.set("author", newComment.author, { expires: 30 });
+      Cookies.set("email", newComment.email, { expires: 30 });
 
       if (result.success) {
         setNewComment({ author: "", content: "", email: "" });

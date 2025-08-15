@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { Calendar, ArrowLeft, BookOpen } from "lucide-react";
 import { useTutorial } from "../hooks/useMarkdownContent";
@@ -6,6 +6,7 @@ import { useComments } from "../hooks/useComments";
 import { MarkdownRenderer } from "../utils/markdownRenderer";
 import { SEO } from "../components/SEO";
 import { Comments } from "../components/Comments";
+import Cookies from "js-cookie";
 
 export const TutorialDetail: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -16,7 +17,7 @@ export const TutorialDetail: React.FC = () => {
     loading: commentsLoading,
     error: commentsError,
     addComment,
-  } = useComments(tutorial?.id || "", "tutorial");
+  } = useComments(tutorial ? tutorial.id : null, "tutorial");
   const [newComment, setNewComment] = useState({
     author: "",
     content: "",
@@ -29,6 +30,22 @@ export const TutorialDetail: React.FC = () => {
     content: "",
     email: "",
   });
+
+  useEffect(() => {
+    const author = Cookies.get("author") || "";
+    const email = Cookies.get("email") || "";
+    setNewComment((prev) => ({
+      ...prev,
+      author,
+      email,
+    }));
+
+    setReplyForm((prev) => ({
+      ...prev,
+      author,
+      email,
+    }));
+  }, [submitting]);
 
   if (loading) {
     return (

@@ -3,7 +3,7 @@ import { supabase } from '../lib/supabase';
 import { Comment } from '../types';
 import { generateAvatarUrl } from '../utils/avatarUtils';
 
-export const useComments = (pageId: string, pageType: 'article' | 'product' | 'video' | 'tutorial' = 'article') => {
+export const useComments = (pageId: string | null, pageType: 'article' | 'product' | 'video' | 'tutorial' = 'article') => {
   const [comments, setComments] = useState<Comment[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -98,7 +98,9 @@ export const useComments = (pageId: string, pageType: 'article' | 'product' | 'v
   };
 
   useEffect(() => {
+    if (pageId == null) return
     fetchComments();
+    
   }, [pageId, pageType]);
 
   return {

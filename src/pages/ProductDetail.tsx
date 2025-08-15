@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import {
@@ -15,6 +15,7 @@ import { useComments } from "../hooks/useComments";
 import { MarkdownRenderer } from "../utils/markdownRenderer";
 import { SEO } from "../components/SEO";
 import { Comments } from "../components/Comments";
+import Cookies from "js-cookie";
 
 export const ProductDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -37,6 +38,22 @@ export const ProductDetail: React.FC = () => {
     content: "",
     email: "",
   });
+
+  useEffect(() => {
+    const author = Cookies.get("author") || "";
+    const email = Cookies.get("email") || "";
+    setNewComment((prev) => ({
+      ...prev,
+      author,
+      email,
+    }));
+
+    setReplyForm((prev) => ({
+      ...prev,
+      author,
+      email,
+    }));
+  }, [submitting]);
 
   if (loading) {
     return (
