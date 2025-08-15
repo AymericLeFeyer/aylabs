@@ -29,6 +29,9 @@ jobs:
         run: npm run build
         env:
           VITE_BASE_URL: ${{ secrets.BASE_PATH }} # utilisé dans vite.config.js si nécessaire
+          VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
+          VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
+          VITE_GA_ID: ${{ secrets.VITE_GA_ID }}
 
       # 5️⃣ Ajouter .htaccess pour SPA
       - name: ➕ Add .htaccess

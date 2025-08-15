@@ -38,7 +38,7 @@ export const VideoSection: React.FC = () => {
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-[#141414] mb-4 flex items-center justify-center space-x-3">
             <Play className="h-8 w-8 text-[#398FBA]" />
-            <span>Mes dernières vidéoss</span>
+            <span>Mes dernières vidéos</span>
           </h2>
         </div>
 
