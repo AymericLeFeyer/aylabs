@@ -18,6 +18,6 @@ pros:
   - "Très simple à utiliser et à mettre en route"
 cons:
   - "Un peu bruyante"
-  - "Matériaux pauvres"
+  - "Cadre en matériaux pauvres (platique)"
 verdict: "Une imprimante core XY incroyable pour débuter, à un prix défiant toutes concurrences."
 ---
