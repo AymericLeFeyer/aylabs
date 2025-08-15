@@ -5,6 +5,7 @@ import { useTutorial } from '../hooks/useMarkdownContent';
 import { useComments } from '../hooks/useComments';
 import { MarkdownRenderer } from '../utils/markdownRenderer';
 import { AvatarImage } from '../components/AvatarImage';
+import { SEO } from '../components/SEO';
 
 export const TutorialDetail: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -76,6 +77,11 @@ export const TutorialDetail: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
+      <SEO
+        title={`${tutorial.title} - AyLabs`}
+        description={tutorial.description}
+        url={`https://aylabs.fr/tutoriel/${tutorial.id}`}
+      />
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <Link
           to="/tutoriels"

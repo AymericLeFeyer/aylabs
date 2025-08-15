@@ -5,6 +5,7 @@ import { useVideos } from '../hooks/useMarkdownContent';
 import { useComments } from '../hooks/useComments';
 import { MarkdownRenderer } from '../utils/markdownRenderer';
 import { AvatarImage } from '../components/AvatarImage';
+import { SEO } from '../components/SEO';
 
 export const VideoDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -78,8 +79,19 @@ export const VideoDetail: React.FC = () => {
     return `https://www.youtube.com/embed/${videoId}`;
   };
 
+  const getThumbnailUrl = (url: string) => {
+    const videoId = url.split('v=')[1] || url.split('/').pop();
+    return `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
+  };
+
   return (
     <div className="min-h-screen bg-gray-50">
+      <SEO
+        title={`${video.title} - AyLabs`}
+        description={video.description}
+        url={`https://aylabs.fr/video/${video.id}`}
+        image={getThumbnailUrl(video.url)}
+      />
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <Link
           to="/videos"

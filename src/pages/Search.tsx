@@ -2,6 +2,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { useLocation, Link } from 'react-router-dom';
 import { Search as SearchIcon, Calendar, BookOpen, Play, ShoppingCart } from 'lucide-react';
 import { useTutorials, useProducts, useVideos } from '../hooks/useMarkdownContent';
+import { SEO } from '../components/SEO';
 
 export const Search: React.FC = () => {
   const location = useLocation();
@@ -87,6 +88,11 @@ export const Search: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
+      <SEO
+        title="Recherche - AyLabs"
+        description="Tu cherches quelque chose ? Trouve le ici !"
+        url="https://aylabs.fr/search"
+      />
       <div className="bg-[#398FBA] text-white py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">🔍 Recherche</h1>

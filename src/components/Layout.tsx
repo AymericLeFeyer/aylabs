@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Youtube, Twitter, Instagram, Github, Mail, Search, Home, Play, Package, BookOpen, BarChart3, MessageCircle, FileText, Users } from 'lucide-react';
+import { Youtube, Twitter, Instagram, Github, Mail, Search, Home, Play, Package, BookOpen, BarChart3, MessageCircle, FileText, Users, BarChart } from 'lucide-react';
 import { useState, useEffect } from 'react';
 
 interface LayoutProps {
@@ -257,6 +257,12 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
                   </Link>
                 </li>
                 <li>
+                  <Link to="/#media-kit" className="text-gray-400 hover:text-[#398FBA] transition-colors flex items-center space-x-2">
+                    <BarChart3 className="h-4 w-4" />
+                    <span>Media Kit</span>
+                  </Link>
+                </li>
+                <li>
                   <Link to="/reseaux" className="text-gray-400 hover:text-[#398FBA] transition-colors flex items-center space-x-2">
                     <MessageCircle className="h-4 w-4" />
                     <span>Réseaux</span>
@@ -293,7 +299,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
 
           <div className="border-t border-gray-800 mt-8 pt-8 text-center">
             <p className="text-gray-400">
-              © 2024 AyLabs. Tous droits réservés.
+              © 2025 AyLabs. Tous droits réservés.
             </p>
           </div>
       </footer>

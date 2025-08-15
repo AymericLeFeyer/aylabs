@@ -2,6 +2,7 @@ import React, { useState, useMemo } from 'react';
 import { VideoCard } from '../components/VideoCard';
 import { FilterSection } from '../components/FilterSection';
 import { useVideos } from '../hooks/useMarkdownContent';
+import { SEO } from '../components/SEO';
 
 export const Videos: React.FC = () => {
   const { videos, loading, error } = useVideos();
@@ -93,6 +94,11 @@ export const Videos: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
+      <SEO
+        title="Vidéos - AyLabs"
+        description="Je suis YouTuber avant tout, ici tu trouveras mes vidéos"
+        url="https://aylabs.fr/videos"
+      />
       <div className="bg-[#398FBA] text-white py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">Vidéos</h1>

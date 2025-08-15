@@ -6,6 +6,7 @@ import { useProduct } from '../hooks/useMarkdownContent';
 import { useComments } from '../hooks/useComments';
 import { MarkdownRenderer } from '../utils/markdownRenderer';
 import { AvatarImage } from '../components/AvatarImage';
+import { SEO } from '../components/SEO';
 
 export const ProductDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -198,6 +199,12 @@ export const ProductDetail: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
+      <SEO
+        title={`${product.name} - AyLabs`}
+        description={product.description}
+        url={`https://aylabs.fr/produit/${id}`}
+        image={product.image}
+      />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <Link
           to="/produits-testes"

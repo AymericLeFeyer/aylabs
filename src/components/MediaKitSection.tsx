@@ -151,7 +151,7 @@ export const MediaKitSection: React.FC = () => {
         <div className="bg-gradient-to-br from-[#398FBA] to-[#2a6d94] rounded-2xl p-8 text-white text-center mb-16">
           <h2 className="text-3xl font-bold mb-4">Collaborations</h2>
           <p className="text-xl opacity-90 mb-8">
-            Vous êtes une marque tech, domotique ou maker ?
+            Vous proposez des produits en lien direct avec mon activité ?<br/>Vous avez un projet qui pourrait m'intéresser ?
           </p>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
@@ -175,8 +175,8 @@ export const MediaKitSection: React.FC = () => {
               <div className="bg-white/20 rounded-xl p-4 w-16 h-16 mx-auto mb-4 flex items-center justify-center">
                 <Award className="h-8 w-8" />
               </div>
-              <h3 className="font-bold mb-2">Projets DIY</h3>
-              <p className="opacity-90 text-sm">Créations sur mesure</p>
+              <h3 className="font-bold mb-2">Placements de produits</h3>
+              <p className="opacity-90 text-sm">Si pertinent avec le sujet de la vidéo</p>
             </div>
           </div>
           
@@ -187,55 +187,6 @@ export const MediaKitSection: React.FC = () => {
             <Mail className="h-5 w-5" />
             <span>Proposer une collaboration</span>
           </a>
-        </div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-          <div className="bg-white rounded-lg shadow-lg p-8 border border-gray-200">
-            <h2 className="text-2xl font-bold text-[#141414] mb-6">À propos de la chaîne</h2>
-            <div className="space-y-4 text-gray-600">
-              <p>
-                <strong className="text-[#141414]">Thématique :</strong> Domotique, homelab, 
-                impression 3D, tech et bidouillage créatif.
-              </p>
-              <p>
-                <strong className="text-[#141414]">Audience :</strong> {formatNumber(stats.subscriberCount)} abonnés - 
-                Makers, domoticiens, passionnés de tech et bidouilleurs créatifs.
-              </p>
-              <p>
-                <strong className="text-[#141414]">Format :</strong> Vidéos de 10-25 minutes, 
-                tests de produits, tutoriels pratiques et projets DIY.
-              </p>
-              <p>
-                <strong className="text-[#141414]">Chaîne :</strong> {stats.channelTitle}
-              </p>
-            </div>
-          </div>
-
-          <div className="bg-white rounded-lg shadow-lg p-8 border border-gray-200">
-            <h2 className="text-2xl font-bold text-[#141414] mb-6">Collaborations</h2>
-            <div className="space-y-4 text-gray-600">
-              <p>
-                <strong className="text-[#141414]">Tests de produits :</strong> Reviews 
-                honnêtes de produits domotique, tech et impression 3D.
-              </p>
-              <p>
-                <strong className="text-[#141414]">Partenariats :</strong> Collaborations 
-                avec les marques tech, domotique et makers.
-              </p>
-              <p>
-                <strong className="text-[#141414]">Sponsored content :</strong> Intégration 
-                naturelle dans le contenu avec transparence totale.
-              </p>
-              <div className="mt-6">
-                <a
-                  href="mailto:contact@aylabs.fr"
-                  className="bg-[#398FBA] hover:bg-[#2a6d94] text-white px-6 py-3 rounded-lg font-medium transition-colors inline-block"
-                >
-                  Nous contacter
-                </a>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </section>
