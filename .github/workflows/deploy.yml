@@ -57,12 +57,12 @@ jobs:
 
       # 7️⃣ Envoyer un message Discord
       - name: 💬 Discord Notification
-        if: success()
         run: |
           curl -H "Content-Type: application/json" \
-          -X POST \
-          -d '{"content": "🚀 Une nouvelle version du site vient d'être déployée !"}' \
-          ${{ secrets.DISCORD_WEBHOOK }}
+              -X POST \
+              -d "{\"content\": \"🚀 Une nouvelle version du site vient d'être déployée !\"}" \
+              ${{ secrets.DISCORD_WEBHOOK }}
+
       - name: 💬 Discord Notification
         if: failure()
         run: |
