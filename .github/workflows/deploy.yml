@@ -50,7 +50,7 @@ jobs:
           server: ${{ secrets.FTP_HOST }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: ./dist/***
+          local-dir: ./dist/
           server-dir: ${{ secrets.FTP_PATH }} # ex: /public_html/ ou /aymeric/
           delete: true
           dry-run: false
@@ -66,7 +66,11 @@ jobs:
       - name: 💬 Discord Notification
         if: failure()
         run: |
+          # Récupérer les 20 dernières lignes du log du workflow
+          ERROR=$(tail -n 20 $GITHUB_STEP_SUMMARY 2>/dev/null || echo "Impossible de récupérer le log exact")
+
+          # Envoyer le message Discord
           curl -H "Content-Type: application/json" \
-          -X POST \
-          -d '{"content": "⚠ Il y a une erreur avec le workflow de déploiement ! @everyone"}' \
-          ${{ secrets.DISCORD_WEBHOOK }}
+              -X POST \
+              -d "{\"content\": \"🚨 Il y a une erreur avec le workflow de déploiement ! @everyone\nDernières lignes du log :\n$ERROR\"}" \
+              ${{ secrets.DISCORD_WEBHOOK }}
