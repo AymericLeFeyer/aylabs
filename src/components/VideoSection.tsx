@@ -1,7 +1,7 @@
-import React from 'react';
-import { Play } from 'lucide-react';
-import { VideoCard } from './VideoCard';
-import { useVideos } from '../hooks/useMarkdownContent';
+import React from "react";
+import { Play } from "lucide-react";
+import { VideoCard } from "./VideoCard";
+import { useVideos } from "../hooks/useMarkdownContent";
 
 export const VideoSection: React.FC = () => {
   const { videos, loading, error } = useVideos();
@@ -38,16 +38,16 @@ export const VideoSection: React.FC = () => {
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-[#141414] mb-4 flex items-center justify-center space-x-3">
             <Play className="h-8 w-8 text-[#398FBA]" />
-            <span>Mes dernières vidéos</span>
+            <span>Mes dernières vidéoss</span>
           </h2>
         </div>
-        
+
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {latestVideos.map((video) => (
             <VideoCard key={video.id} video={video} />
           ))}
         </div>
-        
+
         <div className="text-center mt-12">
           <a
             href="/videos"

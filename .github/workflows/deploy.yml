@@ -56,14 +56,14 @@ jobs:
           dry-run: false
 
       # 7️⃣ Envoyer un message Discord
-      - name: 💬 Discord Notification
+      - name: 💬 Discord Notification (Success)
         run: |
           curl -H "Content-Type: application/json" \
               -X POST \
               -d "{\"content\": \"🚀 Une nouvelle version du site vient d'être déployée !\"}" \
               ${{ secrets.DISCORD_WEBHOOK }}
 
-      - name: 💬 Discord Notification
+      - name: 💬 Discord Notification (Failure)
         if: failure()
         run: |
           # Récupérer les 20 dernières lignes du log du workflow
