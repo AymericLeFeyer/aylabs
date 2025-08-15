@@ -11,27 +11,27 @@ jobs:
 
     steps:
       # 1️⃣ Récupération du code
-      - name: Checkout repository
+      - name: 🚚 Checkout repository
         uses: actions/checkout@v3
 
       # 2️⃣ Installer Node.js
-      - name: Setup Node.js
+      - name: ⚙️ Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: "18"
 
       # 3️⃣ Installer dépendances
-      - name: Install dependencies
+      - name: ⬇️ Install dependencies
         run: npm install
 
       # 4️⃣ Build Vite
-      - name: Build project
+      - name: 🏗️ Build project
         run: npm run build
         env:
           VITE_BASE_URL: ${{ secrets.BASE_PATH }} # utilisé dans vite.config.js si nécessaire
 
       # 5️⃣ Ajouter .htaccess pour SPA
-      - name: Add .htaccess
+      - name: ➕ Add .htaccess
         run: |
           BASE=${{ secrets.BASE_PATH }}
           cat > dist/.htaccess <<EOL
@@ -44,8 +44,8 @@ jobs:
           EOL
 
       # 6️⃣ Déployer via FTP
-      - name: Deploy via FTP
-        uses: SamKirkland/FTP-Deploy-Action@v4
+      - name: 🚀 Deploy via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ${{ secrets.FTP_HOST }}
           username: ${{ secrets.FTP_USERNAME }}
@@ -56,7 +56,7 @@ jobs:
           dry-run: false
 
       # 7️⃣ Envoyer un message Discord
-      - name: Discord Notification
+      - name: 💬 Discord Notification
         if: success()
         run: |
           curl -H "Content-Type: application/json" \
