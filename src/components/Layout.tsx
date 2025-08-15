@@ -57,7 +57,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
     };
   }, [isMobileMenuOpen]);
 
-  const [cookieConsent, setCookieConsent] = useState(false);
+  const [_, setCookieConsent] = useState(false);
   const [showBanner, setShowBanner] = useState(false);
 
   useEffect(() => {

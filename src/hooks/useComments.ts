@@ -72,7 +72,7 @@ export const useComments = (pageId: string | null, pageType: 'article' | 'produc
 
   const addComment = async (author: string, content: string, email: string, parentId?: string) => {
     try {
-      const { data, error } = await supabase
+      const { error } = await supabase
         .from('comments')
         .insert({
           page_id: pageId,
