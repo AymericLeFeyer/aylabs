@@ -63,3 +63,10 @@ jobs:
           -X POST \
           -d '{"content": "C'\''est bon chef ! 🚀"}' \
           ${{ secrets.DISCORD_WEBHOOK }}
+      - name: 💬 Discord Notification
+        if: failure()
+        run: |
+          curl -H "Content-Type: application/json" \
+          -X POST \
+          -d '{"content": "C'\''est pété chef ! 🧑‍🍳"}' \
+          ${{ secrets.DISCORD_WEBHOOK }}
