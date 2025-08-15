@@ -39,13 +39,13 @@ Le détecteur c’est en fait deux parties, une soucoupe aimantée, qui fait off
 
 On retrouve également de quoi installer la base, soit avec du 3M, ou avec des chevilles
 
-![Unboxing](/videos/snzb06p-1.png)
+![Unboxing](/videos-assets/snzb06p-1.png)
 
 # Fausses détections
 
 Sonoff indique que des fausses détections peuvent survenir, si vous avez des animaux, des aspirateurs robots, du vent qui souffle sur une plante… Tout ça pourrait donc enclencer la présence du détecteur et créer des faux positifs. Donc si vous avez des animaux, je vous conseille d’en essayer 1 seul, et si ça marche achetez les autres
 
-![Fausses détections](/videos/snzb06p-2.png)
+![Fausses détections](/videos-assets/snzb06p-2.png)
 
 # Ça donne quoi ?
 
@@ -57,7 +57,7 @@ J’aime bien donner des noms identifiables, pour ma part ce sera human-sensor_b
 
 Les informations remontées sont :
 
-![Screen de Zigbee2MQTT](/videos/snzb06p-3.png)
+![Screen de Zigbee2MQTT](/videos-assets/snzb06p-3.png)
 
 - Occupancy, savoir si le détecteur détecte quelqu’un
 - Timeout, je l’ai mis à 30s, ça me semble déjà bien assez
@@ -68,11 +68,11 @@ Les informations remontées sont :
 
 Je remarque tout de suite qu’il me détecte très bien ,voir trop bien parfois, c’est pour ça que j’ai mis la sensibilité à low dans le bureau car il me détecte parfois derrière la porte
 
-![Sensibilité](/videos/snzb06p-4.png)
+![Sensibilité](/videos-assets/snzb06p-4.png)
 
 Dans le salon, je l’ai mis derrière un pot de fleur, et ça marche quand même très bien..
 
-![Photo du capteur dans mon salon](/videos/snzb06p-5.png)
+![Photo du capteur dans mon salon](/videos-assets/snzb06p-5.png)
 
 Comme ça on le voit pas, et il fait l’affaire quand même. Bien sûr si je l’avais mis en hauteur avec un bon angle de vue, ça aurait été parfait. Mais dans mon cas, je voulais surtout détecter si quelqu’un était dans le salon, et non dans le salon + salle à manger + cuisine (car oui, il aurait tout détecter)
 

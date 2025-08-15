@@ -17,7 +17,7 @@ Cet outil je l’avais trouvé, **[Notion](https://www.notion.so/?cookie_sync_co
 
 Pour la faire courte, [Notion](https://www.notion.so/?cookie_sync_completed=true) c’est un outil de prise de notes de manière très structurée. On peut créer des pages dans des pages dans des pages dans des pages dans des pages dans des pages, mettre des images et plein d’autres trucs. En plus, on peux associer des emojis à ses pages pour les rendre plus jolies. Waw !
 
-![](/videos/affine-2.png)
+![](/videos-assets/affine-2.png)
 
 Ensuite j’ai découvert le concept de base de données pour tout organiser, et ça a changé la donne. Listes de tâches à faire à la journée, à la semaine, suivi des clients et des factures, base de connaissances sur mes projets, liste de courses, planification de voyages… Ouais on peux faire tout ça avec [Notion](https://www.notion.so/?cookie_sync_completed=true), l’outil rêvé
 
@@ -59,11 +59,11 @@ Celui que j’ai le plus utilisé pendant ma période de sevrage c’est [Obsidi
 
 Je l’ai installé sur mon Google Drive, et j’y avais accès assez facilement depuis mon téléphone et mes ordinateurs. Ça permet de faire de la prise de note un peu comme [Notion](https://www.notion.so/?cookie_sync_completed=true), mais sans de réelles base de données. Ce qui est cool avec [Obsidian](https://obsidian.md/) c’est les plugins, il y en a beaucoup et au final ça ressemble presque à [Notion](https://www.notion.so/?cookie_sync_completed=true).
 
-![](/videos/affine-3.png)
+![](/videos-assets/affine-3.png)
 
 Mais je sais pas, j’étais pas convaincu par le truc le plus important [d’Obsidian](https://obsidian.md/) qui est le fait de pouvoir lier ses pages entre elles. Je m’en servais pas assez, j’avais pas trouvé comment m’en servir dans mon flux de travail. Quand je vois les gens sur internet parler [d’obsidian](https://obsidian.md/), ces gens là font énormément de recherches, de lectures et ont besoin de noter ce qu’ils trouvent. Ce n’est pas mon cas. Moi je lis pas de livre, j’sais même pas lire… Je veux juste une base de connaissance, et c’est mieux s’il y a des bases de données pour gérer un peu mieux mes contenus.
 
-![](/videos/affine-4.png)
+![](/videos-assets/affine-4.png)
 
 En plus avec YouTube, j’avais encore plus besoin d’un outil performant, et [Obsidian](https://obsidian.md/) je sais pas, j’ai fini par l’abandonner.
 
@@ -77,7 +77,7 @@ J’ai stocké ça sur mon mini pc, le tout est backupé tous les jours sur le N
 
 En feature sympa, [AFFiNE](https://affine.pro/) propose aussi de faire des schémas directement dessus, un peu comme un Miro ou un Excalidraw. Et ça c’est trop bien. J’aime beaucoup faire des schémas pour expliquer aux autres ou même pour m’aider à concevoir des algorithmes, et le fait que ce soit intégré directement dans mon logiciel, c’est trop bien.
 
-![](/videos/affine-5.png)
+![](/videos-assets/affine-5.png)
 
 Pour accéder à [AFFiNE](https://affine.pro/) depuis l’extérieur, j’ai mis en place Tailscale, c’est un VPN pour accéder à ses serveurs privés, c’est très simple à mettre en place et ça marche super. En gros j’active mon Tailscale sur mon ordinateur et mon smartphone, et là par magie je peux communiquer avec mes services hébergés chez moi, avec mon nas, mon qbittorrent, mon home assistant, et du coup, mon [AFFiNE](https://affine.pro/)
 

@@ -19,7 +19,7 @@ Très utile par exemple pour relier son dossier multimédia, à un serveur Plex 
 Sur votre NAS, créez un utilisateur Proxmox.  
 Sur DSM, ça se passe dans **Panneau de configuration** > **Utilisateur et groupe**
 
-![](../../assets/tutos/posts/nas-lxc-1.png)
+![](/tutorials-assets/nas-lxc-1.png)
 
 ### 2 – Donnez les droits d’accès au volume souhaité
 
@@ -31,13 +31,13 @@ Sur DSM, ça se passe dans
 - Permissions
 - Cocher **Lecture / Écriture** sur votre utilisateur proxmox
 
-![](../../assets/tutos/posts/nas-lxc-2.png)
+![](/tutorials-assets/nas-lxc-2.png)
 
 ### 3 – LXC Privilégié
 
 Assurez-vous que le LXC soit privilégié
 
-![](../../assets/tutos/posts/nas-lxc-3.png)
+![](/tutorials-assets/nas-lxc-3.png)
 
 Non privilégié : Non -> **C’est privilégié** (vive les doubles négations)
 

@@ -21,7 +21,7 @@ Tous les appareils branchés sur le secteur font office de routeur, sur mes 40 a
 
 # Présentation du produit
 
-![Image du produit](/videos/smlight-1.png)
+![Image du produit](/videos-assets/smlight-1.png)
 
 Aujourd’hui je vous présente l’un d’eux, il s’agit du SMLight SLZB-06M. Sa fonction première est d’assurer le rôle de coordinateur zigbee. Vous l’avez vu dans une autre de mes vidéos, personnellement j’utilise la clé de chez Sonoff que j’avais flashé pour accueillir le ember. Ce SMLight est une très bonne alternative pour plein de raisons.
 
@@ -33,7 +33,7 @@ Si comme moi vous avez un Home Assistant sur un Proxmox, puisque ce dongle n’e
 
 # Fixation
 
-![Fixation velcro](/videos/smlight-2.png)
+![Fixation velcro](/videos-assets/smlight-2.png)
 
 D’ailleurs petit tips pour la fixation, j’ai découvert ce système d’attache par velcro, et j’en met sur tous mes appareils désormais. Parce que le 3M c’est bien, mais quand faut changer la pile et que le module n’est pas prévu pour être décroché facilement, c’est vite compliqué.
 
@@ -49,11 +49,11 @@ et vous devez lui apporter une connexion internet, soit en Ethernet, soit en Wif
 
 Donc un mix Ethernet/ USB C est possible !
 
-![Alimentation](/videos/smlight-3.png)
+![Alimentation](/videos-assets/smlight-3.png)
 
 Le troisième point positif selon moi c’est sa multi fonctionnalité. Vous pouvez choisir entre un mode coordinateur, un mode routeur., ou même en pont Matter over Thread
 
-![Zigbee OTA](/videos/smlight-4.png)
+![Zigbee OTA](/videos-assets/smlight-4.png)
 
 Dans mon cas j’avais la flemme de réappairer mes 40 appareils, donc j’ai préféré garder mon Dongle d’origine, et j’ai flashé ce SMLIght en tant que routeur, pour étendre mon réseau.
 
@@ -67,7 +67,7 @@ Un petit point bonus, c’est sa compatibilité Bluetooth ESPHome. On s’y atte
 
 Ce modèle c’est donc le 06M mais il existe également le 06 et le 06p7
 
-![Différents modèles](/videos/smlight-5.png)
+![Différents modèles](/videos-assets/smlight-5.png)
 
 Bon un peu comme le dongle sonoff, ce qui change c’est le SOC zigbee
 
@@ -83,7 +83,7 @@ Côté prix, pour comparer le sonoff est environ à 25€, et celui ci est à 40
 
 Cela fait maintenant 1 semaine que je le teste chez moi en tant que routeur et j’en suis très content, cela a supprimé les quelques latences dans ma salle de bain, et a nettement stabilisé les connexions. Comme vous pouvez le voir sur le schema, le SMLight est connecté à une grande partie de mes appareils. Et plus un appareil est connecté à des routeurs, mieux c’est.
 
-![Graphe zigbee](/videos/smlight-6.png)
+![Graphe zigbee](/videos-assets/smlight-6.png)
 
 Si j’avais découvert ce modèle 6 mois plus tôt, j’aurai peut etre opté pour celui ci en tant que coordinateur principal. Si vous voulez vous lancer dans la domotique et que vous n’êtes pas à 15€ près, je vous recommande ce modèle. J’en profite pour vous rappeler que si vous voulez parlez d’une référence de produit en particulier, une section est disponible sur le discord à ce sujet.
 

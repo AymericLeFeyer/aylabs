@@ -10,7 +10,6 @@ const AnalyticsTracker = () => {
   }, []);
 
   useEffect(() => {
-    console.log("send event");
     ReactGA.send({ hitType: "pageview", page: location.pathname });
   }, [location]);
 
