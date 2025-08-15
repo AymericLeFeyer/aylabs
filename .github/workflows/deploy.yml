@@ -50,7 +50,7 @@ jobs:
           server: ${{ secrets.FTP_HOST }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: ./dist
+          local-dir: ./dist/***
           server-dir: ${{ secrets.FTP_PATH }} # ex: /public_html/ ou /aymeric/
           delete: true
           dry-run: false
@@ -61,12 +61,12 @@ jobs:
         run: |
           curl -H "Content-Type: application/json" \
           -X POST \
-          -d '{"content": "C'\''est bon chef ! 🚀"}' \
+          -d '{"content": "🚀 Une nouvelle version du site vient d'être déployée !"}' \
           ${{ secrets.DISCORD_WEBHOOK }}
       - name: 💬 Discord Notification
         if: failure()
         run: |
           curl -H "Content-Type: application/json" \
           -X POST \
-          -d '{"content": "C'\''est pété chef ! 🧑‍🍳"}' \
+          -d '{"content": "⚠ Il y a une erreur avec le workflow de déploiement ! @everyone"}' \
           ${{ secrets.DISCORD_WEBHOOK }}
