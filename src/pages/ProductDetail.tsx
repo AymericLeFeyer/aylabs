@@ -168,7 +168,6 @@ export const ProductDetail: React.FC = () => {
                       </div>
                       <p className="text-gray-500 text-sm">Prix indicatif</p>
                     </div>
-
                     {/* Boutiques */}
                     <div>
                       <h3 className="font-semibold text-gray-800 mb-3 text-sm uppercase tracking-wide text-center">
@@ -210,8 +209,53 @@ export const ProductDetail: React.FC = () => {
                             <span>GeekBuying</span>
                           </a>
                         )}
+
+                        {product.reolinkLink && (
+                          <a
+                            href={product.reolinkLink}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center justify-center space-x-2 bg-blue-600 hover:bg-blue-700 text-white py-3 px-4 rounded-lg font-medium transition-colors"
+                          >
+                            <div className="flex items-center space-x-2">
+                              <ShoppingCart className="h-4 w-4" />
+                              <span>Reolink</span>
+                            </div>
+                          </a>
+                        )}
+
+                        {product.bambuLink && (
+                          <a
+                            href={product.bambuLink}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center justify-center space-x-2 bg-green-600 hover:bg-green-700 text-white py-3 px-4 rounded-lg font-medium transition-colors"
+                          >
+                            <ShoppingCart className="h-4 w-4" />
+                            <span>BambuLab</span>
+                          </a>
+                        )}
                       </div>
                     </div>
+                    {product.reolinkLink && (
+                      <p>
+                        <strong>Code Reolink</strong>
+                        <br />
+                        <strong>AyLabs5</strong> pour -5%
+                      </p>
+                    )}
+                    {product.domadooLink && (
+                      <>
+                        <p>
+                          <strong>Codes Domadoo jusqu'au 31/08/25</strong>
+                          <br />
+                          <strong>AYLABS15</strong> pour -15% sur certaines
+                          marques <br />
+                          <strong>AYLABS5</strong> pour -5% sur certaines
+                          marques
+                        </p>
+                      </>
+                    )}
                   </div>
                 </div>
               </div>

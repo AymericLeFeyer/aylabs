@@ -1,11 +1,11 @@
-import React from 'react';
-import { Play, BarChart3, Handshake } from 'lucide-react';
+import React from "react";
+import { Play, BarChart3, Handshake } from "lucide-react";
 
 export const Hero: React.FC = () => {
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+      element.scrollIntoView({ behavior: "smooth" });
     }
   };
 
@@ -23,29 +23,29 @@ export const Hero: React.FC = () => {
               className="h-16 md:h-20 mx-auto"
             />
           </div>
-          <h2 className="text-5xl md:text-6xl font-bold mb-6">
-            
-          </h2>
+          <h2 className="text-5xl md:text-6xl font-bold mb-6"></h2>
           <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">
-            Domoticien en herbe, maker en devenir et homelaber du dimanche 🚀<br />
-            J'aime découvrir de nouvelles choses et les partager sur ma chaîne ✨
+            Domoticien en herbe, maker en devenir et homelaber du dimanche 🚀
+            <br />
+            J'aime découvrir de nouvelles choses et les partager sur ma chaîne
+            ✨
           </p>
-          
+
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
             <a
               href="https://youtube.com/@ay_labs"
               className="bg-red-600 hover:bg-red-700 text-white px-8 py-3 rounded-lg font-semibold transition-colors flex items-center justify-center space-x-2"
-              target=''
+              target=""
             >
               <Play className="h-5 w-5" />
               <span>S'abonner à la chaîne</span>
             </a>
           </div>
-          
+
           {/* Liens rapides */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-3xl mx-auto">
+          <div className="grid  md:grid-cols-3 gap-4 max-w-3xl mx-auto">
             <button
-              onClick={() => scrollToSection('videos')}
+              onClick={() => scrollToSection("videos")}
               className="bg-white/10 backdrop-blur-sm hover:bg-white/20 text-white p-4 rounded-lg transition-all duration-300 hover:scale-105 text-center"
             >
               <div className="flex justify-center mb-2">
@@ -53,9 +53,9 @@ export const Hero: React.FC = () => {
               </div>
               <div className="font-medium">Vidéos</div>
             </button>
-            
+
             <button
-              onClick={() => scrollToSection('partners')}
+              onClick={() => scrollToSection("partners")}
               className="bg-white/10 backdrop-blur-sm hover:bg-white/20 text-white p-4 rounded-lg transition-all duration-300 hover:scale-105 text-center"
             >
               <div className="flex justify-center mb-2">
@@ -63,9 +63,9 @@ export const Hero: React.FC = () => {
               </div>
               <div className="font-medium">Partenaires</div>
             </button>
-            
+
             <button
-              onClick={() => scrollToSection('media-kit')}
+              onClick={() => scrollToSection("media-kit")}
               className="bg-white/10 backdrop-blur-sm hover:bg-white/20 text-white p-4 rounded-lg transition-all duration-300 hover:scale-105 text-center"
             >
               <div className="flex justify-center mb-2">

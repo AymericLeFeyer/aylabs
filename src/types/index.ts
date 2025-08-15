@@ -44,6 +44,8 @@ export interface Product {
   amazonLink?: string;
   domadooLink?: string;
   geekbuyingLink?: string;
+  reolinkLink?: string;
+  bambuLink?: string;
   price: number;
   pros: string[];
   cons: string[];

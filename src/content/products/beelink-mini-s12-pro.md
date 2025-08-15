@@ -2,7 +2,7 @@
 title: "Beelink Mini S12 Pro"
 image: "https://m.media-amazon.com/images/I/71DNBYaKkWL._AC_SL1500_.jpg"
 description: "Mini-PC qui me sert d’ordinateur domotique sous Proxmox"
-tags: ["Ordinateur", "Proxmox"]
+tags: ["Mini PC"]
 protocols: []
 compatible: []
 videoCode: "enGk4dGBcKo"

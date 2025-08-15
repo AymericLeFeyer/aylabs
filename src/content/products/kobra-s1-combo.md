@@ -3,8 +3,6 @@ title: "Anycubic Kobra S1 Combo"
 image: "https://www.polyfab3d.fr/10891-large_default/anycubic-kobra-s1-combo.jpg"
 description: "Imprimante 3D FDM avec enceinte fermée. Capable d'imprimer jusqu'à 8 couleurs avec 2 Ace PRO"
 tags: ["Imprimante 3D"]
-protocols: []
-compatible: []
 videoCode: "gFTc0dh-0N4"
 buyLinks:
   - "https://go.aylabs.fr/geekbuying/kobra-s1-combo"

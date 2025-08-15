@@ -2,14 +2,14 @@
 title: "Sonnette Aqara G4"
 image: "https://cdn2.domadoo.fr/24681-large_default/aqara-sonnette-video-intelligente-wi-fi-aqara-video-doorbell-g4-svd-c03.jpg"
 description: "Sonnette connectée fonctionnant sur batterie ou directement sur le courant"
-tags: ["Sonnette", "Caméra", "Securité"]
+tags: ["Sonnette", "Caméra", "Sécurité"]
 protocols: ["Wi-Fi"]
-compatible: ["Home Assistant", "Aqara Home", "HomeKit"]
+compatible: ["Home Assistant", "HomeKit"]
 videoCode: "vAfmc1iEYuA"
 buyLinks:
   - "https://go.aylabs.fr/domadoo/aqara-g4"
   - "https://amzn.to/44iMSNP"
-pubDate: "Feb 5 2025"
+pubDate: "Jun 18 2025"
 category: "Domotique"
 price: 119.99
 pros:
