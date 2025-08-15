@@ -1,9 +1,9 @@
-import React from 'react';
-import { SEO } from '../components/SEO';
-import { Hero } from '../components/Hero';
-import { VideoSection } from '../components/VideoSection';
-import { MediaKitSection } from '../components/MediaKitSection';
-import { PartnersSection } from '../components/PartnersSection';
+import React from "react";
+import { SEO } from "../components/SEO";
+import { Hero } from "../components/Hero";
+import { VideoSection } from "../components/VideoSection";
+import { MediaKitSection } from "../components/MediaKitSection";
+import { PartnersSection } from "../components/PartnersSection";
 
 export const Home: React.FC = () => {
   return (

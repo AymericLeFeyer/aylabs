@@ -34,6 +34,8 @@ export const VideoDetail: React.FC = () => {
   });
 
   useEffect(() => {
+    if (Cookies.get("cookie_consent") !== "true") return;
+
     const author = Cookies.get("author") || "";
     const email = Cookies.get("email") || "";
     setNewComment((prev) => ({

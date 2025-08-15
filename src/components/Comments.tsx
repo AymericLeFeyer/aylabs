@@ -67,8 +67,10 @@ export const Comments: React.FC<CommentsProps> = ({
         newComment.email
       );
 
-      Cookies.set("author", newComment.author, { expires: 30 });
-      Cookies.set("email", newComment.email, { expires: 30 });
+      if (Cookies.get("cookie_consent") === "true") {
+        Cookies.set("author", newComment.author, { expires: 30 });
+        Cookies.set("email", newComment.email, { expires: 30 });
+      }
 
       if (result.success) {
         setNewComment({ author: "", content: "", email: "" });
