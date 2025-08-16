@@ -1,6 +1,7 @@
 name: Deploy React Vite to o2switch
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - main # branche à déployer
