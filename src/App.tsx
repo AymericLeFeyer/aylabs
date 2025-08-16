@@ -12,6 +12,7 @@ import { ProductDetail } from "./pages/ProductDetail";
 import { Contact } from "./pages/Contact";
 import { HelmetProvider } from "react-helmet-async";
 import AnalyticsTracker from "./utils/AnalyticsTracker";
+import { Support } from "./pages/Support";
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
             <Route path="/produits-testes" element={<ProductsTested />} />
             <Route path="/produit/:id" element={<ProductDetail />} />
             <Route path="/reseaux" element={<Contact />} />
+            <Route path="/support" element={<Support />} />
           </Routes>
         </Layout>
       </Router>

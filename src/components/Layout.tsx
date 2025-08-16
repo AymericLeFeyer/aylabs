@@ -11,6 +11,7 @@ import {
   BookOpen,
   BarChart3,
   MessageCircle,
+  Heart,
 } from "lucide-react";
 import { useState, useEffect } from "react";
 import Cookies from "js-cookie";
@@ -174,6 +175,19 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
                   </div>
                 </Link>
 
+                <Link
+                  to="/support"
+                  className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                    isActive("/support")
+                      ? "bg-[#398FBA] text-white"
+                      : "text-gray-300 hover:text-white hover:bg-gray-700"
+                  }`}
+                >
+                  <div className="flex items-center space-x-2">
+                    <Heart className="h-4 w-4" />
+                  </div>
+                </Link>
+
                 {/* Barre de recherche */}
                 <form onSubmit={handleSearch} className="relative">
                   <input
@@ -293,6 +307,19 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
                       <span>Réseaux</span>
                     </div>
                   </Link>
+                  <Link
+                    to="/support"
+                    className={`block px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                      isActive("/support")
+                        ? "bg-[#398FBA] text-white"
+                        : "text-gray-300 hover:text-white hover:bg-gray-700"
+                    }`}
+                  >
+                    <div className="flex items-center space-x-2">
+                      <Heart className="h-4 w-4" />
+                      <span>Me soutenir</span>
+                    </div>
+                  </Link>
                 </div>
               </div>
             )}
@@ -362,6 +389,15 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
                     >
                       <MessageCircle className="h-4 w-4" />
                       <span>Réseaux</span>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      to="/support"
+                      className="text-gray-400 hover:text-[#398FBA] transition-colors flex items-center space-x-2"
+                    >
+                      <Heart className="h-4 w-4" />
+                      <span>Me soutenir</span>
                     </Link>
                   </li>
                 </ul>
