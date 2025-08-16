@@ -4,6 +4,7 @@ import { Hero } from "../components/Hero";
 import { VideoSection } from "../components/VideoSection";
 import { MediaKitSection } from "../components/MediaKitSection";
 import { PartnersSection } from "../components/PartnersSection";
+import { ProductSections } from "../components/ProductsSection";
 
 export const Home: React.FC = () => {
   return (
@@ -15,6 +16,7 @@ export const Home: React.FC = () => {
       />
       <Hero />
       <VideoSection />
+      <ProductSections />
       <PartnersSection />
       <MediaKitSection />
     </div>
