@@ -25,7 +25,7 @@ Ces dépôts ne sont pas disponible sur le store de Home Assistant, il faut au p
 
 Je vous laisse ici un tuto d’installation de HACS
 
-<iframe width="620" height="349" src="https://www.youtube.com/embed/I6laXK6_3PA" title="Home Assistant - Installer HACS 2.0 facilement" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+[Vidéo Installation par Zatoufly](https://www.youtube.com/watch?v=I6laXK6_3PA)
 
 Voici la liste des dépôts que j’ai installé (en lien avec le sujet du jour)
 
