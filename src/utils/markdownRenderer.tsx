@@ -1,36 +1,48 @@
-import React from 'react';
+import React from "react";
 
 interface MarkdownRendererProps {
   content: string;
 }
 
-export const renderMarkdownContent = (content: string): React.ReactNode[] => {
-  const lines = content.split('\n');
+interface HeadingItem {
+  id: string;
+  text: string;
+  level: number;
+}
+
+export const renderMarkdownContent = (
+  content: string,
+  headings: HeadingItem[]
+): React.ReactNode[] => {
+  const lines = content.split("\n");
   const elements: React.ReactNode[] = [];
   let inCodeBlock = false;
   let codeBlockContent: string[] = [];
-  let codeBlockLanguage = '';
+  let codeBlockLanguage = "";
   let listItems: string[] = [];
   let inList = false;
 
-  const processInlineElements = (text: string, key: number): React.ReactNode => {
-    // Parse inline elements in order: links, bold, code
+  const slugify = (text: string) =>
+    text
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/(^-|-$)+/g, "");
+
+  const processInlineElements = (
+    text: string,
+    key: number
+  ): React.ReactNode => {
     const elements: React.ReactNode[] = [];
     let remainingText = text;
     let elementKey = 0;
 
     while (remainingText.length > 0) {
-      // Check for links first [text](url)
-      const linkMatch = remainingText.match(/^(.*?)\[([^\]]+)\]\(([^)]+)\)(.*)/);
+      const linkMatch = remainingText.match(
+        /^(.*?)\[([^\]]+)\]\(([^)]+)\)(.*)/
+      );
       if (linkMatch) {
         const [, before, linkText, url, after] = linkMatch;
-        
-        // Add text before link
-        if (before) {
-          elements.push(...parseSimpleInline(before, elementKey++));
-        }
-        
-        // Add link
+        if (before) elements.push(before);
         elements.push(
           <a
             key={elementKey++}
@@ -42,51 +54,35 @@ export const renderMarkdownContent = (content: string): React.ReactNode[] => {
             {linkText}
           </a>
         );
-        
         remainingText = after;
         continue;
       }
 
-      // Check for bold text **text**
       const boldMatch = remainingText.match(/^(.*?)\*\*(.*?)\*\*(.*)/);
       if (boldMatch) {
         const [, before, boldText, after] = boldMatch;
-        
-        // Add text before bold
-        if (before) {
-          elements.push(...parseSimpleInline(before, elementKey++));
-        }
-        
-        // Add bold text
+        if (before) elements.push(before);
         elements.push(<strong key={elementKey++}>{boldText}</strong>);
-        
         remainingText = after;
         continue;
       }
 
-      // Check for inline code `code`
       const codeMatch = remainingText.match(/^(.*?)`([^`]+)`(.*)/);
       if (codeMatch) {
         const [, before, codeText, after] = codeMatch;
-        
-        // Add text before code
-        if (before) {
-          elements.push(before);
-          elementKey++;
-        }
-        
-        // Add code
+        if (before) elements.push(before);
         elements.push(
-          <code key={elementKey++} className="bg-gray-100 px-2 py-1 rounded text-sm font-mono">
+          <code
+            key={elementKey++}
+            className="bg-gray-100 px-2 py-1 rounded text-sm font-mono"
+          >
             {codeText}
           </code>
         );
-        
         remainingText = after;
         continue;
       }
 
-      // No more special elements, add remaining text
       if (remainingText) {
         elements.push(remainingText);
       }
@@ -96,59 +92,13 @@ export const renderMarkdownContent = (content: string): React.ReactNode[] => {
     return <span key={key}>{elements}</span>;
   };
 
-  const parseSimpleInline = (text: string, startKey: number): React.ReactNode[] => {
-    const elements: React.ReactNode[] = [];
-    let remainingText = text;
-    let elementKey = startKey;
-
-    while (remainingText.length > 0) {
-      // Check for bold text **text**
-      const boldMatch = remainingText.match(/^(.*?)\*\*(.*?)\*\*(.*)/);
-      if (boldMatch) {
-        const [, before, boldText, after] = boldMatch;
-        
-        if (before) {
-          elements.push(<span key={elementKey++}>{before}</span>);
-        }
-        
-        elements.push(<strong key={elementKey++}>{boldText}</strong>);
-        remainingText = after;
-        continue;
-      }
-
-      // Check for inline code `code`
-      const codeMatch = remainingText.match(/^(.*?)`([^`]+)`(.*)/);
-      if (codeMatch) {
-        const [, before, codeText, after] = codeMatch;
-        
-        if (before) {
-          elements.push(<span key={elementKey++}>{before}</span>);
-        }
-        
-        elements.push(
-          <code key={elementKey++} className="bg-gray-100 px-2 py-1 rounded text-sm font-mono">
-            {codeText}
-          </code>
-        );
-        
-        remainingText = after;
-        continue;
-      }
-
-      // No more special elements
-      if (remainingText) {
-        elements.push(<span key={elementKey++}>{remainingText}</span>);
-      }
-      break;
-    }
-
-    return elements;
-  };
-
   const flushList = () => {
     if (inList && listItems.length > 0) {
       elements.push(
-        <ul key={`list-${elements.length}`} className="list-disc list-inside mb-4 space-y-2">
+        <ul
+          key={`list-${elements.length}`}
+          className="list-disc list-inside mb-4 space-y-2"
+        >
           {listItems.map((item, index) => (
             <li key={index}>{processInlineElements(item, index)}</li>
           ))}
@@ -164,21 +114,24 @@ export const renderMarkdownContent = (content: string): React.ReactNode[] => {
       elements.push(
         <div key={`code-${elements.length}`} className="my-6">
           <pre className="bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto">
-            <code className={codeBlockLanguage ? `language-${codeBlockLanguage}` : ''}>
-              {codeBlockContent.join('\n')}
+            <code
+              className={
+                codeBlockLanguage ? `language-${codeBlockLanguage}` : ""
+              }
+            >
+              {codeBlockContent.join("\n")}
             </code>
           </pre>
         </div>
       );
       codeBlockContent = [];
       inCodeBlock = false;
-      codeBlockLanguage = '';
+      codeBlockLanguage = "";
     }
   };
 
   lines.forEach((line, index) => {
-    // Handle code blocks
-    if (line.startsWith('```')) {
+    if (line.startsWith("```")) {
       if (inCodeBlock) {
         flushCodeBlock();
       } else {
@@ -194,8 +147,7 @@ export const renderMarkdownContent = (content: string): React.ReactNode[] => {
       return;
     }
 
-    // Handle images
-    if (line.includes('![') && line.includes('](')) {
+    if (line.includes("![") && line.includes("](")) {
       flushList();
       const match = line.match(/!\[([^\]]*)\]\(([^)]+)\)/);
       if (match) {
@@ -212,48 +164,66 @@ export const renderMarkdownContent = (content: string): React.ReactNode[] => {
       }
       return;
     }
-    
-    // Handle headers
-    if (line.startsWith('### ')) {
+
+    if (line.startsWith("### ")) {
       flushList();
+      const text = line.replace("### ", "");
+      const id = slugify(text);
+      headings.push({ id, text, level: 3 });
       elements.push(
-        <h3 key={index} className="text-xl font-bold text-[#141414] mt-8 mb-4">
-          {processInlineElements(line.replace('### ', ''), index)}
+        <h3
+          id={id}
+          key={index}
+          className="text-xl font-bold text-[#141414] mt-8 mb-4"
+        >
+          {processInlineElements(text, index)}
         </h3>
       );
       return;
     }
-    
-    if (line.startsWith('## ')) {
+
+    if (line.startsWith("## ")) {
       flushList();
+      const text = line.replace("## ", "");
+      const id = slugify(text);
+      headings.push({ id, text, level: 2 });
       elements.push(
-        <h2 key={index} className="text-2xl font-bold text-[#141414] mt-8 mb-4">
-          {processInlineElements(line.replace('## ', ''), index)}
+        <h2
+          id={id}
+          key={index}
+          className="text-2xl font-bold text-[#141414] mt-8 mb-4"
+        >
+          {processInlineElements(text, index)}
         </h2>
       );
       return;
     }
-    
-    if (line.startsWith('# ')) {
+
+    if (line.startsWith("# ")) {
       flushList();
+      const text = line.replace("# ", "");
+      const id = slugify(text);
+      headings.push({ id, text, level: 1 });
       elements.push(
-        <h1 key={index} className="text-3xl font-bold text-[#141414] mt-8 mb-6">
-          {processInlineElements(line.replace('# ', ''), index)}
+        <h1
+          id={id}
+          key={index}
+          className="text-3xl font-bold text-[#141414] mt-8 mb-6"
+        >
+          {processInlineElements(text, index)}
         </h1>
       );
       return;
     }
-    
-    // Handle bullet points
-    if (line.startsWith('- ')) {
+
+    if (line.startsWith("- ")) {
       if (!inList) {
         inList = true;
       }
-      listItems.push(line.replace('- ', ''));
+      listItems.push(line.replace("- ", ""));
       return;
     }
-    
-    // Handle regular paragraphs
+
     if (line.trim()) {
       flushList();
       elements.push(
@@ -261,18 +231,43 @@ export const renderMarkdownContent = (content: string): React.ReactNode[] => {
           {processInlineElements(line, index)}
         </p>
       );
-    } else if (line.trim() === '') {
+    } else if (line.trim() === "") {
       flushList();
     }
   });
 
-  // Flush any remaining content
   flushList();
   flushCodeBlock();
 
   return elements;
 };
 
-export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content }) => {
-  return <div className="prose max-w-none">{renderMarkdownContent(content)}</div>;
+export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({
+  content,
+}) => {
+  const headings: HeadingItem[] = [];
+  const body = renderMarkdownContent(content, headings);
+
+  return (
+    <div className="prose max-w-none">
+      {headings.length > 0 && (
+        <div className="mb-8 p-4 border border-gray-200 rounded-lg bg-gray-50">
+          <h2 className="text-lg font-semibold mb-2">Sommaire</h2>
+          <ul className="space-y-1">
+            {headings.map((h, i) => (
+              <li key={i} className={`ml-${(h.level - 1) * 4}`}>
+                <a
+                  href={`#${h.id}`}
+                  className="text-[#398FBA] hover:text-[#2a6d94] underline"
+                >
+                  {h.text}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+      {body}
+    </div>
+  );
 };

@@ -7,7 +7,9 @@ export const VideoSection: React.FC = () => {
   const { videos, loading, error } = useVideos();
 
   // Afficher seulement les 3 dernières vidéos
-  const latestVideos = videos.slice(0, 3);
+  const latestVideos = videos
+    .filter((v) => new Date(v.publishedAt) < new Date())
+    .slice(0, 3);
 
   if (loading) {
     return (

@@ -127,6 +127,7 @@ export const loadProducts = async () => {
     compatible: parsed.frontmatter.compatible || [],
     content: parsed.content
   }));
+
 };
 
 export const loadVideos = async () => {
@@ -140,19 +141,5 @@ export const loadVideos = async () => {
     tags: parsed.frontmatter.tags || [],
     content: parsed.content
   }));
-};
 
-export const loadArticles = async () => {
-  return loadContentFromFiles('/articles/', (parsed, slug) => ({
-    id: slug,
-    title: parsed.frontmatter.title,
-    excerpt: parsed.frontmatter.excerpt,
-    publishedAt: parsed.frontmatter.publishedAt,
-    readTime: parsed.frontmatter.readTime || 5,
-    image: parsed.frontmatter.image,
-    author: parsed.frontmatter.author || 'AyLabs',
-    tags: parsed.frontmatter.tags || [],
-    comments: [],
-    content: parsed.content
-  }));
 };

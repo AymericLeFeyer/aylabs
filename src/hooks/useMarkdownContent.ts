@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import { loadTutorials, loadProducts, loadVideos, loadArticles } from '../utils/markdownLoader';
-import { Tutorial, Product, Video, Article } from '../types';
+import { loadTutorials, loadProducts, loadVideos } from '../utils/markdownLoader';
+import { Tutorial, Product, Video } from '../types';
 
 export const useTutorials = () => {
   const [tutorials, setTutorials] = useState<Tutorial[]>([]);
@@ -122,28 +122,4 @@ export const useVideos = () => {
   }, []);
 
   return { videos, loading, error };
-};
-
-export const useArticles = () => {
-  const [articles, setArticles] = useState<Article[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    const fetchArticles = async () => {
-      try {
-        setLoading(true);
-        const data = await loadArticles();
-        setArticles(data);
-      } catch (err) {
-        setError(err instanceof Error ? err.message : 'Erreur lors du chargement des articles');
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchArticles();
-  }, []);
-
-  return { articles, loading, error };
 };
