@@ -1,7 +1,7 @@
 ---
 title: "Un DASHBOARD HOME ASSISTANT généré en 1 clic ?! (Linus Dashboard, Interview du fondateur)"
 description: "Les dashboards c'est souvent la galère sur Home Assistant. Aujourd'hui on découvre Linus, une solution proposée par Julien, qui grâce à son intégration Linus Dashboard permet de générer un dashboard complet et puissant en une seul clic."
-pubDate: "Aug 23 2025"
+pubDate: "Aug 27 2025"
 code: "qQ6KFGz1w4o"
 duration: "15:21"
 tags: ["Domotique"]
