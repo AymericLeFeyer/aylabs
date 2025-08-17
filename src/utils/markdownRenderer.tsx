@@ -67,6 +67,15 @@ export const renderMarkdownContent = (
         continue;
       }
 
+      const italicMatch = remainingText.match(/^(.*?)\*(.*?)\*(.*)/);
+      if (italicMatch) {
+        const [, before, italicText, after] = italicMatch;
+        if (before) elements.push(before);
+        elements.push(<em key={elementKey++}>{italicText}</em>);
+        remainingText = after;
+        continue;
+      }
+
       const codeMatch = remainingText.match(/^(.*?)`([^`]+)`(.*)/);
       if (codeMatch) {
         const [, before, codeText, after] = codeMatch;

@@ -69,10 +69,10 @@ export const Hero: React.FC = () => {
           </div>
 
           {/* Liens rapides */}
-          <div className="grid grid-cols-2 gap-4 max-w-3xl mx-auto">
+          <div className="flex flex-wrap justify-center gap-4 max-w-3xl mx-auto">
             <button
               onClick={() => scrollToSection("videos")}
-              className="bg-white/10 backdrop-blur-sm hover:bg-white/20 text-white p-4 rounded-lg transition-all duration-300 hover:scale-105 text-center"
+              className="w-36 bg-white/10 backdrop-blur-sm hover:bg-white/20 text-white p-4 rounded-lg transition-all duration-300 hover:scale-105 text-center"
             >
               <div className="flex justify-center mb-2">
                 <Play className="h-8 w-8" />
@@ -82,7 +82,7 @@ export const Hero: React.FC = () => {
 
             <button
               onClick={() => scrollToSection("products")}
-              className="bg-white/10 backdrop-blur-sm hover:bg-white/20 text-white p-4 rounded-lg transition-all duration-300 hover:scale-105 text-center"
+              className="w-36 bg-white/10 backdrop-blur-sm hover:bg-white/20 text-white p-4 rounded-lg transition-all duration-300 hover:scale-105 text-center"
             >
               <div className="flex justify-center mb-2">
                 <Package className="h-8 w-8" />
@@ -92,7 +92,7 @@ export const Hero: React.FC = () => {
 
             <button
               onClick={() => scrollToSection("partners")}
-              className="bg-white/10 backdrop-blur-sm hover:bg-white/20 text-white p-4 rounded-lg transition-all duration-300 hover:scale-105 text-center"
+              className="w-36 bg-white/10 backdrop-blur-sm hover:bg-white/20 text-white p-4 rounded-lg transition-all duration-300 hover:scale-105 text-center"
             >
               <div className="flex justify-center mb-2">
                 <Handshake className="h-8 w-8" />
@@ -102,7 +102,7 @@ export const Hero: React.FC = () => {
 
             <button
               onClick={() => scrollToSection("media-kit")}
-              className="bg-white/10 backdrop-blur-sm hover:bg-white/20 text-white p-4 rounded-lg transition-all duration-300 hover:scale-105 text-center"
+              className="w-36 bg-white/10 backdrop-blur-sm hover:bg-white/20 text-white p-4 rounded-lg transition-all duration-300 hover:scale-105 text-center"
             >
               <div className="flex justify-center mb-2">
                 <BarChart3 className="h-8 w-8" />

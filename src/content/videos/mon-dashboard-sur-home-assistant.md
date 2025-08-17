@@ -7,7 +7,7 @@ duration: "15:42"
 tags: ["Domotique"]
 ---
 
-_Ahh le dashboard, c’est la première chose qu’on voit quand on démarre Home Assistant._
+*Ahh le dashboard, c’est la première chose qu’on voit quand on démarre Home Assistant.*
 
 Il faut que ce soit pratique, utile (et si possible joli, sinon les personnes qui vivent avec vous ne n’utiliseront pas)
 
