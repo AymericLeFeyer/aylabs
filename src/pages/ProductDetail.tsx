@@ -210,6 +210,18 @@ export const ProductDetail: React.FC = () => {
                           </a>
                         )}
 
+                        {product.minixLink && (
+                          <a
+                            href={product.minixLink}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center justify-center space-x-2 bg-blue-600 hover:bg-blue-700 text-white py-3 px-4 rounded-lg font-medium transition-colors"
+                          >
+                            <ShoppingCart className="h-4 w-4" />
+                            <span>Minix</span>
+                          </a>
+                        )}
+
                         {product.reolinkLink && (
                           <a
                             href={product.reolinkLink}

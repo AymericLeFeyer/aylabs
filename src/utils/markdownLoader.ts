@@ -117,6 +117,7 @@ export const loadProducts = async () => {
     amazonLink: parsed.frontmatter.buyLinks?.find((link: string) => link.includes('amzn.to') || link.includes('amazon')),
     domadooLink: parsed.frontmatter.buyLinks?.find((link: string) => link.includes('domadoo')),
     geekbuyingLink: parsed.frontmatter.buyLinks?.find((link: string) => link.includes('geekbuying')),
+      minixLink: parsed.frontmatter.buyLinks?.find((link: string) => link.includes('minix')),
     reolinkLink: parsed.frontmatter.buyLinks?.find((link: string) => link.includes('reolink')),
     bambuLink: parsed.frontmatter.buyLinks?.find((link: string) => link.includes('bambu')),
     pros: parsed.frontmatter.pros || [],
