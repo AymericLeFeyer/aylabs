@@ -40,6 +40,8 @@ Mais c’est pas forcément ce que je vous recommanderai, car Frigate ça demand
 
 Et ça tombe bien, Minix m’a contacté pour tester un de leur mini PC, le NEO Z350-0dB, oui 0dB car il est 100% silencieux.
 
+[Plus d'informations sur le produit](/produit/minix-z350-0db)
+
 ![Image du PC](/videos-assets/minix-frigate-1.png)
 
 Je ne suis pas payé pour en parler, mais j’ai reçu le produit gratuitement. Je suis libre de dire ce que je veux, et si le produit vous intéresse, je vous met des liens affiliés en description.
