@@ -6,6 +6,8 @@ tags: ["Mini-PC"]
 videoCode: "g-k3y-DkPC0"
 buyLinks:
   - https://amzn.to/41bAFZn
+  - https://www.geekbuying.com/item/MINIX-NEO-Z350-0dB-Mini-PC-Intel-i3-N350-16GB-512GB-EU-UK-US-Plug-529887.html?utm_source=AyLabs&utm_medium=referral&utm_campaign=BIC-review&utm_creative_format=YouTube&id=6265
+  - https://www.minix.com.hk/?utm_source=YTB&utm_medium=referral&utm_campaign=AyLabs&utm_term=BIC&utm_content=Z350-0dB
 pubDate: "Aug 18 2025"
 category: "Homelab"
 price: 379.90
