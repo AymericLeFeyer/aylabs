@@ -21,11 +21,11 @@ export const MediaKitSection: React.FC = () => {
     error,
   } = useYouTubeStats();
 
-  const formatNumber = (num: number) => {
+  const formatNumber = (num: number, decimals: number) => {
     if (num >= 1000000) {
-      return `${(num / 1000000).toFixed(2)}M`;
+      return `${(num / 1000000).toFixed(decimals)}M`;
     } else if (num >= 1000) {
-      return `${(num / 1000).toFixed(2)}K`;
+      return `${(num / 1000).toFixed(decimals)}K`;
     }
     return num.toString();
   };
@@ -96,7 +96,7 @@ export const MediaKitSection: React.FC = () => {
               <Users className="h-8 w-8 text-[#398FBA]" />
             </div>
             <h3 className="text-3xl font-bold text-[#141414] mb-2">
-              {formatNumber(stats.subscriberCount)}
+              {formatNumber(stats.subscriberCount, 2)}
             </h3>
             <p className="text-gray-600">Abonnés</p>
           </div>
@@ -106,7 +106,7 @@ export const MediaKitSection: React.FC = () => {
               <Eye className="h-8 w-8 text-[#398FBA]" />
             </div>
             <h3 className="text-3xl font-bold text-[#141414] mb-2">
-              {formatNumber(stats.viewCount)}
+              {formatNumber(stats.viewCount, 1)}
             </h3>
             <p className="text-gray-600">Vues totales</p>
           </div>
@@ -129,7 +129,7 @@ export const MediaKitSection: React.FC = () => {
               <TrendingUp className="h-8 w-8 text-[#398FBA]" />
             </div>
             <h3 className="text-3xl font-bold text-[#141414] mb-2">
-              {formatNumber(averageViews)}
+              {formatNumber(averageViews, 2)}
             </h3>
             <p className="text-gray-600">Vues moyennes par vidéo</p>
             <p className="text-xs text-gray-500 mt-1">(sur les 10 dernières)</p>
