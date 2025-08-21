@@ -14,7 +14,7 @@ buyLinks:
   - "https://go.aylabs.fr/domadoo/zbminil2"
 pubDate: "Sep 17 2024"
 category: "Domotique"
-price: 19.99
+price: 14.99
 pros:
   - "Ultra-compact : dimensions ≈ 39,5 × 32 × 18,4 mm, s’intègre facilement dans les boîtiers peu profonds"
   - "Installation sans fil neutre, compatible avec vieux câblages"

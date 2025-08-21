@@ -55,6 +55,7 @@ export interface Product {
   protocols?: string[];
   compatible?: string[];
   slug: string;
+  promoPrice: number | null | undefined;
 }
 
 export interface Tutorial {

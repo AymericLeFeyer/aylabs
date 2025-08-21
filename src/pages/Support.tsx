@@ -1,13 +1,7 @@
 import React from "react";
 import {
   Mail,
-  Youtube,
-  Instagram,
-  Wrench,
   ThumbsUp,
-  ChefHat,
-  Share,
-  Text,
   MessageSquareText,
   Share2,
   HandCoins,

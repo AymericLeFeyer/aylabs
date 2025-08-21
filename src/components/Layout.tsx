@@ -12,6 +12,8 @@ import {
   BarChart3,
   MessageCircle,
   Heart,
+  Star,
+  ShoppingCart,
 } from "lucide-react";
 import { useState, useEffect } from "react";
 import Cookies from "js-cookie";
@@ -176,6 +178,19 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
                 </Link>
 
                 <Link
+                  to="/deals"
+                  className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                    isActive("/deals")
+                      ? "bg-[#398FBA] text-white"
+                      : "text-gray-300 hover:text-white hover:bg-gray-700"
+                  }`}
+                >
+                  <div className="flex items-center space-x-2">
+                    <ShoppingCart className="h-4 w-4" />
+                  </div>
+                </Link>
+
+                <Link
                   to="/support"
                   className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
                     isActive("/support")
@@ -308,6 +323,19 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
                     </div>
                   </Link>
                   <Link
+                    to="/deals"
+                    className={`block px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                      isActive("/deals")
+                        ? "bg-[#398FBA] text-white"
+                        : "text-gray-300 hover:text-white hover:bg-gray-700"
+                    }`}
+                  >
+                    <div className="flex items-center space-x-2">
+                      <ShoppingCart className="h-4 w-4" />
+                      <span>Bonnes affaires</span>
+                    </div>
+                  </Link>
+                  <Link
                     to="/support"
                     className={`block px-3 py-2 rounded-md text-sm font-medium transition-colors ${
                       isActive("/support")
@@ -389,6 +417,15 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
                     >
                       <MessageCircle className="h-4 w-4" />
                       <span>Réseaux</span>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      to="/deals"
+                      className="text-gray-400 hover:text-[#398FBA] transition-colors flex items-center space-x-2"
+                    >
+                      <ShoppingCart className="h-4 w-4" />
+                      <span>Bonnes affaires</span>
                     </Link>
                   </li>
                   <li>
