@@ -16,6 +16,7 @@ import { MarkdownRenderer } from "../utils/markdownRenderer";
 import { SEO } from "../components/SEO";
 import { Comments } from "../components/Comments";
 import Cookies from "js-cookie";
+import ReactGA from "react-ga4";
 
 export const ProductDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -180,6 +181,13 @@ export const ProductDetail: React.FC = () => {
                             target="_blank"
                             rel="noopener noreferrer"
                             className="flex items-center justify-center space-x-2 bg-orange-500 hover:bg-orange-600 text-white py-3 px-4 rounded-lg font-medium transition-colors"
+                            onClick={() => {
+                              ReactGA.gtag("event", "click_partner_link", {
+                                partner: "Amazon",
+                                product_id: product.id,
+                                product_name: product.name,
+                              });
+                            }}
                           >
                             <ShoppingCart className="h-4 w-4" />
                             <span>Amazon</span>
@@ -192,6 +200,13 @@ export const ProductDetail: React.FC = () => {
                             target="_blank"
                             rel="noopener noreferrer"
                             className="flex items-center justify-center space-x-2 bg-purple-600 hover:bg-purple-700 text-white py-3 px-4 rounded-lg font-medium transition-colors"
+                            onClick={() => {
+                              ReactGA.gtag("event", "click_partner_link", {
+                                partner: "Domadoo",
+                                product_id: product.id,
+                                product_name: product.name,
+                              });
+                            }}
                           >
                             <ShoppingCart className="h-4 w-4" />
                             <span>Domadoo</span>
@@ -204,6 +219,13 @@ export const ProductDetail: React.FC = () => {
                             target="_blank"
                             rel="noopener noreferrer"
                             className="flex items-center justify-center space-x-2 bg-red-600 hover:bg-red-700 text-white py-3 px-4 rounded-lg font-medium transition-colors"
+                            onClick={() => {
+                              ReactGA.gtag("event", "click_partner_link", {
+                                partner: "GeekBuying",
+                                product_id: product.id,
+                                product_name: product.name,
+                              });
+                            }}
                           >
                             <ShoppingCart className="h-4 w-4" />
                             <span>GeekBuying</span>
@@ -216,6 +238,13 @@ export const ProductDetail: React.FC = () => {
                             target="_blank"
                             rel="noopener noreferrer"
                             className="flex items-center justify-center space-x-2 bg-blue-600 hover:bg-blue-700 text-white py-3 px-4 rounded-lg font-medium transition-colors"
+                            onClick={() => {
+                              ReactGA.gtag("event", "click_partner_link", {
+                                partner: "Minix",
+                                product_id: product.id,
+                                product_name: product.name,
+                              });
+                            }}
                           >
                             <ShoppingCart className="h-4 w-4" />
                             <span>Minix</span>
@@ -228,6 +257,13 @@ export const ProductDetail: React.FC = () => {
                             target="_blank"
                             rel="noopener noreferrer"
                             className="flex items-center justify-center space-x-2 bg-blue-600 hover:bg-blue-700 text-white py-3 px-4 rounded-lg font-medium transition-colors"
+                            onClick={() => {
+                              ReactGA.gtag("event", "click_partner_link", {
+                                partner: "Reolink",
+                                product_id: product.id,
+                                product_name: product.name,
+                              });
+                            }}
                           >
                             <div className="flex items-center space-x-2">
                               <ShoppingCart className="h-4 w-4" />
@@ -242,6 +278,13 @@ export const ProductDetail: React.FC = () => {
                             target="_blank"
                             rel="noopener noreferrer"
                             className="flex items-center justify-center space-x-2 bg-green-600 hover:bg-green-700 text-white py-3 px-4 rounded-lg font-medium transition-colors"
+                            onClick={() => {
+                              ReactGA.gtag("event", "click_partner_link", {
+                                partner: "BambuLab",
+                                product_id: product.id,
+                                product_name: product.name,
+                              });
+                            }}
                           >
                             <ShoppingCart className="h-4 w-4" />
                             <span>BambuLab</span>
