@@ -12,6 +12,7 @@ videoCode: "DxpNCg6QXuY"
 buyLinks:
   - "https://go.aylabs.fr/reolink/e1-zoom"
   - "https://amzn.to/45nMi1K"
+  - "https://www.domadoo.fr/fr/cameras-connectees/8175-reolink-camera-exterieure-wifi-5v-dc-onvif-e-series-e340-5mp-6975253981571.html?domid=79"
 pubDate: "1 aug 2025"
 category: "Domotique"
 price: 79.99
