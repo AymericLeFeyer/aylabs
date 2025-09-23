@@ -1,6 +1,6 @@
 ---
 title: "Reolink E1 Zoom"
-image: "https://hydraulic-cdn.com/productimages/3/5/7/2/1/1/9/8/3/0/8/8/2/1/3/2/1/0/5/947838ed-b84e-4954-8e1e-d40da20fb738_cropped.jpg_sea.jpeg"
+image: "https://home-cdn.reolink.us/wp-content/assets/2019/10/e1-zoom-400.png"
 description: "Caméra de sécurité intérieure motorisée avec zoom optique 3x, détection de mouvement, vision nocturne et audio bidirectionnel."
 tags:
   - "Caméra"

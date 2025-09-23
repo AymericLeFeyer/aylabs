@@ -1,6 +1,6 @@
 ---
 title: "SLZB-06M"
-image: "https://cdn1.domadoo.fr/29043-large_default/smlight-adaptateur-usb-ethernet-poe-zigbee-30-efr32mg21.jpg"
+image: "https://m.media-amazon.com/images/I/31r1OPFw5BL.jpg"
 description: "Adaptateur Zigbee 3.0 polyvalent offrant des connexions Ethernet, USB, Wi-Fi et PoE, avec un amplificateur de 20 dB et une antenne de 5 dB pour une couverture étendue."
 tags:
   - "Hub Zigbee"
