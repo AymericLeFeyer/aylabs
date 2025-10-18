@@ -1,5 +1,5 @@
 ---
-title: "Sonoff Valve thermostatique de radiateur Zigbee"
+title: "Sonoff Valve thermostatique de radiateur Zigbee TRVZB"
 image: "https://sonoff.tech/cdn/shop/files/TRV.png?v=1751008560&width=800"
 description: "Idéal pour piloter vos radiateurs à eau chaude. Connectivité Zigbee et prise en charge parfaite avec Zigbee2MQTT"
 tags: ["Gestion chauffage"]
