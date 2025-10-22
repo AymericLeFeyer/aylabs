@@ -299,7 +299,7 @@ export const ProductDetail: React.FC = () => {
                         <strong>AyLabs5</strong> pour -5%
                       </p>
                     )}
-                    {product.domadooLink && (
+                    {/*{product.domadooLink && (
                       <>
                         <p>
                           <strong>Codes Domadoo jusqu'au 31/08/25</strong>
@@ -310,7 +310,7 @@ export const ProductDetail: React.FC = () => {
                           marques
                         </p>
                       </>
-                    )}
+                    )}*/}
                   </div>
                 </div>
               </div>
