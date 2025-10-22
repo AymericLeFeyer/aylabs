@@ -19,35 +19,36 @@ export const Search: React.FC = () => {
 
   // Fonction de recherche
   const searchResults = useMemo(() => {
-    if (!searchQuery.trim()) return { tutorials: [], products: [], videos: [], total: 0 };
+  if (!searchQuery.trim()) return { tutorials: [], products: [], videos: [], total: 0 };
 
-    const searchTerm = searchQuery.toLowerCase();
-    
-    const filteredTutorials = tutorials.filter(tutorial =>
-      tutorial.title.toLowerCase().includes(searchTerm) ||
-      tutorial.description.toLowerCase().includes(searchTerm)
-    );
+  const searchTerm = searchQuery.toLowerCase();
 
-    const filteredProducts = products.filter(product =>
-      product.name.toLowerCase().includes(searchTerm) ||
-      product.description.toLowerCase().includes(searchTerm) ||
-      product.category.toLowerCase().includes(searchTerm) ||
-      (product.tags && product.tags.some(tag => tag.toLowerCase().includes(searchTerm)))
-    );
+  const filteredTutorials = tutorials.filter(tutorial =>
+    (tutorial.title?.toLowerCase() || '').includes(searchTerm) ||
+    (tutorial.description?.toLowerCase() || '').includes(searchTerm)
+  );
 
-    const filteredVideos = videos.filter(video =>
-      video.title.toLowerCase().includes(searchTerm) ||
-      video.description.toLowerCase().includes(searchTerm) ||
-      (video.tags && video.tags.some(tag => tag.toLowerCase().includes(searchTerm)))
-    );
+  const filteredProducts = products.filter(product =>
+    (product.name?.toLowerCase() || '').includes(searchTerm) ||
+    (product.description?.toLowerCase() || '').includes(searchTerm) ||
+    (product.category?.toLowerCase() || '').includes(searchTerm) ||
+    (product.tags && product.tags.some(tag => (tag?.toLowerCase() || '').includes(searchTerm)))
+  );
 
-    return {
-      tutorials: filteredTutorials,
-      products: filteredProducts,
-      videos: filteredVideos,
-      total: filteredTutorials.length + filteredProducts.length + filteredVideos.length
-    };
-  }, [searchQuery, tutorials, products, videos]);
+  const filteredVideos = videos.filter(video =>
+    (video.title?.toLowerCase() || '').includes(searchTerm) ||
+    (video.description?.toLowerCase() || '').includes(searchTerm) ||
+    (video.tags && video.tags.some(tag => (tag?.toLowerCase() || '').includes(searchTerm)))
+  );
+
+  return {
+    tutorials: filteredTutorials,
+    products: filteredProducts,
+    videos: filteredVideos,
+    total: filteredTutorials.length + filteredProducts.length + filteredVideos.length
+  };
+}, [searchQuery, tutorials, products, videos]);
+
 
   useEffect(() => {
     setSearchQuery(query);
