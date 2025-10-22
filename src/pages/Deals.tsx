@@ -4,7 +4,7 @@ import { useProduct } from "../hooks/useMarkdownContent";
 import { Product } from "../types";
 
 export const Deals: React.FC = () => {
-  const products = [
+  const domadoo = [
     { ...(useProduct("slzb-06m").product as Product), promoPrice: 29.74 },
     { ...(useProduct("owon-pc321z").product as Product), promoPrice: 56.09 },
     {
@@ -29,6 +29,14 @@ export const Deals: React.FC = () => {
     { ...(useProduct("nous-a1z").product as Product), promoPrice: 14.44 },
   ];
 
+  const reolink = [
+    { ...(useProduct("reolink-e1-zoom").product as Product) },
+    { ...(useProduct("reolink-r340b").product as Product) },
+    {
+      ...(useProduct("reolink-r340w").product as Product)
+      
+    },
+  ];
   return (
     <div className="min-h-screen bg-gray-50">
       <SEO
@@ -48,7 +56,7 @@ export const Deals: React.FC = () => {
           </p>
         </div>
       </div>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      {/*<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <h1 className="text-4xl md:text-5xl font-bold mb-6">Domadoo</h1>
         <h3 className="text-lg font-medium text-gray-600 mb-4">
           Jusqu'au{" "}
@@ -84,10 +92,10 @@ export const Deals: React.FC = () => {
         </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {products.map((product, index) =>
+          {domadoo.map((product, index) =>
             product ? <ProductCard key={index} product={product} /> : null
           )}
-        </div>
+        </div>*/}
         <h1 className="text-4xl md:text-5xl font-bold mb-6 mt-6">Reolink</h1>
         <h3 className="text-lg font-medium text-gray-600 mb-4">
           À utiliser sur{" "}
@@ -107,6 +115,14 @@ export const Deals: React.FC = () => {
             : -5% sur Reolink
           </li>
         </ul>
+        <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-6 pb-2 mt-6">
+          Ma sélection
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {reolink.map((product, index) =>
+            product ? <ProductCard key={index} product={product} /> : null
+          )}
+        </div>
       </div>
     </div>
   );
