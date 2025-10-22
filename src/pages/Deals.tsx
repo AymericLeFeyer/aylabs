@@ -34,7 +34,7 @@ export const Deals: React.FC = () => {
     { ...(useProduct("reolink-r340b").product as Product) },
     {
       ...(useProduct("reolink-r340w").product as Product)
-      
+
     },
   ];
   return (
@@ -56,73 +56,32 @@ export const Deals: React.FC = () => {
           </p>
         </div>
       </div>
-      {/*<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <h1 className="text-4xl md:text-5xl font-bold mb-6">Domadoo</h1>
-        <h3 className="text-lg font-medium text-gray-600 mb-4">
-          Jusqu'au{" "}
-          <span className="font-semibold text-gray-800">31 août 2025</span>, sur{" "}
-          <a
-            href="https://go.aylabs.fr/domadoo"
-            className="underline"
-            target="_blank"
-          >
-            domadoo.fr
-          </a>
-        </h3>
-        <ul className="space-y-2">
-          <li className="px-4 py-2 bg-gray-100 rounded-lg">
-            <span className="font-bold text-[#398FBA]">
-              <a href="https://go.aylabs.fr/domadoo" target="_blank">
-                AYLABS5
-              </a>
-            </span>{" "}
-            : -5% sur Nuki & Frient
-          </li>
-          <li className="px-4 py-2 bg-gray-100 rounded-lg">
-            <span className="font-bold text-[#398FBA]">
-              <a href="https://go.aylabs.fr/domadoo" target="_blank">
-                AYLABS15
-              </a>
-            </span>{" "}
-            : -15% sur NodOn, Aqara, SMLight, Sonoff, NOUS, Owon & Heiman
-          </li>
-        </ul>
-        <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-6 pb-2 mt-6">
-          Ma sélection
-        </h2>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {domadoo.map((product, index) =>
-            product ? <ProductCard key={index} product={product} /> : null
-          )}
-        </div>*/}
-        <h1 className="text-4xl md:text-5xl font-bold mb-6 mt-6">Reolink</h1>
-        <h3 className="text-lg font-medium text-gray-600 mb-4">
-          À utiliser sur{" "}
-          <a
-            href="https://go.aylabs.fr/reolink/e1-zoom"
-            className="underline"
-            target="_blank"
-          >
-            reolink.com
-          </a>
-        </h3>
-        <ul className="space-y-2">
-          <li className="px-4 py-2 bg-gray-100 rounded-lg">
-            <span className="font-bold text-[#398FBA]">
-              <a href="https://go.aylabs.fr/reolink/e1-zoom">AyLabs5</a>
-            </span>{" "}
-            : -5% sur Reolink
-          </li>
-        </ul>
-        <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-6 pb-2 mt-6">
-          Ma sélection
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {reolink.map((product, index) =>
-            product ? <ProductCard key={index} product={product} /> : null
-          )}
-        </div>
+      <h1 className="text-4xl md:text-5xl font-bold mb-6 mt-6">Reolink</h1>
+      <h3 className="text-lg font-medium text-gray-600 mb-4">
+        À utiliser sur{" "}
+        <a
+          href="https://go.aylabs.fr/reolink/e1-zoom"
+          className="underline"
+          target="_blank"
+        >
+          reolink.com
+        </a>
+      </h3>
+      <ul className="space-y-2">
+        <li className="px-4 py-2 bg-gray-100 rounded-lg">
+          <span className="font-bold text-[#398FBA]">
+            <a href="https://go.aylabs.fr/reolink/e1-zoom">AyLabs5</a>
+          </span>{" "}
+          : -5% sur Reolink
+        </li>
+      </ul>
+      <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-6 pb-2 mt-6">
+        Ma sélection
+      </h2>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {reolink.map((product, index) =>
+          product ? <ProductCard key={index} product={product} /> : null
+        )}
       </div>
     </div>
   );
