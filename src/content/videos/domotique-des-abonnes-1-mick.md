@@ -8,7 +8,7 @@ tags: ["Domotique"]
 ---
 
 # Le matos de Mick !
-La plupat des liens présents sur cette page sont des liens affiliés. Je toucherai une petite commission sur les ventes effectuées, sans rien changer pour vous. Pour plus d'informations vous pouvez consulter [cette page](https://aylabs.fr/support)
+La plupart des liens présents sur cette page sont des liens affiliés. Je toucherai une petite commission sur les ventes effectuées, sans rien changer pour vous. Pour plus d'informations vous pouvez consulter [cette page](https://aylabs.fr/support)
 
 - [Caméra E1 Zoom Reolink](https://aylabs.fr/produit/reolink-e1-zoom)
 - [Sonnette Reolink](https://aylabs.fr/produit/reolink-r340w)
