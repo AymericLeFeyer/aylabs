@@ -4,7 +4,7 @@ image: "https://m.media-amazon.com/images/I/51lqAb-tviL._AC_SL1500_.jpg"
 description: "Serveur NAS 2 baies avec processeur RK3576, 4 Go de RAM LPDDR4X, et support jusqu'à 60 To de stockage. Idéal pour les petites entreprises et les utilisateurs débutants."
 tags:
   - "NAS"
-videoCode: "JGN-bht_cRU"
+videoCode: "NdAnGGKUhC4"
 buyLinks:
   - "https://amzn.to/3WDVlXp"
 pubDate: "Nov 09 2025"
