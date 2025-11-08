@@ -6,7 +6,7 @@ tags:
   - "NAS"
 videoCode: "NdAnGGKUhC4"
 buyLinks:
-  - "https://amzn.to/3WDVlXp"
+  - "https://amzn.to/43Nse7S"
 pubDate: "Nov 09 2025"
 category: "Homelab"
 price: 209.99
