@@ -1,5 +1,5 @@
 ---
-title: "Mes objets connectés préférés - Tierlist Domotique 2025"
+title: "Tierlist Domotique - Mes objets connectés préférés"
 description: "1 an et demi déjà, c'est le temps  depuis ma première vidéo. Il s'en est passé des choses, et des présentations de produits, j'ai pu en faire quelques uns. Aujourd'hui je reviens sur tous mes objets connectés et je les classe en donnant mon avis !"
 pubDate: "Nov 15 2025"
 code: "IiI2v8FUvLQ"
@@ -8,7 +8,7 @@ tags: ["Domotique"]
 ---
 
 Retrouvez ici l'ensemble des produits que j'ai présenté dans la vidéo, rangés selon leurs catégories finale
-[Tierlist 2024](tierlist-domotique-2025.md)
+![Tierlist 2025](/videos-assets/tierlist-2025.png)
 
 # S
 
