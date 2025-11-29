@@ -33,7 +33,7 @@ export const VideoCard: React.FC<VideoCardProps> = ({ video }) => {
           className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
         />
         {video.tags && video.tags.length > 0 && (
-          <div className="absolute top-2 left-2 bg-[#398FBA] text-white px-2 py-1 rounded text-sm font-medium">
+          <div className="absolute bottom-2 left-2 bg-[#398FBA] text-white px-2 py-1 rounded text-sm font-medium">
             {video.tags[0]}
           </div>
         )}
