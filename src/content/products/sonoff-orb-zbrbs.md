@@ -1,11 +1,11 @@
 ---
 title: "Interrupteur volets roulants Orb-ZBRBS"
 image: "https://cdn2.domadoo.fr/38436-large_default/sonoff-module-volet-roulant-zigbee-interrupteur-orb-zbrbs.jpg"
-description: "Idéal pour piloter vos radiateurs à eau chaude. Connectivité Zigbee et prise en charge parfaite avec Zigbee2MQTT"
-tags: ["Gestion chauffage"]
+description: "Idéal pour piloter vos volets roulants. Connectivité Zigbee et prise en charge parfaite avec Zigbee2MQTT"
+tags: ["Volets roulants"]
 protocols: ["Zigbee"]
 compatible: ["Home Assistant", "Zigbee2MQTT", "eWeLink"]
-videoCode: "hTCZb6jNtQE"
+videoCode: "g25WW9ifGOk"
 buyLinks:
   - "https://www.domadoo.fr/fr/produits-de-domotique/8411-sonoff-module-volet-roulant-zigbee-interrupteur-orb-zbrbs.html?domid=79"
   - "https://amzn.to/49aSeMu"
