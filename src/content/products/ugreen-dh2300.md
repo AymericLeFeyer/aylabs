@@ -12,7 +12,7 @@ category: "Homelab"
 price: 209.99
 
 pros:
-  - "Support jusqu'à 60 To de stockage"
+  - "Supporte jusqu'à 60 To de stockage"
   - "Plug and play"
   - "Logiciel UGOS offrant une interface conviviale"
 cons:
