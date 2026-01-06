@@ -22,7 +22,7 @@ protocols:
   - "Thread"
   - "Wi-Fi"
   - "Bluetooth"
-  - "Z-Wave
+  - "Z-Wave"
 pros:
   - "Deux antennes, sur puces CC2652P et EFR32MG21 pour configurer à la fois le Zigbee et le Thread"
   - "Possibilité d'ajouter un autre protocole comme le Z-Wave grâce au port usb"
