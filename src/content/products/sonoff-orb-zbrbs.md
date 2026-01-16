@@ -8,7 +8,6 @@ compatible: ["Home Assistant", "Zigbee2MQTT", "eWeLink"]
 videoCode: "g25WW9ifGOk"
 buyLinks:
   - "https://www.domadoo.fr/fr/produits-de-domotique/8411-sonoff-module-volet-roulant-zigbee-interrupteur-orb-zbrbs.html?domid=79"
-  - "https://amzn.to/49aSeMu"
 pubDate: "Dec 28 2025"
 category: "Domotique"
 price: 24.99
