@@ -36,4 +36,3 @@ lerna-debug.log*
 supabase/.branches
 supabase/.temp
 supabase/functions/.vscode/settings.json
-src/content/videos
