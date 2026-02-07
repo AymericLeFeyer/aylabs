@@ -22,6 +22,7 @@ pros:
   - "Création d'images Docker"
 cons:
   - "Pas de blocage d'ouverture des disques"
+  - "Durant mes tests prolongés, le logiciel TOS plantait régulièrement et me forcait à le réinstaller, je recommande FORTEMENT d'installer un autre OS, tel que TrueNAS Scale ou Unraid"
   
 verdict: "Le TerraMaster F4-425 Plus est une excellente solution, ce NAS coche toutes les cases. Jusqu'à 144To en hybride SSD/HDD, ce NAS est très polyvant et vous permettra d'héberger vos serveurs vidéos sans regrets"
 ---
