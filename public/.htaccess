@@ -1,0 +1,3 @@
+<FilesMatch "youtube-stats\.json">
+    Header set Access-Control-Allow-Origin "https://aymeric.lefeyer.fr"
+</FilesMatch>
