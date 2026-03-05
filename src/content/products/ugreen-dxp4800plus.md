@@ -4,7 +4,7 @@ image: "https://nas-fr.ugreen.com/cdn/shop/files/DXP4800_Plus.799.png?v=17561587
 description: "Serveur NAS 4 baies avec processeur Pentium Gold 8505, 8 Go de RAM DDR5, et support jusqu'à 112 To de stockage. Idéal pour les petites entreprises et les utilisateurs avancés."
 tags:
   - "NAS"
-videoCode: "fk1rfTpVAS8"
+videoCode: "9CPbV6OaBYE"
 buyLinks:
   - "https://amzn.to/4lap2KX"
 pubDate: "Mar 07 2026"
