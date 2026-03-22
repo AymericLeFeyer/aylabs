@@ -5,7 +5,7 @@ export const PartnersSection: React.FC = () => {
   const partners = [
     {
       name: "Domadoo",
-      url: "https://domadoo.aylabs.fr",
+      url: "https://www.domadoo.fr/fr/?domid=79",
       description: "Domotique & objets connectés",
     },
     {
