@@ -812,7 +812,7 @@ Le FTP vous l’avez sûrement rencontré pour upload des fichiers sur un serveu
 
 Si le domaine vous intéresse, n’hésitez pas à manifester votre envie avec des pouces et des commentaires.
 
-Le discord communautaire (https://discord.gg/Rg2agyWp6w) est toujours disponible pour discuter de tout ce qui touche à ce qu’on fait sur la chaîne. Un lien affilié vers le NAS est disponible en description si cela vous intéresse, cela permet de soutenir la chaîne de manière transparente pour vous.
+Le discord communautaire (https://discord.gg/aylabs) est toujours disponible pour discuter de tout ce qui touche à ce qu’on fait sur la chaîne. Un lien affilié vers le NAS est disponible en description si cela vous intéresse, cela permet de soutenir la chaîne de manière transparente pour vous.
 
 En attendant la prochaine vidéo, je vous souhaite encore à tous une très bonne année, et à la prochaine, salut !
 

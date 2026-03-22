@@ -496,7 +496,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
                     <Instagram className="h-6 w-6" />
                   </a>
                   <a
-                    href="https://discord.gg/hnu4CV2TK9"
+                    href="https://discord.gg/aylabs"
                     className="text-gray-400 hover:text-[#398FBA] transition-colors"
                   >
                     <svg

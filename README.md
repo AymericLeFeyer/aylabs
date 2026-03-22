@@ -85,5 +85,5 @@ Les contributions sont les bienvenues ! N'hésitez pas à ouvrir une issue ou un
 ## 📞 Contact
 
 - **YouTube** : [@ay_labs](https://youtube.com/@ay_labs)
-- **Discord** : [AyLabs Community](https://discord.gg/hnu4CV2TK9)
+- **Discord** : [AyLabs Community](https://discord.gg/aylabs)
 - **Email** : contact@aylabs.fr

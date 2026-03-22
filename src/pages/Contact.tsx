@@ -53,7 +53,7 @@ export const Contact: React.FC = () => {
 
             {/* Discord */}
             <a
-              href="https://discord.gg/hnu4CV2TK9"
+              href="https://discord.gg/aylabs"
               target="_blank"
               rel="noopener noreferrer"
               className="group bg-gray-50 hover:bg-indigo-50 border border-gray-200 hover:border-indigo-200 rounded-xl p-6 transition-all duration-300 hover:scale-105 hover:shadow-lg"
