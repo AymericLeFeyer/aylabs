@@ -7,7 +7,7 @@ tags:
 protocols: ["Off-Line UPS"]
 videoCode: "CATvxyRoQS8"
 buyLinks:
-  - "https://go.aylabs.fr/amazon/eaton-onduleur-3s-700"
+  - "https://amzn.to/3z2GHko"
 pubDate: "Sep 21 2024"
 category: "Homelab"
 price: 104.95

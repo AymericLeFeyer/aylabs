@@ -61,7 +61,7 @@ export const Deals: React.FC = () => {
         <h3 className="text-lg font-medium text-gray-600 mb-4">
           À utiliser sur{" "}
           <a
-            href="https://go.aylabs.fr/reolink/e1-zoom"
+            href="https://reolink.com/fr/product/e1-zoom/?aff=1073"
             className="underline"
             target="_blank"
           >
@@ -71,7 +71,7 @@ export const Deals: React.FC = () => {
         <ul className="space-y-2">
           <li className="px-4 py-2 bg-gray-100 rounded-lg">
             <span className="font-bold text-[#398FBA]">
-              <a href="https://go.aylabs.fr/reolink/e1-zoom">AyLabs5</a>
+              <a href="https://reolink.com/fr/product/e1-zoom/?aff=1073">AyLabs5</a>
             </span>{" "}
             : -5% sur Reolink
           </li>

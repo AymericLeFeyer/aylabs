@@ -275,6 +275,6 @@ Vous savez maintenant tout sur mon système de notifications via Discord, c’es
 
 Si vous avez des questions n’hésitez pas à les poser en commentaire ou sur .. Discord et ouais on parle beaucoup de Discord aujourd’hui.
 
-[https://go.aylabs.fr/discord](https://go.aylabs.fr/discord)
+[https://discord.gg/Rg2agyWp6w](https://discord.gg/Rg2agyWp6w)
 
 Allez je m’arrête là pour aujourd’hui, Portez-vous bien, et à la prochaine, c’était Aymeric. Salut !

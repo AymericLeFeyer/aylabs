@@ -13,7 +13,7 @@ compatible:
   - "Matter"
 videoCode: "o8zRljnLZI8"
 buyLinks:
-  - "https://go.aylabs.fr/domadoo/ns-panel-pro-120"
+  - "https://www.domadoo.fr/fr/objets-connectes/7503-sonoff-panneau-de-controle-pour-maison-intelligente-nspanel-pro-gris-clair.html?domid=79"
   - "https://amzn.to/45A2f3J"
 pubDate: "Oct 30 2024"
 category: "Domotique"

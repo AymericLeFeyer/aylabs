@@ -7,7 +7,7 @@ protocols: ["Wi-Fi"]
 compatible: ["Home Assistant", "HomeKit"]
 videoCode: "vAfmc1iEYuA"
 buyLinks:
-  - "https://go.aylabs.fr/domadoo/aqara-g4"
+  - "https://www.domadoo.fr/fr/portiers-video-connectes/6535-aqara-sonnette-video-intelligente-wi-fi-aqara-video-doorbell-g4-svd-c03-6970504218659.html?domid=79"
   - "https://amzn.to/44iMSNP"
 pubDate: "Jun 18 2025"
 category: "Domotique"

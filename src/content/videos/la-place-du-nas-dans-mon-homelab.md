@@ -47,7 +47,7 @@ Synology, c’est un des piliers dans le domaine du stockage en réseau.
 
 Personnellement je me suis tourné vers le modèle DS923+, un NAS 2 coeurs avec 4 go de ram extensible.
 
-🛒 [Acheter le NAS](https://go.aylabs.fr/amazon/synology-ds923plus)  
+🛒 [Acheter le NAS](https://amzn.to/3DtZPJD)  
 🎥 [Voir la vidéo](https://youtu.be/UWF84xQW-4U)
 
 Ce modèle a 4 baies, il a en fait 4 emplacements de disques durs HDD. Ce DS923+ coute environ 600€ selon les sites et les disponibilités.
@@ -501,7 +501,7 @@ sections:
             layout: horizontal
             tap_action:
               action: url
-              url_path: https://go.aylabs.fr/youtube
+              url_path: https://www.youtube.com/@ay_labs
             badge_icon: ""
             badge_color: ""
             hold_action:
@@ -812,7 +812,7 @@ Le FTP vous l’avez sûrement rencontré pour upload des fichiers sur un serveu
 
 Si le domaine vous intéresse, n’hésitez pas à manifester votre envie avec des pouces et des commentaires.
 
-Le discord communautaire (https://go.aylabs.fr/discord) est toujours disponible pour discuter de tout ce qui touche à ce qu’on fait sur la chaîne. Un lien affilié vers le NAS est disponible en description si cela vous intéresse, cela permet de soutenir la chaîne de manière transparente pour vous.
+Le discord communautaire (https://discord.gg/Rg2agyWp6w) est toujours disponible pour discuter de tout ce qui touche à ce qu’on fait sur la chaîne. Un lien affilié vers le NAS est disponible en description si cela vous intéresse, cela permet de soutenir la chaîne de manière transparente pour vous.
 
 En attendant la prochaine vidéo, je vous souhaite encore à tous une très bonne année, et à la prochaine, salut !
 

@@ -5,32 +5,32 @@ export const PartnersSection: React.FC = () => {
   const partners = [
     {
       name: "Domadoo",
-      url: "https://go.aylabs.fr/domadoo",
+      url: "https://domadoo.aylabs.fr",
       description: "Domotique & objets connectés",
     },
     {
       name: "Sunlu",
-      url: "https://go.aylabs.fr/sunlu",
+      url: "https://www.sunlu.com?sca_ref=8673819.e6xLp1xWaj/",
       description: "Filaments impression 3D",
     },
     {
       name: "GeekBuying",
-      url: "https://go.aylabs.fr/geekbuying",
+      url: "https://affiliate.geekbuying.com/gkbaffiliate.php?id=6265",
       description: "Électronique & gadgets",
     },
     {
       name: "NordVPN",
-      url: "https://go.aylabs.fr/nordvpn",
+      url: "https://go.nordvpn.net/aff_c?offer_id=15&aff_id=126314&url_id=1172",
       description: "Sécurité & confidentialité",
     },
     {
       name: "Itead",
-      url: "https://go.aylabs.fr/itead",
+      url: "https://itead.cc/ref/312/",
       description: "Solutions IoT & domotique",
     },
     {
       name: "Reolink",
-      url: "https://go.aylabs.fr/reolink/e1-zoom",
+      url: "https://reolink.com/fr/product/e1-zoom/?aff=107",
       description: "Caméras de surveillance",
     },
   ];

@@ -7,8 +7,8 @@ duration: "20:05"
 tags: ["Impression 3D"]
 ---
 
-🛒 Sunlu : https://go.aylabs.fr/sunlu ou alors code AYLABS au moment de la commande  
-📸 Instagram : https://go.aylabs.fr/insta
+🛒 Sunlu : https://www.sunlu.com?sca_ref=8673819.e6xLp1xWaj/ ou alors code AYLABS au moment de la commande  
+📸 Instagram : https://www.instagram.com/aylabs_yt
 
 Truc de ouf, j'ai modélisé mon premier objet un peu joli. C'est inspiré d'un modèle de Léo Lorini dans sa série "30 jours, 30 impressions 3D".  
 Avec son accord, je vous ai publié ma version sur makerworld : https://makerworld.com/fr/models/1543789-flower-paper-towel-holder#profileId-1620638  

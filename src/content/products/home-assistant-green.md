@@ -12,7 +12,7 @@ compatible:
   - "Matter"
 videoCode: "mU639-2jr98"
 buyLinks:
-  - "https://go.aylabs.fr/domadoo/home-assistant-green"
+  - "https://www.domadoo.fr/fr/produits-compatibles-home-assistant/7046-nabu-casa-box-domotique-home-assistant-green-0860011789703.html?domid=79"
 pubDate: "Nov 27 2024"
 category: "Domotique"
 price: 109.00

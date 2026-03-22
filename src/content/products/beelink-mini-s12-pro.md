@@ -7,7 +7,7 @@ protocols: []
 compatible: []
 videoCode: "enGk4dGBcKo"
 buyLinks:
-  - "https://go.aylabs.fr/amazon/beelink-mini-s12-pro"
+  - "https://amzn.to/3Xzyi1c"
 pubDate: "Sep 3 2024"
 category: "Homelab"
 price: 239.99

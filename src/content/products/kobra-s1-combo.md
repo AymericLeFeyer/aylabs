@@ -5,7 +5,7 @@ description: "Imprimante 3D FDM avec enceinte fermée. Capable d'imprimer jusqu'
 tags: ["Imprimante 3D"]
 videoCode: "gFTc0dh-0N4"
 buyLinks:
-  - "https://go.aylabs.fr/geekbuying/kobra-s1-combo"
+  - "https://affiliate.geekbuying.com/deeplink.php?affid=6265&url=https://fr.geekbuying.com/item/Anycubic-Kobra-S1-Combo-Imprimante-3D-5kg-Filament-Hyper-PLA-Bundle-1-10003005.html"
 pubDate: "Jul 1 2025"
 category: "Impression 3D"
 price: 699.99

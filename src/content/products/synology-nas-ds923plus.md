@@ -7,7 +7,7 @@ tags:
 
 videoCode: "UWF84xQW-4U"
 buyLinks:
-  - "https://go.aylabs.fr/amazon/synology-ds923plus"
+  - "https://amzn.to/3DtZPJD"
 pubDate: "Dec 26 2024"
 category: "Homelab"
 price: 643.00
