@@ -1,42 +1,65 @@
-name: Deploy React Vite to Firebase Hosting
+name: Deploy React Vite to o2switch
 
 on:
   workflow_dispatch:
   push:
     branches:
-      - main
+      - main # branche à déployer
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
+      # 1️⃣ Récupération du code
       - name: 🚚 Checkout repository
         uses: actions/checkout@v3
 
+      # 2️⃣ Installer Node.js
       - name: ⚙️ Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: "22"
+          node-version: "18"
 
+      # 3️⃣ Installer dépendances
       - name: ⬇️ Install dependencies
         run: npm install
 
+      # 4️⃣ Build Vite
       - name: 🏗️ Build project
         run: npm run build
         env:
+          VITE_BASE_URL: ${{ secrets.BASE_PATH }} # utilisé dans vite.config.js si nécessaire
           VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
           VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
           VITE_GA_ID: ${{ secrets.VITE_GA_ID }}
 
-      - name: 🚀 Deploy to Firebase Hosting
-        uses: FirebaseExtended/action-hosting-deploy@v0
-        with:
-          repoToken: ${{ secrets.GITHUB_TOKEN }}
-          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
-          channelId: live
-          projectId: aylabs
+      # 5️⃣ Ajouter .htaccess pour SPA
+      - name: ➕ Add .htaccess
+        run: |
+          BASE=${{ secrets.BASE_PATH }}
+          cat > dist/.htaccess <<EOL
+          RewriteEngine On
+          RewriteBase ${BASE}
+          RewriteRule ^index\\.html$ - [L]
+          RewriteCond %{REQUEST_FILENAME} !-f
+          RewriteCond %{REQUEST_FILENAME} !-d
+          RewriteRule . ${BASE}index.html [L]
+          EOL
 
+      # 6️⃣ Déployer via FTP
+      - name: 🚀 Deploy via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_HOST }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./dist/
+          server-dir: ${{ secrets.FTP_PATH }} # ex: /public_html/ ou /aymeric/
+          delete: true
+          dry-run: false
+
+      # 7️⃣ Envoyer un message Discord
       - name: 💬 Discord Notification (Success)
         run: |
           curl -H "Content-Type: application/json" \
@@ -47,7 +70,11 @@ jobs:
       - name: 💬 Discord Notification (Failure)
         if: failure()
         run: |
+          # Récupérer les 20 dernières lignes du log du workflow
+          ERROR=$(tail -n 20 $GITHUB_STEP_SUMMARY 2>/dev/null || echo "Impossible de récupérer le log exact")
+
+          # Envoyer le message Discord
           curl -H "Content-Type: application/json" \
               -X POST \
-              -d "{\"content\": \"🚨 Il y a une erreur avec le workflow de déploiement ! @everyone\"}" \
+              -d "{\"content\": \"🚨 Il y a une erreur avec le workflow de déploiement ! @everyone\nDernières lignes du log :\n$ERROR\"}" \
               ${{ secrets.DISCORD_WEBHOOK }}
