@@ -19,7 +19,7 @@ promoCode:
   percent: 10
   expiresAt: null
   platform: "Meross"
-pubDate: "Apr 21 2026"
+pubDate: "Apr 22 2026"
 category: "Domotique"
 price: 44.99
 protocols:
