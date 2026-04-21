@@ -17,51 +17,69 @@ export const parseMarkdown = (markdownContent: string): MarkdownFile => {
   const [, frontmatterStr, content] = match;
   const frontmatter: Record<string, any> = {};
   
-  // Parse YAML-like frontmatter
+  // Parse YAML-like frontmatter (supports arrays and one level of nested objects)
   const lines = frontmatterStr.split('\n');
   let currentKey = '';
   let isArray = false;
-  
+  let isObject = false;
+
+  const parseScalar = (raw: string): any => {
+    const v = raw.replace(/^"(.*)"$/, '$1');
+    if (v === 'null') return null;
+    if (v === 'true') return true;
+    if (v === 'false') return false;
+    if (v.startsWith('[') && v.endsWith(']')) {
+      try { return JSON.parse(v); } catch { /* fall through */ }
+    }
+    const num = Number(v);
+    return isNaN(num) || v === '' ? v : num;
+  };
+
   for (const line of lines) {
     const trimmedLine = line.trim();
     if (!trimmedLine) continue;
-    
-    if (trimmedLine.startsWith('- ')) {
-      // Array item
-      if (isArray && currentKey) {
-        if (!Array.isArray(frontmatter[currentKey])) {
-          frontmatter[currentKey] = [];
-        }
-        frontmatter[currentKey].push(trimmedLine.substring(2).replace(/^"(.*)"$/, '$1'));
-      }
-    } else if (trimmedLine.includes(':')) {
-      // Key-value pair
+
+    const isIndented = line.startsWith('  ') || line.startsWith('\t');
+
+    if (isIndented && isObject && currentKey && trimmedLine.includes(':')) {
+      // Nested object field
       const colonIndex = trimmedLine.indexOf(':');
       const key = trimmedLine.substring(0, colonIndex).trim();
       const value = trimmedLine.substring(colonIndex + 1).trim();
-      
+      if (typeof frontmatter[currentKey] !== 'object' || Array.isArray(frontmatter[currentKey])) {
+        frontmatter[currentKey] = {};
+      }
+      frontmatter[currentKey][key] = parseScalar(value);
+    } else if (isIndented && isArray && currentKey && trimmedLine.startsWith('- ')) {
+      // Array item
+      frontmatter[currentKey].push(parseScalar(trimmedLine.substring(2)));
+    } else if (!isIndented && trimmedLine.includes(':')) {
+      // Top-level key
+      const colonIndex = trimmedLine.indexOf(':');
+      const key = trimmedLine.substring(0, colonIndex).trim();
+      const value = trimmedLine.substring(colonIndex + 1).trim();
       currentKey = key;
-      
       if (value === '') {
-        // Might be start of array
-        isArray = true;
-        frontmatter[key] = [];
+        // Will be determined by next indented line
+        isArray = false;
+        isObject = false;
+        frontmatter[key] = null;
       } else {
         isArray = false;
-        // Remove quotes if present
-        let parsedValue = value.replace(/^"(.*)"$/, '$1');
-        
-        // Check if value is a JSON array string
-        if (parsedValue.startsWith('[') && parsedValue.endsWith(']')) {
-          try {
-            frontmatter[key] = JSON.parse(parsedValue);
-          } catch (e) {
-            frontmatter[key] = parsedValue;
-          }
-        } else {
-          frontmatter[key] = parsedValue;
-        }
+        isObject = false;
+        frontmatter[key] = parseScalar(value);
       }
+    } else if (isIndented && trimmedLine.startsWith('- ')) {
+      // First array item — init array
+      if (!isArray) { isArray = true; isObject = false; frontmatter[currentKey] = []; }
+      frontmatter[currentKey].push(parseScalar(trimmedLine.substring(2)));
+    } else if (isIndented && trimmedLine.includes(':')) {
+      // First object field — init object
+      if (!isObject) { isObject = true; isArray = false; frontmatter[currentKey] = {}; }
+      const colonIndex = trimmedLine.indexOf(':');
+      const key = trimmedLine.substring(0, colonIndex).trim();
+      const value = trimmedLine.substring(colonIndex + 1).trim();
+      frontmatter[currentKey][key] = parseScalar(value);
     }
   }
   
@@ -120,6 +138,8 @@ export const loadProducts = async () => {
       minixLink: parsed.frontmatter.buyLinks?.find((link: string) => link.includes('minix')),
     reolinkLink: parsed.frontmatter.buyLinks?.find((link: string) => link.includes('reolink')),
     bambuLink: parsed.frontmatter.buyLinks?.find((link: string) => link.includes('bambu')),
+    merossLink: parsed.frontmatter.buyLinks?.find((link: string) => link.includes('meross')),
+    promoCode: parsed.frontmatter.promoCode || null,
     pros: parsed.frontmatter.pros || [],
     cons: parsed.frontmatter.cons || [],
     verdict: parsed.frontmatter.verdict || '',

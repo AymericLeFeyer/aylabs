@@ -9,6 +9,10 @@ export const useComments = (pageId: string | null, pageType: 'article' | 'produc
   const [error, setError] = useState<string | null>(null);
 
   const fetchComments = async () => {
+    if (!supabase) {
+      setLoading(false);
+      return;
+    }
     try {
       setLoading(true);
       const { data, error } = await supabase
@@ -71,6 +75,7 @@ export const useComments = (pageId: string | null, pageType: 'article' | 'produc
   };
 
   const addComment = async (author: string, content: string, email: string, parentId?: string) => {
+    if (!supabase) return { success: false, error: 'Supabase non configuré' };
     try {
       const { error } = await supabase
         .from('comments')

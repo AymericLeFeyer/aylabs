@@ -5,11 +5,15 @@ import ReactGA from "react-ga4";
 const AnalyticsTracker = () => {
   const location = useLocation();
 
+  const gaId = import.meta.env.VITE_GA_ID;
+
   useEffect(() => {
-    ReactGA.initialize(import.meta.env.VITE_GA_ID);
+    if (!gaId) return;
+    ReactGA.initialize(gaId);
   }, []);
 
   useEffect(() => {
+    if (!gaId) return;
     ReactGA.send({ hitType: "pageview", page: location.pathname });
   }, [location]);
 

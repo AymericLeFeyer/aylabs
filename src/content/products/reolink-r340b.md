@@ -13,6 +13,11 @@ videoCode: "BoTYbsFc8U0"
 buyLinks:
   - "https://reolink.com/fr/product/reolink-doorbell-battery/?aff=1073"
   - "https://amzn.to/4pChkel"
+promoCode:
+  code: "AyLabs5"
+  percent: 5
+  expiresAt: null
+  platform: "Reolink"
 pubDate: "24 sep 2025"
 category: "Domotique"
 price: 159.99

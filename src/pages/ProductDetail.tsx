@@ -9,6 +9,8 @@ import {
   ThumbsDown,
   Award,
   Zap,
+  Copy,
+  Check,
 } from "lucide-react";
 import { useProduct } from "../hooks/useMarkdownContent";
 import { useComments } from "../hooks/useComments";
@@ -17,6 +19,36 @@ import { SEO } from "../components/SEO";
 import { Comments } from "../components/Comments";
 import Cookies from "js-cookie";
 import ReactGA from "react-ga4";
+
+const CopyCodeButton: React.FC<{ code: string }> = ({ code }) => {
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(code).then(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    });
+  };
+
+  return (
+    <button
+      onClick={handleCopy}
+      className="flex items-center gap-2 w-full justify-between bg-white hover:bg-red-50 border border-red-300 rounded-md px-3 py-2 transition-colors"
+    >
+      <span className="text-lg font-bold text-red-800 tracking-widest">{code}</span>
+      {copied ? (
+        <Check className="h-4 w-4 text-green-600 shrink-0" />
+      ) : (
+        <Copy className="h-4 w-4 text-red-400 shrink-0" />
+      )}
+    </button>
+  );
+};
+
+const trackEvent = (name: string, params: Record<string, unknown>) => {
+  if (!import.meta.env.VITE_GA_ID) return;
+  ReactGA.gtag("event", name, params);
+};
 
 export const ProductDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -182,7 +214,7 @@ export const ProductDetail: React.FC = () => {
                             rel="noopener noreferrer"
                             className="flex items-center justify-center space-x-2 bg-orange-500 hover:bg-orange-600 text-white py-3 px-4 rounded-lg font-medium transition-colors"
                             onClick={() => {
-                              ReactGA.gtag("event", "click_partner_link", {
+                              trackEvent("click_partner_link", {
                                 partner: "Amazon",
                                 product_id: product.id,
                                 product_name: product.name,
@@ -201,7 +233,7 @@ export const ProductDetail: React.FC = () => {
                             rel="noopener noreferrer"
                             className="flex items-center justify-center space-x-2 bg-purple-600 hover:bg-purple-700 text-white py-3 px-4 rounded-lg font-medium transition-colors"
                             onClick={() => {
-                              ReactGA.gtag("event", "click_partner_link", {
+                              trackEvent("click_partner_link", {
                                 partner: "Domadoo",
                                 product_id: product.id,
                                 product_name: product.name,
@@ -220,7 +252,7 @@ export const ProductDetail: React.FC = () => {
                             rel="noopener noreferrer"
                             className="flex items-center justify-center space-x-2 bg-red-600 hover:bg-red-700 text-white py-3 px-4 rounded-lg font-medium transition-colors"
                             onClick={() => {
-                              ReactGA.gtag("event", "click_partner_link", {
+                              trackEvent("click_partner_link", {
                                 partner: "GeekBuying",
                                 product_id: product.id,
                                 product_name: product.name,
@@ -239,7 +271,7 @@ export const ProductDetail: React.FC = () => {
                             rel="noopener noreferrer"
                             className="flex items-center justify-center space-x-2 bg-blue-600 hover:bg-blue-700 text-white py-3 px-4 rounded-lg font-medium transition-colors"
                             onClick={() => {
-                              ReactGA.gtag("event", "click_partner_link", {
+                              trackEvent("click_partner_link", {
                                 partner: "Minix",
                                 product_id: product.id,
                                 product_name: product.name,
@@ -258,7 +290,7 @@ export const ProductDetail: React.FC = () => {
                             rel="noopener noreferrer"
                             className="flex items-center justify-center space-x-2 bg-blue-600 hover:bg-blue-700 text-white py-3 px-4 rounded-lg font-medium transition-colors"
                             onClick={() => {
-                              ReactGA.gtag("event", "click_partner_link", {
+                              trackEvent("click_partner_link", {
                                 partner: "Reolink",
                                 product_id: product.id,
                                 product_name: product.name,
@@ -279,7 +311,7 @@ export const ProductDetail: React.FC = () => {
                             rel="noopener noreferrer"
                             className="flex items-center justify-center space-x-2 bg-green-600 hover:bg-green-700 text-white py-3 px-4 rounded-lg font-medium transition-colors"
                             onClick={() => {
-                              ReactGA.gtag("event", "click_partner_link", {
+                              trackEvent("click_partner_link", {
                                 partner: "BambuLab",
                                 product_id: product.id,
                                 product_name: product.name,
@@ -290,27 +322,41 @@ export const ProductDetail: React.FC = () => {
                             <span>BambuLab</span>
                           </a>
                         )}
+
+                        {product.merossLink && (
+                          <a
+                            href={product.merossLink}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center justify-center space-x-2 bg-teal-600 hover:bg-teal-700 text-white py-3 px-4 rounded-lg font-medium transition-colors"
+                            onClick={() => {
+                              trackEvent("click_partner_link", {
+                                partner: "Meross",
+                                product_id: product.id,
+                                product_name: product.name,
+                              });
+                            }}
+                          >
+                            <ShoppingCart className="h-4 w-4" />
+                            <span>Meross</span>
+                          </a>
+                        )}
                       </div>
                     </div>
-                    {product.reolinkLink && (
-                      <p>
-                        <strong>Code Reolink</strong>
-                        <br />
-                        <strong>AyLabs5</strong> pour -5%
-                      </p>
-                    )}
-                    {/*{product.domadooLink && (
-                      <>
-                        <p>
-                          <strong>Codes Domadoo jusqu'au 31/08/25</strong>
-                          <br />
-                          <strong>AYLABS15</strong> pour -15% sur certaines
-                          marques <br />
-                          <strong>AYLABS5</strong> pour -5% sur certaines
-                          marques
+
+                    {product.promoCode && (
+                      <div className="p-4">
+                        <p className="text-sm font-semibold text-red-700 mb-2">
+                          Code promo {product.promoCode.platform} -{product.promoCode.percent}%
+                          {product.promoCode.expiresAt && (
+                            <span className="font-normal text-yellow-600">
+                              {" "}· jusqu'au {product.promoCode.expiresAt}
+                            </span>
+                          )}
                         </p>
-                      </>
-                    )}*/}
+                        <CopyCodeButton code={product.promoCode.code} />
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>

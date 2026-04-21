@@ -56,6 +56,8 @@ export interface Product {
   compatible?: string[];
   slug: string;
   promoPrice: number | null | undefined;
+  promoCode?: { code: string; percent: number; expiresAt: string | null; platform: string } | null;
+  merossLink?: string;
 }
 
 export interface Tutorial {
