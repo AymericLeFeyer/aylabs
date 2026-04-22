@@ -1,5 +1,5 @@
 ---
-title: "Meross Détecteur de fumée MSH450"
+title: "Meross Détecteur de fumée MA151H"
 image: "https://cdn1.domadoo.fr/39367-large_default/meross-3x-detecteurs-de-fumee-hub-matter-msh450.jpg"
 description: "Détecteur de fumée connecté avec hub Matter inclus. Piles et câbles fournis, intégration Home Assistant via Matter."
 tags:
