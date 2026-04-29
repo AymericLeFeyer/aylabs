@@ -341,6 +341,30 @@ export const ProductDetail: React.FC = () => {
                             <span>Meross</span>
                           </a>
                         )}
+
+                        {product.otherLinks?.map((link) => {
+                          const label = new URL(link).hostname.replace(/^www\./, '').split('.')[0];
+                          const displayLabel = label.charAt(0).toUpperCase() + label.slice(1);
+                          return (
+                            <a
+                              key={link}
+                              href={link}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="flex items-center justify-center space-x-2 bg-gray-700 hover:bg-gray-800 text-white py-3 px-4 rounded-lg font-medium transition-colors"
+                              onClick={() => {
+                                trackEvent("click_partner_link", {
+                                  partner: displayLabel,
+                                  product_id: product.id,
+                                  product_name: product.name,
+                                });
+                              }}
+                            >
+                              <ShoppingCart className="h-4 w-4" />
+                              <span>{displayLabel}</span>
+                            </a>
+                          );
+                        })}
                       </div>
                     </div>
 

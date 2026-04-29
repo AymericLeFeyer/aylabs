@@ -135,10 +135,16 @@ export const loadProducts = async () => {
     amazonLink: parsed.frontmatter.buyLinks?.find((link: string) => link.includes('amzn.to') || link.includes('amazon')),
     domadooLink: parsed.frontmatter.buyLinks?.find((link: string) => link.includes('domadoo')),
     geekbuyingLink: parsed.frontmatter.buyLinks?.find((link: string) => link.includes('geekbuying')),
-      minixLink: parsed.frontmatter.buyLinks?.find((link: string) => link.includes('minix')),
+    minixLink: parsed.frontmatter.buyLinks?.find((link: string) => link.includes('minix')),
     reolinkLink: parsed.frontmatter.buyLinks?.find((link: string) => link.includes('reolink')),
     bambuLink: parsed.frontmatter.buyLinks?.find((link: string) => link.includes('bambu')),
     merossLink: parsed.frontmatter.buyLinks?.find((link: string) => link.includes('meross')),
+    otherLinks: parsed.frontmatter.buyLinks?.filter((link: string) =>
+      !link.includes('amzn.to') && !link.includes('amazon') &&
+      !link.includes('domadoo') && !link.includes('geekbuying') &&
+      !link.includes('minix') && !link.includes('reolink') &&
+      !link.includes('bambu') && !link.includes('meross')
+    ) || [],
     promoCode: parsed.frontmatter.promoCode || null,
     pros: parsed.frontmatter.pros || [],
     cons: parsed.frontmatter.cons || [],

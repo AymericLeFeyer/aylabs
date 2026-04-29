@@ -58,6 +58,7 @@ export interface Product {
   promoPrice: number | null | undefined;
   promoCode?: { code: string; percent: number; expiresAt: string | null; platform: string } | null;
   merossLink?: string;
+  otherLinks?: string[];
 }
 
 export interface Tutorial {
