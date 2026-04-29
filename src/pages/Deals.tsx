@@ -1,42 +1,42 @@
+import React, { useMemo } from "react";
 import { ProductCard } from "../components/ProductCard";
 import { SEO } from "../components/SEO";
-import { useProduct } from "../hooks/useMarkdownContent";
+import { useProducts } from "../hooks/useMarkdownContent";
 import { Product } from "../types";
+import { Copy, Check } from "lucide-react";
+
+const CopyCodeButton: React.FC<{ code: string }> = ({ code }) => {
+  const [copied, setCopied] = React.useState(false);
+  const handleCopy = () => {
+    navigator.clipboard.writeText(code);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+  return (
+    <button
+      onClick={handleCopy}
+      className="flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white font-bold px-3 py-1.5 rounded-lg text-sm transition-colors"
+    >
+      {copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
+      <span>{code}</span>
+    </button>
+  );
+};
 
 export const Deals: React.FC = () => {
-  const domadoo = [
-    { ...(useProduct("slzb-06m").product as Product), promoPrice: 29.74 },
-    { ...(useProduct("owon-pc321z").product as Product), promoPrice: 56.09 },
-    {
-      ...(useProduct("nodon-fil-pilote").product as Product),
-      promoPrice: 33.91,
-    },
-    { ...(useProduct("aqara-g4").product as Product), promoPrice: 101.15 },
-    {
-      ...(useProduct("sonoff-zigbee-3e").product as Product),
-      promoPrice: 23.79,
-    },
-    { ...(useProduct("zb-mini-l2").product as Product), promoPrice: 12.74 },
-    { ...(useProduct("heiman-hs1cge").product as Product), promoPrice: 25.49 },
-    { ...(useProduct("nodon-sem-4-1-00").product as Product), promoPrice: 34 },
-    {
-      ...(useProduct("nodon-stph-4-1-00").product as Product),
-      promoPrice: 42.42,
-    },
-    { ...(useProduct("snzb-04p").product as Product), promoPrice: 12.74 },
-    { ...(useProduct("snzb-06p").product as Product), promoPrice: 15.29 },
-    { ...(useProduct("frient-keyboard").product as Product), promoPrice: 75 },
-    { ...(useProduct("nous-a1z").product as Product), promoPrice: 14.44 },
-  ];
+  const { products, loading } = useProducts();
 
-  const reolink = [
-    { ...(useProduct("reolink-e1-zoom").product as Product) },
-    { ...(useProduct("reolink-r340b").product as Product) },
-    {
-      ...(useProduct("reolink-r340w").product as Product)
-      
-    },
-  ];
+  const groupedByPlatform = useMemo(() => {
+    const withPromo = (products as Product[]).filter((p) => p.promoCode?.code);
+    const groups: Record<string, Product[]> = {};
+    for (const product of withPromo) {
+      const platform = product.promoCode!.platform || "Autre";
+      if (!groups[platform]) groups[platform] = [];
+      groups[platform].push(product);
+    }
+    return groups;
+  }, [products]);
+
   return (
     <div className="min-h-screen bg-gray-50">
       <SEO
@@ -44,7 +44,6 @@ export const Deals: React.FC = () => {
         description="J'ai cherché pour toi les bonnes affaires du moment"
         url="https://aylabs.fr/deals"
       />
-      {/* Hero Section */}
       <div className="bg-gradient-to-br from-[#398FBA] to-[#2a6d94] text-white py-20">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-4xl md:text-5xl font-bold mb-6">
@@ -56,34 +55,46 @@ export const Deals: React.FC = () => {
           </p>
         </div>
       </div>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <h1 className="text-4xl md:text-5xl font-bold mb-6 mt-6">Reolink</h1>
-        <h3 className="text-lg font-medium text-gray-600 mb-4">
-          À utiliser sur{" "}
-          <a
-            href="https://reolink.com/fr/product/e1-zoom/?aff=1073"
-            className="underline"
-            target="_blank"
-          >
-            reolink.com
-          </a>
-        </h3>
-        <ul className="space-y-2">
-          <li className="px-4 py-2 bg-gray-100 rounded-lg">
-            <span className="font-bold text-[#398FBA]">
-              <a href="https://reolink.com/fr/product/e1-zoom/?aff=1073">AyLabs5</a>
-            </span>{" "}
-            : -5% sur Reolink
-          </li>
-        </ul>
-        <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-6 pb-2 mt-6">
-          Ma sélection
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {reolink.map((product, index) =>
-            product ? <ProductCard key={index} product={product} /> : null
-          )}
-        </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-16">
+        {loading ? (
+          <div className="flex justify-center py-20">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#398FBA]" />
+          </div>
+        ) : Object.keys(groupedByPlatform).length === 0 ? (
+          <p className="text-center text-gray-500 py-20">
+            Aucun code promo disponible pour le moment.
+          </p>
+        ) : (
+          Object.entries(groupedByPlatform).map(([platform, platformProducts]) => {
+            const promo = platformProducts[0].promoCode!;
+            return (
+              <section key={platform}>
+                <h2 className="text-3xl font-bold text-gray-800 mb-2">
+                  {platform}
+                </h2>
+                <div className="flex items-center gap-4 mb-6">
+                  <div className="flex items-center gap-3 bg-white border border-gray-200 rounded-lg px-4 py-2 shadow-sm">
+                    <span className="text-sm text-gray-600">
+                      Code promo -{promo.percent}%
+                      {promo.expiresAt && (
+                        <span className="text-yellow-600 ml-1">
+                          · jusqu'au {promo.expiresAt}
+                        </span>
+                      )}
+                    </span>
+                    <CopyCodeButton code={promo.code} />
+                  </div>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                  {platformProducts.map((product) => (
+                    <ProductCard key={product.id} product={product} />
+                  ))}
+                </div>
+              </section>
+            );
+          })
+        )}
       </div>
     </div>
   );

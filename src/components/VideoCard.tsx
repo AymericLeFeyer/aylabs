@@ -27,11 +27,12 @@ export const VideoCard: React.FC<VideoCardProps> = ({ video }) => {
   return (
     <div className="bg-white rounded-lg shadow-lg overflow-hidden group hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
       <a href={`/video/${video.id}`} className="relative block">
-        <img
-          src={getThumbnailUrl(video.url)}
-          alt={video.title}
-          className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
-        />
+        <div className="relative w-full aspect-video overflow-hidden">
+          <img
+            src={getThumbnailUrl(video.url)}
+            alt={video.title}
+            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+          />
         {video.tags && video.tags.length > 0 && (
           <div className="absolute bottom-2 left-2 bg-[#398FBA] text-white px-2 py-1 rounded text-sm font-medium">
             {video.tags[0]}
@@ -42,6 +43,7 @@ export const VideoCard: React.FC<VideoCardProps> = ({ video }) => {
         </div>
         <div className="absolute bottom-2 right-2 bg-black/80 text-white px-2 py-1 rounded text-sm">
           {video.duration}
+        </div>
         </div>
       </a>
       

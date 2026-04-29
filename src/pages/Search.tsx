@@ -229,11 +229,11 @@ export const Search: React.FC = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {searchResults.videos.map((video) => (
                     <div key={video.id} className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
-                      <div className="relative">
+                      <div className="relative w-full aspect-video overflow-hidden">
                         <img
                           src={getThumbnailUrl(video.url)}
                           alt={video.title}
-                          className="w-full h-32 object-cover"
+                          className="w-full h-full object-cover"
                         />
                         {video.tags && video.tags.length > 0 && (
                           <div className="absolute top-2 left-2 bg-[#398FBA] text-white px-2 py-1 rounded text-xs font-medium">
