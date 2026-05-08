@@ -7,7 +7,7 @@ duration: "19:29"
 tags: ["Domotique"]
 ---
 
-🛒 Aqara G4 : https://www.domadoo.fr/fr/portiers-video-connectes/6535-aqara-sonnette-video-intelligente-wi-fi-aqara-video-doorbell-g4-svd-c03-6970504218659.html?domid=79
+🛒 Aqara G4 : https://www.domadoo.fr/fr/portiers-video-connectes/6535-aqara-sonnette-video-intelligente-wi-fi-aqara-video-doorbell-g4-svd-c03-6970504218659.html?ae=6
 
 Aujourd'hui je découvre une sonnette connectée de chez Aqara.
 Rôdeurs, tête des voisins et beaucoup de parties flouttées sont à prévoir dans cette vidéo.

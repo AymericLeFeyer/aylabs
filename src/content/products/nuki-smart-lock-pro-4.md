@@ -12,7 +12,7 @@ compatible:
   - "Matter"
 videoCode: "mxPbpGhOs2s"
 buyLinks:
-  - "https://www.domadoo.fr/fr/controle-acces/6954-nuki-serrure-connectee-btwi-fi-nuki-smart-lock-pro-4e-gen-blanc-9120072083426.html?domid=79"
+  - "https://www.domadoo.fr/fr/controle-acces/6954-nuki-serrure-connectee-btwi-fi-nuki-smart-lock-pro-4e-gen-blanc-9120072083426.html?ae=6"
 pubDate: "Feb 20 2025"
 category: "Domotique"
 price: 289.00

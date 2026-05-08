@@ -12,7 +12,7 @@ compatible:
   - "Jeedom"
 videoCode: "JvFIsO894IE"
 buyLinks:
-  - "https://www.domadoo.fr/fr/peripheriques/5883-heiman-capteur-de-gaz-zigbee-30.html?domid=79"
+  - "https://www.domadoo.fr/fr/peripheriques/5883-heiman-capteur-de-gaz-zigbee-30.html?ae=6"
 pubDate: "Feb 27 2025"
 category: "Domotique"
 price: 29.99

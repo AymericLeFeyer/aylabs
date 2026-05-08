@@ -7,7 +7,7 @@ protocols: ["Wi-Fi", "Matter", "Zigbee", "Bluetooth", "MQTT"]
 compatible: ["Home Assistant", "HomeKit"]
 videoCode: "4hQpSOgz4qA"
 buyLinks:
-  - "https://www.domadoo.fr/fr/produits-de-domotique/8407-shelly-multiprise-matter-zigbee-wifi-power-strip-gen4-blanc-3800238070564.html?srsltid=AfmBOoooy3kSBWRjSTWA2hdQPT2squ3xx_xUec_phPXQhN5JFtkbOE8i?domid=79"
+  - "https://www.domadoo.fr/fr/produits-de-domotique/8407-shelly-multiprise-matter-zigbee-wifi-power-strip-gen4-blanc-3800238070564.html?srsltid=AfmBOoooy3kSBWRjSTWA2hdQPT2squ3xx_xUec_phPXQhN5JFtkbOE8i?ae=6"
   - "https://amzn.to/4rekdTf"
 pubDate: "Feb 12 2026"
 category: "Domotique"

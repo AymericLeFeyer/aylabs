@@ -11,7 +11,7 @@ compatible:
   - "Jeedom"
 videoCode: "QR3Cmv498Y8"
 buyLinks:
-  - "https://www.domadoo.fr/fr/peripheriques/5537-frient-clavier-a-codes-intelligent-zigbee-30-lecteur-rfid-keyzb-110-5713594002415.html?domid=79"
+  - "https://www.domadoo.fr/fr/peripheriques/5537-frient-clavier-a-codes-intelligent-zigbee-30-lecteur-rfid-keyzb-110-5713594002415.html?ae=6"
 pubDate: "5 apr 2025"
 category: "Domotique"
 price: 78.95

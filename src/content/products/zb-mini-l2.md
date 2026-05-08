@@ -11,7 +11,7 @@ compatible:
   - "Amazon Alexa"
 videoCode: "FQVFTVUruxM"
 buyLinks:
-  - "https://www.domadoo.fr/fr/eclairage-connecte/6875-pack-de-2-commutateurs-intelligents-sans-neutre-zigbee-30-zbminil2-sonoff-6920075741872.html?domid=79"
+  - "https://www.domadoo.fr/fr/eclairage-connecte/6875-pack-de-2-commutateurs-intelligents-sans-neutre-zigbee-30-zbminil2-sonoff-6920075741872.html?ae=6"
 pubDate: "Sep 17 2024"
 category: "Domotique"
 price: 14.99

@@ -12,7 +12,7 @@ compatible:
   - "Matter"
 videoCode: "ray-9VmMx0M"
 buyLinks:
-  - "https://www.domadoo.fr/fr/box-domotique/7188-nabu-casa-dongle-usb-zigbee-30-connect-zbt-1-pour-home-assistant-0860011789710.html?domid=79"
+  - "https://www.domadoo.fr/fr/box-domotique/7188-nabu-casa-dongle-usb-zigbee-30-connect-zbt-1-pour-home-assistant-0860011789710.html?ae=6"
 pubDate: "Nov 27 2024"
 category: "Domotique"
 price: 39.99

@@ -65,7 +65,7 @@ Vous voyez en bleu les **routeurs**, en vert les **appareils terminaux**, et l�
 
 D’ailleurs, si vous cherchez du matériel domotique, vous pouvez consulter :  
 👉 [https://aylabs.fr/produits-testes](https://aylabs.fr/produits-testes)  
-👉 [https://www.domadoo.fr/fr/?domid=79](https://www.domadoo.fr/fr/?domid=79)
+👉 [https://www.domadoo.fr/fr/?ae=6](https://www.domadoo.fr/fr/?ae=6)
 
 Le zigbee utilise des ondes 2,4GHz, qui est une norme mondiale. Mais attention : **le wifi aussi** utilise le 2.4GHz -> des interférences peuvent survenir.
 
@@ -75,7 +75,7 @@ Le coordinateur c’est le cœur du réseau zigbee. Voici la **Sky Connect**, cl
 
 **Dongle Zigbee Sky Connect**
 
-🛒 [https://www.domadoo.fr/fr/box-domotique/7188-nabu-casa-dongle-usb-zigbee-30-connect-zbt-1-pour-home-assistant-0860011789710.html?domid=79](https://www.domadoo.fr/fr/box-domotique/7188-nabu-casa-dongle-usb-zigbee-30-connect-zbt-1-pour-home-assistant-0860011789710.html?domid=79)  
+🛒 [https://www.domadoo.fr/fr/box-domotique/7188-nabu-casa-dongle-usb-zigbee-30-connect-zbt-1-pour-home-assistant-0860011789710.html?ae=6](https://www.domadoo.fr/fr/box-domotique/7188-nabu-casa-dongle-usb-zigbee-30-connect-zbt-1-pour-home-assistant-0860011789710.html?ae=6)  
 🎥 [https://youtu.be/ray-9VmMx0M](https://youtu.be/ray-9VmMx0M)
 
 ![Contenu de la boîte](/videos-assets/protocoles-4.png)

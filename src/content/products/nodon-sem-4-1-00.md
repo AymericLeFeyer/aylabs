@@ -11,7 +11,7 @@ compatible:
   - "Jeedom"
 videoCode: "5mkZ56RG3fs"
 buyLinks:
-  - "https://www.domadoo.fr/fr/compteur-energie-connecte/7885-nodon-compteur-denergie-zigbee-sem-4-1-00-3700313926215.html?domid=79"
+  - "https://www.domadoo.fr/fr/compteur-energie-connecte/7885-nodon-compteur-denergie-zigbee-sem-4-1-00-3700313926215.html?ae=6"
 pubDate: "16 jul 2025"
 category: "Domotique"
 price: 40.00

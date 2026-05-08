@@ -12,7 +12,7 @@ compatible:
   - "eWeLink"
 videoCode: "a5CxFkKoTZc"
 buyLinks:
-  - "https://www.domadoo.fr/fr/suivi-energie/6614-sonoff-capteur-de-temperature-et-d-humidite-zigbee-30-avec-ecran-6920075740004.html?domid=79"
+  - "https://www.domadoo.fr/fr/suivi-energie/6614-sonoff-capteur-de-temperature-et-d-humidite-zigbee-30-avec-ecran-6920075740004.html?ae=6"
 pubDate: "Jan 20 2025"
 category: "Domotique"
 price: 13.99

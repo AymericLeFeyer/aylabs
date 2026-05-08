@@ -13,7 +13,7 @@ compatible:
   - "Matter"
 videoCode: "VB8Ap-5d3Kg"
 buyLinks:
-  - "https://www.domadoo.fr/fr/produits-de-domotique/8370-smlight-adaptateur-usb-ethernet-poe-zigbee-et-thread-cc2652p-efr32mg21-slzb-mr1u.html?domid=79"
+  - "https://www.domadoo.fr/fr/produits-de-domotique/8370-smlight-adaptateur-usb-ethernet-poe-zigbee-et-thread-cc2652p-efr32mg21-slzb-mr1u.html?ae=6"
 pubDate: "Jan 10 2026"
 category: "Domotique"
 price: 50.99

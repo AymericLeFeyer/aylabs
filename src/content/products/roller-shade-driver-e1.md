@@ -8,7 +8,7 @@ protocols: ["Zigbee"]
 compatible: ["Home Assistant", "Zigbee2MQTT"]
 videoCode: "24Hvo_K7puE"
 buyLinks:
-  - "https://www.domadoo.fr/fr/peripheriques/5892-aqara-motorisation-intelligente-pour-store-enrouleur-a-chainette-zigbee-30-rsd-m01-6970504215085.html?domid=79"
+  - "https://www.domadoo.fr/fr/peripheriques/5892-aqara-motorisation-intelligente-pour-store-enrouleur-a-chainette-zigbee-30-rsd-m01-6970504215085.html?ae=6"
   - "https://amzn.to/3TzNatm"
 pubDate: "Aug 28 2024"
 category: "Domotique"

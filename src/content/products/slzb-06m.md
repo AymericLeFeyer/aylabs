@@ -12,7 +12,7 @@ compatible:
   - "Matter"
 videoCode: "GmQzxH32xEQ"
 buyLinks:
-  - "https://www.domadoo.fr/fr/box-domotique/7043-smlight-adaptateur-usb-ethernet-poe-zigbee-30-efr32mg21.html?domid=79"
+  - "https://www.domadoo.fr/fr/box-domotique/7043-smlight-adaptateur-usb-ethernet-poe-zigbee-30-efr32mg21.html?ae=6"
 pubDate: "Feb 15 2025"
 category: "Domotique"
 price: 34.99

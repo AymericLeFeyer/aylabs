@@ -13,7 +13,7 @@ compatible:
 videoCode: "pehaQfbTvjg"
 protocols: ["Zigbee"]
 buyLinks:
-  - "https://www.domadoo.fr/fr/chauffage-clim/6828-nodon-module-chauffage-connecte-fil-pilote-zigbee-30-sin-4-fp-21.html?domid=79"
+  - "https://www.domadoo.fr/fr/chauffage-clim/6828-nodon-module-chauffage-connecte-fil-pilote-zigbee-30-sin-4-fp-21.html?ae=6"
   - "https://amzn.to/46SHJ0K"
 pubDate: "Oct 9 2024"
 category: "Domotique"

@@ -34,7 +34,7 @@ La Home Assistant Green est en fait la dernière box de chez Nabu Casa, puisqu�
 
 **Home Assistant Green**
 
-🛒 [https://www.domadoo.fr/fr/produits-compatibles-home-assistant/7046-nabu-casa-box-domotique-home-assistant-green-0860011789703.html?domid=79](https://www.domadoo.fr/fr/produits-compatibles-home-assistant/7046-nabu-casa-box-domotique-home-assistant-green-0860011789703.html?domid=79)
+🛒 [https://www.domadoo.fr/fr/produits-compatibles-home-assistant/7046-nabu-casa-box-domotique-home-assistant-green-0860011789703.html?ae=6](https://www.domadoo.fr/fr/produits-compatibles-home-assistant/7046-nabu-casa-box-domotique-home-assistant-green-0860011789703.html?ae=6)
 
 Dans la boîte, on retrouve:
 
@@ -94,7 +94,7 @@ Les deux ports USB présents seront utilisés pour ajouter des protocoles domoti
 
 ## 👋 Conclusion
 
-Personnellement je trouve qu’elle est parfaite pour débuter la domotique, ça pourrait d’ailleurs être un cadeau de noel sympa.. voilà je pose ça là, le lien est [juste ici](https://www.domadoo.fr/fr/produits-compatibles-home-assistant/7046-nabu-casa-box-domotique-home-assistant-green-0860011789703.html?domid=79)
+Personnellement je trouve qu’elle est parfaite pour débuter la domotique, ça pourrait d’ailleurs être un cadeau de noel sympa.. voilà je pose ça là, le lien est [juste ici](https://www.domadoo.fr/fr/produits-compatibles-home-assistant/7046-nabu-casa-box-domotique-home-assistant-green-0860011789703.html?ae=6)
 
 Pour quelqu’un qui aimerait débuter la domotique sans trop galérer, ça me semble parfait
 
