@@ -15,7 +15,7 @@ buyLinks:
   - "https://amzn.to/4vi5JUS"
 pubDate: "Mar 31 2026"
 category: "Domotique"
-price: 159.00
+price: 179.00
 protocols:
   - "Bluetooth"
   - "NFC"
