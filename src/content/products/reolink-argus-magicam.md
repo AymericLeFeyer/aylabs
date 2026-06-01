@@ -7,7 +7,7 @@ tags:
   - "Sécurité"
 compatible:
   - "Reolink Cloud"
-videoCode: "BoTYbsFc8U0"
+videoCode: "qCEJEgoj6Nw"
 buyLinks:
   - "https://reolink.com/fr/product/argus-magicam/?aff=1073"
   - "https://amzn.to/3PRukzW"
