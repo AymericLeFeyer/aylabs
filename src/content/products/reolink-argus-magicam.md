@@ -16,7 +16,7 @@ promoCode:
   percent: 5
   expiresAt: null
   platform: "Reolink"
-pubDate: "6 jun 2026"
+pubDate: "8 jun 2026"
 category: "Domotique"
 price: 54.99
 protocols:
