@@ -12,7 +12,7 @@ compatible:
   - "Google Home"
 buyLinks:
   - "https://shop.meross.com/products/matter-smart-smoke-alarm-ma151?ref=cyozgxmp"
-  - "https://www.domadoo.fr/fr/produits-de-domotique/8541-meross-3x-detecteurs-de-fumee-hub-matter-msh450-6942349220081.html?ae=6"
+  - "https://www.domadoo.fr/fr/produits-de-domotique/8541-meross-3x-detecteurs-de-fumee-hub-matter-msh450-6942349220081.html?domid=79"
   - "https://amzn.to/4cWEbNt"
 promoCode:
   code: "Ayla10"

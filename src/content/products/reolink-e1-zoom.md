@@ -12,7 +12,7 @@ videoCode: "DxpNCg6QXuY"
 buyLinks:
   - "https://reolink.com/fr/product/e1-zoom/?aff=1073"
   - "https://amzn.to/45nMi1K"
-  - "https://www.domadoo.fr/fr/cameras-connectees/8175-reolink-camera-exterieure-wifi-5v-dc-onvif-e-series-e340-5mp-6975253981571.html?ae=6"
+  - "https://www.domadoo.fr/fr/cameras-connectees/8175-reolink-camera-exterieure-wifi-5v-dc-onvif-e-series-e340-5mp-6975253981571.html?domid=79"
 promoCode:
   code: "AyLabs5"
   percent: 5

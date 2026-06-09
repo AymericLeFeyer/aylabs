@@ -10,7 +10,7 @@ compatible:
   - "Zigbee2MQTT"
 videoCode: "2C7pUlM_i4Y"
 buyLinks:
-  - "https://www.domadoo.fr/fr/prises-connectees/6165-nous-prise-zigbee-30-mesure-de-consommation-nous-a1z-compatible-lidl-home-tuya-smart-life-zigbee2mqtt-5907772033517.html?ae=6"
+  - "https://www.domadoo.fr/fr/prises-connectees/6165-nous-prise-zigbee-30-mesure-de-consommation-nous-a1z-compatible-lidl-home-tuya-smart-life-zigbee2mqtt-5907772033517.html?domid=79"
   - "https://amzn.to/45BzALE"
 pubDate: "Oct 2 2024"
 category: "Domotique"

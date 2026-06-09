@@ -10,7 +10,7 @@ compatible:
   - "Jeedom"
 videoCode: "ax3IRIACARQ"
 buyLinks:
-  - "https://www.domadoo.fr/fr/eco-energie/7492-lixee-module-tic-vers-zigbee-30-pour-compteur-linky-v2-3770014375179.html?ae=6"
+  - "https://www.domadoo.fr/fr/eco-energie/7492-lixee-module-tic-vers-zigbee-30-pour-compteur-linky-v2-3770014375179.html?domid=79"
 pubDate: "Oct 16 2024"
 category: "Domotique"
 price: 49.00

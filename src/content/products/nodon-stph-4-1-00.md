@@ -11,7 +11,7 @@ compatible:
   - "Jeedom"
 videoCode: "yPaNmqkreEA"
 buyLinks:
-  - "https://www.domadoo.fr/fr/produits-zigbee/7597-nodon-capteur-de-temperature-et-d-humidite-zigbee-panneau-solaire-stph-4-1-00-3700313925959.html?ae=6"
+  - "https://www.domadoo.fr/fr/produits-zigbee/7597-nodon-capteur-de-temperature-et-d-humidite-zigbee-panneau-solaire-stph-4-1-00-3700313925959.html?domid=79"
 pubDate: "Mar 3 2025"
 category: "Domotique"
 price: 49.90

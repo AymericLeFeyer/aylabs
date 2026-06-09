@@ -11,7 +11,7 @@ compatible:
   - "Home Assistant"
 videoCode: "cQct8G8gCW4"
 buyLinks:
-  - "https://www.domadoo.fr/fr/clavier-biometrique/9026-nuki-keypad-2-nfc-clavier-a-codes-nfc-et-fingerprint-bluetooth-pour-nuki-smart-lock-9120072084515.html?ae=6"
+  - "https://www.domadoo.fr/fr/clavier-biometrique/9026-nuki-keypad-2-nfc-clavier-a-codes-nfc-et-fingerprint-bluetooth-pour-nuki-smart-lock-9120072084515.html?domid=79"
   - "https://amzn.to/4vi5JUS"
 pubDate: "Mar 31 2026"
 category: "Domotique"

@@ -7,7 +7,7 @@ protocols: ["Zigbee"]
 compatible: ["Home Assistant", "Zigbee2MQTT", "eWeLink"]
 videoCode: "hTCZb6jNtQE"
 buyLinks:
-  - "https://www.domadoo.fr/fr/chauffage-connecte/6776-sonoff-tete-thermostatique-connectee-zigbee-30.html?ae=6"
+  - "https://www.domadoo.fr/fr/chauffage-connecte/6776-sonoff-tete-thermostatique-connectee-zigbee-30.html?domid=79"
   - "https://amzn.to/4nX0ztn"
   - "https://itead.cc/product/sonoff-zigbee-thermostatic-radiator-valve/ref/312/"
 pubDate: "Oct 19 2025"

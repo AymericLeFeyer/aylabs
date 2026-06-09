@@ -15,7 +15,7 @@ compatible:
   - "Google Home"
 videoCode: "o8zRljnLZI8"
 buyLinks:
-  - "https://www.domadoo.fr/fr/securite/7058-sonoff-capteur-de-porte-ou-fenetre-zigbee-30-snzb-04p.html?ae=6"
+  - "https://www.domadoo.fr/fr/securite/7058-sonoff-capteur-de-porte-ou-fenetre-zigbee-30-snzb-04p.html?domid=79"
   - "https://amzn.to/45HcOCn"
 pubDate: "Oct 30 2024"
 category: "Domotique"

@@ -12,7 +12,7 @@ compatible:
   - "eWeLink"
 videoCode: "GhyDieJhD9c"
 buyLinks:
-  - "https://www.domadoo.fr/fr/alarme-connectee/6827-sonoff-capteur-de-presence-humaine-zigbee-30-technologie-radar.html?ae=6"
+  - "https://www.domadoo.fr/fr/alarme-connectee/6827-sonoff-capteur-de-presence-humaine-zigbee-30-technologie-radar.html?domid=79"
 pubDate: "Jan 3 2025"
 category: "Domotique"
 price: 17.99

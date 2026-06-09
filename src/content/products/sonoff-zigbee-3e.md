@@ -7,7 +7,7 @@ protocols: ["Zigbee"]
 compatible: ["Home Assistant", "Zigbee2MQTT", "Jeedom", "Matter"]
 videoCode: "QdskRhUoAYo"
 buyLinks:
-  - "https://www.domadoo.fr/fr/interface-domotique/6315-sonoff-zbdongle-e-cle-usb-dongle-zigbee-30-antenne-externe-20dbm-v2-6920075777659.html?ae=6"
+  - "https://www.domadoo.fr/fr/interface-domotique/6315-sonoff-zbdongle-e-cle-usb-dongle-zigbee-30-antenne-externe-20dbm-v2-6920075777659.html?domid=79"
 pubDate: "Sep 28 2024"
 category: "Domotique"
 price: 27.99

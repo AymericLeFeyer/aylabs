@@ -11,7 +11,7 @@ compatible:
   - "Jeedom"
 videoCode: "wmWm45Jo_TU"
 buyLinks:
-  - "https://www.domadoo.fr/fr/peripheriques/6372-owon-compteur-de-consommation-electrique-zigbee-ha-monophasetri.html?ae=6"
+  - "https://www.domadoo.fr/fr/peripheriques/6372-owon-compteur-de-consommation-electrique-zigbee-ha-monophasetri.html?domid=79"
 pubDate: "11 May 2025"
 category: "Domotique"
 price: 65.99
