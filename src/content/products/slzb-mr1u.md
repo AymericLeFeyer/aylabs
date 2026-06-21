@@ -5,7 +5,7 @@ description: "Coordinateur domotique 2 antennes (CC / EFR32) avec port USB perme
 tags:
   - "Hub Zigbee"
   - "PoE"
-  - "Thread
+  - "Thread"
 compatible:
   - "Home Assistant"
   - "Zigbee2MQTT"
