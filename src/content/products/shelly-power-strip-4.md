@@ -2,7 +2,7 @@
 title: "Shelly Multiprise Power Strip Gen 4"
 image: "https://cdn1.domadoo.fr/38410-large_default/shelly-multiprise-matter-zigbee-wifi-power-strip-gen4-blanc.jpg"
 description: "Multiprise 4 prises avec mesure de consommation et activation indépendante"
-tags: ["Prise", "Multiprise", "Mesure de consommation"]
+tags: ["Prise connectée", "Multiprise", "Mesure de consommation"]
 protocols: ["Wi-Fi", "Matter", "Zigbee", "Bluetooth", "MQTT"]
 compatible: ["Home Assistant", "HomeKit"]
 videoCode: "4hQpSOgz4qA"
