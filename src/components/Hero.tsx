@@ -51,7 +51,7 @@ export const Hero: React.FC = () => {
           </div>
           <h2 className="text-5xl md:text-6xl font-bold mb-6"></h2>
           <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">
-            Domoticien en herbe, maker en devenir et homelaber du dimanche 🚀
+            Informatique, Domotique, Développement, Homelab, Impression 3D...  🤓
             <br />
             J'aime découvrir de nouvelles choses et les partager sur ma chaîne
             ✨

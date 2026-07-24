@@ -395,9 +395,8 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
                   <span className="text-2xl font-bold">AyLabs</span>
                 </div>
                 <p className="text-gray-400 mb-4">
-                  Domoticien en herbe, maker en devenir et homelaber du
-                  dimanche. Découvrez mes tests tech, guides domotique et
-                  projets créatifs.
+                  Informatique, Domotique, Développement, Homelab, Impression 3D...  🤓<br/>
+                  J'aime découvrir de nouvelles choses et les partager sur ma chaîne
                 </p>
               </div>
 
