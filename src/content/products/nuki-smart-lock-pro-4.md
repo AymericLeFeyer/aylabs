@@ -7,8 +7,6 @@ tags:
   - "Sécurité"
 compatible:
   - "Home Assistant"
-  - "Zigbee2MQTT"
-  - "Thread"
   - "Matter"
 videoCode: "mxPbpGhOs2s"
 buyLinks:
