@@ -1,11 +1,8 @@
-# Stack Portainer d'AyLabs Content Studio.
-#
-# Les valeurs viennent de l'onglet « Environment variables » de Portainer, pas
-# d'un fichier .env sur le serveur : les secrets restent dans Portainer, et il
-# n'y a rien à éditer en SSH pour les changer.
-#
-# Reconstruire depuis les sources (le contexte est la racine du dépôt) :
+# Compose du Content Studio seul, avec son bloc `build:` pour reconstruire
+# depuis les sources (le contexte est la racine du dépôt) :
 #   docker compose -f tools/content-studio/docker-compose.yml up -d --build
+#
+# Pour le déploiement serveur, voir docker/portainer-stack.yml à la racine.
 
 services:
   content-studio:
@@ -15,29 +12,14 @@ services:
       dockerfile: tools/content-studio/Dockerfile
     container_name: aylabs-content-studio
     restart: unless-stopped
-
+    ports:
+      - "8081:8080"
     environment:
-      # ── Obligatoires ──
-      # Sans valeur, le conteneur refuse de démarrer avec un message explicite
-      # (voir server/config.ts) plutôt que de tomber en marche dégradée.
+      # URL publique servie par le reverse proxy, sans slash final : callback
+      # OAuth et flag Secure des cookies en dépendent.
       APP_URL: ${APP_URL:?URL publique, sans slash final}
       GITHUB_CLIENT_ID: ${GITHUB_CLIENT_ID:?Client ID de l OAuth App GitHub}
       GITHUB_CLIENT_SECRET: ${GITHUB_CLIENT_SECRET:?Client secret de l OAuth App GitHub}
       SESSION_SECRET: ${SESSION_SECRET:?openssl rand -base64 48}
-
-      # ── Facultatives ── (les défauts couvrent le cas normal)
       GITHUB_REPO: ${GITHUB_REPO:-AymericLeFeyer/aylabs}
       GITHUB_BRANCH: ${GITHUB_BRANCH:-main}
-
-    # Exposé sur la boucle locale : le TLS et le nom de domaine sont gérés par le
-    # reverse proxy, pas ici.
-    ports:
-      - '127.0.0.1:8081:8080'
-
-    # Aucun volume : l'outil est sans état, tout vit dans le dépôt Git.
-
-    logging:
-      driver: json-file
-      options:
-        max-size: '10m'
-        max-file: '3'

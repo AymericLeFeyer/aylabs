@@ -22,11 +22,24 @@ cPanel o2switch, indépendamment du déploiement : elles survivent à ce changem
 
 ### Image Docker du site
 
-`Dockerfile` (racine) : build Vite puis `nginxinc/nginx-unprivileged` sur le port
-`8080`, config SPA dans `docker/nginx.conf` (fallback `index.html`, assets `/assets/`
-immuables, `youtube-stats.json` en `no-store`). Exemple de stack Portainer dans
-`docker/portainer-stack.yml`.
+`Dockerfile` (racine) : build Vite puis `nginx:1.27-alpine` sur le port **80**,
+config SPA dans `docker/nginx.conf` (fallback `index.html`, cache long sur
+`/assets/`, `index.html` et `youtube-stats.json` en `expires -1`).
 
+`docker/portainer-stack.yml` est la stack Portainer des **deux** services tirés de
+GHCR : `site` sur `8080:80`, `content-studio` sur `8081:8080` (TLS et domaines
+gérés par le reverse proxy). `tools/content-studio/docker-compose.yml` reste le
+compose du Studio seul, avec son bloc `build:` pour reconstruire depuis les
+sources.
+
+- **Ne pas publier les ports sur `127.0.0.1`** : un reverse proxy conteneurisé
+  (NPM, Traefik, Caddy) ne peut pas joindre la boucle locale de l'hôte — la
+  connexion part dans son propre namespace réseau et n'arrive jamais. C'est ce
+  qui cassait le déploiement avant le 2026-08-31. Le pare-feu du serveur ferme
+  8080/8081 depuis l'extérieur.
+- Dans `docker/nginx.conf`, ne jamais mettre d'`add_header` dans un `location` :
+  cela annule les en-têtes de sécurité hérités du bloc `server`. Utiliser
+  `expires` seul pour piloter le cache.
 - Les `VITE_*` sont **inlinées au build** par Vite : elles passent en `build-args`
   du workflow, pas en variables d'environnement du conteneur. Changer une clé
   impose de reconstruire l'image.
@@ -147,8 +160,8 @@ dans `process.env` — le code serveur ne lit pas `import.meta.env`.
 
 ### Déploiement Docker
 
-Image node:22-alpine (~233 Mo), utilisateur non privilégié, écoute sur `8080`,
-publiée sur GHCR. **Le contexte de build est la racine du dépôt** : le Dockerfile a
+Image node:22-alpine, utilisateur `node` de l'image officielle (uid 1000), écoute
+sur `8080` (un non-root ne peut pas se lier sous 1024), publiée sur GHCR. **Le contexte de build est la racine du dépôt** : le Dockerfile a
 besoin de `src/content` pour compiler l'instantané servi par `import.meta.glob`.
 
 ```bash

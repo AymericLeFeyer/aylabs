@@ -111,7 +111,7 @@ Messages de commit générés : `content(video): add <slug>`, `content(product):
 
 ## Image Docker
 
-Node 22 Alpine, ~233 Mo, utilisateur non privilégié, écoute sur `8080`. Le serveur
+Node 22 Alpine, utilisateur `node` de l'image officielle, écoute sur `8080`. Le serveur
 est bundlé par esbuild : aucun `node_modules` dans l'image finale.
 
 Le workflow `.github/workflows/content-studio-image.yml` publie sur GHCR à chaque
