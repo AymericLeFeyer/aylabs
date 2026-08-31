@@ -1,6 +1,5 @@
-# Contexte de build Docker (voir tools/content-studio/Dockerfile).
-# Le contexte est la racine du dépôt : sans ces exclusions, les node_modules
-# du site et de l'outil seraient envoyés au démon Docker.
+# Contexte de build Docker (racine du dépôt pour les deux images :
+# Dockerfile pour le site, tools/content-studio/Dockerfile pour le Studio).
 **/node_modules
 **/dist
 **/dist-server
@@ -8,8 +7,6 @@
 .github
 .vscode
 supabase
-public/tutorials-assets
-public/videos-assets
 **/.env
 **/.env.local
 **/*.log

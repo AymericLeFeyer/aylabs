@@ -1,0 +1,11 @@
+# Stack Portainer pour le site AyLabs.
+# Portainer > Stacks > Add stack > Repository (ou Web editor, en collant ce fichier).
+# L'image est publiée par .github/workflows/deploy.yml sur chaque push main.
+services:
+  aylabs:
+    image: ghcr.io/aymericlefeyer/aylabs-site:latest
+    container_name: aylabs
+    restart: unless-stopped
+    ports:
+      # À adapter / retirer si un reverse proxy (Traefik, NPM) est devant.
+      - "8081:8080"

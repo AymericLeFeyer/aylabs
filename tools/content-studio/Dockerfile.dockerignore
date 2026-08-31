@@ -1,0 +1,15 @@
+# .dockerignore propre au Dockerfile du Studio (BuildKit lit
+# <chemin-du-Dockerfile>.dockerignore avant celui de la racine).
+# Le Studio n'a pas besoin des médias du site : 26 Mo de contexte en moins.
+**/node_modules
+**/dist
+**/dist-server
+.git
+.github
+.vscode
+supabase
+public/tutorials-assets
+public/videos-assets
+**/.env
+**/.env.local
+**/*.log

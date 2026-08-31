@@ -1,21 +1,40 @@
 # AyLabs — instructions projet
 
-> Dernière mise à jour : 2026-08-29
+> Dernière mise à jour : 2026-08-31
 
 Site vitrine de la chaîne AyLabs (domotique, homelab, impression 3D) : vidéos,
 produits testés, tutoriels. **React 18 + Vite + TypeScript + Tailwind**, contenu en
-fichiers Markdown versionnés. Déploiement FTP o2switch via GitHub Actions sur push
-`main` (`.github/workflows/deploy.yml`).
+fichiers Markdown versionnés. Déploiement par image Docker : `deploy.yml` publie
+l'image sur GHCR à chaque push `main`, Portainer la tire. Le déploiement FTP
+o2switch a été retiré du workflow le 2026-08-31.
 
 ## Workflows
 
 | Workflow | Déclencheur | Effet |
 |---|---|---|
-| `deploy.yml` | push `main` (tous chemins) | build Vite + déploiement FTP o2switch |
+| `deploy.yml` | push `main` sauf `tools/content-studio/**`, ou manuel | build Vite + image `ghcr.io/aymericlefeyer/aylabs-site` sur GHCR |
 | `content-studio-image.yml` | push `main` sur `tools/content-studio/**` ou `src/content/**`, ou manuel | publie `ghcr.io/aymericlefeyer/aylabs-content-studio` |
 
-`deploy.yml` n'a pas de `paths` : un commit qui ne touche que `tools/` redéploie
-quand même le site. Sans conséquence, mais c'est du temps CI.
+Les secrets FTP (`FTP_HOST`, `FTP_USERNAME`, `FTP_PASSWORD`, `FTP_PATH`, `BASE_PATH`)
+ne sont plus utilisés par aucun workflow ; ils restent définis dans le dépôt.
+Les redirections `go.aylabs.fr` (fichier `redirections`) sont configurées dans le
+cPanel o2switch, indépendamment du déploiement : elles survivent à ce changement.
+
+### Image Docker du site
+
+`Dockerfile` (racine) : build Vite puis `nginxinc/nginx-unprivileged` sur le port
+`8080`, config SPA dans `docker/nginx.conf` (fallback `index.html`, assets `/assets/`
+immuables, `youtube-stats.json` en `no-store`). Exemple de stack Portainer dans
+`docker/portainer-stack.yml`.
+
+- Les `VITE_*` sont **inlinées au build** par Vite : elles passent en `build-args`
+  du workflow, pas en variables d'environnement du conteneur. Changer une clé
+  impose de reconstruire l'image.
+- Le contenu (`src/content`, `public/youtube-stats.json`) est un **instantané** :
+  chaque publication n8n ou fiche ajoutée demande une nouvelle image.
+- Le contexte de build est la racine pour les deux images. Le Studio a son propre
+  `tools/content-studio/Dockerfile.dockerignore` pour ne pas embarquer les 26 Mo de
+  `public/videos-assets`.
 
 ## Structure
 
