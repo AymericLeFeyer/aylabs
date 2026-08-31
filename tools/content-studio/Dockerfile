@@ -27,10 +27,6 @@ RUN npm run build
 FROM node:22-alpine
 WORKDIR /app
 
-LABEL org.opencontainers.image.title="AyLabs Content Studio" \
-      org.opencontainers.image.description="Outil de gestion du contenu du site AyLabs" \
-      org.opencontainers.image.source="https://github.com/AymericLeFeyer/aylabs"
-
 ENV NODE_ENV=production \
     PORT=8080 \
     GITHUB_REPO=AymericLeFeyer/aylabs \
@@ -45,8 +41,5 @@ COPY --from=build /repo/tools/content-studio/dist ./dist
 # c'est le port du conteneur, le reverse proxy publie ce qu'il veut devant.
 USER node
 EXPOSE 8080
-
-HEALTHCHECK --interval=30s --timeout=3s --start-period=10s --retries=3 \
-    CMD wget -q --spider http://127.0.0.1:8080/ || exit 1
 
 CMD ["node", "dist-server/server.mjs", "dist"]
