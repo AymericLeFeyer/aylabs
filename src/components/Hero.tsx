@@ -86,7 +86,7 @@ export const Hero: React.FC = () => {
                 className="inline-flex items-center justify-center gap-2 rounded-lg bg-[#E5322D] px-6 py-3 font-semibold text-white transition-colors hover:bg-[#c22824] focus:outline-none focus-visible:ring-2 focus-visible:ring-white"
               >
                 <Play className="h-5 w-5" aria-hidden="true" />
-                <span>S'abonner à la chaîne</span>
+                <span>Découvrir la chaîne</span>
               </a>
               <a
                 href="/videos"

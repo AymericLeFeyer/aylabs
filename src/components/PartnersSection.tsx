@@ -33,14 +33,6 @@ const partners: Partner[] = [
     color: "#0061a6",
     logo: "https://gladysassistant.com/fr/img/logo.svg"
   },
-   {
-    name: "ProtonVPN",
-    url: "https://go.getproton.me/aff_c?offer_id=7&aff_id=16744&url_id=860",
-    description: "Suite logicielle européenne",
-    perk: "VPN et messagerie chiffrés, hébergés en Suisse",
-    color: "#6D4AFF",
-    logo: "https://proton.me/favicons/apple-touch-icon.png"
-  },
   {
     name: "Reolink",
     url: "https://reolink.com/fr/product/e1-zoom/?aff=107",
@@ -48,6 +40,14 @@ const partners: Partner[] = [
     perk: "Caméras qui tournent sans abonnement",
     color: "#2C67F2",
     logo: "https://home-cdn.reolink.us/wp-content/assets/favicon.png?v=1788401543698"
+  },
+  {
+    name: "ProtonVPN",
+    url: "https://go.getproton.me/aff_c?offer_id=7&aff_id=16744&url_id=860",
+    description: "Suite logicielle européenne",
+    perk: "VPN et messagerie chiffrés, hébergés en Suisse",
+    color: "#6D4AFF",
+    logo: "https://proton.me/favicons/apple-touch-icon.png"
   },
   {
     name: "Sonoff",

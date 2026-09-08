@@ -104,28 +104,32 @@ export const MediaKitSection: React.FC = () => {
 
         {!loading && stats && (
           <>
-            {/* Les trois chiffres qui comptent, sans habillage superflu */}
-            <dl className="mt-10 grid grid-cols-1 divide-y divide-gray-200 border-b border-gray-200 pb-10 sm:grid-cols-3 sm:divide-x sm:divide-y-0">
-              <div className="py-4 sm:py-0 sm:pr-8">
-                <dd className="font-display text-4xl font-bold text-[#141414] md:text-5xl">
+            {/* Les trois chiffres qui comptent, sur une ligne dès le mobile */}
+            <dl className="mt-8 grid grid-cols-3 divide-x divide-gray-200 border-b border-gray-200 pb-8 sm:mt-10 sm:pb-10">
+              <div className="pr-3 sm:pr-8">
+                <dd className="font-display text-2xl font-bold text-[#141414] sm:text-4xl md:text-5xl">
                   {formatNumber(stats.subscriberCount, 1)}
                 </dd>
-                <dt className="mt-1 text-gray-600">abonnés</dt>
+                <dt className="mt-1 text-sm text-gray-600 sm:text-base">
+                  abonnés
+                </dt>
               </div>
-              <div className="py-4 sm:px-8 sm:py-0">
-                <dd className="font-display text-4xl font-bold text-[#141414] md:text-5xl">
+              <div className="px-3 sm:px-8">
+                <dd className="font-display text-2xl font-bold text-[#141414] sm:text-4xl md:text-5xl">
                   {formatNumber(stats.viewCount, 0)}
                 </dd>
-                <dt className="mt-1 text-gray-600">vues cumulées</dt>
+                <dt className="mt-1 text-sm text-gray-600 sm:text-base">
+                  vues cumulées
+                </dt>
               </div>
-              <div className="py-4 sm:pl-8 sm:py-0">
-                <dd className="font-display text-4xl font-bold text-[#141414] md:text-5xl">
+              <div className="pl-3 sm:pl-8">
+                <dd className="font-display text-2xl font-bold text-[#141414] sm:text-4xl md:text-5xl">
                   {stats.videoCount}
                 </dd>
-                <dt className="mt-1 text-gray-600">
+                <dt className="mt-1 text-sm text-gray-600 sm:text-base">
                   vidéos publiées
                   {recentVideosCount > 0 && (
-                    <span className="ml-2 rounded-full bg-brand/10 px-2 py-0.5 text-sm font-semibold text-brand">
+                    <span className="mt-1 block w-fit rounded-full bg-brand/10 px-2 py-0.5 text-xs font-semibold text-brand sm:ml-2 sm:mt-0 sm:inline sm:text-sm">
                       {recentVideosCount} récemment
                     </span>
                   )}
@@ -142,37 +146,48 @@ export const MediaKitSection: React.FC = () => {
                 />
               </div>
 
-              <div className="grid gap-4 sm:grid-cols-3 lg:grid-cols-1">
-                <div className="rounded-xl border border-gray-200 bg-white p-5">
+              {/* Trois indicateurs sur une ligne, y compris en mobile : les
+                  libellés y sont raccourcis plutôt que tronqués. */}
+              <div className="grid grid-cols-3 gap-3 sm:gap-4 lg:grid-cols-1">
+                <div className="rounded-xl border border-gray-200 bg-white p-3 sm:p-5">
                   <TrendingUp
                     className="h-5 w-5 text-brand"
                     aria-hidden="true"
                   />
-                  <p className="mt-3 font-display text-2xl font-bold text-[#141414]">
+                  <p className="mt-2 font-display text-xl font-bold text-[#141414] sm:mt-3 sm:text-2xl">
                     {formatNumber(averageViews, 1)}
                   </p>
-                  <p className="text-sm text-gray-600">
-                    vues par vidéo en moyenne
+                  <p className="text-xs text-gray-600 sm:text-sm">
+                    <span className="sm:hidden">vues / vidéo</span>
+                    <span className="hidden sm:inline">
+                      vues par vidéo en moyenne
+                    </span>
                   </p>
                 </div>
 
-                <div className="rounded-xl border border-gray-200 bg-white p-5">
+                <div className="rounded-xl border border-gray-200 bg-white p-3 sm:p-5">
                   <Award className="h-5 w-5 text-brand" aria-hidden="true" />
-                  <p className="mt-3 font-display text-2xl font-bold text-[#141414]">
+                  <p className="mt-2 font-display text-xl font-bold text-[#141414] sm:mt-3 sm:text-2xl">
                     {engagementRate} %
                   </p>
-                  <p className="text-sm text-gray-600">
-                    d'engagement (likes et commentaires sur les vues)
+                  <p className="text-xs text-gray-600 sm:text-sm">
+                    <span className="sm:hidden">d'engagement</span>
+                    <span className="hidden sm:inline">
+                      d'engagement (likes et commentaires sur les vues)
+                    </span>
                   </p>
                 </div>
 
-                <div className="rounded-xl border border-gray-200 bg-white p-5">
+                <div className="rounded-xl border border-gray-200 bg-white p-3 sm:p-5">
                   <Calendar className="h-5 w-5 text-brand" aria-hidden="true" />
-                  <p className="mt-3 font-display text-2xl font-bold text-[#141414]">
+                  <p className="mt-2 font-display text-xl font-bold text-[#141414] sm:mt-3 sm:text-2xl">
                     {formatSeniority()}
                   </p>
-                  <p className="text-sm text-gray-600">
-                    d'activité, depuis juin 2024
+                  <p className="text-xs text-gray-600 sm:text-sm">
+                    <span className="sm:hidden">d'activité</span>
+                    <span className="hidden sm:inline">
+                      d'activité, depuis juin 2024
+                    </span>
                   </p>
                 </div>
               </div>

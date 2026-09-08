@@ -153,6 +153,18 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
                     Rechercher
                   </button>
                 </form>
+
+                {/* Accès direct à la chaîne */}
+                <a
+                  href="https://youtube.com/@ay_labs"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="La chaîne YouTube AyLabs"
+                  title="La chaîne YouTube AyLabs"
+                  className="ml-2 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[#E5322D] text-white transition-colors hover:bg-[#c22824] focus:outline-none focus-visible:ring-2 focus-visible:ring-white"
+                >
+                  <Youtube className="h-5 w-5" aria-hidden="true" />
+                </a>
               </div>
 
               {/* Version mobile */}
@@ -171,6 +183,16 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
                     aria-hidden="true"
                   />
                 </form>
+
+                <a
+                  href="https://youtube.com/@ay_labs"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="La chaîne YouTube AyLabs"
+                  className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[#E5322D] text-white transition-colors hover:bg-[#c22824]"
+                >
+                  <Youtube className="h-5 w-5" aria-hidden="true" />
+                </a>
 
                 <button
                   onClick={() => setIsMobileMenuOpen((open) => !open)}
@@ -455,7 +477,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
               Site créé en partie grâce à l'intelligence artificielle
             </p>
             <p className="text-sm text-gray-500">
-              © 2025 AyLabs. Tous droits réservés.
+              © 2026 AyLabs. Tous droits réservés.
             </p>
           </div>
         </footer>

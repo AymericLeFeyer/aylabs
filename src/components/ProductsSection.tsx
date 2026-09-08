@@ -79,7 +79,7 @@ const FeaturedProduct: React.FC<{ product: Product }> = ({ product }) => (
         <Price product={product} className="text-xl" />
         <Link
           to={`/produit/${product.slug}`}
-          className="inline-flex items-center gap-2 rounded-lg bg-[#141414] px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-brand focus:outline-none focus-visible:ring-2 focus-visible:ring-brand"
+          className="ml-auto inline-flex items-center gap-2 rounded-lg bg-[#141414] px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-brand focus:outline-none focus-visible:ring-2 focus-visible:ring-brand"
         >
           Lire le test
           <ArrowRight className="h-4 w-4" aria-hidden="true" />
@@ -148,16 +148,20 @@ export const ProductSections: React.FC = () => {
             </div>
 
             {/* Les autres tests récents, en visuels seuls : un clic envoie le
-                produit au centre. Le nom vit dans l'étiquette accessible. */}
+                produit au centre. Le nom vit dans l'étiquette accessible.
+                Sous `lg` la colonne s'étale sur toute la largeur : on n'en garde
+                qu'une rangée de trois. */}
             <div className="grid grid-cols-3 gap-3 lg:grid-cols-2 lg:content-between">
-              {others.map((product) => (
+              {others.map((product, index) => (
                 <button
                   key={product.slug}
                   type="button"
                   onClick={() => setFeaturedSlug(product.slug)}
                   aria-label={`Mettre en avant ${product.name}`}
                   title={product.name}
-                  className="group overflow-hidden rounded-xl border border-gray-200 bg-gray-50 transition-all duration-200 hover:border-brand hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-brand"
+                  className={`group overflow-hidden rounded-xl border border-gray-200 bg-gray-50 transition-all duration-200 hover:border-brand hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-brand ${
+                    index > 2 ? "hidden lg:block" : ""
+                  }`}
                 >
                   <img
                     src={product.image}
