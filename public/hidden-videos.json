@@ -1,3 +1,24 @@
 {
-  "hidden": []
+  "hidden": [
+    {
+      "code": "9B4vS9Gbx60",
+      "title": "Unboxing UGREEN HA100 #ugreennas",
+      "hiddenAt": "2026-09-08"
+    },
+    {
+      "code": "ks6Kt_LK0GQ",
+      "title": "[LIVE] Des news de Gladys Assistant ! Discussions avec son fondateur",
+      "hiddenAt": "2026-09-08"
+    },
+    {
+      "code": "tWGbMeENf8U",
+      "title": "[LIVE] React Release Party Home Assistant 2026.4",
+      "hiddenAt": "2026-09-08"
+    },
+    {
+      "code": "RTjjz_3TAB0",
+      "title": "[LIVE] Organizr - Pour un homelab mieux rangé ! (avec James)",
+      "hiddenAt": "2026-09-08"
+    }
+  ]
 }
