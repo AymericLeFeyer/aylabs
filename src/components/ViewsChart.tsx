@@ -10,8 +10,6 @@ interface ChartVideo {
 interface ViewsChartProps {
   videos: ChartVideo[];
   averageViews: number;
-  /** Vidéos écartées via la banlist du Studio, signalées sous le graphique. */
-  hiddenCount?: number;
 }
 
 const formatViews = (value: number) => {
@@ -28,14 +26,13 @@ const formatShortDate = (value: string) => {
 
 /**
  * Vues des dernières vidéos, une seule série : pas de légende, la moyenne sert
- * de repère et seule la meilleure vidéo porte une étiquette directe. Les
+ * de repère et seule la dernière vidéo porte une étiquette directe. Les
  * miniatures tiennent lieu d'étiquettes d'axe — un titre ne rentre pas dans
  * 50 px de large, une miniature se reconnaît.
  */
 export const ViewsChart: React.FC<ViewsChartProps> = ({
   videos,
   averageViews,
-  hiddenCount = 0,
 }) => {
   const [active, setActive] = useState<number | null>(null);
 
@@ -47,9 +44,8 @@ export const ViewsChart: React.FC<ViewsChartProps> = ({
   if (ordered.length === 0) return null;
 
   const max = Math.max(...ordered.map((video) => video.viewCount), 1);
-  const best = ordered.reduce((top, video) =>
-    video.viewCount > top.viewCount ? video : top
-  );
+  // Le tri est chronologique : la dernière colonne est la vidéo la plus récente.
+  const latest = ordered[ordered.length - 1];
   const averageRatio = averageViews > 0 ? averageViews / max : 0;
 
   return (
@@ -77,7 +73,7 @@ export const ViewsChart: React.FC<ViewsChartProps> = ({
         <div className="flex h-full items-end gap-2">
           {ordered.map((video, index) => {
             const height = Math.max((video.viewCount / max) * 100, 2);
-            const isBest = video.id === best.id;
+            const isLatest = video.id === latest.id;
             const isActive = active === index;
             return (
               <div
@@ -86,7 +82,7 @@ export const ViewsChart: React.FC<ViewsChartProps> = ({
                 onMouseEnter={() => setActive(index)}
                 onMouseLeave={() => setActive(null)}
               >
-                {(isBest || isActive) && (
+                {(isLatest || isActive) && (
                   <span
                     className={`mb-1 truncate text-center text-xs font-semibold ${
                       isActive ? "text-[#141414]" : "text-brand"
@@ -99,7 +95,7 @@ export const ViewsChart: React.FC<ViewsChartProps> = ({
                   className={`w-full rounded-t transition-colors ${
                     isActive
                       ? "bg-brand-deep"
-                      : isBest
+                      : isLatest
                         ? "bg-brand"
                         : "bg-brand/35"
                   }`}
@@ -167,13 +163,6 @@ export const ViewsChart: React.FC<ViewsChartProps> = ({
         <span>{formatShortDate(ordered[0].publishedAt)}</span>
         <span>{formatShortDate(ordered[ordered.length - 1].publishedAt)}</span>
       </div>
-
-      {hiddenCount > 0 && (
-        <p className="mt-2 text-xs text-gray-400">
-          {hiddenCount} vidéo{hiddenCount > 1 ? 's' : ''} exclue
-          {hiddenCount > 1 ? 's' : ''} de ces statistiques.
-        </p>
-      )}
 
       {/* Même contenu, lisible par les lecteurs d'écran */}
       <table className="sr-only">

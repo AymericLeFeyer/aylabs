@@ -432,9 +432,12 @@ masquée, cela revient exactement aux 10 dernières publications.
 ### `ViewsChart` — vues des dernières vidéos
 
 Une seule série, donc pas de légende : des colonnes en `brand`, un repère de
-moyenne en pointillés, une étiquette directe sur la meilleure vidéo seulement, une
-infobulle au survol (miniature, titre, vues, date), et un `<table class="sr-only">`
-qui répète les données pour les lecteurs d'écran.
+moyenne en pointillés, une infobulle au survol (miniature, titre, vues, date), et
+un `<table class="sr-only">` qui répète les données pour les lecteurs d'écran.
+**La dernière vidéo publiée** (la colonne la plus à droite, le tri étant
+chronologique) est mise en avant en permanence : couleur pleine et vues affichées
+au-dessus de sa barre. Le graphique ne signale pas les vidéos masquées par la
+banlist — c'est le rôle du Studio.
 
 Sous les barres, une rangée de **miniatures** tient lieu d'étiquettes d'axe : même
 `flex-1` et même `gap-2` que les colonnes, sinon l'alignement casse. Le survol est

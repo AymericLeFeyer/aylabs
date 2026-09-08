@@ -30,7 +30,6 @@ export const useYouTubeStats = () => {
   const [recentVideosCount, setRecentVideosCount] = useState<number>(0);
   const [averageViews, setAverageViews] = useState<number>(0);
   const [engagementRate, setEngagementRate] = useState<number>(0.0);
-  const [hiddenCount, setHiddenCount] = useState<number>(0);
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -52,7 +51,6 @@ export const useYouTubeStats = () => {
 
         setStats(data.stats);
         setRecentVideos(selected);
-        setHiddenCount(all.filter((video) => hidden.has(video.id)).length);
 
         if (selected.length > 0) {
           // Les valeurs du JSON sont calculées par n8n sur toutes les vidéos :
@@ -82,8 +80,6 @@ export const useYouTubeStats = () => {
     recentVideosCount,
     averageViews,
     engagementRate: Math.round(engagementRate * 10) / 10, // Arrondi à 1 décimale
-    /** Nombre de vidéos écartées par la banlist parmi celles du fichier. */
-    hiddenCount,
     loading,
     error,
     refetch: () => window.location.reload()

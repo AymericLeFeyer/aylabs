@@ -36,7 +36,6 @@ export const MediaKitSection: React.FC = () => {
     averageViews,
     engagementRate,
     recentVideosCount,
-    hiddenCount,
     loading,
     error,
   } = useYouTubeStats();
@@ -139,11 +138,7 @@ export const MediaKitSection: React.FC = () => {
 
             <div className="mt-10 grid gap-6 lg:grid-cols-3">
               <div className="lg:col-span-2 lg:h-full">
-                <ViewsChart
-                  videos={recentVideos}
-                  averageViews={averageViews}
-                  hiddenCount={hiddenCount}
-                />
+                <ViewsChart videos={recentVideos} averageViews={averageViews} />
               </div>
 
               {/* Trois indicateurs sur une ligne, y compris en mobile : les
