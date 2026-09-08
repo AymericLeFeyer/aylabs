@@ -1,17 +1,15 @@
 import React from 'react';
-import { FileText, Calendar, Clock, MessageCircle } from 'lucide-react';
+import { ArrowRight, Calendar, Play } from 'lucide-react';
 import { Video } from '../types';
-import { useComments } from '../hooks/useComments';
 
 interface VideoCardProps {
   video: Video;
 }
 
 export const VideoCard: React.FC<VideoCardProps> = ({ video }) => {
-  const { comments, loading } = useComments(video.id, 'video');
-  
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
+    if (Number.isNaN(date.getTime())) return dateString;
     return date.toLocaleDateString('fr-FR', {
       day: 'numeric',
       month: 'long',
@@ -25,55 +23,54 @@ export const VideoCard: React.FC<VideoCardProps> = ({ video }) => {
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-lg overflow-hidden group hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-      <a href={`/video/${video.id}`} className="relative block">
-        <div className="relative w-full aspect-video overflow-hidden">
-          <img
-            src={getThumbnailUrl(video.url)}
-            alt={video.title}
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-          />
+    <a
+      href={`/video/${video.id}`}
+      className="group flex flex-col overflow-hidden rounded-xl border border-gray-200 bg-white transition-all duration-300 hover:-translate-y-1 hover:border-brand/40 hover:shadow-xl hover:shadow-brand/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand"
+    >
+      <div className="relative aspect-video overflow-hidden bg-gray-100">
+        <img
+          src={getThumbnailUrl(video.url)}
+          alt=""
+          loading="lazy"
+          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+        />
+        <span
+          className="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+          aria-hidden="true"
+        >
+          <span className="flex h-14 w-14 items-center justify-center rounded-full bg-[#E5322D]">
+            <Play className="ml-0.5 h-6 w-6 fill-white text-white" />
+          </span>
+        </span>
+
         {video.tags && video.tags.length > 0 && (
-          <div className="absolute bottom-2 left-2 bg-[#398FBA] text-white px-2 py-1 rounded text-sm font-medium">
+          <span className="absolute left-3 top-3 rounded-full bg-white/95 px-3 py-1 text-xs font-semibold text-[#141414] shadow-sm backdrop-blur">
             {video.tags[0]}
-          </div>
+          </span>
         )}
-        <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-          <FileText className="h-12 w-12 text-white" />
-        </div>
-        <div className="absolute bottom-2 right-2 bg-black/80 text-white px-2 py-1 rounded text-sm">
+        <span className="absolute bottom-3 right-3 rounded bg-black/80 px-2 py-0.5 text-xs font-medium text-white">
           {video.duration}
-        </div>
-        </div>
-      </a>
-      
-      <div className="p-6">
-        <h3 className="font-bold text-lg mb-3 text-[#141414] group-hover:text-[#398FBA] transition-colors line-clamp-2">
+        </span>
+      </div>
+
+      <div className="flex flex-1 flex-col p-5">
+        <h3 className="line-clamp-2 font-display text-lg font-semibold leading-snug text-[#141414] transition-colors group-hover:text-brand">
           {video.title}
         </h3>
-        
-        <p className="text-gray-600 mb-4 line-clamp-2">
+        <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-gray-600">
           {video.description}
         </p>
-        
-        <div className="flex items-center justify-between text-sm text-gray-500 mb-4">
-          <div className="flex items-center space-x-1">
-            <Calendar className="h-4 w-4" />
-            <span>{formatDate(video.publishedAt)}</span>
-          </div>
-          <div className="flex items-center space-x-1">
-            <MessageCircle className="h-4 w-4" />
-            <span>{loading ? '...' : comments.length}</span>
-          </div>
+
+        <div className="mt-4 flex items-center justify-between border-t border-gray-100 pt-4 text-sm text-gray-500">
+          <span className="flex items-center gap-1.5">
+            <Calendar className="h-4 w-4" aria-hidden="true" />
+            {formatDate(video.publishedAt)}
+          </span>
+          <span className="flex h-8 w-8 items-center justify-center rounded-full bg-gray-100 text-brand transition-colors group-hover:bg-brand group-hover:text-white">
+            <ArrowRight className="h-4 w-4" aria-hidden="true" />
+          </span>
         </div>
-        
-        <a
-          href={`/video/${video.id}`}
-          className="mt-4 block bg-[#398FBA] hover:bg-[#2a6d94] text-white text-center py-2 rounded-lg font-medium transition-colors"
-        >
-          Voir l'article associé
-        </a>
       </div>
-    </div>
+    </a>
   );
 };

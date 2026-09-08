@@ -1,6 +1,6 @@
 import React from "react";
 import {
-  Mail,
+  Youtube,
   ThumbsUp,
   MessageSquareText,
   Share2,
@@ -13,6 +13,7 @@ import {
   Laugh,
 } from "lucide-react";
 import { SEO } from "../components/SEO";
+import { PageHeader } from "../components/PageHeader";
 
 export const Support: React.FC = () => {
   return (
@@ -23,17 +24,10 @@ export const Support: React.FC = () => {
         url="https://aylabs.fr/support"
       />
       {/* Hero Section */}
-      <div className="bg-gradient-to-br from-[#398FBA] to-[#2a6d94] text-white py-20">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold mb-6">
-            Soutenir mon travail
-          </h1>
-          <p className="text-xl max-w-2xl mx-auto">
-            Si vous aimez ce que je fais et que vous souhaitez me soutenir, je
-            vous indique ici tous les moyens de le faire
-          </p>
-        </div>
-      </div>
+      <PageHeader
+        title="Soutenir mon travail"
+        description="Si vous aimez ce que je fais, voici tous les moyens de donner un coup de pouce à la chaîne."
+      />
 
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         {/* Free */}
@@ -118,16 +112,23 @@ export const Support: React.FC = () => {
         </div>
 
         {/* AyLaber */}
-        <div className="bg-gradient-to-br from-[#398FBA] to-[#2a6d94] rounded-2xl p-8 text-white text-center mb-16">
-          <h2 className="text-3xl font-bold mb-4">En devenant membre</h2>
-          <p className="text-xl opacity-90 mb-8">
+        <div className="relative mb-16 overflow-hidden rounded-2xl bg-ink p-8 text-center text-white">
+          <div className="pointer-events-none absolute inset-0 bg-grid" aria-hidden="true" />
+          <div
+            className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-brand/25 blur-[100px]"
+            aria-hidden="true"
+          />
+          <h2 className="relative font-display text-3xl font-bold mb-4">
+            En devenant membre
+          </h2>
+          <p className="relative text-lg text-gray-400 mb-8">
             Les membres ont divers avantages, contre un abonnement mensuel sur
             YouTube
           </p>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+          <div className="relative grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
             <div className="text-center">
-              <div className="bg-white/20 rounded-xl p-4 w-16 h-16 mx-auto mb-4 flex items-center justify-center">
+              <div className="bg-white/10 rounded-xl p-4 w-16 h-16 mx-auto mb-4 flex items-center justify-center text-brand-bright">
                 <Video className="h-8 w-8" />
               </div>
               <h3 className="font-bold mb-2">Avant-premières</h3>
@@ -185,10 +186,11 @@ export const Support: React.FC = () => {
           <a
             href="https://www.youtube.com/channel/UClCAe7FyrIwpkt9H56XRndA/join"
             target="_blank"
-            className="bg-white text-[#398FBA] hover:bg-gray-100 px-8 py-4 rounded-xl font-bold transition-all duration-300 hover:scale-105 hover:shadow-lg inline-flex items-center space-x-3"
+            rel="noopener noreferrer"
+            className="relative inline-flex items-center space-x-3 rounded-xl bg-white px-8 py-4 font-bold text-ink transition-all duration-300 hover:scale-105 hover:bg-brand hover:text-white hover:shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-bright"
           >
-            <Mail className="h-5 w-5" />
-            <span>2,99€ par mois</span>
+            <Youtube className="h-5 w-5" />
+            <span>Devenir membre — 2,99 € par mois</span>
           </a>
         </div>
       </div>

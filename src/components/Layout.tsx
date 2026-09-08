@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
   Youtube,
@@ -6,18 +6,13 @@ import {
   Github,
   Mail,
   Search,
-  Play,
-  Package,
-  BookOpen,
   BarChart3,
-  MessageCircle,
-  Heart,
-  Star,
-  ShoppingCart,
-  ExternalLink,
+  Menu,
+  X,
+  ArrowUpRight,
 } from "lucide-react";
-import { useState, useEffect } from "react";
-import Cookies from "js-cookie";
+import { NavDropdown } from "./NavDropdown";
+import { navGroups, standaloneItems, isItemActive } from "./navigation";
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -28,386 +23,296 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState("");
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-
-  const isActive = (path: string) => {
-    return location.pathname === path;
-  };
+  const [openGroup, setOpenGroup] = useState<string | null>(null);
+  const mobileNavRef = useRef<HTMLDivElement>(null);
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     if (searchQuery.trim()) {
       navigate(`/search?q=${encodeURIComponent(searchQuery.trim())}`);
       setSearchQuery("");
+      setIsMobileMenuOpen(false);
     }
   };
 
-  // Fermer le menu mobile quand on change de page
+  // Fermer les menus quand on change de page
   useEffect(() => {
     setIsMobileMenuOpen(false);
+    setOpenGroup(null);
   }, [location.pathname]);
 
-  // Fermer le menu mobile quand on clique en dehors
+  // Fermer le menu mobile au clic en dehors ou sur Échap
   useEffect(() => {
-    const handleClickOutside = () => {
-      setIsMobileMenuOpen(false);
+    if (!isMobileMenuOpen) return;
+
+    const handlePointerDown = (event: MouseEvent) => {
+      if (!mobileNavRef.current?.contains(event.target as Node)) {
+        setIsMobileMenuOpen(false);
+      }
+    };
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setIsMobileMenuOpen(false);
     };
 
-    if (isMobileMenuOpen) {
-      document.addEventListener("click", handleClickOutside);
-    }
-
+    document.addEventListener("mousedown", handlePointerDown);
+    document.addEventListener("keydown", handleKeyDown);
     return () => {
-      document.removeEventListener("click", handleClickOutside);
+      document.removeEventListener("mousedown", handlePointerDown);
+      document.removeEventListener("keydown", handleKeyDown);
     };
   }, [isMobileMenuOpen]);
 
-  const [_, setCookieConsent] = useState(false);
-  const [showBanner, setShowBanner] = useState(false);
-
-  useEffect(() => {
-    const consent = Cookies.get("cookie_consent");
-    if (consent === "true") {
-      setCookieConsent(true);
-    } else if (consent === "false") {
-      setCookieConsent(false);
-    } else {
-      setShowBanner(true);
-    }
-  }, []);
-
-  const acceptCookies = () => {
-    Cookies.set("cookie_consent", "true", { expires: 365 });
-    setCookieConsent(true);
-    setShowBanner(false);
-  };
-
-  const denyCookies = () => {
-    Cookies.set("cookie_consent", "false", { expires: 365 });
-    setCookieConsent(false);
-    setShowBanner(false);
-  };
-
   return (
     <>
-      {/* Bandeau de consentement */}
-      {showBanner && (
-        <div className="fixed bottom-4 left-4 right-4 bg-gray-800 text-white p-4 rounded shadow flex justify-between items-center z-50">
-          <span>
-            Nous utilisons des cookies pour mémoriser vos informations de
-            commentaire. Acceptez-vous ?
-          </span>
-          <div className="flex flex-wrap gap-2">
-            <button
-              onClick={acceptCookies}
-              className="ml-4 bg-[#38B000] px-4 py-2 rounded hover:bg-[#2E8B00]"
-            >
-              Accepter
-            </button>
-            <button
-              onClick={denyCookies}
-              className="ml-4 bg-[#E63946] px-4 py-2 rounded hover:bg-[#B22234]"
-            >
-              Refuser
-            </button>
-          </div>
-        </div>
-      )}
-      <div className="min-h-screen bg-white flex flex-col">
-        <header className="bg-[#141414] text-white sticky top-0 z-50">
-          <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex justify-between items-center h-16">
+      <div className="flex min-h-screen flex-col bg-white">
+        <header className="sticky top-0 z-50 border-b border-ink-line bg-ink/95 text-white backdrop-blur">
+          <nav
+            ref={mobileNavRef}
+            className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8"
+          >
+            <div className="flex h-16 items-center justify-between gap-4">
               <Link
                 to="/"
-                className="flex items-center space-x-2 text-[#398FBA]"
+                className="flex shrink-0 items-center gap-2 rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-bright"
               >
-                <img src="/logo-blue.png" alt="AyLabs" className="h-8 w-8" />
-                <span className="text-2xl font-bold text-[#398FBA]">Labs</span>
+                <img src="/logo-blue.png" alt="" className="h-8 w-8" />
+                <span className="font-display text-2xl font-bold text-brand">
+                  Labs
+                </span>
               </Link>
 
-              <div className="hidden md:flex items-center space-x-6">
-                <a
-                  href="/videos"
-                  className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-                    location.pathname.startsWith("/video")
-                      ? "bg-[#398FBA] text-white"
-                      : "text-gray-300 hover:text-white hover:bg-gray-700"
-                  }`}
-                >
-                  <div className="flex items-center space-x-2">
-                    <Play className="h-4 w-4" />
-                    <span>Vidéos</span>
-                  </div>
-                </a>
-                <Link
-                  to="/produits-testes"
-                  className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-                    location.pathname.startsWith("/produit")
-                      ? "bg-[#398FBA] text-white"
-                      : "text-gray-300 hover:text-white hover:bg-gray-700"
-                  }`}
-                >
-                  <div className="flex items-center space-x-2">
-                    <Package className="h-4 w-4" />
-                    <span>Produits Testés</span>
-                  </div>
-                </Link>
-                <Link
-                  to="/tutoriels"
-                  className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-                    location.pathname.startsWith("/tutoriel")
-                      ? "bg-[#398FBA] text-white"
-                      : "text-gray-300 hover:text-white hover:bg-gray-700"
-                  }`}
-                >
-                  <div className="flex items-center space-x-2">
-                    <BookOpen className="h-4 w-4" />
-                    <span>Tutoriels</span>
-                  </div>
-                </Link>
-                <Link
-                  to="/reseaux"
-                  className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-                    isActive("/reseaux")
-                      ? "bg-[#398FBA] text-white"
-                      : "text-gray-300 hover:text-white hover:bg-gray-700"
-                  }`}
-                >
-                  <div className="flex items-center space-x-2">
-                    <MessageCircle className="h-4 w-4" />
-                    <span>Réseaux</span>
-                  </div>
-                </Link>
+              <div className="hidden items-center gap-1 md:flex">
+                {navGroups
+                  .filter((group) => !group.trailing)
+                  .map((group) => (
+                    <NavDropdown
+                      key={group.label}
+                      group={group}
+                      isOpen={openGroup === group.label}
+                      onOpen={() => setOpenGroup(group.label)}
+                      onClose={() =>
+                        setOpenGroup((current) =>
+                          current === group.label ? null : current
+                        )
+                      }
+                    />
+                  ))}
 
-                <Link
-                  to="https://docs.aylabs.fr"
-                  target="_blank"
-                  className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-                    isActive("/docs")
-                      ? "bg-[#398FBA] text-white"
-                      : "text-gray-300 hover:text-white hover:bg-gray-700"
-                  }`}
-                >
-                  <div className="flex items-center space-x-2">
-                    <ExternalLink className="h-4 w-4" />
-                    <span>Docs</span>
-                  </div>
-                </Link>
+                {/* Gardés hors des volets : accès direct permanent */}
+                {standaloneItems.map((item) => {
+                  const Icon = item.icon;
+                  const active = isItemActive(item, location.pathname);
+                  return (
+                    <Link
+                      key={item.label}
+                      to={item.to}
+                      className={`flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-medium transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-bright ${
+                        active
+                          ? "bg-brand text-white"
+                          : "text-gray-300 hover:bg-white/5 hover:text-white"
+                      }`}
+                    >
+                      <Icon className="h-4 w-4" aria-hidden="true" />
+                      <span>{item.label}</span>
+                    </Link>
+                  );
+                })}
 
-                <Link
-                  to="https://setup.aylabs.fr"
-                  target="_blank"
-                  className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-                    isActive("/setup")
-                      ? "bg-[#398FBA] text-white"
-                      : "text-gray-300 hover:text-white hover:bg-gray-700"
-                  }`}
-                >
-                  <div className="flex items-center space-x-2">
-                    <ExternalLink className="h-4 w-4" />
-                    <span>Setup</span>
-                  </div>
-                </Link>
-
-                <Link
-                  to="/deals"
-                  className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-                    isActive("/deals")
-                      ? "bg-[#398FBA] text-white"
-                      : "text-gray-300 hover:text-white hover:bg-gray-700"
-                  }`}
-                >
-                  <div className="flex items-center space-x-2">
-                    <ShoppingCart className="h-4 w-4" />
-                  </div>
-                </Link>
-
-                <Link
-                  to="/support"
-                  className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-                    isActive("/support")
-                      ? "bg-[#398FBA] text-white"
-                      : "text-gray-300 hover:text-white hover:bg-gray-700"
-                  }`}
-                >
-                  <div className="flex items-center space-x-2">
-                    <Heart className="h-4 w-4" />
-                  </div>
-                </Link>
+                {/* Volets marqués `trailing` : après les entrées directes */}
+                {navGroups
+                  .filter((group) => group.trailing)
+                  .map((group) => (
+                    <NavDropdown
+                      key={group.label}
+                      group={group}
+                      isOpen={openGroup === group.label}
+                      onOpen={() => setOpenGroup(group.label)}
+                      onClose={() =>
+                        setOpenGroup((current) =>
+                          current === group.label ? null : current
+                        )
+                      }
+                    />
+                  ))}
 
                 {/* Barre de recherche */}
-                <form onSubmit={handleSearch} className="relative">
+                <form onSubmit={handleSearch} className="relative ml-2">
                   <input
-                    type="text"
-                    placeholder="Rechercher..."
+                    type="search"
+                    placeholder="Rechercher"
+                    aria-label="Rechercher sur le site"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    className="bg-gray-700 text-white placeholder-gray-400 px-4 py-2 pl-10 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#398FBA] focus:bg-gray-600 transition-colors w-64"
+                    className="w-40 rounded-lg border border-ink-line bg-white/5 py-2 pl-10 pr-4 text-sm text-white placeholder-gray-500 transition-colors focus:border-brand focus:bg-white/10 focus:outline-none focus:ring-1 focus:ring-brand lg:w-52 xl:w-64"
                   />
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+                  <Search
+                    className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-500"
+                    aria-hidden="true"
+                  />
                   <button type="submit" className="sr-only">
                     Rechercher
                   </button>
                 </form>
               </div>
+
               {/* Version mobile */}
-              <div className="md:hidden flex items-center space-x-4">
-                {/* Recherche mobile */}
+              <div className="flex items-center gap-2 md:hidden">
                 <form onSubmit={handleSearch} className="relative">
                   <input
-                    type="text"
-                    placeholder="Rechercher..."
+                    type="search"
+                    placeholder="Rechercher"
+                    aria-label="Rechercher sur le site"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    className="bg-gray-700 text-white placeholder-gray-400 px-3 py-2 pl-8 rounded text-sm focus:outline-none focus:ring-2 focus:ring-[#398FBA] w-40"
+                    className="w-36 rounded-lg border border-ink-line bg-white/5 py-2 pl-8 pr-3 text-sm text-white placeholder-gray-500 focus:border-brand focus:outline-none focus:ring-1 focus:ring-brand"
                   />
-                  <Search className="absolute left-2 top-1/2 transform -translate-y-1/2 h-3 w-3 text-gray-400" />
+                  <Search
+                    className="pointer-events-none absolute left-2.5 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-gray-500"
+                    aria-hidden="true"
+                  />
                 </form>
 
                 <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setIsMobileMenuOpen(!isMobileMenuOpen);
-                  }}
-                  className="text-gray-300 hover:text-white p-2"
-                  aria-label="Menu"
+                  onClick={() => setIsMobileMenuOpen((open) => !open)}
+                  aria-expanded={isMobileMenuOpen}
+                  aria-controls="menu-mobile"
+                  className="rounded-lg p-2 text-gray-300 transition-colors hover:bg-white/5 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-bright"
+                  aria-label={
+                    isMobileMenuOpen ? "Fermer le menu" : "Ouvrir le menu"
+                  }
                 >
-                  <svg
-                    className="h-6 w-6"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    {isMobileMenuOpen ? (
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M6 18L18 6M6 6l12 12"
-                      />
-                    ) : (
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M4 6h16M4 12h16M4 18h16"
-                      />
-                    )}
-                  </svg>
+                  {isMobileMenuOpen ? (
+                    <X className="h-6 w-6" aria-hidden="true" />
+                  ) : (
+                    <Menu className="h-6 w-6" aria-hidden="true" />
+                  )}
                 </button>
               </div>
             </div>
 
             {/* Menu mobile */}
             {isMobileMenuOpen && (
-              <div className="md:hidden bg-[#141414] border-t border-gray-700">
-                <div className="px-4 py-2 space-y-1">
-                  <a
-                    href="/videos"
-                    className={`block px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-                      location.pathname.startsWith("/video")
-                        ? "bg-[#398FBA] text-white"
-                        : "text-gray-300 hover:text-white hover:bg-gray-700"
-                    }`}
-                  >
-                    <div className="flex items-center space-x-2">
-                      <Play className="h-4 w-4" />
-                      <span>Vidéos</span>
+              <div
+                id="menu-mobile"
+                className="-mx-4 border-t border-ink-line px-4 pb-4 pt-2 sm:-mx-6 sm:px-6 md:hidden"
+              >
+                {navGroups
+                  .filter((group) => !group.trailing)
+                  .map((group) => (
+                  <div key={group.label} className="py-2">
+                    <p className="px-1 pb-1 font-display text-sm font-semibold text-gray-500">
+                      {group.label}
+                    </p>
+                    <div className="space-y-0.5">
+                      {group.items.map((item) => {
+                        const Icon = item.icon;
+                        const active = isItemActive(item, location.pathname);
+                        const className = `flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors ${
+                          active
+                            ? "bg-brand text-white"
+                            : "text-gray-300 hover:bg-white/5 hover:text-white"
+                        }`;
+                        const content = (
+                          <>
+                            <Icon className="h-4 w-4" aria-hidden="true" />
+                            <span>{item.label}</span>
+                            {item.external && (
+                              <ArrowUpRight
+                                className="h-3.5 w-3.5 text-gray-500"
+                                aria-hidden="true"
+                              />
+                            )}
+                          </>
+                        );
+
+                        if (item.external || item.hardNav) {
+                          return (
+                            <a
+                              key={item.label}
+                              href={item.to}
+                              target={item.external ? "_blank" : undefined}
+                              rel={
+                                item.external ? "noopener noreferrer" : undefined
+                              }
+                              className={className}
+                            >
+                              {content}
+                            </a>
+                          );
+                        }
+
+                        return (
+                          <Link
+                            key={item.label}
+                            to={item.to}
+                            className={className}
+                          >
+                            {content}
+                          </Link>
+                        );
+                      })}
                     </div>
-                  </a>
-                  <Link
-                    to="/produits-testes"
-                    className={`block px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-                      location.pathname.startsWith("/produit")
-                        ? "bg-[#398FBA] text-white"
-                        : "text-gray-300 hover:text-white hover:bg-gray-700"
-                    }`}
-                  >
-                    <div className="flex items-center space-x-2">
-                      <Package className="h-4 w-4" />
-                      <span>Produits Testés</span>
-                    </div>
-                  </Link>
-                  <Link
-                    to="/tutoriels"
-                    className={`block px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-                      location.pathname.startsWith("/tutoriel")
-                        ? "bg-[#398FBA] text-white"
-                        : "text-gray-300 hover:text-white hover:bg-gray-700"
-                    }`}
-                  >
-                    <div className="flex items-center space-x-2">
-                      <BookOpen className="h-4 w-4" />
-                      <span>Tutoriels</span>
-                    </div>
-                  </Link>
-                  <Link
-                    to="/reseaux"
-                    className={`block px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-                      isActive("/reseaux")
-                        ? "bg-[#398FBA] text-white"
-                        : "text-gray-300 hover:text-white hover:bg-gray-700"
-                    }`}
-                  >
-                    <div className="flex items-center space-x-2">
-                      <MessageCircle className="h-4 w-4" />
-                      <span>Réseaux</span>
-                    </div>
-                  </Link>
-                  <Link
-                    to="https://docs.aylabs.fr"
-                    target="_blank"
-                    className={`block px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-                      isActive("/docs")
-                        ? "bg-[#398FBA] text-white"
-                        : "text-gray-300 hover:text-white hover:bg-gray-700"
-                    }`}
-                  >
-                    <div className="flex items-center space-x-2">
-                      <ExternalLink className="h-4 w-4" />
-                      <span>Docs</span>
-                    </div>
-                  </Link>
-                  <Link
-                    to="https://setup.aylabs.fr"
-                    target="_blank"
-                    className={`block px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-                      isActive("/setup")
-                        ? "bg-[#398FBA] text-white"
-                        : "text-gray-300 hover:text-white hover:bg-gray-700"
-                    }`}
-                  >
-                    <div className="flex items-center space-x-2">
-                      <ExternalLink className="h-4 w-4" />
-                      <span>Setup</span>
-                    </div>
-                  </Link>
-                  <Link
-                    to="/deals"
-                    className={`block px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-                      isActive("/deals")
-                        ? "bg-[#398FBA] text-white"
-                        : "text-gray-300 hover:text-white hover:bg-gray-700"
-                    }`}
-                  >
-                    <div className="flex items-center space-x-2">
-                      <ShoppingCart className="h-4 w-4" />
-                      <span>Bonnes affaires</span>
-                    </div>
-                  </Link>
-                  <Link
-                    to="/support"
-                    className={`block px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-                      isActive("/support")
-                        ? "bg-[#398FBA] text-white"
-                        : "text-gray-300 hover:text-white hover:bg-gray-700"
-                    }`}
-                  >
-                    <div className="flex items-center space-x-2">
-                      <Heart className="h-4 w-4" />
-                      <span>Me soutenir</span>
-                    </div>
-                  </Link>
+                  </div>
+                ))}
+
+                <div className="mt-2 space-y-0.5 border-t border-ink-line pt-3">
+                  {standaloneItems.map((item) => {
+                    const Icon = item.icon;
+                    const active = isItemActive(item, location.pathname);
+                    return (
+                      <Link
+                        key={item.label}
+                        to={item.to}
+                        className={`flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors ${
+                          active
+                            ? "bg-brand text-white"
+                            : "text-gray-300 hover:bg-white/5 hover:text-white"
+                        }`}
+                      >
+                        <Icon className="h-4 w-4" aria-hidden="true" />
+                        <span>{item.label}</span>
+                      </Link>
+                    );
+                  })}
                 </div>
+
+                {navGroups
+                  .filter((group) => group.trailing)
+                  .map((group) => (
+                    <div
+                      key={group.label}
+                      className="mt-2 border-t border-ink-line pt-3"
+                    >
+                      <p className="px-1 pb-1 font-display text-sm font-semibold text-gray-500">
+                        {group.label}
+                      </p>
+                      <div className="space-y-0.5">
+                        {group.items.map((item) => {
+                          const Icon = item.icon;
+                          return (
+                            <a
+                              key={item.label}
+                              href={item.to}
+                              target={item.external ? "_blank" : undefined}
+                              rel={
+                                item.external ? "noopener noreferrer" : undefined
+                              }
+                              className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-gray-300 transition-colors hover:bg-white/5 hover:text-white"
+                            >
+                              <Icon className="h-4 w-4" aria-hidden="true" />
+                              <span>{item.label}</span>
+                              {item.external && (
+                                <ArrowUpRight
+                                  className="h-3.5 w-3.5 text-gray-500"
+                                  aria-hidden="true"
+                                />
+                              )}
+                            </a>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  ))}
               </div>
             )}
           </nav>
@@ -415,158 +320,141 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
 
         <main className="flex-grow">{children}</main>
 
-        <footer className="bg-[#141414] text-white py-12">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <div>
-                <div className="flex items-center space-x-2 mb-4">
-                  <img src="/logo-blue.png" alt="AyLabs" className="h-8 w-8" />
-                  <span className="text-2xl font-bold">AyLabs</span>
+        <footer className="border-t border-ink-line bg-ink py-14 text-white">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div className="grid grid-cols-2 gap-10 md:grid-cols-5">
+              <div className="col-span-2">
+                <div className="mb-4 flex items-center gap-2">
+                  <img src="/logo-blue.png" alt="" className="h-8 w-8" />
+                  <span className="font-display text-2xl font-bold">AyLabs</span>
                 </div>
-                <p className="text-gray-400 mb-4">
-                  Informatique, Domotique, Développement, Homelab, Impression 3D...  🤓<br/>
-                  J'aime découvrir de nouvelles choses et les partager sur ma chaîne
+                <p className="max-w-sm text-sm leading-relaxed text-gray-400">
+                  Informatique, domotique, développement, homelab, impression
+                  3D… 🤓 J'aime découvrir de nouvelles choses et les partager sur
+                  ma chaîne.
                 </p>
-              </div>
-
-              <div>
-                <h3 className="text-lg font-semibold mb-4">Navigation</h3>
-                <ul className="grid grid-cols-2 gap-y-2 ">
-                  <li>
-                    <a
-                      href="/videos"
-                      className="text-gray-400 hover:text-[#398FBA] transition-colors flex items-center space-x-2"
-                    >
-                      <Play className="h-4 w-4" />
-                      <span>Vidéos</span>
-                    </a>
-                  </li>
-                  <li>
-                    <Link
-                      to="/produits-testes"
-                      className="text-gray-400 hover:text-[#398FBA] transition-colors flex items-center space-x-2"
-                    >
-                      <Package className="h-4 w-4" />
-                      <span>Produits Testés</span>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      to="/tutoriels"
-                      className="text-gray-400 hover:text-[#398FBA] transition-colors flex items-center space-x-2"
-                    >
-                      <BookOpen className="h-4 w-4" />
-                      <span>Tutoriels</span>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      to="/#media-kit"
-                      className="text-gray-400 hover:text-[#398FBA] transition-colors flex items-center space-x-2"
-                    >
-                      <BarChart3 className="h-4 w-4" />
-                      <span>Media Kit</span>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      to="/reseaux"
-                      className="text-gray-400 hover:text-[#398FBA] transition-colors flex items-center space-x-2"
-                    >
-                      <MessageCircle className="h-4 w-4" />
-                      <span>Réseaux</span>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      to="https://docs.aylabs.fr"
-                      target="_blank"
-                      className="text-gray-400 hover:text-[#398FBA] transition-colors flex items-center space-x-2"
-                    >
-                      <ExternalLink className="h-4 w-4" />
-                      <span>Docs</span>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      to="https://setup.aylabs.fr"
-                      target="_blank"
-                      className="text-gray-400 hover:text-[#398FBA] transition-colors flex items-center space-x-2"
-                    >
-                      <ExternalLink className="h-4 w-4" />
-                      <span>Setup</span>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      to="/deals"
-                      className="text-gray-400 hover:text-[#398FBA] transition-colors flex items-center space-x-2"
-                    >
-                      <ShoppingCart className="h-4 w-4" />
-                      <span>Bonnes affaires</span>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      to="/support"
-                      className="text-gray-400 hover:text-[#398FBA] transition-colors flex items-center space-x-2"
-                    >
-                      <Heart className="h-4 w-4" />
-                      <span>Me soutenir</span>
-                    </Link>
-                  </li>
-                </ul>
-              </div>
-
-              <div>
-                <h3 className="text-lg font-semibold mb-4">Suivez-moi</h3>
-                <div className="flex space-x-4">
+                <div className="mt-6 flex gap-4">
                   <a
                     href="https://youtube.com/@ay_labs"
-                    className="text-gray-400 hover:text-[#398FBA] transition-colors"
+                    className="text-gray-400 transition-colors hover:text-brand-bright"
+                    aria-label="YouTube"
                   >
                     <Youtube className="h-6 w-6" />
                   </a>
                   <a
                     href="https://instagram.com/aylabs_yt"
-                    className="text-gray-400 hover:text-[#398FBA] transition-colors"
+                    className="text-gray-400 transition-colors hover:text-brand-bright"
+                    aria-label="Instagram"
                   >
                     <Instagram className="h-6 w-6" />
                   </a>
                   <a
                     href="https://discord.gg/aylabs"
-                    className="text-gray-400 hover:text-[#398FBA] transition-colors"
+                    className="text-gray-400 transition-colors hover:text-brand-bright"
+                    aria-label="Discord"
                   >
                     <svg
                       className="h-6 w-6"
                       viewBox="0 0 24 24"
                       fill="currentColor"
+                      aria-hidden="true"
                     >
                       <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z" />
                     </svg>
                   </a>
                   <a
-                    href="https://github.com/aylabscode"
-                    className="text-gray-400 hover:text-[#398FBA] transition-colors"
-                  >
-                    <Github className="h-6 w-6" />
-                  </a>
-                  <a
                     href="mailto:contact@aylabs.fr"
-                    className="text-gray-400 hover:text-[#398FBA] transition-colors"
+                    className="text-gray-400 transition-colors hover:text-brand-bright"
+                    aria-label="Email"
                   >
                     <Mail className="h-6 w-6" />
                   </a>
+                  <a
+                    href="https://github.com/aylabscode"
+                    className="text-gray-400 transition-colors hover:text-brand-bright"
+                    aria-label="GitHub"
+                  >
+                    <Github className="h-6 w-6" />
+                  </a>
                 </div>
               </div>
+
+              {navGroups.map((group) => (
+                <div key={group.label}>
+                  <h3 className="mb-4 font-display text-base font-semibold">
+                    {group.label}
+                  </h3>
+                  <ul className="space-y-2.5">
+                    {group.items.map((item) => {
+                      const Icon = item.icon;
+                      const className =
+                        "flex items-center gap-2 text-sm text-gray-400 transition-colors hover:text-brand-bright";
+                      const content = (
+                        <>
+                          <Icon className="h-4 w-4" aria-hidden="true" />
+                          <span>{item.label}</span>
+                        </>
+                      );
+
+                      return (
+                        <li key={item.label}>
+                          {item.external || item.hardNav ? (
+                            <a
+                              href={item.to}
+                              target={item.external ? "_blank" : undefined}
+                              rel={
+                                item.external ? "noopener noreferrer" : undefined
+                              }
+                              className={className}
+                            >
+                              {content}
+                            </a>
+                          ) : (
+                            <Link to={item.to} className={className}>
+                              {content}
+                            </Link>
+                          )}
+                        </li>
+                      );
+                    })}
+                    {group.label === "Plus" && (
+                      <>
+                        {standaloneItems.map((item) => {
+                          const Icon = item.icon;
+                          return (
+                            <li key={item.label}>
+                              <Link
+                                to={item.to}
+                                className="flex items-center gap-2 text-sm text-gray-400 transition-colors hover:text-brand-bright"
+                              >
+                                <Icon className="h-4 w-4" aria-hidden="true" />
+                                <span>{item.label}</span>
+                              </Link>
+                            </li>
+                          );
+                        })}
+                        <li>
+                          <Link
+                            to="/#media-kit"
+                            className="flex items-center gap-2 text-sm text-gray-400 transition-colors hover:text-brand-bright"
+                          >
+                            <BarChart3 className="h-4 w-4" aria-hidden="true" />
+                            <span>Media Kit</span>
+                          </Link>
+                        </li>
+                      </>
+                    )}
+                  </ul>
+                </div>
+              ))}
             </div>
           </div>
 
-          <div className="border-t border-gray-800 mt-8 pt-8 text-center">
-            <p className="text-gray-400">
+          <div className="mx-auto mt-12 max-w-7xl border-t border-ink-line px-4 pt-8 text-center sm:px-6 lg:px-8">
+            <p className="text-sm text-gray-500">
               Site créé en partie grâce à l'intelligence artificielle
             </p>
-            <p className="text-gray-400">
+            <p className="text-sm text-gray-500">
               © 2025 AyLabs. Tous droits réservés.
             </p>
           </div>

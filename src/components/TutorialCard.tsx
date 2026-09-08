@@ -1,18 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Calendar, MessageCircle, ArrowRight, BookOpen, FileText } from 'lucide-react';
+import { ArrowRight, BookOpen, Calendar } from 'lucide-react';
 import { Tutorial } from '../types';
-import { useComments } from '../hooks/useComments';
 
 interface TutorialCardProps {
   tutorial: Tutorial;
 }
 
 export const TutorialCard: React.FC<TutorialCardProps> = ({ tutorial }) => {
-  const { comments, loading } = useComments(tutorial.id, 'tutorial');
-  
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
+    if (Number.isNaN(date.getTime())) return dateString;
     return date.toLocaleDateString('fr-FR', {
       day: 'numeric',
       month: 'long',
@@ -21,42 +19,40 @@ export const TutorialCard: React.FC<TutorialCardProps> = ({ tutorial }) => {
   };
 
   return (
-    <article className="bg-white rounded-lg shadow-lg overflow-hidden group hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-      <Link to={`/tutoriel/${tutorial.slug}`} className="relative bg-gradient-to-br from-[#398FBA] to-[#2a6d94] p-8 block">
-        <div className="flex items-center justify-center mb-4">
-          <BookOpen className="w-12 h-12 text-white" />
-        </div>
-        <h3 className="font-bold text-lg text-white text-center line-clamp-2">
+    <Link
+      to={`/tutoriel/${tutorial.slug}`}
+      className="group flex flex-col overflow-hidden rounded-xl border border-gray-200 bg-white transition-all duration-300 hover:-translate-y-1 hover:border-brand/40 hover:shadow-xl hover:shadow-brand/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand"
+    >
+      <div className="relative flex aspect-[16/7] items-center justify-center overflow-hidden bg-ink">
+        <div className="pointer-events-none absolute inset-0 bg-grid" aria-hidden="true" />
+        <div
+          className="pointer-events-none absolute -right-16 -top-16 h-48 w-48 rounded-full bg-brand/30 blur-3xl"
+          aria-hidden="true"
+        />
+        <BookOpen
+          className="relative h-10 w-10 text-brand-bright transition-transform duration-300 group-hover:scale-110"
+          aria-hidden="true"
+        />
+      </div>
+
+      <div className="flex flex-1 flex-col p-5">
+        <h3 className="line-clamp-2 font-display text-lg font-semibold leading-snug text-[#141414] transition-colors group-hover:text-brand">
           {tutorial.title}
         </h3>
-        <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-          <FileText className="h-12 w-12 text-white" />
-        </div>
-      </Link>
-      
-      <div className="p-6">
-        <p className="text-gray-600 mb-4 line-clamp-3">
+        <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-gray-600">
           {tutorial.description}
         </p>
-        
-        <div className="flex items-center justify-between text-sm text-gray-500 mb-4">
-          <div className="flex items-center space-x-1">
-            <Calendar className="h-4 w-4" />
-            <span>{formatDate(tutorial.publishedAt)}</span>
-          </div>
-          <div className="flex items-center space-x-1">
-            <MessageCircle className="h-4 w-4" />
-            <span>{loading ? '...' : comments.length}</span>
-          </div>
+
+        <div className="mt-4 flex items-center justify-between border-t border-gray-100 pt-4 text-sm text-gray-500">
+          <span className="flex items-center gap-1.5">
+            <Calendar className="h-4 w-4" aria-hidden="true" />
+            {formatDate(tutorial.publishedAt)}
+          </span>
+          <span className="flex h-8 w-8 items-center justify-center rounded-full bg-gray-100 text-brand transition-colors group-hover:bg-brand group-hover:text-white">
+            <ArrowRight className="h-4 w-4" aria-hidden="true" />
+          </span>
         </div>
-        
-        <Link
-          to={`/tutoriel/${tutorial.slug}`}
-          className="block bg-[#398FBA] hover:bg-[#2a6d94] text-white text-center py-2 rounded-lg font-medium transition-colors"
-        >
-          Lire le tutoriel
-        </Link>
       </div>
-    </article>
+    </Link>
   );
 };

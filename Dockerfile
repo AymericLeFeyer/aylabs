@@ -16,12 +16,8 @@ COPY tsconfig*.json vite.config.ts tailwind.config.js postcss.config.js index.ht
 COPY public ./public
 COPY src ./src
 
-ARG VITE_SUPABASE_URL=""
-ARG VITE_SUPABASE_ANON_KEY=""
 ARG VITE_GA_ID=""
-ENV VITE_SUPABASE_URL=$VITE_SUPABASE_URL \
-    VITE_SUPABASE_ANON_KEY=$VITE_SUPABASE_ANON_KEY \
-    VITE_GA_ID=$VITE_GA_ID
+ENV VITE_GA_ID=$VITE_GA_ID
 
 RUN npm run build
 

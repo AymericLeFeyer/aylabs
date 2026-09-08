@@ -19,17 +19,6 @@ export interface Article {
   image: string;
   author: string;
   tags: string[];
-  comments: Comment[];
-}
-
-export interface Comment {
-  id: string;
-  author: string;
-  content: string;
-  publishedAt: string;
-  avatar: string;
-  parentId?: string;
-  replies?: Comment[];
 }
 
 export interface Product {

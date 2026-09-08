@@ -1,9 +1,10 @@
 import React, { useCallback, useState } from 'react';
-import { LogOut } from 'lucide-react';
+import { EyeOff, LogOut } from 'lucide-react';
 import type { ContentKind } from './domain/content/entities/ContentItem';
 import type { GitHubUser } from './domain/auth/entities/GitHubUser';
 import { REPO } from './shared/config';
 import { DashboardPage } from './presentation/pages/DashboardPage';
+import { HiddenVideosPage } from './presentation/pages/HiddenVideosPage';
 import { LoginPage } from './presentation/pages/LoginPage';
 import { ProductEditorPage } from './presentation/pages/ProductEditorPage';
 import { VideoEditorPage } from './presentation/pages/VideoEditorPage';
@@ -13,6 +14,7 @@ import type { EditorMode } from './presentation/hooks/useDraftEditor';
 
 type Route =
   | { name: 'dashboard' }
+  | { name: 'hidden-videos' }
   | { name: 'editor'; kind: ContentKind; mode: EditorMode; slug?: string };
 
 export const App: React.FC = () => {
@@ -58,6 +60,23 @@ const Studio: React.FC<{ user: GitHubUser; onLogout: () => void }> = ({ user, on
     );
   }
 
+  const body =
+    route.name === 'hidden-videos' ? (
+      <HiddenVideosPage onBack={goDashboard} />
+    ) : (
+      <DashboardPage
+        videos={videos}
+        products={products}
+        syncing={syncing}
+        syncError={syncError}
+        outOfSync={catalog.outOfSync}
+        onSync={sync}
+        onCreate={(kind) => setRoute({ name: 'editor', kind, mode: 'create' })}
+        onEdit={(kind, slug) => setRoute({ name: 'editor', kind, mode: 'edit', slug })}
+        onDuplicate={(kind, slug) => setRoute({ name: 'editor', kind, mode: 'duplicate', slug })}
+      />
+    );
+
   return (
     <>
       <nav className="border-b border-slate-200 bg-white">
@@ -67,6 +86,14 @@ const Studio: React.FC<{ user: GitHubUser; onLogout: () => void }> = ({ user, on
             {REPO.owner}/{REPO.name}
           </span>
           <div className="ml-auto flex items-center gap-3">
+            <button
+              onClick={() => setRoute({ name: 'hidden-videos' })}
+              className="flex items-center gap-1.5 rounded px-2 py-1.5 text-sm text-slate-600 hover:bg-slate-100 hover:text-slate-800"
+              title="Exclure des vidéos des statistiques du Media Kit"
+            >
+              <EyeOff size={15} />
+              Vidéos masquées
+            </button>
             <span className="flex items-center gap-2 text-sm text-slate-600">
               <img src={user.avatarUrl} alt="" className="h-6 w-6 rounded-full" />
               {user.login}
@@ -82,17 +109,7 @@ const Studio: React.FC<{ user: GitHubUser; onLogout: () => void }> = ({ user, on
         </div>
       </nav>
 
-      <DashboardPage
-        videos={videos}
-        products={products}
-        syncing={syncing}
-        syncError={syncError}
-        outOfSync={catalog.outOfSync}
-        onSync={sync}
-        onCreate={(kind) => setRoute({ name: 'editor', kind, mode: 'create' })}
-        onEdit={(kind, slug) => setRoute({ name: 'editor', kind, mode: 'edit', slug })}
-        onDuplicate={(kind, slug) => setRoute({ name: 'editor', kind, mode: 'duplicate', slug })}
-      />
+      {body}
     </>
   );
 };

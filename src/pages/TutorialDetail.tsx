@@ -1,53 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useParams, Link } from "react-router-dom";
 import { Calendar, ArrowLeft, BookOpen } from "lucide-react";
 import { useTutorial } from "../hooks/useMarkdownContent";
-import { useComments } from "../hooks/useComments";
 import { MarkdownRenderer } from "../utils/markdownRenderer";
 import { SEO } from "../components/SEO";
-import { Comments } from "../components/Comments";
-import Cookies from "js-cookie";
 
 export const TutorialDetail: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
   const { tutorial, loading, error } = useTutorial(slug || "");
-
-  const {
-    comments,
-    loading: commentsLoading,
-    error: commentsError,
-    addComment,
-  } = useComments(tutorial ? tutorial.id : null, "tutorial");
-  const [newComment, setNewComment] = useState({
-    author: "",
-    content: "",
-    email: "",
-  });
-  const [submitting, setSubmitting] = useState(false);
-  const [replyingTo, setReplyingTo] = useState<string | null>(null);
-  const [replyForm, setReplyForm] = useState({
-    author: "",
-    content: "",
-    email: "",
-  });
-
-  useEffect(() => {
-    if (Cookies.get("cookie_consent") !== "true") return;
-
-    const author = Cookies.get("author") || "";
-    const email = Cookies.get("email") || "";
-    setNewComment((prev) => ({
-      ...prev,
-      author,
-      email,
-    }));
-
-    setReplyForm((prev) => ({
-      ...prev,
-      author,
-      email,
-    }));
-  }, [submitting]);
 
   if (loading) {
     return (
@@ -104,14 +64,19 @@ export const TutorialDetail: React.FC = () => {
         </Link>
 
         <article className="bg-white rounded-lg shadow-lg overflow-hidden">
-          <div className="bg-gradient-to-br from-[#398FBA] to-[#2a6d94] text-white p-8">
-            <div className="flex items-center justify-center mb-6">
-              <BookOpen className="w-16 h-16 text-white" />
+          <div className="relative overflow-hidden bg-ink p-8 text-white">
+            <div className="pointer-events-none absolute inset-0 bg-grid" aria-hidden="true" />
+            <div
+              className="pointer-events-none absolute -right-20 -top-20 h-64 w-64 rounded-full bg-brand/25 blur-[90px]"
+              aria-hidden="true"
+            />
+            <div className="relative flex items-center justify-center mb-6">
+              <BookOpen className="w-14 h-14 text-brand-bright" />
             </div>
-            <h1 className="text-3xl md:text-4xl font-bold text-center mb-4">
+            <h1 className="relative font-display text-3xl md:text-4xl font-bold text-center mb-4">
               {tutorial.title}
             </h1>
-            <div className="flex items-center justify-center space-x-6 text-sm">
+            <div className="relative flex items-center justify-center space-x-6 text-sm text-gray-400">
               <div className="flex items-center space-x-2">
                 <Calendar className="h-4 w-4" />
                 <span>{formatDate(tutorial.publishedAt)}</span>
@@ -129,22 +94,6 @@ export const TutorialDetail: React.FC = () => {
           </div>
         </article>
 
-        <div className="mt-12 bg-white rounded-lg shadow-lg p-8">
-          <Comments
-            comments={comments}
-            commentsLoading={commentsLoading}
-            commentsError={commentsError}
-            addComment={addComment}
-            submitting={submitting}
-            setSubmitting={setSubmitting}
-            replyingTo={replyingTo}
-            setReplyingTo={setReplyingTo}
-            newComment={newComment}
-            setNewComment={setNewComment}
-            replyForm={replyForm}
-            setReplyForm={setReplyForm}
-          />
-        </div>
       </div>
     </div>
   );

@@ -26,6 +26,12 @@ export const REPO = {
 /** Message posé par le serveur quand une variable d'environnement manque. */
 export const CONFIG_ERROR: string | null = runtime().CONFIG_ERROR ?? null;
 
+/** Fichiers de données du site pilotés depuis le Studio. */
+export const STATS_FILES = {
+  stats: 'public/youtube-stats.json',
+  hidden: 'public/hidden-videos.json',
+} as const;
+
 export const CONTENT_DIRS = {
   video: 'src/content/videos',
   product: 'src/content/products',

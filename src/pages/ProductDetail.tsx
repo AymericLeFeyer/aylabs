@@ -1,23 +1,21 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import {
   ArrowLeft,
-  ShoppingCart,
-  Star,
-  ThumbsUp,
-  ThumbsDown,
-  Award,
-  Zap,
-  Copy,
+  ArrowRight,
   Check,
+  Copy,
+  Minus,
+  Plus,
+  ShoppingCart,
+  X,
 } from "lucide-react";
-import { useProduct } from "../hooks/useMarkdownContent";
-import { useComments } from "../hooks/useComments";
+import { useProduct, useProducts } from "../hooks/useMarkdownContent";
 import { MarkdownRenderer } from "../utils/markdownRenderer";
 import { SEO } from "../components/SEO";
-import { Comments } from "../components/Comments";
-import Cookies from "js-cookie";
+import { PageHeader } from "../components/PageHeader";
+import { Product } from "../types";
 import ReactGA from "react-ga4";
 
 const CopyCodeButton: React.FC<{ code: string }> = ({ code }) => {
@@ -33,16 +31,28 @@ const CopyCodeButton: React.FC<{ code: string }> = ({ code }) => {
   return (
     <button
       onClick={handleCopy}
-      className="flex items-center gap-2 w-full justify-between bg-white hover:bg-red-50 border border-red-300 rounded-md px-3 py-2 transition-colors"
+      className="flex w-full items-center justify-between gap-2 rounded-lg border border-dashed border-amber-400 bg-white px-3 py-2.5 transition-colors hover:bg-amber-50"
     >
-      <span className="text-lg font-bold text-red-800 tracking-widest">{code}</span>
+      <span className="font-display text-lg font-bold tracking-widest text-amber-900">
+        {code}
+      </span>
       {copied ? (
-        <Check className="h-4 w-4 text-green-600 shrink-0" />
+        <span className="flex shrink-0 items-center gap-1 text-xs font-semibold text-emerald-600">
+          <Check className="h-4 w-4" />
+          copié
+        </span>
       ) : (
-        <Copy className="h-4 w-4 text-red-400 shrink-0" />
+        <Copy className="h-4 w-4 shrink-0 text-amber-500" />
       )}
     </button>
   );
+};
+
+/** Tailwind ne génère que les classes présentes littéralement dans le source. */
+const SPEC_COLUMNS: Record<number, string> = {
+  1: "sm:grid-cols-1",
+  2: "sm:grid-cols-2",
+  3: "sm:grid-cols-3",
 };
 
 const trackEvent = (name: string, params: Record<string, unknown>) => {
@@ -50,52 +60,64 @@ const trackEvent = (name: string, params: Record<string, unknown>) => {
   ReactGA.gtag("event", name, params);
 };
 
+/**
+ * Boutiques routées par `markdownLoader` : chacune garde sa couleur de marque.
+ * Ajouter une plateforme impose aussi de toucher `markdownLoader.ts` et
+ * `tools/content-studio/src/domain/content/services/buyLinks.ts`.
+ */
+const STORES: {
+  key: keyof Product;
+  label: string;
+  className: string;
+}[] = [
+  {
+    key: "amazonLink",
+    label: "Amazon",
+    className: "bg-[#FF9900] hover:bg-[#e08800] text-[#141414]",
+  },
+  {
+    key: "domadooLink",
+    label: "Domadoo",
+    className: "bg-purple-600 hover:bg-purple-700 text-white",
+  },
+  {
+    key: "geekbuyingLink",
+    label: "GeekBuying",
+    className: "bg-red-600 hover:bg-red-700 text-white",
+  },
+  {
+    key: "minixLink",
+    label: "Minix",
+    className: "bg-blue-600 hover:bg-blue-700 text-white",
+  },
+  {
+    key: "reolinkLink",
+    label: "Reolink",
+    className: "bg-sky-600 hover:bg-sky-700 text-white",
+  },
+  {
+    key: "bambuLink",
+    label: "BambuLab",
+    className: "bg-green-600 hover:bg-green-700 text-white",
+  },
+  {
+    key: "merossLink",
+    label: "Meross",
+    className: "bg-teal-600 hover:bg-teal-700 text-white",
+  },
+];
+
 export const ProductDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const { product, loading, error } = useProduct(id || "");
-  const {
-    comments,
-    loading: commentsLoading,
-    error: commentsError,
-    addComment,
-  } = useComments(id || "", "product");
-  const [newComment, setNewComment] = useState({
-    author: "",
-    content: "",
-    email: "",
-  });
-  const [submitting, setSubmitting] = useState(false);
-  const [replyingTo, setReplyingTo] = useState<string | null>(null);
-  const [replyForm, setReplyForm] = useState({
-    author: "",
-    content: "",
-    email: "",
-  });
-
-  useEffect(() => {
-    if (Cookies.get("cookie_consent") !== "true") return;
-
-    const author = Cookies.get("author") || "";
-    const email = Cookies.get("email") || "";
-    setNewComment((prev) => ({
-      ...prev,
-      author,
-      email,
-    }));
-
-    setReplyForm((prev) => ({
-      ...prev,
-      author,
-      email,
-    }));
-  }, [submitting]);
+  const { products } = useProducts();
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="flex min-h-screen items-center justify-center bg-white">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#398FBA] mx-auto mb-4"></div>
-          <p className="text-gray-500">Chargement du produit...</p>
+          <div className="mx-auto mb-4 h-12 w-12 animate-spin rounded-full border-b-2 border-brand" />
+          <p className="text-gray-500">Chargement du produit…</p>
         </div>
       </div>
     );
@@ -103,16 +125,16 @@ export const ProductDetail: React.FC = () => {
 
   if (error || !product) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="flex min-h-screen items-center justify-center bg-white px-4">
         <div className="text-center">
-          <h1 className="text-2xl font-bold text-[#141414] mb-4">
-            {error || "Produit non trouvé"}
+          <h1 className="font-display text-2xl font-bold text-[#141414]">
+            {error || "Produit introuvable"}
           </h1>
           <Link
             to="/produits-testes"
-            className="bg-[#398FBA] text-white px-6 py-3 rounded-lg hover:bg-[#2a6d94] transition-colors"
+            className="mt-6 inline-flex items-center gap-2 rounded-lg bg-[#141414] px-5 py-3 font-semibold text-white transition-colors hover:bg-brand"
           >
-            Retour aux produits
+            Voir tous les produits testés
           </Link>
         </div>
       </div>
@@ -121,6 +143,7 @@ export const ProductDetail: React.FC = () => {
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
+    if (Number.isNaN(date.getTime())) return dateString;
     return date.toLocaleDateString("fr-FR", {
       day: "numeric",
       month: "long",
@@ -128,428 +151,354 @@ export const ProductDetail: React.FC = () => {
     });
   };
 
-  const getYouTubeEmbedUrl = (videoCode: string) => {
-    return `https://www.youtube.com/embed/${videoCode}`;
-  };
+  const stores = STORES.filter((store) => Boolean(product[store.key]));
+  const hasStores = stores.length > 0 || (product.otherLinks?.length ?? 0) > 0;
+
+  const specs = [
+    { label: "Type", values: product.tags ?? [] },
+    { label: "Protocoles", values: product.protocols ?? [] },
+    { label: "Compatible avec", values: product.compatible ?? [] },
+  ].filter((spec) => spec.values.length > 0);
+
+  const similar = products
+    .filter((p) => p.slug !== product.slug && p.category === product.category)
+    .slice(0, 3);
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="bg-white">
       <SEO
         title={`${product.name} - AyLabs`}
         description={product.description}
         url={`https://aylabs.fr/produit/${id}`}
         image={product.image}
       />
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <Link
-          to="/produits-testes"
-          className="inline-flex items-center space-x-2 text-[#398FBA] hover:text-[#2a6d94] transition-colors mb-8"
-        >
-          <ArrowLeft className="h-4 w-4" />
-          <span>Retour aux produits testés</span>
-        </Link>
 
-        {/* Main Content */}
-        <div className="mb-12">
-          {/* Product Image & Info */}
-          <div>
-            {/* Product Header */}
-            <div className="mb-8">
-              <div className="flex items-center space-x-2 mb-3">
-                <span className="bg-[#398FBA] text-white px-3 py-1 rounded-full text-sm font-medium">
-                  {product.category}
-                </span>
-                <span className="text-gray-500">•</span>
-                <span className="text-gray-600">
-                  Testé le {formatDate(product.testedDate)}
-                </span>
-              </div>
-              <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-                {product.name}
-              </h1>
-            </div>
-
-            {/* Image et Sidebar côte à côte */}
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
-              {/* Image */}
-              <div className="lg:col-span-2">
-                <div className="bg-white rounded-xl shadow-lg overflow-hidden">
-                  <div className="relative">
-                    <img
-                      src={product.image}
-                      alt={product.name}
-                      className="w-full h-96 object-cover"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
-                    <div className="absolute bottom-4 left-4 right-4">
-                      <p className="text-white text-lg leading-relaxed">
-                        {product.description}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Sidebar - Actions & Quick Info */}
-              <div className="lg:col-span-1">
-                <div>
-                  {/* Prix et Achat */}
-                  <div className="bg-white rounded-xl shadow-lg p-6 space-y-6">
-                    <div className="text-center">
-                      <div className="text-3xl font-bold text-gray-800 mb-1">
-                        {product.price}€
-                      </div>
-                      <p className="text-gray-500 text-sm">Prix indicatif</p>
-                    </div>
-                    {/* Boutiques */}
-                    <div>
-                      <h3 className="font-semibold text-gray-800 mb-3 text-sm uppercase tracking-wide text-center">
-                        Acheter sur
-                      </h3>
-                      <div className="grid grid-cols-2 gap-3">
-                        {product.amazonLink && (
-                          <a
-                            href={product.amazonLink}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex items-center justify-center space-x-2 bg-orange-500 hover:bg-orange-600 text-white py-3 px-4 rounded-lg font-medium transition-colors"
-                            onClick={() => {
-                              trackEvent("click_partner_link", {
-                                partner: "Amazon",
-                                product_id: product.id,
-                                product_name: product.name,
-                              });
-                            }}
-                          >
-                            <ShoppingCart className="h-4 w-4" />
-                            <span>Amazon</span>
-                          </a>
-                        )}
-
-                        {product.domadooLink && (
-                          <a
-                            href={product.domadooLink}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex items-center justify-center space-x-2 bg-purple-600 hover:bg-purple-700 text-white py-3 px-4 rounded-lg font-medium transition-colors"
-                            onClick={() => {
-                              trackEvent("click_partner_link", {
-                                partner: "Domadoo",
-                                product_id: product.id,
-                                product_name: product.name,
-                              });
-                            }}
-                          >
-                            <ShoppingCart className="h-4 w-4" />
-                            <span>Domadoo</span>
-                          </a>
-                        )}
-
-                        {product.geekbuyingLink && (
-                          <a
-                            href={product.geekbuyingLink}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex items-center justify-center space-x-2 bg-red-600 hover:bg-red-700 text-white py-3 px-4 rounded-lg font-medium transition-colors"
-                            onClick={() => {
-                              trackEvent("click_partner_link", {
-                                partner: "GeekBuying",
-                                product_id: product.id,
-                                product_name: product.name,
-                              });
-                            }}
-                          >
-                            <ShoppingCart className="h-4 w-4" />
-                            <span>GeekBuying</span>
-                          </a>
-                        )}
-
-                        {product.minixLink && (
-                          <a
-                            href={product.minixLink}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex items-center justify-center space-x-2 bg-blue-600 hover:bg-blue-700 text-white py-3 px-4 rounded-lg font-medium transition-colors"
-                            onClick={() => {
-                              trackEvent("click_partner_link", {
-                                partner: "Minix",
-                                product_id: product.id,
-                                product_name: product.name,
-                              });
-                            }}
-                          >
-                            <ShoppingCart className="h-4 w-4" />
-                            <span>Minix</span>
-                          </a>
-                        )}
-
-                        {product.reolinkLink && (
-                          <a
-                            href={product.reolinkLink}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex items-center justify-center space-x-2 bg-blue-600 hover:bg-blue-700 text-white py-3 px-4 rounded-lg font-medium transition-colors"
-                            onClick={() => {
-                              trackEvent("click_partner_link", {
-                                partner: "Reolink",
-                                product_id: product.id,
-                                product_name: product.name,
-                              });
-                            }}
-                          >
-                            <div className="flex items-center space-x-2">
-                              <ShoppingCart className="h-4 w-4" />
-                              <span>Reolink</span>
-                            </div>
-                          </a>
-                        )}
-
-                        {product.bambuLink && (
-                          <a
-                            href={product.bambuLink}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex items-center justify-center space-x-2 bg-green-600 hover:bg-green-700 text-white py-3 px-4 rounded-lg font-medium transition-colors"
-                            onClick={() => {
-                              trackEvent("click_partner_link", {
-                                partner: "BambuLab",
-                                product_id: product.id,
-                                product_name: product.name,
-                              });
-                            }}
-                          >
-                            <ShoppingCart className="h-4 w-4" />
-                            <span>BambuLab</span>
-                          </a>
-                        )}
-
-                        {product.merossLink && (
-                          <a
-                            href={product.merossLink}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex items-center justify-center space-x-2 bg-teal-600 hover:bg-teal-700 text-white py-3 px-4 rounded-lg font-medium transition-colors"
-                            onClick={() => {
-                              trackEvent("click_partner_link", {
-                                partner: "Meross",
-                                product_id: product.id,
-                                product_name: product.name,
-                              });
-                            }}
-                          >
-                            <ShoppingCart className="h-4 w-4" />
-                            <span>Meross</span>
-                          </a>
-                        )}
-
-                        {product.otherLinks?.map((link) => {
-                          const label = new URL(link).hostname.replace(/^www\./, '').split('.')[0];
-                          const displayLabel = label.charAt(0).toUpperCase() + label.slice(1);
-                          return (
-                            <a
-                              key={link}
-                              href={link}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="flex items-center justify-center space-x-2 bg-gray-700 hover:bg-gray-800 text-white py-3 px-4 rounded-lg font-medium transition-colors"
-                              onClick={() => {
-                                trackEvent("click_partner_link", {
-                                  partner: displayLabel,
-                                  product_id: product.id,
-                                  product_name: product.name,
-                                });
-                              }}
-                            >
-                              <ShoppingCart className="h-4 w-4" />
-                              <span>{displayLabel}</span>
-                            </a>
-                          );
-                        })}
-                      </div>
-                    </div>
-
-                    {product.promoCode && (
-                      <div className="p-4">
-                        <p className="text-sm font-semibold text-red-700 mb-2">
-                          Code promo {product.promoCode.platform} -{product.promoCode.percent}%
-                          {product.promoCode.expiresAt && (
-                            <span className="font-normal text-yellow-600">
-                              {" "}· jusqu'au {product.promoCode.expiresAt}
-                            </span>
-                          )}
-                        </p>
-                        <CopyCodeButton code={product.promoCode.code} />
-                      </div>
-                    )}
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Spécifications techniques */}
-            <div className="bg-white rounded-xl shadow-lg p-6 mb-8">
-              <h3 className="text-lg font-semibold text-gray-800 mb-4">
-                Spécifications techniques
-              </h3>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                {product.tags && product.tags.length > 0 && (
-                  <div>
-                    <div className="flex items-center space-x-2 mb-4">
-                      <Zap className="h-5 w-5 text-[#398FBA]" />
-                      <h3 className="font-semibold text-gray-800">Tags</h3>
-                    </div>
-                    <div className="flex flex-wrap gap-2">
-                      {product.tags.map((tag, index) => (
-                        <span
-                          key={index}
-                          className="bg-[#398FBA]/10 text-[#398FBA] px-3 py-1 rounded-full text-sm font-medium"
-                        >
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                )}
-
-                {product.protocols && product.protocols.length > 0 && (
-                  <div>
-                    <div className="flex items-center space-x-2 mb-4">
-                      <Zap className="h-5 w-5 text-green-600" />
-                      <h3 className="font-semibold text-gray-800">
-                        Protocoles
-                      </h3>
-                    </div>
-                    <div className="flex flex-wrap gap-2">
-                      {product.protocols.map((protocol, index) => (
-                        <span
-                          key={index}
-                          className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium"
-                        >
-                          {protocol}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                )}
-
-                {product.compatible && product.compatible.length > 0 && (
-                  <div>
-                    <div className="flex items-center space-x-2 mb-4">
-                      <Award className="h-5 w-5 text-blue-600" />
-                      <h3 className="font-semibold text-gray-800">
-                        Compatible
-                      </h3>
-                    </div>
-                    <div className="flex flex-wrap gap-2">
-                      {product.compatible.map((comp, index) => (
-                        <span
-                          key={index}
-                          className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium"
-                        >
-                          {comp}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                )}
-              </div>
-            </div>
-          </div>
+      <PageHeader
+        title={product.name}
+        description={product.description}
+        eyebrow={
+          <Link
+            to="/produits-testes"
+            className="inline-flex items-center gap-2 text-sm text-gray-400 transition-colors hover:text-white"
+          >
+            <ArrowLeft className="h-4 w-4" aria-hidden="true" />
+            Tous les produits testés
+          </Link>
+        }
+      >
+        <div className="flex flex-wrap items-center gap-3 text-sm">
+          <span className="rounded-full bg-brand/15 px-3 py-1 font-semibold text-brand-bright">
+            {product.category}
+          </span>
+          <span className="text-gray-400">
+            Testé le {formatDate(product.testedDate)}
+          </span>
         </div>
+      </PageHeader>
 
-        {/* Pros & Cons */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
-          <div className="bg-white rounded-xl shadow-lg p-8">
-            <div className="flex items-center space-x-3 mb-6">
-              <div className="bg-green-100 rounded-full p-2">
-                <ThumbsUp className="h-6 w-6 text-green-600" />
+      <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+        <div className="grid gap-6 lg:grid-cols-3">
+          {/* Visuel et caractéristiques */}
+          <div className="space-y-6 lg:col-span-2">
+            <div className="overflow-hidden rounded-2xl border border-gray-200 bg-gray-50">
+              <img
+                src={product.image}
+                alt={product.name}
+                className="aspect-[16/10] w-full object-cover"
+              />
+            </div>
+
+            {specs.length > 0 && (
+              <div className="overflow-hidden rounded-2xl border border-gray-200">
+                <h2 className="border-b border-gray-200 bg-gray-50 px-6 py-3 font-display text-sm font-semibold uppercase tracking-wide text-gray-500">
+                  Fiche technique
+                </h2>
+                {/* Une colonne par famille : la comparaison se fait d'un coup
+                    d'oeil, sans faire défiler des lignes. */}
+                <dl
+                  className={`grid divide-y divide-gray-100 sm:divide-x sm:divide-y-0 ${SPEC_COLUMNS[specs.length]}`}
+                >
+                  {specs.map((spec) => (
+                    <div key={spec.label} className="p-5">
+                      <dt className="text-xs font-semibold uppercase tracking-wide text-gray-400">
+                        {spec.label}
+                      </dt>
+                      <dd className="mt-3 flex flex-wrap gap-2">
+                        {spec.values.map((value) => (
+                          <span
+                            key={value}
+                            className="rounded-md border border-gray-200 bg-gray-50 px-2.5 py-1 text-sm font-medium text-[#141414]"
+                          >
+                            {value}
+                          </span>
+                        ))}
+                      </dd>
+                    </div>
+                  ))}
+                </dl>
               </div>
-              <h2 className="text-2xl font-bold text-gray-800">
-                Points positifs
-              </h2>
-            </div>
-            <ul className="space-y-4">
-              {product.pros.map((pro, index) => (
-                <li key={index} className="flex items-start space-x-4">
-                  <div className="bg-green-100 rounded-full p-1 mt-1">
-                    <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                  </div>
-                  <span className="text-gray-700 leading-relaxed">{pro}</span>
-                </li>
-              ))}
-            </ul>
+            )}
           </div>
 
-          <div className="bg-white rounded-xl shadow-lg p-8">
-            <div className="flex items-center space-x-3 mb-6">
-              <div className="bg-red-100 rounded-full p-2">
-                <ThumbsDown className="h-6 w-6 text-red-600" />
+          {/* Achat : suit la lecture sur grand écran */}
+          <aside className="lg:sticky lg:top-24 lg:h-fit">
+            <div className="rounded-2xl border border-gray-200 p-6">
+              <div className="flex items-baseline gap-3">
+                {product.promoPrice ? (
+                  <>
+                    <span className="font-display text-3xl font-bold text-brand">
+                      {product.promoPrice} €
+                    </span>
+                    <span className="text-lg text-gray-400 line-through">
+                      {product.price} €
+                    </span>
+                  </>
+                ) : (
+                  <span className="font-display text-3xl font-bold text-[#141414]">
+                    {product.price} €
+                  </span>
+                )}
               </div>
-              <h2 className="text-2xl font-bold text-gray-800">
-                Points négatifs
-              </h2>
-            </div>
-            <ul className="space-y-4">
-              {product.cons.map((con, index) => (
-                <li key={index} className="flex items-start space-x-4">
-                  <div className="bg-red-100 rounded-full p-1 mt-1">
-                    <div className="w-2 h-2 bg-red-500 rounded-full"></div>
-                  </div>
-                  <span className="text-gray-700 leading-relaxed">{con}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
+              <p className="mt-1 text-xs text-gray-500">
+                Prix indicatif au moment du test
+              </p>
 
-        {/* Verdict */}
-        <div className="bg-white rounded-xl shadow-lg p-8 mb-12">
-          <div className="flex items-center space-x-3 mb-6">
-            <div className="bg-[#398FBA]/10 rounded-full p-2">
-              <Star className="h-6 w-6 text-[#398FBA]" />
-            </div>
-            <h2 className="text-2xl font-bold text-gray-800">Verdict final</h2>
-          </div>
-          <div className="prose max-w-none">
-            <MarkdownRenderer content={product.verdict} />
-          </div>
-
-          {product.videoUrl && (
-            <div className="mt-8">
-              <h3 className="text-xl font-bold text-gray-800 mb-4">
-                Vidéo de test
-              </h3>
-              <div className="aspect-video">
-                <iframe
-                  src={getYouTubeEmbedUrl(
-                    product.videoUrl.split("v=")[1] || product.videoUrl
+              {product.promoCode && (
+                <div className="mt-5 rounded-xl border border-amber-200 bg-amber-50 p-4">
+                  <p className="text-sm font-semibold text-amber-900">
+                    Code promo {product.promoCode.platform} : −
+                    {product.promoCode.percent} %
+                  </p>
+                  {product.promoCode.expiresAt && (
+                    <p className="mt-0.5 text-xs text-amber-700">
+                      Valable jusqu'au {product.promoCode.expiresAt}
+                    </p>
                   )}
-                  title={`Test vidéo de ${product.name}`}
-                  className="w-full h-full rounded-xl"
-                  frameBorder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                />
-              </div>
+                  <div className="mt-2">
+                    <CopyCodeButton code={product.promoCode.code} />
+                  </div>
+                </div>
+              )}
+
+              {hasStores && (
+                <div className="mt-6">
+                  <h2 className="text-sm font-semibold text-gray-700">
+                    Où l'acheter
+                  </h2>
+                  <div className="mt-3 space-y-2">
+                    {stores.map((store) => (
+                      <a
+                        key={store.label}
+                        href={product[store.key] as string}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={() =>
+                          trackEvent("click_partner_link", {
+                            partner: store.label,
+                            product_id: product.id,
+                            product_name: product.name,
+                          })
+                        }
+                        className={`flex w-full items-center justify-center gap-2 rounded-lg px-4 py-3 text-sm font-semibold transition-colors ${store.className}`}
+                      >
+                        <ShoppingCart className="h-4 w-4" aria-hidden="true" />
+                        {store.label}
+                      </a>
+                    ))}
+
+                    {product.otherLinks?.map((link) => {
+                      const host = new URL(link).hostname
+                        .replace(/^www\./, "")
+                        .split(".")[0];
+                      const label = host.charAt(0).toUpperCase() + host.slice(1);
+                      return (
+                        <a
+                          key={link}
+                          href={link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={() =>
+                            trackEvent("click_partner_link", {
+                              partner: label,
+                              product_id: product.id,
+                              product_name: product.name,
+                            })
+                          }
+                          className="flex w-full items-center justify-center gap-2 rounded-lg bg-[#141414] px-4 py-3 text-sm font-semibold text-white transition-colors hover:bg-gray-800"
+                        >
+                          <ShoppingCart className="h-4 w-4" aria-hidden="true" />
+                          {label}
+                        </a>
+                      );
+                    })}
+                  </div>
+                  <p className="mt-3 text-xs text-gray-400">
+                    Liens affiliés : ils soutiennent la chaîne sans surcoût pour
+                    vous.
+                  </p>
+                </div>
+              )}
             </div>
-          )}
+          </aside>
         </div>
 
-        <Comments
-          comments={comments}
-          commentsLoading={commentsLoading}
-          commentsError={commentsError}
-          addComment={addComment}
-          submitting={submitting}
-          setSubmitting={setSubmitting}
-          replyingTo={replyingTo}
-          setReplyingTo={setReplyingTo}
-          newComment={newComment}
-          setNewComment={setNewComment}
-          replyForm={replyForm}
-          setReplyForm={setReplyForm}
-        />
+        {/* Bilan du test : une seule carte, deux colonnes séparées par un filet */}
+        {(product.pros?.length > 0 || product.cons?.length > 0) && (
+          <div className="mt-6 overflow-hidden rounded-2xl border border-gray-200">
+            <div className="grid md:grid-cols-2 md:divide-x md:divide-gray-200">
+              {product.pros?.length > 0 && (
+                <div className="p-6 md:p-7">
+                  <h2 className="flex items-center gap-2.5 font-display text-lg font-semibold text-[#141414]">
+                    <span className="flex h-7 w-7 items-center justify-center rounded-full bg-emerald-100 text-emerald-600">
+                      <Plus className="h-4 w-4" strokeWidth={3} aria-hidden="true" />
+                    </span>
+                    Ce qui marche
+                  </h2>
+                  <ul className="mt-4 space-y-2">
+                    {product.pros.map((pro) => (
+                      <li
+                        key={pro}
+                        className="flex items-start gap-3 rounded-lg bg-emerald-50/60 px-3.5 py-2.5"
+                      >
+                        <Check
+                          className="mt-0.5 h-4 w-4 shrink-0 text-emerald-600"
+                          strokeWidth={3}
+                          aria-hidden="true"
+                        />
+                        <span className="leading-relaxed text-gray-700">{pro}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
+              {product.cons?.length > 0 && (
+                <div className="border-t border-gray-200 p-6 md:border-t-0 md:p-7">
+                  <h2 className="flex items-center gap-2.5 font-display text-lg font-semibold text-[#141414]">
+                    <span className="flex h-7 w-7 items-center justify-center rounded-full bg-red-100 text-red-600">
+                      <Minus className="h-4 w-4" strokeWidth={3} aria-hidden="true" />
+                    </span>
+                    Ce qui coince
+                  </h2>
+                  <ul className="mt-4 space-y-2">
+                    {product.cons.map((con) => (
+                      <li
+                        key={con}
+                        className="flex items-start gap-3 rounded-lg bg-red-50/60 px-3.5 py-2.5"
+                      >
+                        <X
+                          className="mt-0.5 h-4 w-4 shrink-0 text-red-500"
+                          strokeWidth={3}
+                          aria-hidden="true"
+                        />
+                        <span className="leading-relaxed text-gray-700">{con}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+
+        {/* Verdict : le mot de la fin, traité comme tel */}
+        {product.verdict && (
+          <div className="relative mt-6 overflow-hidden rounded-2xl bg-ink p-6 text-white md:p-10">
+            <div
+              className="pointer-events-none absolute inset-0 bg-grid"
+              aria-hidden="true"
+            />
+            <div
+              className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-brand/25 blur-[100px]"
+              aria-hidden="true"
+            />
+
+            <div className="relative md:flex md:items-start md:gap-8">
+              <div className="flex items-center gap-3 md:w-40 md:shrink-0 md:flex-col md:items-start">
+                <img
+                  src="/aylabs.jpg"
+                  alt=""
+                  className="h-12 w-12 rounded-full object-cover ring-2 ring-brand/40"
+                />
+                <div>
+                  <p className="font-display text-lg font-bold">Mon verdict</p>
+                  <p className="text-sm text-gray-500">après le test</p>
+                </div>
+              </div>
+
+              <div className="mt-5 border-l-2 border-brand pl-5 text-xl leading-relaxed text-gray-200 [&_a]:text-brand-bright [&_p:last-child]:mb-0 md:mt-0 md:text-2xl">
+                <MarkdownRenderer content={product.verdict} />
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Vidéo de test */}
+        {product.videoCode && (
+          <div className="mt-6">
+            <h2 className="font-display text-xl font-bold text-[#141414]">
+              Le test en vidéo
+            </h2>
+            <div className="mt-4 aspect-video overflow-hidden rounded-2xl border border-ink-line bg-black">
+              <iframe
+                src={`https://www.youtube.com/embed/${product.videoCode}`}
+                title={`Test vidéo de ${product.name}`}
+                className="h-full w-full"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              />
+            </div>
+          </div>
+        )}
       </div>
+
+      {/* Dans la même catégorie */}
+      {similar.length > 0 && (
+        <section className="mt-6 border-t border-gray-200 py-12">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div className="flex flex-wrap items-end justify-between gap-4 border-b border-gray-200 pb-5">
+              <h2 className="font-display text-xl font-bold text-[#141414]">
+                Dans la même catégorie
+              </h2>
+              <Link
+                to="/produits-testes"
+                className="group inline-flex items-center gap-2 text-sm font-semibold text-brand transition-colors hover:text-brand-deep"
+              >
+                Tous les produits
+                <ArrowRight
+                  className="h-4 w-4 transition-transform group-hover:translate-x-1"
+                  aria-hidden="true"
+                />
+              </Link>
+            </div>
+            <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {similar.map((item) => (
+                <Link
+                  key={item.slug}
+                  to={`/produit/${item.slug}`}
+                  className="group flex items-center gap-4 rounded-xl border border-gray-200 bg-white p-3 transition-all hover:border-brand/40 hover:shadow-md"
+                >
+                  <img
+                    src={item.image}
+                    alt=""
+                    loading="lazy"
+                    className="h-16 w-20 shrink-0 rounded-lg bg-gray-50 object-cover"
+                  />
+                  <span className="min-w-0 flex-1">
+                    <span className="block truncate font-semibold text-[#141414] transition-colors group-hover:text-brand">
+                      {item.name}
+                    </span>
+                    <span className="mt-0.5 block font-display text-sm font-bold text-gray-500">
+                      {item.promoPrice ?? item.price} €
+                    </span>
+                  </span>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
     </div>
   );
 };

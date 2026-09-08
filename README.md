@@ -33,8 +33,6 @@ npm run dev
 Créez un fichier `.env` avec :
 
 ```env
-VITE_SUPABASE_URL=votre_url_supabase
-VITE_SUPABASE_ANON_KEY=votre_cle_supabase
 VITE_YOUTUBE_API_KEY=votre_cle_youtube_api
 VITE_YOUTUBE_CHANNEL_ID=votre_id_chaine_youtube
 ```

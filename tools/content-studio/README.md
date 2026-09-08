@@ -88,7 +88,24 @@ Le SHA distant est toujours relu avant d'écrire : l'outil ne pousse jamais
 par-dessus une version de `main` qu'il n'a pas vue. Si des fiches diffèrent de
 l'instantané, un bandeau le signale sur le tableau de bord.
 
-Messages de commit générés : `content(video): add <slug>`, `content(product): update <slug>`.
+Messages de commit générés : `content(video): add <slug>`, `content(product): update <slug>`,
+`data(stats): hide N videos`.
+
+## Vidéos masquées (statistiques du Media Kit)
+
+Le bouton **Vidéos masquées** de la barre du haut ouvre la banlist des
+statistiques. Elle sert à écarter des Shorts, des rediffusions de live ou toute
+vidéo qui fausserait la moyenne affichée sur le Media Kit du site.
+
+- La liste montre les vidéos de `public/youtube-stats.json` (les 15 dernières,
+  alimentées par n8n), miniature et vues à l'appui.
+- Cocher une vidéo la masque ; le panneau de droite recalcule aussitôt ce que le
+  site affichera — **rien n'est commité avant d'avoir cliqué sur Enregistrer**.
+- Le site retire les vidéos cochées, puis garde les **10 plus récentes** de ce
+  qui reste. Les vidéos au-delà de cette fenêtre sont marquées « hors fenêtre ».
+- L'enregistrement écrit `public/hidden-videos.json` sur la branche. Comme tout
+  ce qui vit dans `public/`, le changement n'est visible **qu'après la
+  reconstruction de l'image du site**.
 
 ## Confort de saisie
 

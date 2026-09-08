@@ -1,6 +1,7 @@
 import React from 'react';
 import { Mail, Youtube, Instagram, Wrench } from 'lucide-react';
 import { SEO } from '../components/SEO';
+import { PageHeader } from "../components/PageHeader";
 
 export const Contact: React.FC = () => {
   return (
@@ -11,17 +12,10 @@ export const Contact: React.FC = () => {
         url="https://aylabs.fr/contact"
       />
       {/* Hero Section */}
-      <div className="bg-gradient-to-br from-[#398FBA] to-[#2a6d94] text-white py-20">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold mb-6">
-            Rejoignez la communauté ! 
-          </h1>
-          <p className="text-xl max-w-2xl mx-auto">
-            Connectons-nous sur mes différents réseaux ! Discussions, 
-            partage de projets, entraide communautaire... Choisissez votre plateforme préférée !
-          </p>
-        </div>
-      </div>
+      <PageHeader
+        title="Réseaux"
+        description="Discussions, partage de projets, entraide : choisissez la plateforme qui vous va."
+      />
 
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         {/* Réseaux sociaux dans une div flottante */}

@@ -4,6 +4,7 @@ import { SEO } from "../components/SEO";
 import { useProducts } from "../hooks/useMarkdownContent";
 import { Product } from "../types";
 import { Copy, Check } from "lucide-react";
+import { PageHeader } from "../components/PageHeader";
 
 const CopyCodeButton: React.FC<{ code: string }> = ({ code }) => {
   const [copied, setCopied] = React.useState(false);
@@ -44,17 +45,10 @@ export const Deals: React.FC = () => {
         description="J'ai cherché pour toi les bonnes affaires du moment"
         url="https://aylabs.fr/deals"
       />
-      <div className="bg-gradient-to-br from-[#398FBA] to-[#2a6d94] text-white py-20">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold mb-6">
-            Bonnes affaires
-          </h1>
-          <p className="text-xl max-w-2xl mx-auto">
-            Je vous affiche ici les bonnes affaires et les codes promos du
-            moment !
-          </p>
-        </div>
-      </div>
+      <PageHeader
+        title="Bonnes affaires"
+        description="Les codes promo et les bons plans du moment, vérifiés avant publication."
+      />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-16">
         {loading ? (

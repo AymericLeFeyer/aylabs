@@ -1,7 +1,6 @@
 import React from "react";
 import { SEO } from "../components/SEO";
 import { Hero } from "../components/Hero";
-import { VideoSection } from "../components/VideoSection";
 import { MediaKitSection } from "../components/MediaKitSection";
 import { PartnersSection } from "../components/PartnersSection";
 import { ProductSections } from "../components/ProductsSection";
@@ -15,7 +14,6 @@ export const Home: React.FC = () => {
         url="https://aylabs.fr/"
       />
       <Hero />
-      <VideoSection />
       <ProductSections />
       <PartnersSection />
       <MediaKitSection />

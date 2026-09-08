@@ -3,6 +3,7 @@ import { useLocation, Link } from 'react-router-dom';
 import { Search as SearchIcon, Calendar, BookOpen, Play, ShoppingCart } from 'lucide-react';
 import { useTutorials, useProducts, useVideos } from '../hooks/useMarkdownContent';
 import { SEO } from '../components/SEO';
+import { PageHeader } from "../components/PageHeader";
 
 export const Search: React.FC = () => {
   const location = useLocation();
@@ -71,14 +72,10 @@ export const Search: React.FC = () => {
   if (loading) {
     return (
       <div className="min-h-screen bg-gray-50">
-        <div className="bg-[#398FBA] text-white py-16">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h1 className="text-4xl md:text-5xl font-bold mb-4">🔍 Recherche</h1>
-            <p className="text-xl max-w-2xl mx-auto">
-              Trouvez rapidement le contenu qui vous intéresse
-            </p>
-          </div>
-        </div>
+        <PageHeader
+          title="Recherche"
+          description="Trouvez rapidement le contenu qui vous intéresse."
+        />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#398FBA] mx-auto"></div>
           <p className="text-gray-500 mt-4">Chargement du contenu...</p>
@@ -94,14 +91,10 @@ export const Search: React.FC = () => {
         description="Tu cherches quelque chose ? Trouve le ici !"
         url="https://aylabs.fr/search"
       />
-      <div className="bg-[#398FBA] text-white py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">🔍 Recherche</h1>
-          <p className="text-xl max-w-2xl mx-auto">
-            Trouvez rapidement le contenu qui vous intéresse
-          </p>
-        </div>
-      </div>
+      <PageHeader
+        title="Recherche"
+        description="Trouvez rapidement le contenu qui vous intéresse."
+      />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         {/* Barre de recherche principale */}
@@ -151,9 +144,10 @@ export const Search: React.FC = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {searchResults.tutorials.map((tutorial) => (
                     <div key={tutorial.id} className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
-                      <div className="bg-gradient-to-br from-[#398FBA] to-[#2a6d94] p-6">
-                        <BookOpen className="w-8 h-8 text-white mb-2" />
-                        <h3 className="font-bold text-white line-clamp-2">{tutorial.title}</h3>
+                      <div className="relative overflow-hidden bg-ink p-6">
+                        <div className="pointer-events-none absolute inset-0 bg-grid" aria-hidden="true" />
+                        <BookOpen className="relative w-8 h-8 text-brand-bright mb-2" />
+                        <h3 className="relative font-display font-bold text-white line-clamp-2">{tutorial.title}</h3>
                       </div>
                       <div className="p-4">
                         <p className="text-gray-600 text-sm mb-3 line-clamp-2">{tutorial.description}</p>
