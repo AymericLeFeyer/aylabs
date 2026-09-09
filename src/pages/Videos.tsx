@@ -28,7 +28,7 @@ export const Videos: React.FC = () => {
   }, [videos]);
 
   const filteredVideos = useMemo(() => {
-    let filtered = videos.filter((v) => new Date(v.publishedAt) <= new Date());
+    let filtered = videos;
 
     // Filtrage par tags
     if (selectedTags.length > 0) {

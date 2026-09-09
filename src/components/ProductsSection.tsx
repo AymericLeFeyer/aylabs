@@ -109,7 +109,7 @@ export const ProductSections: React.FC = () => {
         <div className="flex flex-wrap items-end justify-between gap-4 border-b border-gray-200 pb-5">
           <div>
             <h2 className="font-display text-3xl font-bold text-[#141414] md:text-4xl">
-              Passés sur l'établi
+              Récemment testés…
             </h2>
             <p className="mt-2 text-gray-600">
               Chaque produit est acheté ou prêté, installé chez moi, puis testé

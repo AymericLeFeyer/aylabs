@@ -1,4 +1,4 @@
-import { toIsoDate, toPubDate } from '../../../shared/date';
+import { normalizeTime, toIsoDate, toPubDate } from '../../../shared/date';
 import type { ContentFile, ProductDraft, PromoCode, VideoDraft } from '../entities/ContentItem';
 import { buildMarkdown, type FrontmatterValue } from './frontmatter';
 
@@ -25,6 +25,7 @@ export const fileToVideoDraft = (file: ContentFile): VideoDraft => {
     title: str(f.title),
     description: str(f.description),
     pubDate: toIsoDate(str(f.pubDate)),
+    pubTime: normalizeTime(str(f.pubTime)),
     code: str(f.code),
     duration: str(f.duration),
     tags: list(f.tags),
@@ -64,6 +65,7 @@ export const videoDraftToMarkdown = (draft: VideoDraft): string =>
       ['title', draft.title],
       ['description', draft.description],
       ['pubDate', toPubDate(draft.pubDate)],
+      ['pubTime', draft.pubTime || undefined],
       ['code', draft.code],
       ['duration', draft.duration],
       ['tags', draft.tags],

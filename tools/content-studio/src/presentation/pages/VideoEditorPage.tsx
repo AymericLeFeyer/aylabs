@@ -145,12 +145,22 @@ export const VideoEditorPage: React.FC<Props> = ({
             </p>
           )}
 
-          <div className="grid gap-5 sm:grid-cols-2">
+          <div className="grid gap-5 sm:grid-cols-3">
             <Field label="Date de publication" required>
               <Input
                 type="date"
                 value={draft.pubDate}
                 onChange={(e) => setField('pubDate', e.target.value)}
+              />
+            </Field>
+            <Field
+              label="Heure de mise en ligne"
+              hint="Vide = minuit. Jamais affichée : la fiche reste invisible sur le site jusque-là."
+            >
+              <Input
+                type="time"
+                value={draft.pubTime}
+                onChange={(e) => setField('pubTime', e.target.value)}
               />
             </Field>
             <Field label="Durée" required hint="Format mm:ss, normalisé automatiquement">

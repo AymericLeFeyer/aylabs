@@ -23,6 +23,8 @@ export interface VideoDraft {
   title: string;
   description: string;
   pubDate: string;
+  /** Heure de sortie "HH:MM", vide si la fiche sort à minuit. Jamais affichée sur le site. */
+  pubTime: string;
   code: string;
   duration: string;
   tags: string[];
@@ -58,6 +60,7 @@ export const emptyVideo = (pubDate: string): VideoDraft => ({
   title: '',
   description: '',
   pubDate,
+  pubTime: '',
   code: '',
   duration: '',
   tags: [],

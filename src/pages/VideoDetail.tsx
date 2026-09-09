@@ -62,9 +62,7 @@ export const VideoDetail: React.FC = () => {
   // Les fiches produit portent le code de la vidéo où elles ont été testées.
   const testedProducts = products.filter((p) => p.videoCode === code);
 
-  const published = videos.filter(
-    (v) => new Date(v.publishedAt) < new Date() && v.id !== video.id
-  );
+  const published = videos.filter((v) => v.id !== video.id);
   const related = published
     .filter((v) => v.tags?.some((tag) => video.tags?.includes(tag)))
     .slice(0, 3);

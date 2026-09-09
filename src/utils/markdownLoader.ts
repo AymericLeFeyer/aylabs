@@ -1,3 +1,5 @@
+import { isPublished, publishTimestamp } from './publishDate';
+
 interface MarkdownFile {
   frontmatter: Record<string, any>;
   content: string;
@@ -103,7 +105,12 @@ const loadContentFromFiles = async (pattern: string, transform: (data: any, slug
     }
   }
   
-  return items.sort((a, b) => new Date(b.publishedAt || b.pubDate || b.testedDate || 0).getTime() - new Date(a.publishedAt || a.pubDate || a.testedDate || 0).getTime());
+  // Tri du plus récent au plus ancien, heure de sortie comprise.
+  return items.sort(
+    (a, b) =>
+      publishTimestamp(b.publishedAt || b.pubDate || b.testedDate, b.publishedTime) -
+      publishTimestamp(a.publishedAt || a.pubDate || a.testedDate, a.publishedTime)
+  );
 };
 
 export const loadTutorials = async () => {
@@ -158,15 +165,19 @@ export const loadProducts = async () => {
 };
 
 export const loadVideos = async () => {
-  return loadContentFromFiles('/videos/', (parsed, slug) => ({
+  const videos = await loadContentFromFiles('/videos/', (parsed, slug) => ({
     id: slug,
     title: parsed.frontmatter.title,
     description: parsed.frontmatter.description,
     publishedAt: parsed.frontmatter.pubDate,
+    publishedTime: parsed.frontmatter.pubTime ? String(parsed.frontmatter.pubTime) : '',
     duration: parsed.frontmatter.duration || '0:00',
     url: parsed.frontmatter.code ? `https://youtube.com/watch?v=${parsed.frontmatter.code}` : '',
     tags: parsed.frontmatter.tags || [],
     content: parsed.content
   }));
 
+  // Une fiche programmée reste invisible tant que sa date + heure de sortie ne
+  // sont pas passées : listes, recherche, hero et accès direct à /video/<slug>.
+  return videos.filter((video) => isPublished(video.publishedAt, video.publishedTime));
 };

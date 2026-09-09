@@ -3,6 +3,8 @@ export interface Video {
   title: string;
   description: string;
   publishedAt: string;
+  /** Heure de sortie "HH:MM", jamais affichée : elle ne sert qu'à la mise en ligne. */
+  publishedTime?: string;
   duration: string;
   url: string;
   tags?: string[];

@@ -11,7 +11,7 @@ import {
   Video,
 } from 'lucide-react';
 import type { ContentFile, ContentKind } from '../../domain/content/entities/ContentItem';
-import { formatFr, toIsoDate } from '../../shared/date';
+import { formatFr, isScheduled, toIsoDate } from '../../shared/date';
 import { REPO } from '../../shared/config';
 import { thumbnailUrl } from '../components/VideoCodeField';
 import { Button, Card, Input, Spinner } from '../components/ui/primitives';
@@ -199,6 +199,9 @@ const Row: React.FC<{
         </span>
         <span className="mt-0.5 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-slate-500">
           <span>{formatFr(String(fm.pubDate ?? ''))}</span>
+          {kind === 'video' && isScheduled(String(fm.pubDate ?? ''), String(fm.pubTime ?? '')) ? (
+            <span className="chip bg-amber-50 text-amber-700">Programmée</span>
+          ) : null}
           {kind === 'video' && fm.duration ? <span>· {String(fm.duration)}</span> : null}
           {kind === 'product' && fm.price !== undefined ? <span>· {String(fm.price)} €</span> : null}
           {kind === 'product' && fm.promoCode ? (

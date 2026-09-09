@@ -28,6 +28,34 @@ export const toIsoDate = (pubDate: string): string => {
 
 export const todayIso = (): string => toIsoDate(new Date().toISOString());
 
+/**
+ * Normalise une heure saisie vers "HH:MM". Chaîne vide = pas d'heure : la fiche
+ * sort à minuit, comme avant l'ajout du champ.
+ */
+export const normalizeTime = (raw: string): string => {
+  const m = raw.trim().match(/^([0-9]{1,2})[:hH ]?([0-9]{1,2})?$/);
+  if (!m) return '';
+  const hours = Number(m[1]);
+  const minutes = Number(m[2] ?? 0);
+  if (hours > 23 || minutes > 59) return '';
+  return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`;
+};
+
+/**
+ * Miroir de `src/utils/publishDate.ts` côté site : tant que la date (et
+ * l'heure, si elle est renseignée) ne sont pas passées, la fiche n'est pas
+ * servie par le site. Toute correction ici doit être reportée là-bas.
+ */
+export const isScheduled = (pubDate: string, pubTime = '', now: Date = new Date()): boolean => {
+  const iso = toIsoDate(pubDate);
+  if (!iso) return false;
+  const [y, m, d] = iso.split('-').map(Number);
+  const time = normalizeTime(pubTime);
+  const hours = time ? Number(time.slice(0, 2)) : 0;
+  const minutes = time ? Number(time.slice(3, 5)) : 0;
+  return new Date(y, m - 1, d, hours, minutes).getTime() > now.getTime();
+};
+
 export const formatFr = (pubDate: string): string => {
   const iso = toIsoDate(pubDate);
   if (!iso) return pubDate;

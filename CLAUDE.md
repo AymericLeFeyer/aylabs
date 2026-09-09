@@ -1,6 +1,6 @@
 # AyLabs — instructions projet
 
-> Dernière mise à jour : 2026-09-08
+> Dernière mise à jour : 2026-09-09
 
 Site vitrine de la chaîne AyLabs (domotique, homelab, impression 3D) : vidéos,
 produits testés, tutoriels. **React 18 + Vite + TypeScript + Tailwind**, contenu en
@@ -82,8 +82,13 @@ lignes. Le parseur découpe ligne par ligne et coupe au **premier** `:`.
 
 ### Frontmatter vidéo (`src/content/videos/<slug>.md`)
 
-`title`, `description`, `pubDate` (`"Nov 29 2025"`), `code` (id YouTube 11 car.),
-`duration` (`"10:18"`), `tags[]`. Corps markdown optionnel, rendu sous la vidéo.
+`title`, `description`, `pubDate` (`"Nov 29 2025"`), `pubTime` (`"18:00"`, facultatif),
+`code` (id YouTube 11 car.), `duration` (`"10:18"`), `tags[]`. Corps markdown
+optionnel, rendu sous la vidéo.
+
+`pubTime` est l'**heure de mise en ligne** (heure locale du visiteur), au format
+`HH:MM`. Absente, la fiche sort à minuit — le comportement d'avant son ajout.
+Elle n'est **jamais affichée** : elle ne sert qu'à décider de la visibilité.
 
 ### Frontmatter produit (`src/content/products/<slug>.md`)
 
@@ -101,6 +106,21 @@ dédiée impose de modifier **trois** endroits : `markdownLoader.ts`,
 Sans le troisième, le lien part quand même dans `otherLinks`, en bouton noir.
 
 ### Points d'attention
+
+- **Mise en ligne différée** : `loadVideos()` (`src/utils/markdownLoader.ts`)
+  écarte les fiches dont `pubDate` + `pubTime` ne sont pas passées, via
+  `isPublished` de `src/utils/publishDate.ts`. Le filtre est **à la source** :
+  listes, recherche, hero, blocs de rebond et accès direct à `/video/<slug>`
+  répondent tous « vidéo introuvable ». Ne pas refiltrer dans les pages.
+  - Une `pubDate` illisible vaut « non publiée » (fail-closed) : une faute de
+    frappe fait disparaître la fiche du site plutôt que de la sortir en avance.
+  - Le tri de `loadContentFromFiles` passe aussi par `publishTimestamp`, donc
+    deux vidéos du même jour sont ordonnées par leur heure.
+  - **Ce filtre est côté client** : le markdown de la fiche programmée est quand
+    même dans le bundle JS (`import.meta.glob` eager). Il masque la fiche, il ne
+    la protège pas — ne rien commiter qui doive rester secret.
+  - Comme le filtre est évalué au chargement, un onglet resté ouvert ne voit
+    apparaître la vidéo qu'après rechargement.
 
 - Le **slug vient du nom de fichier**, pas du frontmatter. Une clé `slug` dans le
   frontmatter est ignorée (elle traîne encore dans `roller-shade-driver-e1.md`).
@@ -135,6 +155,13 @@ cd tools/content-studio && npm install && npm run dev
   les fiches divergentes sont téléchargées.
 - **Écriture** : `PUT /repos/:owner/:repo/contents/:path`, SHA distant relu juste
   avant chaque commit. Messages : `content(video|product): add|update <slug>`.
+- **Programmation d'une vidéo** : `VideoDraft.pubTime` (`HH:MM`, vide = minuit)
+  est saisi dans l'éditeur vidéo à côté de la date et sérialisé en `pubTime`
+  juste après `pubDate`. Le tableau de bord marque « Programmée » les fiches que
+  le site ne sert pas encore (`isScheduled` dans `src/shared/date.ts`,
+  **réimplémentation** de `src/utils/publishDate.ts` : corriger les deux
+  ensemble). `normalizeTime` accepte `18:30`, `18h30`, `9:5` et rend une chaîne
+  vide sur une saisie inexploitable.
 - **Garde-fou obligatoire** : `npm run check` rejoue les 139 fiches existantes dans
   le sérialiseur et vérifie l'absence de perte. **À lancer après toute modification
   de `frontmatter.ts` ou `mappers.ts`.**
@@ -308,9 +335,9 @@ et `aria-controls` posés. Un seul volet ouvert à la fois (état `openGroup` da
 
 Deux colonnes (5/7) sur fond `ink` : identité et CTA à gauche, **pile des 5
 dernières vidéos** à droite (`VideoStack`). Les vidéos viennent de `useVideos()`
-(déjà trié du plus récent au plus ancien par `loadContentFromFiles`), filtrées sur
-`publishedAt < now` pour ignorer les fiches programmées. Les stats (abonnés / vues
-/ vidéos) viennent de `useYouTubeStats`.
+(déjà trié du plus récent au plus ancien et débarrassé des fiches programmées
+par `loadVideos`). Les stats (abonnés / vues / vidéos) viennent de
+`useYouTubeStats`.
 
 La zone titre sous la pile réserve la hauteur de deux lignes (`min-h` + 
 `line-clamp-2`) pour que rien ne saute quand on change de vidéo.

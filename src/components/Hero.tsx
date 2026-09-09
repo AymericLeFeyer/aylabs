@@ -20,10 +20,9 @@ export const Hero: React.FC = () => {
   const { videos, loading } = useVideos();
   const { stats } = useYouTubeStats();
 
-  // loadVideos trie déjà du plus récent au plus ancien
-  const latestVideos = videos
-    .filter((video) => new Date(video.publishedAt) < new Date())
-    .slice(0, 5);
+  // loadVideos trie déjà du plus récent au plus ancien et écarte les fiches
+  // dont la date/heure de sortie n'est pas passée.
+  const latestVideos = videos.slice(0, 5);
 
   useEffect(() => {
     if (!location.hash) return;
