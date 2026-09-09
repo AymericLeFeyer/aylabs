@@ -112,7 +112,7 @@ export const ProductSections: React.FC = () => {
               Récemment testés…
             </h2>
             <p className="mt-2 text-gray-600">
-              Chaque produit est acheté ou prêté, installé chez moi, puis testé
+              Chaque produit est acheté, prêté ou offert, installé chez moi, puis testé
               dans la durée.
             </p>
           </div>
