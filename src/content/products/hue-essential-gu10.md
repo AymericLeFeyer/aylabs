@@ -8,7 +8,7 @@ protocols:
   - "Zigbee"
 compatible:
   - "Zigbee2MQTT"
-videoCode: "Nbd7fX_I7CA"
+videoCode: "5nVj0SXp9_w"
 buyLinks:
   - "https://amzn.to/4r4Pusw"
 pubDate: "Sep 17 2026"
@@ -18,5 +18,7 @@ pros:
   - "Facile à configurer"
   - "Pas d'issues remontées sur Zigbee2MQTT"
   - "Belles couleurs"
+cons:
+  - "15000h de durée de vie seulement"
 verdict: "Selon moi le meilleur rapport qualité prix pour un spot GU10 avec de belles couleurs et une bonne puissante. Légèrement en dessous de la Hue Classique, mais au vu du prix, ça m'a convaincu"
 ---
