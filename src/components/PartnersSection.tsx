@@ -21,7 +21,7 @@ const partners: Partner[] = [
     name: "Domadoo",
     url: "https://www.domadoo.fr/fr/?domid=79",
     description: "Domotique & objets connectés",
-    perk: "Le revendeur que j'utilise le plus",
+    perk: "Mon partenaire principal pour les tests produits",
     color: "#a20fbf",
     logo: "https://www.domadoo.fr/img/favicon.ico?1712752227",
   },

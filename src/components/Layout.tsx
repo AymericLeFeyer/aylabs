@@ -10,6 +10,7 @@ import {
   Menu,
   X,
   ArrowUpRight,
+  Link2,
 } from "lucide-react";
 import { NavDropdown } from "./NavDropdown";
 import { navGroups, standaloneItems, isItemActive } from "./navigation";
@@ -165,18 +166,30 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
                 >
                   <Youtube className="h-5 w-5" aria-hidden="true" />
                 </a>
+
+                {/* Page de liens (façon linktree) */}
+                <a
+                  href="https://links.aylabs.fr"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Tous les liens AyLabs"
+                  title="Tous les liens AyLabs"
+                  className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-brand text-white transition-colors hover:bg-brand-deep focus:outline-none focus-visible:ring-2 focus-visible:ring-white"
+                >
+                  <Link2 className="h-5 w-5" aria-hidden="true" />
+                </a>
               </div>
 
               {/* Version mobile */}
-              <div className="flex items-center gap-2 md:hidden">
-                <form onSubmit={handleSearch} className="relative">
+              <div className="flex min-w-0 items-center gap-2 md:hidden">
+                <form onSubmit={handleSearch} className="relative min-w-0 max-w-36 flex-1">
                   <input
                     type="search"
                     placeholder="Rechercher"
                     aria-label="Rechercher sur le site"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    className="w-36 rounded-lg border border-ink-line bg-white/5 py-2 pl-8 pr-3 text-sm text-white placeholder-gray-500 focus:border-brand focus:outline-none focus:ring-1 focus:ring-brand"
+                    className="w-full rounded-lg border border-ink-line bg-white/5 py-2 pl-8 pr-3 text-sm text-white placeholder-gray-500 focus:border-brand focus:outline-none focus:ring-1 focus:ring-brand"
                   />
                   <Search
                     className="pointer-events-none absolute left-2.5 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-gray-500"
@@ -192,6 +205,16 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
                   className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[#E5322D] text-white transition-colors hover:bg-[#c22824]"
                 >
                   <Youtube className="h-5 w-5" aria-hidden="true" />
+                </a>
+
+                <a
+                  href="https://links.aylabs.fr"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Tous les liens AyLabs"
+                  className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-brand text-white transition-colors hover:bg-brand-deep"
+                >
+                  <Link2 className="h-5 w-5" aria-hidden="true" />
                 </a>
 
                 <button

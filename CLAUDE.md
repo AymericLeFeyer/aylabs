@@ -1,6 +1,6 @@
 # AyLabs — instructions projet
 
-> Dernière mise à jour : 2026-09-09
+> Dernière mise à jour : 2026-09-18
 
 Site vitrine de la chaîne AyLabs (domotique, homelab, impression 3D) : vidéos,
 produits testés, tutoriels. **React 18 + Vite + TypeScript + Tailwind**, contenu en
@@ -325,6 +325,11 @@ rien d'autre à toucher.
 - `external: true` ouvre dans un nouvel onglet (`docs.aylabs.fr`, `setup.aylabs.fr`).
 - **Les URL sont figées** : `/videos`, `/tutoriels`, `/produits-testes`, `/deals`,
   `/reseaux`, `/support`. Elles sont référencées par le contenu et l'extérieur.
+- **Boutons carrés en bout de barre** (hors `navGroups`, codés dans `Layout.tsx`) :
+  YouTube (rouge) puis Liens (`links.aylabs.fr`, page façon linktree, `bg-brand`),
+  présents en desktop comme en mobile. En mobile, le champ de recherche est
+  `flex-1 min-w-0 max-w-36` : il rétrécit pour laisser tenir les deux boutons et
+  le burger sur un écran de 360 px.
 
 `src/components/NavDropdown.tsx` est le volet desktop : ouverture au survol comme
 au clic, fermeture sur Échap / clic extérieur / changement de route, `aria-expanded`
