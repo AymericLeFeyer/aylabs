@@ -13,7 +13,7 @@ compatible:
   - "MQTT"
 buyLinks:
   - "https://amzn.to/3UuKmlj"
-  - "https://bit.ly/4zRZNnP"
+  - "https://www.awin1.com/cread.php?awinmid=91325&awinaffid=3020305&ued=https%3A%2F%2Ffr.x-sense.com%2Fproducts%2Fxs0b-mr-detecteur-de-fumee-intelligent-interconnecte%3F_pos%3D1%26_sid%3De265d0b86%26_ss%3Dr%26variant%3D50532420583617%26utm_source%3Dyoutube%26utm_medium%3Dinfluencer%26utm_campaign%3DFR_video_XS0B-MR_fall-sale_20260904-20260930_ay_labs%26utm_creative_format%3Dvideo"
 promoCode:
   code: "AYLABS"
   percent: 12
