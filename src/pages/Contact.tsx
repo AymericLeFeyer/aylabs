@@ -101,7 +101,7 @@ export const Contact: React.FC = () => {
 
             {/* TikTok */}
             <a
-              href="https://tiktok.com/@ay_labs"
+              href="https://www.tiktok.com/@ay_labs"
               target="_blank"
               rel="noopener noreferrer"
               className="group bg-gray-50 hover:bg-gray-100 border border-gray-200 hover:border-gray-300 rounded-xl p-6 transition-all duration-300 hover:scale-105 hover:shadow-lg"
