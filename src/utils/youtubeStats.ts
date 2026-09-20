@@ -51,15 +51,25 @@ export const parseHidden = (raw: unknown): Set<string> => {
 };
 
 /**
- * Les vidéos retenues : on écarte celles de la banlist, puis on garde les
- * `STATS_WINDOW` plus récentes de ce qui reste. Sans vidéo masquée, cela revient
- * exactement aux 10 dernières publications.
+ * Les vidéos retenues : on ne garde que celles qui ont une fiche dans
+ * `src/content/videos` (`known`), on écarte ensuite celles de la banlist, puis
+ * on garde les `STATS_WINDOW` plus récentes de ce qui reste.
+ *
+ * Le filtre par fiche est le comportement **par défaut** : tout ce que l'API
+ * remonte sans fiche correspondante (shorts, lives, vidéos jamais documentées)
+ * sort des statistiques sans avoir à l'ajouter à la banlist. La banlist reste
+ * utile pour écarter une vidéo qui a bien une fiche.
+ *
+ * `known` absent ou vide désactive le filtre (fail-open) : si aucune fiche n'a
+ * pu être lue, mieux vaut afficher les chiffres d'avant qu'un Media Kit vide.
  */
 export const selectVideos = (
   videos: YouTubeVideo[],
-  hidden: Set<string>
+  hidden: Set<string>,
+  known?: Set<string>
 ): YouTubeVideo[] =>
   videos
+    .filter((video) => !known || known.size === 0 || known.has(video.id))
     .filter((video) => !hidden.has(video.id))
     .sort(
       (a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()

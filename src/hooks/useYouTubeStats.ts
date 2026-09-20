@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { loadVideoCodes } from '../utils/markdownLoader';
 import {
   averageViewsOf,
   engagementRateOf,
@@ -37,24 +38,27 @@ export const useYouTubeStats = () => {
   useEffect(() => {
     const fetchYouTubeData = async () => {
       try {
-        const [data, hiddenFile] = await Promise.all([
+        const [data, hiddenFile, known] = await Promise.all([
           fetch('/youtube-stats.json').then((res) => res.json()),
           // La banlist est facultative : son absence ne casse rien.
           fetch('/hidden-videos.json')
             .then((res) => (res.ok ? res.json() : null))
             .catch(() => null),
+          // Codes des fiches du site : tout ce que l'API remonte sans fiche
+          // (shorts, lives) est écarté par défaut.
+          loadVideoCodes().catch(() => new Set<string>()),
         ]);
 
         const hidden = parseHidden(hiddenFile);
         const all = normalizeVideos(data.videos);
-        const selected = selectVideos(all, hidden);
+        const selected = selectVideos(all, hidden, known);
 
         setStats(data.stats);
         setRecentVideos(selected);
 
         if (selected.length > 0) {
           // Les valeurs du JSON sont calculées par n8n sur toutes les vidéos :
-          // dès qu'on en masque une, il faut refaire le calcul ici.
+          // dès qu'on en écarte une, il faut refaire le calcul ici.
           setAverageViews(averageViewsOf(selected));
           setEngagementRate(engagementRateOf(selected));
           setRecentVideosCount(publishedRecently(selected));

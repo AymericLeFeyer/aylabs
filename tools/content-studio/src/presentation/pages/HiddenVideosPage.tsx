@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowLeft, Check, Eye, EyeOff, RefreshCw, Save } from 'lucide-react';
+import { ArrowLeft, Check, Eye, EyeOff, FileQuestion, RefreshCw, Save } from 'lucide-react';
 import { formatFr } from '../../shared/date';
 import { useHiddenVideos } from '../hooks/useHiddenVideos';
 import { STATS_WINDOW } from '../../domain/stats/services/hiddenVideos';
@@ -7,6 +7,8 @@ import { Button, Card, SectionTitle, Spinner } from '../components/ui/primitives
 
 interface Props {
   onBack: () => void;
+  /** Codes YouTube des fiches du dépôt : sans fiche, la vidéo ne compte pas. */
+  knownCodes: Set<string>;
 }
 
 const formatCount = (value: number) =>
@@ -25,7 +27,7 @@ const formatDuration = (iso: string): string => {
   return hours ? `${hours}:${mm}:${ss}` : `${mm}:${ss}`;
 };
 
-export const HiddenVideosPage: React.FC<Props> = ({ onBack }) => {
+export const HiddenVideosPage: React.FC<Props> = ({ onBack, knownCodes }) => {
   const {
     videos,
     hiddenCodes,
@@ -38,9 +40,10 @@ export const HiddenVideosPage: React.FC<Props> = ({ onBack }) => {
     toggle,
     save,
     reload,
-  } = useHiddenVideos();
+  } = useHiddenVideos(knownCodes);
 
   const retainedCodes = new Set(retained.map((video) => video.id));
+  const withoutCard = videos.filter((video) => !knownCodes.has(video.id)).length;
 
   return (
     <div className="mx-auto max-w-6xl px-6 py-8">
@@ -52,9 +55,10 @@ export const HiddenVideosPage: React.FC<Props> = ({ onBack }) => {
           </Button>
           <h1 className="text-xl font-semibold text-slate-800">Vidéos masquées</h1>
           <p className="mt-1 max-w-2xl text-sm text-slate-500">
-            Les vidéos cochées sont exclues des statistiques du Media Kit. Le site
-            garde ensuite les {STATS_WINDOW} vidéos les plus récentes parmi celles
-            qui restent.
+            Seules les vidéos qui ont une fiche sur le site entrent dans les
+            statistiques du Media Kit — les shorts et les lives sans fiche en sont
+            écartés d'office. Les vidéos cochées sont exclues en plus, et le site
+            garde les {STATS_WINDOW} plus récentes de ce qui reste.
           </p>
         </div>
 
@@ -99,13 +103,15 @@ export const HiddenVideosPage: React.FC<Props> = ({ onBack }) => {
             </SectionTitle>
             <ul className="divide-y divide-slate-100">
               {videos.map((video) => {
+                const hasCard = knownCodes.has(video.id);
                 const isHidden = hiddenCodes.has(video.id);
                 const isRetained = retainedCodes.has(video.id);
+                const isOut = isHidden || !hasCard;
                 return (
                   <li
                     key={video.id}
                     className={`flex items-center gap-3 px-5 py-3 ${
-                      isHidden ? 'bg-slate-50' : ''
+                      isOut ? 'bg-slate-50' : ''
                     }`}
                   >
                     <input
@@ -113,13 +119,21 @@ export const HiddenVideosPage: React.FC<Props> = ({ onBack }) => {
                       id={`hide-${video.id}`}
                       checked={isHidden}
                       onChange={() => toggle(video.id, video.title)}
-                      className="h-4 w-4 shrink-0 accent-brand"
+                      /* Sans fiche, la vidéo est déjà écartée — mais on laisse
+                         décocher une vieille entrée de banlist. */
+                      disabled={!hasCard && !isHidden}
+                      className="h-4 w-4 shrink-0 accent-brand disabled:opacity-40"
+                      title={
+                        hasCard
+                          ? undefined
+                          : 'Déjà écartée : aucune fiche ne porte ce code YouTube'
+                      }
                     />
                     <img
                       src={`https://img.youtube.com/vi/${video.id}/mqdefault.jpg`}
                       alt=""
                       className={`h-10 w-[70px] shrink-0 rounded object-cover ${
-                        isHidden ? 'opacity-40 grayscale' : ''
+                        isOut ? 'opacity-40 grayscale' : ''
                       }`}
                     />
                     <label
@@ -128,7 +142,7 @@ export const HiddenVideosPage: React.FC<Props> = ({ onBack }) => {
                     >
                       <span
                         className={`block truncate text-sm ${
-                          isHidden
+                          isOut
                             ? 'text-slate-400 line-through'
                             : 'font-medium text-slate-800'
                         }`}
@@ -142,7 +156,15 @@ export const HiddenVideosPage: React.FC<Props> = ({ onBack }) => {
                       </span>
                     </label>
 
-                    {isHidden ? (
+                    {!hasCard ? (
+                      <span
+                        className="flex shrink-0 items-center gap-1 rounded-full bg-amber-100 px-2.5 py-1 text-xs font-medium text-amber-700"
+                        title="Aucune fiche dans src/content/videos avec ce code YouTube"
+                      >
+                        <FileQuestion size={12} />
+                        sans fiche
+                      </span>
+                    ) : isHidden ? (
                       <span className="shrink-0 rounded-full bg-slate-200 px-2.5 py-1 text-xs font-medium text-slate-600">
                         masquée
                       </span>
@@ -188,6 +210,12 @@ export const HiddenVideosPage: React.FC<Props> = ({ onBack }) => {
               </div>
             </dl>
             <p className="border-t border-slate-100 px-5 py-3 text-xs text-slate-500">
+              {withoutCard > 0 && (
+                <>
+                  {withoutCard} vidéo{withoutCard > 1 ? 's' : ''} sans fiche
+                  {withoutCard > 1 ? ' sont écartées' : ' est écartée'} d'office.{' '}
+                </>
+              )}
               Aperçu calculé ici avec la même règle que le site. Les chiffres
               publiés ne bougeront qu'après la prochaine construction de l'image.
             </p>

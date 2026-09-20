@@ -181,3 +181,26 @@ export const loadVideos = async () => {
   // sont pas passées : listes, recherche, hero et accès direct à /video/<slug>.
   return videos.filter((video) => isPublished(video.publishedAt, video.publishedTime));
 };
+
+/**
+ * Codes YouTube de toutes les fiches vidéo du dépôt — c'est la liste des vidéos
+ * « ajoutées manuellement ». Le Media Kit s'en sert pour n'afficher que les
+ * vidéos qui ont une fiche, ce qui écarte d'office shorts et lives.
+ *
+ * Les fiches programmées sont **incluses** : leur vidéo est déjà en ligne sur
+ * YouTube si l'API la remonte, la date de sortie ne concerne que l'affichage de
+ * la fiche sur le site. Les exclure creuserait un trou dans les statistiques.
+ */
+export const loadVideoCodes = async (): Promise<Set<string>> => {
+  const videos = await loadContentFromFiles('/videos/', (parsed) => ({
+    code: parsed.frontmatter.code,
+    publishedAt: parsed.frontmatter.pubDate,
+    publishedTime: parsed.frontmatter.pubTime ? String(parsed.frontmatter.pubTime) : '',
+  }));
+
+  return new Set(
+    videos
+      .map((video: { code?: unknown }) => video.code)
+      .filter((code: unknown): code is string => typeof code === 'string' && code !== '')
+  );
+};

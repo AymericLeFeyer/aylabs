@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import { EyeOff, LogOut } from 'lucide-react';
 import type { ContentKind } from './domain/content/entities/ContentItem';
 import type { GitHubUser } from './domain/auth/entities/GitHubUser';
@@ -8,6 +8,7 @@ import { HiddenVideosPage } from './presentation/pages/HiddenVideosPage';
 import { LoginPage } from './presentation/pages/LoginPage';
 import { ProductEditorPage } from './presentation/pages/ProductEditorPage';
 import { VideoEditorPage } from './presentation/pages/VideoEditorPage';
+import { knownVideoCodes } from './domain/stats/services/hiddenVideos';
 import { useCatalog } from './presentation/hooks/useCatalog';
 import { useSession } from './presentation/hooks/useSession';
 import type { EditorMode } from './presentation/hooks/useDraftEditor';
@@ -33,6 +34,9 @@ const Studio: React.FC<{ user: GitHubUser; onLogout: () => void }> = ({ user, on
   const { catalog, videos, products, suggestions, byKind, slugs, syncing, syncError, sync, repository } =
     useCatalog();
   const [route, setRoute] = useState<Route>({ name: 'dashboard' });
+
+  // Codes des fiches du dépôt : le Media Kit n'affiche que ces vidéos-là.
+  const knownCodes = useMemo(() => knownVideoCodes(videos), [videos]);
 
   const goDashboard = useCallback(() => setRoute({ name: 'dashboard' }), []);
 
@@ -62,7 +66,7 @@ const Studio: React.FC<{ user: GitHubUser; onLogout: () => void }> = ({ user, on
 
   const body =
     route.name === 'hidden-videos' ? (
-      <HiddenVideosPage onBack={goDashboard} />
+      <HiddenVideosPage onBack={goDashboard} knownCodes={knownCodes} />
     ) : (
       <DashboardPage
         videos={videos}

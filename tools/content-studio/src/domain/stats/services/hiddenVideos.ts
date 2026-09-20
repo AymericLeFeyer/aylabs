@@ -39,14 +39,36 @@ export const serializeHiddenVideos = (entries: HiddenVideo[]): string =>
   `${JSON.stringify({ hidden: entries }, null, 2)}\n`;
 
 /**
- * Ce que le site retiendra pour ses calculs : la banlist retirée, les
- * `STATS_WINDOW` plus récentes de ce qui reste.
+ * Codes YouTube des fiches du dépôt — la liste des vidéos ajoutées à la main.
+ * `code` est un scalaire du frontmatter, d'où le passage par `String`.
+ */
+export const knownVideoCodes = (
+  files: { frontmatter: Record<string, unknown> }[]
+): Set<string> =>
+  new Set(
+    files
+      .map((file) => String(file.frontmatter.code ?? '').trim())
+      .filter((code) => code !== '')
+  );
+
+/**
+ * Ce que le site retiendra pour ses calculs : d'abord les vidéos qui ont une
+ * fiche (`known`), puis la banlist retirée, puis les `STATS_WINDOW` plus
+ * récentes de ce qui reste.
+ *
+ * `known` absent ou vide désactive le premier filtre, exactement comme
+ * `selectVideos` dans `src/utils/youtubeStats.ts` — **les deux implémentations
+ * doivent rester alignées.**
  */
 export const retainedVideos = (
   videos: ChannelVideo[],
-  hidden: Set<string>
+  hidden: Set<string>,
+  known?: Set<string>
 ): ChannelVideo[] =>
-  videos.filter((video) => !hidden.has(video.id)).slice(0, STATS_WINDOW);
+  videos
+    .filter((video) => !known || known.size === 0 || known.has(video.id))
+    .filter((video) => !hidden.has(video.id))
+    .slice(0, STATS_WINDOW);
 
 export const averageViews = (videos: ChannelVideo[]): number => {
   if (videos.length === 0) return 0;

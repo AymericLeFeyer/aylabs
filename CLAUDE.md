@@ -1,6 +1,6 @@
 # AyLabs — instructions projet
 
-> Dernière mise à jour : 2026-09-18
+> Dernière mise à jour : 2026-09-20
 
 Site vitrine de la chaîne AyLabs (domotique, homelab, impression 3D) : vidéos,
 produits testés, tutoriels. **React 18 + Vite + TypeScript + Tailwind**, contenu en
@@ -223,7 +223,7 @@ Gère la banlist décrite plus haut. Ajouté le 2026-09-08.
 | Élément | Rôle |
 |---|---|
 | `entities/ChannelVideo.ts` | `ChannelVideo`, `HiddenVideo`, `HiddenVideosFile` |
-| `services/hiddenVideos.ts` | parse/sérialise les deux fichiers, applique la fenêtre de 10, calcule l'aperçu |
+| `services/hiddenVideos.ts` | parse/sérialise les deux fichiers, `knownVideoCodes` (codes des fiches), `retainedVideos` (fiche + banlist + fenêtre de 10), calcule l'aperçu |
 | `repositories/StatsRepository.ts` | interface de lecture/écriture |
 | `infrastructure/stats/GitHubStatsRepository.ts` | lit `public/youtube-stats.json`, lit et commite `public/hidden-videos.json` |
 | `application/stats/usecases/ManageHiddenVideos.ts` | `load()`, `save(entries)` — relit le SHA distant avant d'écrire |
@@ -233,6 +233,12 @@ Gère la banlist décrite plus haut. Ajouté le 2026-09-08.
 Le fichier de banlist n'existe pas forcément : `fetchHiddenVideos` renvoie alors
 une liste vide sans `sha`, et le premier enregistrement crée le fichier. Message
 de commit : `data(stats): hide N videos` (ou `clear hidden videos`).
+
+La page « Vidéos masquées » marque **« sans fiche »** (badge ambre) les vidéos de
+l'API qu'aucun fichier de `src/content/videos` ne porte : elles sont déjà hors
+statistiques, leur case est donc désactivée — sauf si elles traînent encore dans
+la banlist, pour pouvoir les en retirer. Les codes viennent de `knownVideoCodes`,
+calculé dans `App.tsx` depuis le catalogue et passé en prop `knownCodes`.
 
 ### Use cases
 
@@ -403,33 +409,55 @@ Le mot « commentaires » qui reste dans le Media Kit désigne ceux de **YouTube
 
 ### Statistiques de chaîne et banlist
 
-`public/youtube-stats.json` (écrit par n8n) contient **15 vidéos** depuis le
-2026-09-08. `public/hidden-videos.json` liste les vidéos à exclure des calculs :
+`public/youtube-stats.json` (écrit par n8n) contient les **20 dernières vidéos**
+de la chaîne, shorts et lives compris. `public/hidden-videos.json` liste en plus
+les vidéos à exclure des calculs :
 
 ```json
 { "hidden": [{ "code": "9B4vS9Gbx60", "title": "Unboxing…", "hiddenAt": "2026-09-08" }] }
 ```
 
-La règle, dans `src/utils/youtubeStats.ts` : **on retire les vidéos de la banlist,
-puis on garde les 10 plus récentes de ce qui reste** (`STATS_WINDOW`). Sans vidéo
-masquée, cela revient exactement aux 10 dernières publications.
+La règle, dans `selectVideos` (`src/utils/youtubeStats.ts`), dans cet ordre :
 
+1. **on ne garde que les vidéos qui ont une fiche** dans `src/content/videos`
+   (comparaison sur le `code` du frontmatter) — ajouté le 2026-09-20 ;
+2. on retire les vidéos de la banlist ;
+3. on garde les **10 plus récentes** de ce qui reste (`STATS_WINDOW`).
+
+Le Media Kit continue donc d'afficher **les vidéos remontées par l'API** (titres,
+vues, miniatures viennent de `youtube-stats.json`), mais uniquement celles qui
+existent **aussi** dans les fiches. C'est ce qui écarte d'office les shorts, les
+lives et les vidéos jamais documentées : plus besoin de les ajouter une à une à
+la banlist, qui ne sert plus qu'à masquer une vidéo qui a pourtant une fiche.
+
+- **Une vidéo longue sans fiche disparaît des stats.** Le 2026-09-20, « La POMPE
+  à CHALEUR » (2026-02-28) est dans ce cas. Créer la fiche la fait revenir.
+- La liste des codes vient de `loadVideoCodes()` (`src/utils/markdownLoader.ts`),
+  qui **inclut les fiches programmées** : si l'API remonte la vidéo, elle est
+  déjà publique sur YouTube, la date de sortie ne concerne que l'affichage de la
+  fiche. Les exclure creuserait un trou dans les statistiques.
+- Ce filtre est **fail-open** : `known` vide (lecture des fiches en échec) le
+  désactive, pour retomber sur l'ancien comportement plutôt que sur un Media Kit
+  vide.
 - Les valeurs `averageViews`, `engagementRate` et `recentVideosCount` du JSON sont
   calculées par n8n **sur toutes les vidéos** : le site les **recalcule** sur les
   vidéos retenues. Elles ne servent plus que de repli si aucune vidéo n'est
-  exploitable. Vérifié le 2026-09-08 : à banlist vide, le recalcul redonne
-  exactement les chiffres de n8n (6005 vues de moyenne, 3,6 % d'engagement, 4).
+  exploitable. Au 2026-09-20, le recalcul donne 10 940 vues de moyenne et 3,6 %
+  d'engagement, là où n8n annonce 6 808 vues et 3,4 % — l'écart est normal, il
+  vient des shorts et des lives désormais écartés.
 - `recentVideosCount` compte les publications des **30 derniers jours glissants**
   (`RECENT_WINDOW_DAYS`), pas le mois calendaire — c'est ce que faisait déjà n8n,
   malgré l'ancien libellé « ce mois », corrigé en « ces 30 jours ».
 - `stats.videoCount` (total de la chaîne, affiché en gros) vient de l'API YouTube
-  et **n'est pas affecté** par la banlist : on ne connaît que les 15 dernières
-  vidéos, en déduire les masquées donnerait un total faux.
+  et **n'est pas affecté** par ces filtres : on ne connaît que les 20 dernières
+  vidéos, en déduire les écartées donnerait un total faux.
 - La banlist est un fichier du `public/` : comme `youtube-stats.json`, elle n'est
-  prise en compte **qu'après reconstruction de l'image**.
+  prise en compte **qu'après reconstruction de l'image**. Les fiches, elles, sont
+  compilées dans le bundle — même contrainte.
 - **La même règle est réimplémentée dans le Studio**
-  (`domain/stats/services/hiddenVideos.ts`) pour l'aperçu avant commit : toute
-  correction ici doit y être reportée, et inversement.
+  (`domain/stats/services/hiddenVideos.ts`, `retainedVideos` + `knownVideoCodes`)
+  pour l'aperçu avant commit : toute correction ici doit y être reportée, et
+  inversement.
 
 ### Pages liste et détail
 

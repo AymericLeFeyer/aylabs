@@ -11,8 +11,11 @@ import {
 /**
  * Pilote la banlist : elle vit dans `public/hidden-videos.json`, lu et commité
  * sur GitHub comme n'importe quelle fiche.
+ *
+ * `knownCodes` sont les codes des fiches du dépôt : l'aperçu reproduit le filtre
+ * du site, qui écarte d'office les vidéos de l'API sans fiche.
  */
-export const useHiddenVideos = () => {
+export const useHiddenVideos = (knownCodes?: Set<string>) => {
   const useCase = useMemo(() => new ManageHiddenVideos(new GitHubStatsRepository()), []);
 
   const [videos, setVideos] = useState<ChannelVideo[]>([]);
@@ -72,8 +75,8 @@ export const useHiddenVideos = () => {
 
   // Aperçu de ce que le site calculera avec cette banlist.
   const retained = useMemo(
-    () => retainedVideos(videos, hiddenCodes),
-    [videos, hiddenCodes]
+    () => retainedVideos(videos, hiddenCodes, knownCodes),
+    [videos, hiddenCodes, knownCodes]
   );
 
   return {
