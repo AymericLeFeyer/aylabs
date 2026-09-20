@@ -2,16 +2,7 @@ import React from "react";
 import { Mail, TrendingUp, Award, Calendar, ArrowRight } from "lucide-react";
 import { useYouTubeStats } from "../hooks/useYouTubeStats";
 import { ViewsChart } from "./ViewsChart";
-
-const formatNumber = (num: number, decimals: number) => {
-  if (num >= 1000000) {
-    return `${(num / 1000000).toFixed(decimals).replace(".", ",")} M`;
-  }
-  if (num >= 1000) {
-    return `${(num / 1000).toFixed(decimals).replace(".", ",")} K`;
-  }
-  return num.toString();
-};
+import { formatCompactCount } from "../utils/formatCount";
 
 const monthsSinceStart = () => {
   const start = new Date("2024-06-01");
@@ -107,7 +98,7 @@ export const MediaKitSection: React.FC = () => {
             <dl className="mt-8 grid grid-cols-3 divide-x divide-gray-200 border-b border-gray-200 pb-8 sm:mt-10 sm:pb-10">
               <div className="pr-3 sm:pr-8">
                 <dd className="font-display text-2xl font-bold text-[#141414] sm:text-4xl md:text-5xl">
-                  {formatNumber(stats.subscriberCount, 1)}
+                  {formatCompactCount(stats.subscriberCount)}
                 </dd>
                 <dt className="mt-1 text-sm text-gray-600 sm:text-base">
                   abonnés
@@ -115,7 +106,7 @@ export const MediaKitSection: React.FC = () => {
               </div>
               <div className="px-3 sm:px-8">
                 <dd className="font-display text-2xl font-bold text-[#141414] sm:text-4xl md:text-5xl">
-                  {formatNumber(stats.viewCount, 0)}
+                  {formatCompactCount(stats.viewCount)}
                 </dd>
                 <dt className="mt-1 text-sm text-gray-600 sm:text-base">
                   vues cumulées
@@ -150,7 +141,7 @@ export const MediaKitSection: React.FC = () => {
                     aria-hidden="true"
                   />
                   <p className="mt-2 font-display text-xl font-bold text-[#141414] sm:mt-3 sm:text-2xl">
-                    {formatNumber(averageViews, 1)}
+                    {formatCompactCount(averageViews)}
                   </p>
                   <p className="text-xs text-gray-600 sm:text-sm">
                     <span className="sm:hidden">vues / vidéo</span>

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { formatCompactCount } from "../utils/formatCount";
 
 interface ChartVideo {
   id: string;
@@ -11,12 +12,6 @@ interface ViewsChartProps {
   videos: ChartVideo[];
   averageViews: number;
 }
-
-const formatViews = (value: number) => {
-  if (value >= 1000000) return `${(value / 1000000).toFixed(1).replace(".", ",")} M`;
-  if (value >= 1000) return `${(value / 1000).toFixed(1).replace(".", ",")} K`;
-  return value.toString();
-};
 
 const formatShortDate = (value: string) => {
   const date = new Date(value);
@@ -55,7 +50,7 @@ export const ViewsChart: React.FC<ViewsChartProps> = ({
           Vues des {ordered.length} dernières vidéos
         </h3>
         <span className="text-sm text-gray-500">
-          Moyenne {formatViews(averageViews)} vues
+          Moyenne {formatCompactCount(averageViews)} vues
         </span>
       </figcaption>
 
@@ -88,7 +83,7 @@ export const ViewsChart: React.FC<ViewsChartProps> = ({
                       isActive ? "text-[#141414]" : "text-brand"
                     }`}
                   >
-                    {formatViews(video.viewCount)}
+                    {formatCompactCount(video.viewCount)}
                   </span>
                 )}
                 <div
@@ -115,7 +110,7 @@ export const ViewsChart: React.FC<ViewsChartProps> = ({
                         {video.title}
                       </p>
                       <p className="mt-1 text-xs text-gray-500">
-                        {formatViews(video.viewCount)} vues, le{" "}
+                        {formatCompactCount(video.viewCount)} vues, le{" "}
                         {formatShortDate(video.publishedAt)}
                       </p>
                     </div>

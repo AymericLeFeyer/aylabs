@@ -57,7 +57,7 @@ src/
 ├── pages/             # une page par route
 ├── hooks/             # useMarkdownContent, useYouTubeStats
 ├── utils/             # markdownLoader (parseur frontmatter), markdownRenderer,
-│                      # youtubeStats (banlist + moyennes), analytics
+│                      # youtubeStats (banlist + moyennes), formatCount, analytics
 ├── types/index.ts     # Video, Product, Tutorial, Article
 ├── content/           # LE CONTENU — un .md par fiche
 │   ├── videos/        # 91 fiches
@@ -488,6 +488,25 @@ la banlist, qui ne sert plus qu'à masquer une vidéo qui a pourtant une fiche.
     variants `[&_a]` et `[&_p:last-child]` rattrapent un éventuel lien.
 - Le champ `rating` du frontmatter n'est **pas affiché** : seules 3 fiches sur 48
   le renseignent, et il est absent du type `Product`.
+
+### Affichage des compteurs — `src/utils/formatCount.ts`
+
+`formatCompactCount` est la **seule** façon d'afficher un nombre d'abonnés ou de
+vues (hero, Media Kit, `ViewsChart`). Règle « à la YouTube » : **toujours trois
+chiffres significatifs**, virgule décimale française et espace avant le suffixe.
+
+| Valeur | Rendu |
+|---|---|
+| 950 | `950` |
+| 1 234 | `1,23 K` |
+| 13 300 | `13,3 K` |
+| 993 456 | `993 K` |
+| 1 004 000 | `1,00 M` |
+
+La valeur est **tronquée, jamais arrondie** : 999 999 vues restent `999 K`, pour
+ne pas annoncer le million avant qu'il soit atteint. L'epsilon `1e-9` dans le
+calcul rattrape les flottants (13,3 × 10 vaut parfois 132,999…). `stats.videoCount`
+n'y passe pas : il s'affiche en entier.
 
 ### `ViewsChart` — vues des dernières vidéos
 

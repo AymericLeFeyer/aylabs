@@ -4,16 +4,7 @@ import { useLocation } from "react-router-dom";
 import { useVideos } from "../hooks/useMarkdownContent";
 import { useYouTubeStats } from "../hooks/useYouTubeStats";
 import { VideoStack } from "./VideoStack";
-
-const formatCount = (value: number) => {
-  if (value >= 1000000) {
-    return `${(value / 1000000).toFixed(1).replace(".", ",")} M`;
-  }
-  if (value >= 1000) {
-    return `${Math.round(value / 1000)} K`;
-  }
-  return value.toString();
-};
+import { formatCompactCount } from "../utils/formatCount";
 
 export const Hero: React.FC = () => {
   const location = useLocation();
@@ -99,13 +90,13 @@ export const Hero: React.FC = () => {
               <dl className="mt-10 flex max-w-md divide-x divide-ink-line border-t border-ink-line pt-6">
                 <div className="pr-6">
                   <dd className="font-display text-2xl font-bold text-white">
-                    {formatCount(stats.subscriberCount)}
+                    {formatCompactCount(stats.subscriberCount)}
                   </dd>
                   <dt className="mt-1 text-sm text-gray-500">abonnés</dt>
                 </div>
                 <div className="px-6">
                   <dd className="font-display text-2xl font-bold text-white">
-                    {formatCount(stats.viewCount)}
+                    {formatCompactCount(stats.viewCount)}
                   </dd>
                   <dt className="mt-1 text-sm text-gray-500">vues</dt>
                 </div>
