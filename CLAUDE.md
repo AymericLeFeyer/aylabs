@@ -56,13 +56,25 @@ Deux outils coexistent :
 - **GA4** (`react-ga4`, `VITE_GA_ID`) : pages vues via `src/utils/AnalyticsTracker.tsx`,
   `click_partner_link` sur la fiche produit.
 - **Aynalytics** (auto-hébergé, dépôt `aynalytics`) : `src/utils/aynalytics.ts`, appelé une
-  fois dans `main.tsx`. Il injecte `<collector>/sdk.js` puis appelle `init` avec
+  fois dans `main.tsx`. Il injecte `/_ay/sdk.js` puis appelle `init` avec
   `persistence: "local"` (visiteurs uniques sur 13 mois) et `classifyLink`.
 
-Variables inlinées au build : `VITE_AYNALYTICS_URL` (URL du collector) et
-`VITE_AYNALYTICS_SITE_KEY` (`ay_pk_...`). Ce sont des **variables** GitHub Actions
-(`vars.*`), pas des secrets : la clé est publique par nature. Si l'une manque,
-Aynalytics est inactif (cas du dev local).
+**Proxy `/_ay/`** (`docker/nginx.conf`) : nginx relaie `/_ay/*` vers
+`http://aynalytics-collector:8080/*`. Le navigateur ne parle qu'à aylabs.fr, sans
+domaine tiers, donc moins de blocage par les bloqueurs de pub. Cela suppose que le
+conteneur du site et le collector partagent le réseau Docker `pangolin` (c'est le cas
+dans le compose Dockhand du VPS, géré hors dépôt). Le nom est résolu à la requête
+(`resolver 127.0.0.11`) : si le collector est arrêté, `/_ay/` répond 502 et le site
+reste debout. `X-Forwarded-For` est complété pour que le collector voie l'IP du visiteur.
+
+Variables inlinées au build, en **variables** GitHub Actions (`vars.*`) et non en
+secrets, car la clé est publique par nature :
+
+- `VITE_AYNALYTICS_SITE_KEY` (`ay_pk_...`) : obligatoire, sinon Aynalytics est inactif
+  (cas du dev local) ;
+- `VITE_AYNALYTICS_URL` : facultative, `/_ay` par défaut.
+
+La clé secrète `ay_sk_` du site n'est pas utilisée : aylabs n'envoie rien côté serveur.
 
 Collecté automatiquement : un `screen` par route (nom = chemin, avec le titre de la
 page), les visites (sessions de 30 min), la source (UTM > référent), la localisation

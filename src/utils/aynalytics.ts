@@ -7,7 +7,8 @@
  *   `youtube_click`, `social_click`, `contact_click` ; le reste part en `outbound_click`.
  * - Événements métier : `track("promo_code_copy", { ... })`.
  *
- * Sans `VITE_AYNALYTICS_URL` / `VITE_AYNALYTICS_SITE_KEY` (dev local), tout est inactif.
+ * Sans `VITE_AYNALYTICS_SITE_KEY` (dev local), tout est inactif. `VITE_AYNALYTICS_URL`
+ * est facultative : par défaut, le SDK passe par le proxy `/_ay` du nginx du site.
  */
 
 type JsonValue = string | number | boolean | null | JsonValue[] | { [key: string]: JsonValue };
@@ -42,7 +43,8 @@ declare global {
   }
 }
 
-const ENDPOINT = import.meta.env.VITE_AYNALYTICS_URL?.replace(/\/+$/, "");
+/** Par défaut, le collector est relayé par le nginx du site sur /_ay (docker/nginx.conf). */
+const ENDPOINT = (import.meta.env.VITE_AYNALYTICS_URL || "/_ay").replace(/\/+$/, "");
 const SITE_KEY = import.meta.env.VITE_AYNALYTICS_SITE_KEY;
 
 /** Boutiques et programmes d'affiliation : domaine -> nom affiché dans les stats. */
