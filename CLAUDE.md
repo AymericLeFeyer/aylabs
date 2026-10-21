@@ -51,13 +51,12 @@ sources.
 
 ## Analytics
 
-Deux outils coexistent :
+Seul outil : **Aynalytics** (auto-hébergé, dépôt `aynalytics`). GA4 (`react-ga4`) a été
+retiré le 2026-10-21 ; le secret `VITE_GA_ID` du dépôt n'est plus lu par aucun workflow.
 
-- **GA4** (`react-ga4`, `VITE_GA_ID`) : pages vues via `src/utils/AnalyticsTracker.tsx`,
-  `click_partner_link` sur la fiche produit.
-- **Aynalytics** (auto-hébergé, dépôt `aynalytics`) : `src/utils/aynalytics.ts`, appelé une
-  fois dans `main.tsx`. Il injecte `/_ay/sdk.js` puis appelle `init` avec
-  `persistence: "local"` (visiteurs uniques sur 13 mois) et `classifyLink`.
+`src/utils/aynalytics.ts` est appelé une fois dans `main.tsx`. Il injecte `/_ay/sdk.js`
+puis appelle `init` avec `persistence: "local"` (visiteurs uniques sur 13 mois) et
+`classifyLink`.
 
 **Proxy `/_ay/`** (`docker/nginx.conf`) : nginx relaie `/_ay/*` vers
 `http://aynalytics-collector:8080/*`. Le navigateur ne parle qu'à aylabs.fr, sans
@@ -110,7 +109,7 @@ src/
 ├── pages/             # une page par route
 ├── hooks/             # useMarkdownContent, useYouTubeStats
 ├── utils/             # markdownLoader (parseur frontmatter), markdownRenderer,
-│                      # youtubeStats (banlist + moyennes), formatCount, analytics,
+│                      # youtubeStats (banlist + moyennes), formatCount,
 │                      # aynalytics (SDK Aynalytics + classement des clics)
 ├── types/index.ts     # Video, Product, Tutorial, Article
 ├── content/           # LE CONTENU — un .md par fiche

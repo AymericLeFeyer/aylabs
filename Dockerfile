@@ -16,9 +16,6 @@ COPY tsconfig*.json vite.config.ts tailwind.config.js postcss.config.js index.ht
 COPY public ./public
 COPY src ./src
 
-ARG VITE_GA_ID=""
-ENV VITE_GA_ID=$VITE_GA_ID
-
 # Aynalytics : URL du collector et clé PUBLIQUE du site (jamais la clé secrète).
 ARG VITE_AYNALYTICS_URL=""
 ARG VITE_AYNALYTICS_SITE_KEY=""

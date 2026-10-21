@@ -65,7 +65,6 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           build-args: |
-            VITE_GA_ID=${{ secrets.VITE_GA_ID }}
             VITE_AYNALYTICS_URL=${{ vars.VITE_AYNALYTICS_URL }}
             VITE_AYNALYTICS_SITE_KEY=${{ vars.VITE_AYNALYTICS_SITE_KEY }}
           cache-from: type=gha

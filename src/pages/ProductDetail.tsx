@@ -16,7 +16,6 @@ import { MarkdownRenderer } from "../utils/markdownRenderer";
 import { SEO } from "../components/SEO";
 import { PageHeader } from "../components/PageHeader";
 import { Product } from "../types";
-import ReactGA from "react-ga4";
 import { track } from "../utils/aynalytics";
 
 const CopyCodeButton: React.FC<{ code: string; product: Product }> = ({
@@ -64,11 +63,6 @@ const SPEC_COLUMNS: Record<number, string> = {
   1: "sm:grid-cols-1",
   2: "sm:grid-cols-2",
   3: "sm:grid-cols-3",
-};
-
-const trackEvent = (name: string, params: Record<string, unknown>) => {
-  if (!import.meta.env.VITE_GA_ID) return;
-  ReactGA.gtag("event", name, params);
 };
 
 /**
@@ -309,13 +303,6 @@ export const ProductDetail: React.FC = () => {
                         data-ay-prop-product_name={product.name}
                         data-ay-prop-category={product.category}
                         data-ay-prop-price={product.promoPrice ?? product.price}
-                        onClick={() =>
-                          trackEvent("click_partner_link", {
-                            partner: store.label,
-                            product_id: product.id,
-                            product_name: product.name,
-                          })
-                        }
                         className={`flex w-full items-center justify-center gap-2 rounded-lg px-4 py-3 text-sm font-semibold transition-colors ${store.className}`}
                       >
                         <ShoppingCart className="h-4 w-4" aria-hidden="true" />
@@ -340,13 +327,6 @@ export const ProductDetail: React.FC = () => {
                           data-ay-prop-product_name={product.name}
                           data-ay-prop-category={product.category}
                           data-ay-prop-price={product.promoPrice ?? product.price}
-                          onClick={() =>
-                            trackEvent("click_partner_link", {
-                              partner: label,
-                              product_id: product.id,
-                              product_name: product.name,
-                            })
-                          }
                           className="flex w-full items-center justify-center gap-2 rounded-lg bg-[#141414] px-4 py-3 text-sm font-semibold text-white transition-colors hover:bg-gray-800"
                         >
                           <ShoppingCart className="h-4 w-4" aria-hidden="true" />

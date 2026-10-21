@@ -11,7 +11,6 @@ import { ProductsTested } from "./pages/ProductsTested";
 import { ProductDetail } from "./pages/ProductDetail";
 import { Contact } from "./pages/Contact";
 import { HelmetProvider } from "react-helmet-async";
-import AnalyticsTracker from "./utils/AnalyticsTracker";
 import { Support } from "./pages/Support";
 import { Deals } from "./pages/Deals";
 
@@ -19,7 +18,6 @@ function App() {
   return (
     <HelmetProvider>
       <Router>
-        <AnalyticsTracker />
         <ScrollToTop />
         <Layout>
           <Routes>
