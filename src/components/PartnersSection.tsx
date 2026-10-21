@@ -94,6 +94,7 @@ export const PartnersSection: React.FC = () => (
             href={partner.url}
             target="_blank"
             rel="noopener noreferrer"
+            data-ay-prop-merchant={partner.name}
             style={
               { "--partner": partner.color } as React.CSSProperties
             }

@@ -39,7 +39,10 @@ export const Hero: React.FC = () => {
   }, [location]);
 
   return (
-    <section className="relative overflow-hidden bg-ink text-white">
+    <section
+      className="relative overflow-hidden bg-ink text-white"
+      data-ay-section="hero"
+    >
       {/* Trame et halo : le fond du labo, jamais au premier plan */}
       <div className="pointer-events-none absolute inset-0 bg-grid" aria-hidden="true" />
       <div

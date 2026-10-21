@@ -5,10 +5,16 @@ import { useProducts } from "../hooks/useMarkdownContent";
 import { Product } from "../types";
 import { Copy, Check } from "lucide-react";
 import { PageHeader } from "../components/PageHeader";
+import { track } from "../utils/aynalytics";
 
-const CopyCodeButton: React.FC<{ code: string }> = ({ code }) => {
+const CopyCodeButton: React.FC<{ code: string; platform: string; percent: number }> = ({
+  code,
+  platform,
+  percent,
+}) => {
   const [copied, setCopied] = React.useState(false);
   const handleCopy = () => {
+    track("promo_code_copy", { code, platform, percent, page: "deals" });
     navigator.clipboard.writeText(code);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
@@ -77,7 +83,7 @@ export const Deals: React.FC = () => {
                         </span>
                       )}
                     </span>
-                    <CopyCodeButton code={promo.code} />
+                    <CopyCodeButton code={promo.code} platform={platform} percent={promo.percent} />
                   </div>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">

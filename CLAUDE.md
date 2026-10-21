@@ -1,6 +1,6 @@
 # AyLabs — instructions projet
 
-> Dernière mise à jour : 2026-09-20
+> Dernière mise à jour : 2026-10-21
 
 Site vitrine de la chaîne AyLabs (domotique, homelab, impression 3D) : vidéos,
 produits testés, tutoriels. **React 18 + Vite + TypeScript + Tailwind**, contenu en
@@ -49,6 +49,47 @@ sources.
   `tools/content-studio/Dockerfile.dockerignore` pour ne pas embarquer les 26 Mo de
   `public/videos-assets`.
 
+## Analytics
+
+Deux outils coexistent :
+
+- **GA4** (`react-ga4`, `VITE_GA_ID`) : pages vues via `src/utils/AnalyticsTracker.tsx`,
+  `click_partner_link` sur la fiche produit.
+- **Aynalytics** (auto-hébergé, dépôt `aynalytics`) : `src/utils/aynalytics.ts`, appelé une
+  fois dans `main.tsx`. Il injecte `<collector>/sdk.js` puis appelle `init` avec
+  `persistence: "local"` (visiteurs uniques sur 13 mois) et `classifyLink`.
+
+Variables inlinées au build : `VITE_AYNALYTICS_URL` (URL du collector) et
+`VITE_AYNALYTICS_SITE_KEY` (`ay_pk_...`). Ce sont des **variables** GitHub Actions
+(`vars.*`), pas des secrets : la clé est publique par nature. Si l'une manque,
+Aynalytics est inactif (cas du dev local).
+
+Collecté automatiquement : un `screen` par route (nom = chemin, avec le titre de la
+page), les visites (sessions de 30 min), la source (UTM > référent), la localisation
+IP (pays, région, ville, résolue côté serveur) et le contexte navigateur (langues,
+fuseau, écran, thème, connexion…).
+
+| Événement | Déclencheur | Propriétés |
+|---|---|---|
+| `merchant_click` | lien vers une boutique ou un programme d'affiliation (`MERCHANTS`), `go.aylabs.fr/<marchand>`, `/domadoo`, ou tout lien portant `data-ay-prop-merchant` | `merchant`, `url`, `host`, `text`, `section` ; sur la fiche produit : `product_id`, `product_name`, `category`, `price` |
+| `youtube_click` | youtube.com / youtu.be | `target` (`channel`, `video`, `membership`), `video_id`, `video_title` (page vidéo) |
+| `social_click` | Instagram, TikTok, Discord, GitHub, MakerWorld, links.aylabs.fr | `network` |
+| `contact_click` | `mailto:` | `channel: "email"` |
+| `outbound_click` | tout autre lien externe (liens du markdown…) | `url`, `host`, `text`, `section` |
+| `promo_code_copy` | bouton « copier le code » (fiche produit, `/deals`) | `code`, `platform`, `page`, produit ou `percent` |
+
+- `section` vient de `data-ay-section` (`hero`, `buy-box`, `video-header`), sinon de
+  l'`id` d'une `<section>` (`partners`, `media-kit`), sinon du landmark (`header`,
+  `footer`, `nav`).
+- **Nouvelle boutique** : ajouter son domaine dans `MERCHANTS`
+  (`src/utils/aynalytics.ts`), en plus des trois endroits listés pour les `buyLinks`.
+  Sans ça, ses liens hors fiche produit tombent en `outbound_click` (la fiche produit
+  reste correcte grâce à `data-ay-prop-merchant`).
+- Événement métier depuis un composant : `track("nom", { ... })` importé de
+  `../utils/aynalytics` (mis en file tant que le SDK n'est pas chargé, sans effet si
+  non configuré).
+- Les lecteurs YouTube intégrés (iframe) ne sont pas suivis, seulement les liens.
+
 ## Structure
 
 ```
@@ -57,7 +98,8 @@ src/
 ├── pages/             # une page par route
 ├── hooks/             # useMarkdownContent, useYouTubeStats
 ├── utils/             # markdownLoader (parseur frontmatter), markdownRenderer,
-│                      # youtubeStats (banlist + moyennes), formatCount, analytics
+│                      # youtubeStats (banlist + moyennes), formatCount, analytics,
+│                      # aynalytics (SDK Aynalytics + classement des clics)
 ├── types/index.ts     # Video, Product, Tutorial, Article
 ├── content/           # LE CONTENU — un .md par fiche
 │   ├── videos/        # 91 fiches

@@ -17,11 +17,22 @@ import { SEO } from "../components/SEO";
 import { PageHeader } from "../components/PageHeader";
 import { Product } from "../types";
 import ReactGA from "react-ga4";
+import { track } from "../utils/aynalytics";
 
-const CopyCodeButton: React.FC<{ code: string }> = ({ code }) => {
+const CopyCodeButton: React.FC<{ code: string; product: Product }> = ({
+  code,
+  product,
+}) => {
   const [copied, setCopied] = useState(false);
 
   const handleCopy = () => {
+    track("promo_code_copy", {
+      code,
+      product_id: product.id,
+      product_name: product.name,
+      platform: product.promoCode?.platform ?? null,
+      page: "product",
+    });
     navigator.clipboard.writeText(code).then(() => {
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
@@ -275,7 +286,7 @@ export const ProductDetail: React.FC = () => {
                     </p>
                   )}
                   <div className="mt-2">
-                    <CopyCodeButton code={product.promoCode.code} />
+                    <CopyCodeButton code={product.promoCode.code} product={product} />
                   </div>
                 </div>
               )}
@@ -292,6 +303,12 @@ export const ProductDetail: React.FC = () => {
                         href={product[store.key] as string}
                         target="_blank"
                         rel="noopener noreferrer"
+                        data-ay-section="buy-box"
+                        data-ay-prop-merchant={store.label}
+                        data-ay-prop-product_id={product.id}
+                        data-ay-prop-product_name={product.name}
+                        data-ay-prop-category={product.category}
+                        data-ay-prop-price={product.promoPrice ?? product.price}
                         onClick={() =>
                           trackEvent("click_partner_link", {
                             partner: store.label,
@@ -317,6 +334,12 @@ export const ProductDetail: React.FC = () => {
                           href={link}
                           target="_blank"
                           rel="noopener noreferrer"
+                          data-ay-section="buy-box"
+                          data-ay-prop-merchant={label}
+                          data-ay-prop-product_id={product.id}
+                          data-ay-prop-product_name={product.name}
+                          data-ay-prop-category={product.category}
+                          data-ay-prop-price={product.promoPrice ?? product.price}
                           onClick={() =>
                             trackEvent("click_partner_link", {
                               partner: label,

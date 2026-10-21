@@ -130,6 +130,8 @@ export const VideoDetail: React.FC = () => {
             href={video.url}
             target="_blank"
             rel="noopener noreferrer"
+            data-ay-section="video-header"
+            data-ay-prop-video_title={video.title}
             className="ml-auto inline-flex items-center gap-2 rounded-lg bg-[#E5322D] px-4 py-2 font-semibold text-white transition-colors hover:bg-[#c22824]"
           >
             <Play className="h-4 w-4" aria-hidden="true" />
