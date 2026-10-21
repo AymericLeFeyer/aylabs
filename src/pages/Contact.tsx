@@ -2,6 +2,8 @@ import React from 'react';
 import { Mail, Youtube, Instagram, Wrench } from 'lucide-react';
 import { SEO } from '../components/SEO';
 import { PageHeader } from "../components/PageHeader";
+import { CHANNEL_URL, CONTACT_EMAIL, SOCIAL_LINKS } from "../utils/links";
+import { trackContactClick, trackSocialClick, trackYoutubeClick } from "../utils/trackEvents";
 
 export const Contact: React.FC = () => {
   return (
@@ -29,9 +31,10 @@ export const Contact: React.FC = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {/* YouTube */}
             <a
-              href="https://youtube.com/@ay_labs"
+              href={CHANNEL_URL}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => trackYoutubeClick({ target: "channel", placement: "contact" })}
               className="group bg-gray-50 hover:bg-red-50 border border-gray-200 hover:border-red-200 rounded-xl p-6 transition-all duration-300 hover:scale-105 hover:shadow-lg"
             >
               <div className="flex items-center space-x-4">
@@ -47,9 +50,10 @@ export const Contact: React.FC = () => {
 
             {/* Discord */}
             <a
-              href="https://discord.gg/aylabs"
+              href={SOCIAL_LINKS.discord}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => trackSocialClick({ network: "discord", placement: "contact" })}
               className="group bg-gray-50 hover:bg-indigo-50 border border-gray-200 hover:border-indigo-200 rounded-xl p-6 transition-all duration-300 hover:scale-105 hover:shadow-lg"
             >
               <div className="flex items-center space-x-4">
@@ -67,9 +71,10 @@ export const Contact: React.FC = () => {
 
             {/* Instagram */}
             <a
-              href="https://instagram.com/aylabs_yt"
+              href={SOCIAL_LINKS.instagram}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => trackSocialClick({ network: "instagram", placement: "contact" })}
               className="group bg-gray-50 hover:bg-pink-50 border border-gray-200 hover:border-pink-200 rounded-xl p-6 transition-all duration-300 hover:scale-105 hover:shadow-lg"
             >
               <div className="flex items-center space-x-4">
@@ -85,7 +90,8 @@ export const Contact: React.FC = () => {
 
             {/* Mail */}
             <a
-              href="mailto:contact@aylabs.fr"
+              href={`mailto:${CONTACT_EMAIL}`}
+              onClick={() => trackContactClick({ placement: "contact" })}
               className="group bg-gray-50 hover:bg-blue-50 border border-gray-200 hover:border-blue-200 rounded-xl p-6 transition-all duration-300 hover:scale-105 hover:shadow-lg"
             >
               <div className="flex items-center space-x-4">
@@ -101,9 +107,10 @@ export const Contact: React.FC = () => {
 
             {/* TikTok */}
             <a
-              href="https://www.tiktok.com/@ay_labs"
+              href={SOCIAL_LINKS.tiktok}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => trackSocialClick({ network: "tiktok", placement: "contact" })}
               className="group bg-gray-50 hover:bg-gray-100 border border-gray-200 hover:border-gray-300 rounded-xl p-6 transition-all duration-300 hover:scale-105 hover:shadow-lg"
             >
               <div className="flex items-center space-x-4">
@@ -121,9 +128,10 @@ export const Contact: React.FC = () => {
 
             {/* MakerWorld */}
             <a
-              href="https://makerworld.com/@aylabs"
+              href={SOCIAL_LINKS.makerworld}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => trackSocialClick({ network: "makerworld", placement: "contact" })}
               className="group bg-gray-50 hover:bg-orange-50 border border-gray-200 hover:border-orange-200 rounded-xl p-6 transition-all duration-300 hover:scale-105 hover:shadow-lg"
             >
               <div className="flex items-center space-x-4">

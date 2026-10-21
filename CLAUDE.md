@@ -55,8 +55,9 @@ Seul outil : **Aynalytics** (auto-hébergé, dépôt `aynalytics`). GA4 (`react-
 retiré le 2026-10-21 ; le secret `VITE_GA_ID` du dépôt n'est plus lu par aucun workflow.
 
 `src/utils/aynalytics.ts` est appelé une fois dans `main.tsx`. Il injecte `/_ay/sdk.js`
-puis appelle `init` avec `persistence: "local"` (visiteurs uniques sur 13 mois) et
-`classifyLink`.
+puis appelle `init` avec `persistence: "local"` (visiteurs uniques sur 13 mois). La
+détection automatique des clics du SDK est **désactivée** (`autoClicks: false`,
+`outboundLinks: false`) : chaque clic est suivi explicitement (voir plus bas).
 
 **Proxy `/_ay/`** (`docker/nginx.conf`) : nginx relaie `/_ay/*` vers
 `http://aynalytics-collector:8080/*`. Le navigateur ne parle qu'à aylabs.fr, sans
@@ -80,25 +81,25 @@ page), les visites (sessions de 30 min), la source (UTM > référent), la locali
 IP (pays, région, ville, résolue côté serveur) et le contexte navigateur (langues,
 fuseau, écran, thème, connexion…).
 
-| Événement | Déclencheur | Propriétés |
-|---|---|---|
-| `merchant_click` | lien vers une boutique ou un programme d'affiliation (`MERCHANTS`), `go.aylabs.fr/<marchand>`, `/domadoo`, ou tout lien portant `data-ay-prop-merchant` | `merchant`, `url`, `host`, `text`, `section` ; sur la fiche produit : `product_id`, `product_name`, `category`, `price` |
-| `youtube_click` | youtube.com / youtu.be | `target` (`channel`, `video`, `membership`), `video_id`, `video_title` (page vidéo) |
-| `social_click` | Instagram, TikTok, Discord, GitHub, MakerWorld, links.aylabs.fr | `network` |
-| `contact_click` | `mailto:` | `channel: "email"` |
-| `outbound_click` | tout autre lien externe (liens du markdown…) | `url`, `host`, `text`, `section` |
-| `promo_code_copy` | bouton « copier le code » (fiche produit, `/deals`) | `code`, `platform`, `page`, produit ou `percent` |
+**Clics : un `onClick` explicite par lien**, via les fonctions de
+`src/utils/trackEvents.ts` (jamais d'appel `track("...")` en dur dans un composant) :
 
-- `section` vient de `data-ay-section` (`hero`, `buy-box`, `video-header`), sinon de
-  l'`id` d'une `<section>` (`partners`, `media-kit`), sinon du landmark (`header`,
-  `footer`, `nav`).
-- **Nouvelle boutique** : ajouter son domaine dans `MERCHANTS`
-  (`src/utils/aynalytics.ts`), en plus des trois endroits listés pour les `buyLinks`.
-  Sans ça, ses liens hors fiche produit tombent en `outbound_click` (la fiche produit
-  reste correcte grâce à `data-ay-prop-merchant`).
-- Événement métier depuis un composant : `track("nom", { ... })` importé de
-  `../utils/aynalytics` (mis en file tant que le SDK n'est pas chargé, sans effet si
-  non configuré).
+| Fonction | Événement | Où | Propriétés |
+|---|---|---|---|
+| `trackMerchantClick` | `merchant_click` | boutons d'achat (`buy-box`), `PartnersSection` (`partners`) | `merchant`, `url`, `placement` ; fiche produit : `product_id`, `product_name`, `category`, `price` |
+| `trackYoutubeClick` | `youtube_click` | hero, header, mobile-header, footer, contact, media-kit, page vidéo (`video-header`), `ViewsChart`, support (adhésion) | `target` (`channel`, `video`, `membership`), `url`, `placement`, `video_id`, `video_title` |
+| `trackSocialClick` | `social_click` | header (linktree), footer, contact | `network`, `url`, `placement` |
+| `trackContactClick` | `contact_click` | footer, contact, media-kit | `channel: "email"`, `placement`, `subject` |
+| `trackExternalLinkClick` / `trackNavItemClick` | `external_link_click` | menu (docs, setup), liens http(s) du markdown (`article`) | `url`, `host`, `label`, `placement`, `page` |
+| `trackPromoCodeCopy` | `promo_code_copy` | copie de code (fiche produit, `/deals`) | `code`, `page`, `platform`, produit ou `percent` |
+
+- Les URLs externes (chaîne, adhésion, réseaux, e-mail) sont dans `src/utils/links.ts`,
+  partagées par les composants et le suivi : ne pas les recopier en dur.
+- Les clics qui quittent la page partent immédiatement (`track(..., { leavingPage: true })`
+  → `flush`, requête keepalive), sinon ils seraient perdus à la navigation.
+- `Placement` est une union typée : un nouvel emplacement s'ajoute dans `trackEvents.ts`.
+- **Nouveau lien sortant** : ajouter le `onClick` avec la fonction adaptée. Sans ça, le
+  clic n'est pas suivi (aucune détection automatique).
 - Les lecteurs YouTube intégrés (iframe) ne sont pas suivis, seulement les liens.
 
 ## Structure
@@ -110,7 +111,8 @@ src/
 ├── hooks/             # useMarkdownContent, useYouTubeStats
 ├── utils/             # markdownLoader (parseur frontmatter), markdownRenderer,
 │                      # youtubeStats (banlist + moyennes), formatCount,
-│                      # aynalytics (SDK Aynalytics + classement des clics)
+│                      # aynalytics (chargement SDK), trackEvents (catalogue
+│                      # des événements), links (URLs externes)
 ├── types/index.ts     # Video, Product, Tutorial, Article
 ├── content/           # LE CONTENU — un .md par fiche
 │   ├── videos/        # 91 fiches

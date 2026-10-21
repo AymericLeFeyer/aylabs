@@ -16,7 +16,7 @@ import { MarkdownRenderer } from "../utils/markdownRenderer";
 import { SEO } from "../components/SEO";
 import { PageHeader } from "../components/PageHeader";
 import { Product } from "../types";
-import { track } from "../utils/aynalytics";
+import { trackMerchantClick, trackPromoCodeCopy } from "../utils/trackEvents";
 
 const CopyCodeButton: React.FC<{ code: string; product: Product }> = ({
   code,
@@ -25,12 +25,11 @@ const CopyCodeButton: React.FC<{ code: string; product: Product }> = ({
   const [copied, setCopied] = useState(false);
 
   const handleCopy = () => {
-    track("promo_code_copy", {
+    trackPromoCodeCopy({
       code,
-      product_id: product.id,
-      product_name: product.name,
-      platform: product.promoCode?.platform ?? null,
       page: "product",
+      platform: product.promoCode?.platform ?? null,
+      product,
     });
     navigator.clipboard.writeText(code).then(() => {
       setCopied(true);
@@ -297,12 +296,14 @@ export const ProductDetail: React.FC = () => {
                         href={product[store.key] as string}
                         target="_blank"
                         rel="noopener noreferrer"
-                        data-ay-section="buy-box"
-                        data-ay-prop-merchant={store.label}
-                        data-ay-prop-product_id={product.id}
-                        data-ay-prop-product_name={product.name}
-                        data-ay-prop-category={product.category}
-                        data-ay-prop-price={product.promoPrice ?? product.price}
+                        onClick={() =>
+                          trackMerchantClick({
+                            merchant: store.label,
+                            url: product[store.key] as string,
+                            placement: "buy-box",
+                            product,
+                          })
+                        }
                         className={`flex w-full items-center justify-center gap-2 rounded-lg px-4 py-3 text-sm font-semibold transition-colors ${store.className}`}
                       >
                         <ShoppingCart className="h-4 w-4" aria-hidden="true" />
@@ -321,12 +322,14 @@ export const ProductDetail: React.FC = () => {
                           href={link}
                           target="_blank"
                           rel="noopener noreferrer"
-                          data-ay-section="buy-box"
-                          data-ay-prop-merchant={label}
-                          data-ay-prop-product_id={product.id}
-                          data-ay-prop-product_name={product.name}
-                          data-ay-prop-category={product.category}
-                          data-ay-prop-price={product.promoPrice ?? product.price}
+                          onClick={() =>
+                            trackMerchantClick({
+                              merchant: label,
+                              url: link,
+                              placement: "buy-box",
+                              product,
+                            })
+                          }
                           className="flex w-full items-center justify-center gap-2 rounded-lg bg-[#141414] px-4 py-3 text-sm font-semibold text-white transition-colors hover:bg-gray-800"
                         >
                           <ShoppingCart className="h-4 w-4" aria-hidden="true" />

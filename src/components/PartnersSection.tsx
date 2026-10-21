@@ -1,5 +1,6 @@
 import React from "react";
 import { ArrowUpRight } from "lucide-react";
+import { trackMerchantClick } from "../utils/trackEvents";
 
 interface Partner {
   name: string;
@@ -94,7 +95,9 @@ export const PartnersSection: React.FC = () => (
             href={partner.url}
             target="_blank"
             rel="noopener noreferrer"
-            data-ay-prop-merchant={partner.name}
+            onClick={() =>
+              trackMerchantClick({ merchant: partner.name, url: partner.url, placement: "partners" })
+            }
             style={
               { "--partner": partner.color } as React.CSSProperties
             }

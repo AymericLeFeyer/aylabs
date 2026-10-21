@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { formatCompactCount } from "../utils/formatCount";
+import { trackYoutubeClick } from "../utils/trackEvents";
 
 interface ChartVideo {
   id: string;
@@ -133,6 +134,15 @@ export const ViewsChart: React.FC<ViewsChartProps> = ({
             href={`https://youtu.be/${video.id}`}
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() =>
+              trackYoutubeClick({
+                target: "video",
+                url: `https://youtu.be/${video.id}`,
+                placement: "views-chart",
+                videoId: video.id,
+                videoTitle: video.title,
+              })
+            }
             aria-label={`${video.title} — voir sur YouTube`}
             onMouseEnter={() => setActive(index)}
             onMouseLeave={() => setActive(null)}

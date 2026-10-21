@@ -5,6 +5,8 @@ import { useVideos } from "../hooks/useMarkdownContent";
 import { useYouTubeStats } from "../hooks/useYouTubeStats";
 import { VideoStack } from "./VideoStack";
 import { formatCompactCount } from "../utils/formatCount";
+import { CHANNEL_URL } from "../utils/links";
+import { trackYoutubeClick } from "../utils/trackEvents";
 
 export const Hero: React.FC = () => {
   const location = useLocation();
@@ -39,10 +41,7 @@ export const Hero: React.FC = () => {
   }, [location]);
 
   return (
-    <section
-      className="relative overflow-hidden bg-ink text-white"
-      data-ay-section="hero"
-    >
+    <section className="relative overflow-hidden bg-ink text-white">
       {/* Trame et halo : le fond du labo, jamais au premier plan */}
       <div className="pointer-events-none absolute inset-0 bg-grid" aria-hidden="true" />
       <div
@@ -73,9 +72,10 @@ export const Hero: React.FC = () => {
 
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <a
-                href="https://youtube.com/@ay_labs"
+                href={CHANNEL_URL}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => trackYoutubeClick({ target: "channel", placement: "hero" })}
                 className="inline-flex items-center justify-center gap-2 rounded-lg bg-[#E5322D] px-6 py-3 font-semibold text-white transition-colors hover:bg-[#c22824] focus:outline-none focus-visible:ring-2 focus-visible:ring-white"
               >
                 <Play className="h-5 w-5" aria-hidden="true" />

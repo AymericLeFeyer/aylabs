@@ -3,6 +3,10 @@ import { Mail, TrendingUp, Award, Calendar, ArrowRight } from "lucide-react";
 import { useYouTubeStats } from "../hooks/useYouTubeStats";
 import { ViewsChart } from "./ViewsChart";
 import { formatCompactCount } from "../utils/formatCount";
+import { CHANNEL_URL, CONTACT_EMAIL } from "../utils/links";
+import { trackContactClick, trackYoutubeClick } from "../utils/trackEvents";
+
+const COLLABORATION_MAILTO = `mailto:${CONTACT_EMAIL}?subject=Collaboration`;
 
 const monthsSinceStart = () => {
   const start = new Date("2024-06-01");
@@ -57,9 +61,10 @@ export const MediaKitSection: React.FC = () => {
             <p className="mt-2 max-w-xl text-gray-600">
               Les chiffres de la chaîne {" "}
               <a
-                href="https://youtube.com/@ay_labs"
+                href={CHANNEL_URL}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => trackYoutubeClick({ target: "channel", placement: "media-kit" })}
                 className="font-semibold text-brand hover:underline"
               >
                 AyLabs
@@ -69,7 +74,8 @@ export const MediaKitSection: React.FC = () => {
             </p>
           </div>
           <a
-            href="mailto:contact@aylabs.fr?subject=Collaboration"
+            href={COLLABORATION_MAILTO}
+            onClick={() => trackContactClick({ placement: "media-kit", subject: "Collaboration" })}
             className="inline-flex items-center gap-2 rounded-lg bg-[#141414] px-5 py-3 font-semibold text-white transition-colors hover:bg-brand focus:outline-none focus-visible:ring-2 focus-visible:ring-brand"
           >
             <Mail className="h-4 w-4" aria-hidden="true" />
@@ -199,7 +205,10 @@ export const MediaKitSection: React.FC = () => {
                   </p>
                 </div>
                 <a
-                  href="mailto:contact@aylabs.fr?subject=Collaboration"
+                  href={COLLABORATION_MAILTO}
+                  onClick={() =>
+                    trackContactClick({ placement: "media-kit", subject: "Collaboration" })
+                  }
                   className="mt-6 inline-flex shrink-0 items-center gap-2 rounded-lg bg-white px-5 py-3 font-semibold text-ink transition-colors hover:bg-brand hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-bright md:mt-0"
                 >
                   contact@aylabs.fr

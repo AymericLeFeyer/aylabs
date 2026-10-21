@@ -1,4 +1,5 @@
 import React from "react";
+import { trackExternalLinkClick } from "./trackEvents";
 
 interface MarkdownRendererProps {
   content: string;
@@ -50,6 +51,16 @@ export const renderMarkdownContent = (
             className="text-[#398FBA] hover:text-[#2a6d94] underline"
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() => {
+              // Les liens relatifs restent sur le site : déjà suivis en screen.
+              if (!/^https?:\/\//.test(url)) return;
+              trackExternalLinkClick({
+                url,
+                label: linkText,
+                placement: "article",
+                page: window.location.pathname,
+              });
+            }}
           >
             {linkText}
           </a>

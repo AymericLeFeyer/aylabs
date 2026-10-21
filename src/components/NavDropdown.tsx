@@ -2,6 +2,7 @@ import React, { useEffect, useId, useRef } from "react";
 import { ChevronDown, ArrowUpRight } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import { NavGroup, isGroupActive, isItemActive } from "./navigation";
+import { trackNavItemClick } from "../utils/trackEvents";
 
 interface NavDropdownProps {
   group: NavGroup;
@@ -141,7 +142,10 @@ export const NavDropdown: React.FC<NavDropdownProps> = ({
                     target={item.external ? "_blank" : undefined}
                     rel={item.external ? "noopener noreferrer" : undefined}
                     className={className}
-                    onClick={onClose}
+                    onClick={() => {
+                      trackNavItemClick(item, "nav");
+                      onClose();
+                    }}
                   >
                     {content}
                   </a>

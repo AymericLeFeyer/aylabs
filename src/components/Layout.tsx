@@ -14,6 +14,13 @@ import {
 } from "lucide-react";
 import { NavDropdown } from "./NavDropdown";
 import { navGroups, standaloneItems, isItemActive } from "./navigation";
+import { CHANNEL_URL, CONTACT_EMAIL, SOCIAL_LINKS } from "../utils/links";
+import {
+  trackContactClick,
+  trackNavItemClick,
+  trackSocialClick,
+  trackYoutubeClick,
+} from "../utils/trackEvents";
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -157,9 +164,10 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
 
                 {/* Accès direct à la chaîne */}
                 <a
-                  href="https://youtube.com/@ay_labs"
+                  href={CHANNEL_URL}
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={() => trackYoutubeClick({ target: "channel", placement: "header" })}
                   aria-label="La chaîne YouTube AyLabs"
                   title="La chaîne YouTube AyLabs"
                   className="ml-2 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[#E5322D] text-white transition-colors hover:bg-[#c22824] focus:outline-none focus-visible:ring-2 focus-visible:ring-white"
@@ -169,9 +177,10 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
 
                 {/* Page de liens (façon linktree) */}
                 <a
-                  href="https://links.aylabs.fr"
+                  href={SOCIAL_LINKS.linktree}
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={() => trackSocialClick({ network: "linktree", placement: "header" })}
                   aria-label="Tous les liens AyLabs"
                   title="Tous les liens AyLabs"
                   className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-brand text-white transition-colors hover:bg-brand-deep focus:outline-none focus-visible:ring-2 focus-visible:ring-white"
@@ -198,9 +207,12 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
                 </form>
 
                 <a
-                  href="https://youtube.com/@ay_labs"
+                  href={CHANNEL_URL}
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={() =>
+                    trackYoutubeClick({ target: "channel", placement: "mobile-header" })
+                  }
                   aria-label="La chaîne YouTube AyLabs"
                   className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[#E5322D] text-white transition-colors hover:bg-[#c22824]"
                 >
@@ -208,9 +220,10 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
                 </a>
 
                 <a
-                  href="https://links.aylabs.fr"
+                  href={SOCIAL_LINKS.linktree}
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={() => trackSocialClick({ network: "linktree", placement: "mobile-header" })}
                   aria-label="Tous les liens AyLabs"
                   className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-brand text-white transition-colors hover:bg-brand-deep"
                 >
@@ -279,6 +292,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
                               rel={
                                 item.external ? "noopener noreferrer" : undefined
                               }
+                              onClick={() => trackNavItemClick(item, "mobile-nav")}
                               className={className}
                             >
                               {content}
@@ -342,6 +356,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
                               rel={
                                 item.external ? "noopener noreferrer" : undefined
                               }
+                              onClick={() => trackNavItemClick(item, "mobile-nav")}
                               className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-gray-300 transition-colors hover:bg-white/5 hover:text-white"
                             >
                               <Icon className="h-4 w-4" aria-hidden="true" />
@@ -380,21 +395,24 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
                 </p>
                 <div className="mt-6 flex gap-4">
                   <a
-                    href="https://youtube.com/@ay_labs"
+                    href={CHANNEL_URL}
+                    onClick={() => trackYoutubeClick({ target: "channel", placement: "footer" })}
                     className="text-gray-400 transition-colors hover:text-brand-bright"
                     aria-label="YouTube"
                   >
                     <Youtube className="h-6 w-6" />
                   </a>
                   <a
-                    href="https://instagram.com/aylabs_yt"
+                    href={SOCIAL_LINKS.instagram}
+                    onClick={() => trackSocialClick({ network: "instagram", placement: "footer" })}
                     className="text-gray-400 transition-colors hover:text-brand-bright"
                     aria-label="Instagram"
                   >
                     <Instagram className="h-6 w-6" />
                   </a>
                   <a
-                    href="https://www.tiktok.com/@ay_labs"
+                    href={SOCIAL_LINKS.tiktok}
+                    onClick={() => trackSocialClick({ network: "tiktok", placement: "footer" })}
                     className="text-gray-400 transition-colors hover:text-brand-bright"
                     aria-label="TikTok"
                   >
@@ -408,7 +426,8 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
                     </svg>
                   </a>
                   <a
-                    href="https://discord.gg/aylabs"
+                    href={SOCIAL_LINKS.discord}
+                    onClick={() => trackSocialClick({ network: "discord", placement: "footer" })}
                     className="text-gray-400 transition-colors hover:text-brand-bright"
                     aria-label="Discord"
                   >
@@ -422,14 +441,16 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
                     </svg>
                   </a>
                   <a
-                    href="mailto:contact@aylabs.fr"
+                    href={`mailto:${CONTACT_EMAIL}`}
+                    onClick={() => trackContactClick({ placement: "footer" })}
                     className="text-gray-400 transition-colors hover:text-brand-bright"
                     aria-label="Email"
                   >
                     <Mail className="h-6 w-6" />
                   </a>
                   <a
-                    href="https://github.com/aylabscode"
+                    href={SOCIAL_LINKS.github}
+                    onClick={() => trackSocialClick({ network: "github", placement: "footer" })}
                     className="text-gray-400 transition-colors hover:text-brand-bright"
                     aria-label="GitHub"
                   >
@@ -464,6 +485,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
                               rel={
                                 item.external ? "noopener noreferrer" : undefined
                               }
+                              onClick={() => trackNavItemClick(item, "footer")}
                               className={className}
                             >
                               {content}

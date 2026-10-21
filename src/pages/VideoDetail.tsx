@@ -5,6 +5,7 @@ import { useProducts, useVideos } from "../hooks/useMarkdownContent";
 import { MarkdownRenderer } from "../utils/markdownRenderer";
 import { SEO } from "../components/SEO";
 import { VideoCard } from "../components/VideoCard";
+import { trackYoutubeClick } from "../utils/trackEvents";
 
 const videoCodeOf = (url: string) =>
   url.split("v=")[1] || url.split("/").pop() || "";
@@ -130,8 +131,14 @@ export const VideoDetail: React.FC = () => {
             href={video.url}
             target="_blank"
             rel="noopener noreferrer"
-            data-ay-section="video-header"
-            data-ay-prop-video_title={video.title}
+            onClick={() =>
+              trackYoutubeClick({
+                target: "video",
+                url: video.url,
+                placement: "video-header",
+                videoTitle: video.title,
+              })
+            }
             className="ml-auto inline-flex items-center gap-2 rounded-lg bg-[#E5322D] px-4 py-2 font-semibold text-white transition-colors hover:bg-[#c22824]"
           >
             <Play className="h-4 w-4" aria-hidden="true" />

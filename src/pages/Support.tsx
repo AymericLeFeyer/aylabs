@@ -14,6 +14,8 @@ import {
 } from "lucide-react";
 import { SEO } from "../components/SEO";
 import { PageHeader } from "../components/PageHeader";
+import { MEMBERSHIP_URL } from "../utils/links";
+import { trackYoutubeClick } from "../utils/trackEvents";
 
 export const Support: React.FC = () => {
   return (
@@ -184,9 +186,12 @@ export const Support: React.FC = () => {
             </div>
           </div>
           <a
-            href="https://www.youtube.com/channel/UClCAe7FyrIwpkt9H56XRndA/join"
+            href={MEMBERSHIP_URL}
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() =>
+              trackYoutubeClick({ target: "membership", url: MEMBERSHIP_URL, placement: "support" })
+            }
             className="relative inline-flex items-center space-x-3 rounded-xl bg-white px-8 py-4 font-bold text-ink transition-all duration-300 hover:scale-105 hover:bg-brand hover:text-white hover:shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-bright"
           >
             <Youtube className="h-5 w-5" />
