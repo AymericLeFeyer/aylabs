@@ -15,6 +15,7 @@ RUN npm ci
 COPY tsconfig*.json vite.config.ts tailwind.config.js postcss.config.js index.html ./
 COPY public ./public
 COPY src ./src
+COPY vite ./vite
 
 # Aynalytics : URL du collector et clé PUBLIQUE du site (jamais la clé secrète).
 ARG VITE_AYNALYTICS_URL=""

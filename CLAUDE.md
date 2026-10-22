@@ -1,6 +1,6 @@
 # AyLabs — instructions projet
 
-> Dernière mise à jour : 2026-10-21
+> Dernière mise à jour : 2026-10-22
 
 Site vitrine de la chaîne AyLabs (domotique, homelab, impression 3D) : vidéos,
 produits testés, tutoriels. **React 18 + Vite + TypeScript + Tailwind**, contenu en
@@ -48,6 +48,24 @@ sources.
 - Le contexte de build est la racine pour les deux images. Le Studio a son propre
   `tools/content-studio/Dockerfile.dockerignore` pour ne pas embarquer les 26 Mo de
   `public/videos-assets`.
+
+## Flux `/videos-feed.json` (linktree)
+
+`vite/videosFeedPlugin.ts` (plugin Vite : `generateBundle` au build, middleware en dev)
+publie `/videos-feed.json` = `{ videos: [{ id, slug, title, publishedAt (ISO UTC),
+duration (ISO 8601, ex. PT29M11S), thumbnails: { maxres, high } }] }`, du plus récent au
+plus ancien, construit depuis **les fiches** `src/content/videos` (pas depuis l'API).
+Même forme d'entrée que `youtube-stats.json` : le linktree le lit pour « Dernière
+vidéo », car le flux n8n/API YouTube ne voit pas les vidéos non répertoriées.
+
+- `pubTime` interprété en **heure de Paris** (changements d'heure gérés), minuit sans
+  `pubTime`. Les fiches programmées sont incluses avec leur date future : le lecteur
+  doit les ignorer (le linktree le fait).
+- Le parseur de frontmatter est autonome (regex `clé: valeur`, CRLF normalisé) : ne pas
+  importer `markdownLoader.ts` (il utilise `import.meta.glob`, inutilisable en Node).
+- Le `Dockerfile` copie `vite/` : un nouveau dossier lu par `vite.config.ts` doit y être
+  ajouté. `@types/node` est en devDependency pour `tsconfig.node.json`.
+- nginx : `location = /videos-feed.json { expires -1; }`.
 
 ## Analytics
 
