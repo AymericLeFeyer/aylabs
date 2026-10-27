@@ -1,6 +1,6 @@
 ---
 title: "Eilik"
-image: "https://store.energizelab.com/cdn/shop/files/eilik_81a586d7-1b31-4a80-999e-49dada43aff8_100x.jpg?v=1793081484"
+image: "https://m.media-amazon.com/images/I/61X8hmNH97L.jpg"
 description: "Un super petit robot de compagnie, avec plein de mini jeux et outils pour rendre l'expérience encore plus fun"
 tags:
   - "Fun"
