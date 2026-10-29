@@ -1,6 +1,6 @@
 # AyLabs — instructions projet
 
-> Dernière mise à jour : 2026-10-22
+> Dernière mise à jour : 2026-10-29
 
 Site vitrine de la chaîne AyLabs (domotique, homelab, impression 3D) : vidéos,
 produits testés, tutoriels. **React 18 + Vite + TypeScript + Tailwind**, contenu en
@@ -221,13 +221,40 @@ cd tools/content-studio && npm install && npm run dev
   que si `permissions.push` est vrai sur le dépôt. Aucune liste d'utilisateurs.
 - **Le jeton GitHub ne quitte jamais le serveur** : cookie `HttpOnly` chiffré en
   AES-256-GCM, et relais `/api/github/*` qui pose l'en-tête `Authorization` côté
-  serveur. Le relais n'autorise que `GET`/`PUT` sous `/repos/<owner>/<name>/`.
+  serveur. Le relais n'autorise que `GET`/`PUT` sous `/repos/<owner>/<name>/`, plus
+  les trois appels du commit groupé (`POST git/trees`, `POST git/commits`, `PATCH` de
+  la branche configurée).
   `state` aléatoire anti-CSRF, comparé en temps constant. Session de 8 h.
 - **Lecture** : `import.meta.glob` sur `src/content/**/*.md` (affichage instantané),
   puis réconciliation avec l'arbre GitHub par comparaison de SHA de blob — seules
-  les fiches divergentes sont téléchargées.
-- **Écriture** : `PUT /repos/:owner/:repo/contents/:path`, SHA distant relu juste
-  avant chaque commit. Messages : `content(video|product): add|update <slug>`.
+  les fiches divergentes sont téléchargées. Les modifications en attente sont
+  superposées par-dessus (`withPending` dans `useCatalog`).
+- **Écriture en deux temps** (depuis le 2026-10-29) : « Enregistrer » (éditeurs et
+  banlist) produit un `PendingChange` stocké en `localStorage`
+  (`aylabs-studio:pending-changes`) et revient au tableau de bord ; le bouton
+  **N en attente** de la barre commite **tout en un seul commit** via la Git Data
+  API → un seul déploiement. Plus aucun `PUT contents` côté client.
+  - `baseSha` = SHA distant au **premier** enregistrement d'un chemin
+    (`upsertChange` le conserve). Au commit, chaque SHA est relu : un écart bloque
+    tout le commit (`ConflictError`, chemins nommés). `PATCH ref` sans `force`.
+  - Messages : `content(video|product): add|update <slug>`, `data(stats): …` ; à
+    plusieurs, `content: N changes` + liste dans le corps.
+  - Le relais serveur accepte désormais `POST git/trees`, `POST git/commits` et
+    `PATCH git/refs/heads/<branche configurée>` — rien d'autre en POST/PATCH.
+  - Les modifications en attente sont **par navigateur** ; renommer un slug en
+    édition crée un nouveau fichier sans supprimer l'ancien (inchangé).
+- **Import YouTube** (nouvelle vidéo) : `RecentVideosPicker` en tête de l'éditeur,
+  un clic remplit tout sauf tags et corps (`draftFromYouTube`). Source :
+  `GET /api/youtube/recent` → `server/youtube.ts` lit le **flux RSS public** de la
+  chaîne (15 dernières publications, shorts compris, repérés par leur lien
+  `/shorts/`) et la durée via `"lengthSeconds"` de la page watch (cookies
+  `CONSENT`/`SOCS` contre la page de consentement UE), cache mémoire 5 min, aucune
+  clé d'API. Heure convertie en **Europe/Paris**. Description = 1er paragraphe de
+  la section `▶ VIDÉO` si présente (sinon 1er paragraphe sans lien ni `#`).
+  - Le flux ne voit **ni les vidéos privées ni les programmées** : une vidéo
+    planifiée sur YouTube n'est importable qu'une fois publique.
+  - Le scraping de la durée est best effort : `durationSeconds: null` laisse le
+    champ à saisir à la main.
 - **Programmation d'une vidéo** : `VideoDraft.pubTime` (`HH:MM`, vide = minuit)
   est saisi dans l'éditeur vidéo à côté de la date et sérialisé en `pubTime`
   juste après `pubDate`. Le tableau de bord marque « Programmée » les fiches que
@@ -253,11 +280,13 @@ esbuild). **`server/handler.ts` est monté à la fois par le serveur de producti
 | `GET /api/auth/callback` | vérifie le `state`, échange le code, ouvre la session |
 | `GET /api/auth/me` | session courante, **sans le jeton** |
 | `POST /api/auth/logout` | efface la session (POST volontairement, pas GET) |
-| `GET/PUT /api/github/*` | relais authentifié, restreint au dépôt configuré |
+| `GET/PUT /api/github/*` | relais authentifié, restreint au dépôt configuré (+ `POST git/trees`, `POST git/commits`, `PATCH git/refs/heads/<branche>`) |
+| `GET /api/youtube/recent` | `{ videos: [{ code, title, description, publishedAt, durationSeconds, isShort }] }` depuis le RSS de la chaîne |
 
 Variables d'environnement (lues à l'exécution, jamais au build) : `APP_URL`,
 `GITHUB_CLIENT_ID`, `GITHUB_CLIENT_SECRET`, `SESSION_SECRET` obligatoires ;
-`GITHUB_REPO`, `GITHUB_BRANCH`, `PORT` facultatives. Sans les obligatoires, le
+`GITHUB_REPO`, `GITHUB_BRANCH`, `YOUTUBE_CHANNEL_ID` (défaut
+`UClCAe7FyrIwpkt9H56XRndA`), `PORT` facultatives. Sans les obligatoires, le
 serveur refuse de démarrer. En développement, `vite.config.ts` recopie `.env.local`
 dans `process.env` — le code serveur ne lit pas `import.meta.env`.
 
@@ -298,14 +327,37 @@ Gère la banlist décrite plus haut. Ajouté le 2026-09-08.
 | `entities/ChannelVideo.ts` | `ChannelVideo`, `HiddenVideo`, `HiddenVideosFile` |
 | `services/hiddenVideos.ts` | parse/sérialise les deux fichiers, `knownVideoCodes` (codes des fiches), `retainedVideos` (fiche + banlist + fenêtre de 10), calcule l'aperçu |
 | `repositories/StatsRepository.ts` | interface de lecture/écriture |
-| `infrastructure/stats/GitHubStatsRepository.ts` | lit `public/youtube-stats.json`, lit et commite `public/hidden-videos.json` |
-| `application/stats/usecases/ManageHiddenVideos.ts` | `load()`, `save(entries)` — relit le SHA distant avant d'écrire |
+| `infrastructure/stats/GitHubStatsRepository.ts` | lit `public/youtube-stats.json` et `public/hidden-videos.json` (l'écriture passe par le domaine `changes`) |
+| `application/stats/usecases/ManageHiddenVideos.ts` | `load(pending?)` (la banlist en attente prime), `save(entries): PendingChange` — relit le SHA distant pour le `baseSha` |
 | `presentation/hooks/useHiddenVideos.ts` | état local, bascule, aperçu des chiffres |
 | `presentation/pages/HiddenVideosPage.tsx` | page « Vidéos masquées », accessible depuis la barre du Studio |
 
 Le fichier de banlist n'existe pas forcément : `fetchHiddenVideos` renvoie alors
-une liste vide sans `sha`, et le premier enregistrement crée le fichier. Message
-de commit : `data(stats): hide N videos` (ou `clear hidden videos`).
+une liste vide sans `sha`, et le premier commit crée le fichier. Message
+(`hiddenVideosCommitMessage`) : `data(stats): hide N videos` (ou `clear hidden videos`).
+
+### Domaine `changes` (Studio) — modifications en attente
+
+| Élément | Rôle |
+|---|---|
+| `entities/PendingChange.ts` | `PendingChange { path, content, scope: video/product/stats, message, baseSha?, stagedAt }`, `CommitResult` |
+| `repositories/PendingChangesStore.ts` | `load()`, `save(changes)` — `infrastructure/changes/LocalPendingChangesStore` (localStorage) |
+| `repositories/CommitRepository.ts` | `fetchBlobSha(path)`, `commitFiles({ files, message })` — `GitHubCommitRepository` (Git Data API) |
+| `services/pendingChanges.ts` | `upsertChange` (garde le premier `baseSha`), `commitMessage` |
+| `application/changes/usecases/CommitPendingChanges.ts` | `execute(changes): CommitResult` — vérifie les SHA puis commite |
+| `presentation/hooks/usePendingChanges.ts` | état + persistance, `stage`, `discard`, `commit`, `byPath` |
+| `presentation/components/PendingChangesPanel.tsx` | bouton de la barre + modale (liste, abandon, « Commiter et déployer ») |
+
+### Domaine `youtube` (Studio) — import des dernières vidéos
+
+| Élément | Rôle |
+|---|---|
+| `entities/RecentYouTubeVideo.ts` | `{ code, title, description, publishedAt, durationSeconds (ou null), isShort }` |
+| `repositories/YouTubeFeedRepository.ts` | `fetchRecent()` — `infrastructure/youtube/HttpYouTubeFeedRepository` (`/api/youtube/recent`) |
+| `services/videoImport.ts` | `parisDateTime`, `formatSeconds`, `summarizeDescription`, `draftFromYouTube`, `importCandidates` (shorts exclus, `hasCard`) |
+| `application/youtube/usecases/ListRecentVideos.ts` | `execute(knownCodes): ImportCandidate[]` |
+| `presentation/hooks/useRecentYouTubeVideos.ts` | `(knownCodes, enabled)` → `candidates`, `loading`, `error`, `reload` |
+| `presentation/components/RecentVideosPicker.tsx` | grille de sélection en tête de l'éditeur (mode `create` seulement) |
 
 La page « Vidéos masquées » marque **« sans fiche »** (badge ambre) les vidéos de
 l'API qu'aucun fichier de `src/content/videos` ne porte : elles sont déjà hors
@@ -319,17 +371,21 @@ calculé dans `App.tsx` depuis le catalogue et passé en prop `knownCodes`.
 |---|---|
 | `SignIn` | `restore()`, `start()`, `signOut()` |
 | `LoadCatalog` | `local()`, `synced(): Promise<Catalog>` |
-| `SaveDraft` | `execute({kind, draft, isNew, originalSlug})`, `isSlugFree(kind, slug)` |
-| `ManageHiddenVideos` | `load()`, `save(entries)` — banlist des statistiques |
+| `SaveDraft` | `execute({kind, draft, isNew, originalSlug}): PendingChange` (ne commite plus), `isSlugFree(kind, slug)` |
+| `ManageHiddenVideos` | `load(pending?)`, `save(entries): PendingChange` — banlist des statistiques |
+| `CommitPendingChanges` | `execute(changes): CommitResult` — un commit pour tout |
+| `ListRecentVideos` | `execute(knownCodes): ImportCandidate[]` — import YouTube |
 
 ### Hooks
 
 | Hook | Rôle |
 |---|---|
 | `useSession` | phases `restoring / anonymous / authenticated / denied` |
-| `useCatalog()` | catalogue, suggestions, slugs pris, synchronisation GitHub |
-| `useDraftEditor` | état du brouillon, slug auto depuis le titre, validation, commit |
-| `useHiddenVideos` | vidéos de la chaîne, banlist, aperçu des chiffres, commit |
+| `useCatalog(pending)` | catalogue (+ fiches en attente superposées), suggestions, slugs pris, synchronisation GitHub |
+| `useDraftEditor` | état du brouillon, slug auto depuis le titre, validation, `onSaved(change)` |
+| `useHiddenVideos(knownCodes, pending, onStage)` | vidéos de la chaîne, banlist, aperçu des chiffres, mise en attente |
+| `usePendingChanges` | modifications en attente, commit groupé |
+| `useRecentYouTubeVideos` | dernières vidéos de la chaîne pour l'import |
 
 ### Endpoints GitHub utilisés
 
@@ -339,11 +395,16 @@ calculé dans `App.tsx` depuis le catalogue et passé en prop `knownCodes`.
 | GET | `/repos/:o/:r` | vérification de `permissions.push` (**serveur seulement**) |
 | GET | `/repos/:o/:r/git/trees/:branch?recursive=1` | liste des fiches + SHA, en un appel |
 | GET | `/repos/:o/:r/git/blobs/:sha` | contenu d'une fiche divergente |
-| GET | `/repos/:o/:r/contents/:path?ref=:branch` | SHA courant avant écriture |
-| PUT | `/repos/:o/:r/contents/:path` | commit de la fiche |
+| GET | `/repos/:o/:r/contents/:path?ref=:branch` | SHA courant (enregistrement et vérification avant commit) |
+| GET | `/repos/:o/:r/git/ref/heads/:branch` | tête de branche avant le commit groupé |
+| GET | `/repos/:o/:r/git/commits/:sha` | arbre du commit de tête |
+| POST | `/repos/:o/:r/git/trees` | nouvel arbre (`base_tree` + fichiers en `content` inline) |
+| POST | `/repos/:o/:r/git/commits` | commit unique de toutes les modifications |
+| PATCH | `/repos/:o/:r/git/refs/heads/:branch` | avance de la branche, `force: false` |
 | POST | `github.com/login/oauth/access_token` | échange du code OAuth (**serveur seulement**) |
 
-Les quatre appels non marqués passent par le relais `/api/github/*`.
+Les appels non marqués passent par le relais `/api/github/*`. Le `PUT contents`
+n'est plus utilisé par le client depuis le commit groupé.
 
 Les tutoriels ne sont pas gérés par le Studio.
 

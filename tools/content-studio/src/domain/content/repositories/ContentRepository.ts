@@ -4,22 +4,13 @@ export interface RemoteFileState {
   content: string;
 }
 
-export interface SaveResult {
-  path: string;
-  commitUrl: string;
-  commitSha: string;
-}
-
-/** Écriture : tout passe par l'API GitHub (commit direct sur la branche cible). */
+/**
+ * Lecture de la branche cible. L'écriture passe par le domaine `changes` :
+ * modifications en attente, puis un seul commit.
+ */
 export interface ContentWriteRepository {
   fetchRemote(path: string): Promise<RemoteFileState | null>;
   /** Liste path -> sha de blob pour un dossier, en une requête. */
   fetchTree(): Promise<Map<string, string>>;
   fetchBlob(sha: string): Promise<string>;
-  commit(input: {
-    path: string;
-    content: string;
-    message: string;
-    sha?: string;
-  }): Promise<SaveResult>;
 }

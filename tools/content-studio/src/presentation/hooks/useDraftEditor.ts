@@ -1,5 +1,6 @@
 import { useCallback, useMemo, useRef, useState } from 'react';
 import { pathFor, renderDraft, SaveDraft } from '../../application/content/usecases/SaveDraft';
+import type { PendingChange } from '../../domain/changes/entities/PendingChange';
 import type { ContentKind, ProductDraft, VideoDraft } from '../../domain/content/entities/ContentItem';
 import { slugify, uniqueSlug } from '../../domain/content/services/slug';
 import type { GitHubContentRepository } from '../../infrastructure/content/GitHubContentRepository';
@@ -15,7 +16,8 @@ interface Options<T extends VideoDraft | ProductDraft> {
   takenSlugs: Set<string>;
   repository: GitHubContentRepository;
   validate: (draft: T) => string[];
-  onSaved: (slug: string) => void;
+  /** Reçoit la modification préparée : à ajouter aux modifications en attente. */
+  onSaved: (change: PendingChange) => void;
 }
 
 export const useDraftEditor = <T extends VideoDraft | ProductDraft>({
@@ -71,19 +73,19 @@ export const useDraftEditor = <T extends VideoDraft | ProductDraft>({
     if (errors.length > 0) return;
     setSaveState({ status: 'saving' });
     try {
-      const result = await saver.execute({
+      const change = await saver.execute({
         kind,
         draft,
         isNew: mode !== 'edit',
         originalSlug: initial.slug,
       });
       initialRef.current = JSON.stringify(draft);
-      setSaveState({ status: 'saved', commitUrl: result.commitUrl });
-      onSaved(draft.slug);
+      setSaveState({ status: 'saved' });
+      onSaved(change);
     } catch (e) {
       setSaveState({
         status: 'error',
-        message: e instanceof Error ? e.message : 'Le commit a échoué',
+        message: e instanceof Error ? e.message : "L'enregistrement a échoué",
       });
     }
   }, [errors, saver, kind, draft, mode, initial.slug, onSaved]);

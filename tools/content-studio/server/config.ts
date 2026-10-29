@@ -24,6 +24,8 @@ export interface ServerConfig {
   repoOwner: string;
   repoName: string;
   branch: string;
+  /** Chaîne dont le flux RSS alimente l'import « Nouvelle vidéo ». */
+  youtubeChannelId: string;
   port: number;
 }
 
@@ -43,6 +45,7 @@ export function getConfig(): ServerConfig {
     repoOwner,
     repoName,
     branch: process.env.GITHUB_BRANCH || 'main',
+    youtubeChannelId: process.env.YOUTUBE_CHANNEL_ID || 'UClCAe7FyrIwpkt9H56XRndA',
     port: Number(process.env.PORT || 8080),
   };
 }

@@ -1,8 +1,9 @@
 # AyLabs Content Studio
 
 Outil de gestion du contenu du site : création, édition et duplication des fiches
-**vidéos** et **produits**. Chaque enregistrement crée un commit sur `main` via
-l'API GitHub, ce qui déclenche le workflow de déploiement.
+**vidéos** et **produits**. « Enregistrer » met la fiche **en attente** ; le bouton
+**N en attente** de la barre du haut commite toutes les modifications d'un coup sur
+`main` — un seul commit, donc un seul déploiement du site.
 
 > Les tutoriels ne sont pas gérés par cet outil.
 
@@ -68,6 +69,7 @@ et aucun secret n'y est embarqué.
 | `SESSION_SECRET` | oui | — | Clé de chiffrement du cookie (`openssl rand -base64 48`) |
 | `GITHUB_REPO` | non | `AymericLeFeyer/aylabs` | Dépôt cible, format `owner/nom` |
 | `GITHUB_BRANCH` | non | `main` | Branche sur laquelle commiter |
+| `YOUTUBE_CHANNEL_ID` | non | `UClCAe7FyrIwpkt9H56XRndA` | Chaîne dont les dernières vidéos sont proposées à l'import |
 | `PORT` | non | `8080` | Port d'écoute |
 
 Sans une variable obligatoire, le conteneur **refuse de démarrer** avec un message
@@ -82,14 +84,23 @@ de doute.
 |---|---|
 | Affichage immédiat de la liste | fichiers `src/content/**/*.md` compilés dans le bundle (`import.meta.glob`) |
 | Réconciliation au chargement | arbre GitHub de la branche : seules les fiches dont le SHA diffère sont téléchargées |
-| Enregistrement | `PUT /repos/:owner/:repo/contents/:path` avec le SHA relu juste avant le commit |
+| Enregistrement | modification en attente, gardée dans le `localStorage` du navigateur avec le SHA distant du moment |
+| Commit | Git Data API : `git/trees` + `git/commits` + `PATCH git/refs/heads/<branche>`, un commit pour tout |
 
-Le SHA distant est toujours relu avant d'écrire : l'outil ne pousse jamais
-par-dessus une version de `main` qu'il n'a pas vue. Si des fiches diffèrent de
-l'instantané, un bandeau le signale sur le tableau de bord.
+Avant de commiter, le SHA de chaque fichier est relu : si l'un d'eux a bougé sur
+GitHub depuis son enregistrement, rien n'est commité et les fichiers en conflit
+sont nommés. La branche avance sans `force` : si elle a bougé pendant le commit,
+il est refusé. Si des fiches diffèrent de l'instantané, un bandeau le signale sur
+le tableau de bord.
+
+Les modifications en attente sont propres au navigateur : elles survivent à un
+rechargement, pas à un changement de poste. Une fiche en attente apparaît dans le
+tableau de bord (badge « En attente de commit ») et s'édite comme les autres ; la
+croix du panneau l'abandonne.
 
 Messages de commit générés : `content(video): add <slug>`, `content(product): update <slug>`,
-`data(stats): hide N videos`.
+`data(stats): hide N videos` ; à plusieurs, `content: N changes` avec la liste
+dans le corps du message.
 
 ## Vidéos masquées (statistiques du Media Kit)
 
@@ -100,14 +111,23 @@ vidéo qui fausserait la moyenne affichée sur le Media Kit du site.
 - La liste montre les vidéos de `public/youtube-stats.json` (les 15 dernières,
   alimentées par n8n), miniature et vues à l'appui.
 - Cocher une vidéo la masque ; le panneau de droite recalcule aussitôt ce que le
-  site affichera — **rien n'est commité avant d'avoir cliqué sur Enregistrer**.
+  site affichera. **Enregistrer** met la banlist en attente, avec le reste.
 - Le site retire les vidéos cochées, puis garde les **10 plus récentes** de ce
   qui reste. Les vidéos au-delà de cette fenêtre sont marquées « hors fenêtre ».
-- L'enregistrement écrit `public/hidden-videos.json` sur la branche. Comme tout
+- Le commit écrit `public/hidden-videos.json` sur la branche. Comme tout
   ce qui vit dans `public/`, le changement n'est visible **qu'après la
   reconstruction de l'image du site**.
 
 ## Confort de saisie
+
+- **Import YouTube** — sur une nouvelle vidéo, les dernières vidéos longues de la
+  chaîne sont proposées en haut du formulaire. Un clic remplit titre, slug,
+  description, code, date, heure (de Paris) et durée : il ne reste que les tags.
+  Le serveur lit le flux RSS public de la chaîne (15 dernières publications, shorts
+  exclus) et la durée sur la page de chaque vidéo, sans clé d'API. La description
+  reprend le premier paragraphe de la section `▶ VIDÉO` si elle existe, sinon le
+  premier paragraphe sans lien ni hashtag. Les vidéos privées ou programmées
+  n'apparaissent pas dans le flux.
 
 - **Duplication** — l'icône *Dupliquer* d'une fiche pré-remplit un nouveau
   formulaire en conservant la structure (tags, protocoles, catégorie) et en

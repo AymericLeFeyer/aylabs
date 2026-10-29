@@ -1,8 +1,10 @@
 import React, { useCallback, useMemo, useState } from 'react';
 import { EyeOff, LogOut } from 'lucide-react';
+import type { PendingChange } from './domain/changes/entities/PendingChange';
 import type { ContentKind } from './domain/content/entities/ContentItem';
 import type { GitHubUser } from './domain/auth/entities/GitHubUser';
-import { REPO } from './shared/config';
+import { REPO, STATS_FILES } from './shared/config';
+import { PendingChangesPanel } from './presentation/components/PendingChangesPanel';
 import { DashboardPage } from './presentation/pages/DashboardPage';
 import { HiddenVideosPage } from './presentation/pages/HiddenVideosPage';
 import { LoginPage } from './presentation/pages/LoginPage';
@@ -10,6 +12,7 @@ import { ProductEditorPage } from './presentation/pages/ProductEditorPage';
 import { VideoEditorPage } from './presentation/pages/VideoEditorPage';
 import { knownVideoCodes } from './domain/stats/services/hiddenVideos';
 import { useCatalog } from './presentation/hooks/useCatalog';
+import { usePendingChanges } from './presentation/hooks/usePendingChanges';
 import { useSession } from './presentation/hooks/useSession';
 import type { EditorMode } from './presentation/hooks/useDraftEditor';
 
@@ -31,8 +34,9 @@ export const App: React.FC = () => {
 };
 
 const Studio: React.FC<{ user: GitHubUser; onLogout: () => void }> = ({ user, onLogout }) => {
+  const pending = usePendingChanges();
   const { catalog, videos, products, suggestions, byKind, slugs, syncing, syncError, sync, repository } =
-    useCatalog();
+    useCatalog(pending.changes);
   const [route, setRoute] = useState<Route>({ name: 'dashboard' });
 
   // Codes des fiches du dépôt : le Media Kit n'affiche que ces vidéos-là.
@@ -40,10 +44,26 @@ const Studio: React.FC<{ user: GitHubUser; onLogout: () => void }> = ({ user, on
 
   const goDashboard = useCallback(() => setRoute({ name: 'dashboard' }), []);
 
-  const handleSaved = useCallback(() => {
+  const pendingPaths = useMemo(
+    () => new Set(pending.changes.map((change) => change.path)),
+    [pending.changes]
+  );
+
+  // « Enregistrer » ne commite pas : la fiche rejoint les modifications en
+  // attente, et on revient au tableau de bord pour enchaîner.
+  const { stage, commit } = pending;
+  const handleSaved = useCallback(
+    (change: PendingChange) => {
+      stage(change);
+      goDashboard();
+    },
+    [stage, goDashboard]
+  );
+
+  const handleCommit = useCallback(async () => {
     // Le commit vient d'être créé : on relit GitHub pour repartir sur l'état réel.
-    void sync();
-  }, [sync]);
+    if (await commit()) void sync();
+  }, [commit, sync]);
 
   if (route.name === 'editor') {
     const source = route.slug ? byKind(route.kind).find((f) => f.slug === route.slug) : undefined;
@@ -66,7 +86,12 @@ const Studio: React.FC<{ user: GitHubUser; onLogout: () => void }> = ({ user, on
 
   const body =
     route.name === 'hidden-videos' ? (
-      <HiddenVideosPage onBack={goDashboard} knownCodes={knownCodes} />
+      <HiddenVideosPage
+        onBack={goDashboard}
+        knownCodes={knownCodes}
+        pending={pending.byPath(STATS_FILES.hidden)}
+        onStage={stage}
+      />
     ) : (
       <DashboardPage
         videos={videos}
@@ -74,6 +99,7 @@ const Studio: React.FC<{ user: GitHubUser; onLogout: () => void }> = ({ user, on
         syncing={syncing}
         syncError={syncError}
         outOfSync={catalog.outOfSync}
+        pendingPaths={pendingPaths}
         onSync={sync}
         onCreate={(kind) => setRoute({ name: 'editor', kind, mode: 'create' })}
         onEdit={(kind, slug) => setRoute({ name: 'editor', kind, mode: 'edit', slug })}
@@ -90,6 +116,14 @@ const Studio: React.FC<{ user: GitHubUser; onLogout: () => void }> = ({ user, on
             {REPO.owner}/{REPO.name}
           </span>
           <div className="ml-auto flex items-center gap-3">
+            <PendingChangesPanel
+              changes={pending.changes}
+              committing={pending.committing}
+              error={pending.error}
+              lastCommit={pending.lastCommit}
+              onDiscard={pending.discard}
+              onCommit={handleCommit}
+            />
             <button
               onClick={() => setRoute({ name: 'hidden-videos' })}
               className="flex items-center gap-1.5 rounded px-2 py-1.5 text-sm text-slate-600 hover:bg-slate-100 hover:text-slate-800"

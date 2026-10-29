@@ -1,10 +1,9 @@
 import type {
   ContentWriteRepository,
   RemoteFileState,
-  SaveResult,
 } from '../../domain/content/repositories/ContentRepository';
 import { CONTENT_DIRS, REPO } from '../../shared/config';
-import { fromBase64, GitHubApiClient, GitHubError, toBase64 } from '../github/GitHubApiClient';
+import { fromBase64, GitHubApiClient, GitHubError } from '../github/GitHubApiClient';
 
 interface TreeEntry {
   path: string;
@@ -53,29 +52,4 @@ export class GitHubContentRepository implements ContentWriteRepository {
     return blob.encoding === 'base64' ? fromBase64(blob.content) : blob.content;
   }
 
-  async commit({
-    path,
-    content,
-    message,
-    sha,
-  }: {
-    path: string;
-    content: string;
-    message: string;
-    sha?: string;
-  }): Promise<SaveResult> {
-    const result = await this.client.request<{
-      commit: { sha: string; html_url: string };
-    }>(`/repos/${REPO.owner}/${REPO.name}/contents/${encodeURI(path)}`, {
-      method: 'PUT',
-      body: JSON.stringify({
-        message,
-        content: toBase64(content),
-        branch: REPO.branch,
-        ...(sha ? { sha } : {}),
-      }),
-    });
-
-    return { path, commitSha: result.commit.sha, commitUrl: result.commit.html_url };
-  }
 }

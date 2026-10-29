@@ -22,6 +22,8 @@ interface Props {
   syncing: boolean;
   syncError: string | null;
   outOfSync: string[];
+  /** Fichiers enregistrés mais pas encore commités. */
+  pendingPaths: Set<string>;
   onSync: () => void;
   onCreate: (kind: ContentKind) => void;
   onEdit: (kind: ContentKind, slug: string) => void;
@@ -39,6 +41,7 @@ export const DashboardPage: React.FC<Props> = ({
   syncing,
   syncError,
   outOfSync,
+  pendingPaths,
   onSync,
   onCreate,
   onEdit,
@@ -153,6 +156,7 @@ export const DashboardPage: React.FC<Props> = ({
               key={item.slug}
               item={item}
               kind={kind}
+              pending={pendingPaths.has(item.path)}
               onEdit={() => onEdit(kind, item.slug)}
               onDuplicate={() => onDuplicate(kind, item.slug)}
             />
@@ -171,9 +175,10 @@ export const DashboardPage: React.FC<Props> = ({
 const Row: React.FC<{
   item: ContentFile;
   kind: ContentKind;
+  pending: boolean;
   onEdit: () => void;
   onDuplicate: () => void;
-}> = ({ item, kind, onEdit, onDuplicate }) => {
+}> = ({ item, kind, pending, onEdit, onDuplicate }) => {
   const fm = item.frontmatter;
   const code = String((kind === 'video' ? fm.code : fm.videoCode) ?? '');
   const image = kind === 'product' ? String(fm.image ?? '') : '';
@@ -199,6 +204,7 @@ const Row: React.FC<{
         </span>
         <span className="mt-0.5 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-slate-500">
           <span>{formatFr(String(fm.pubDate ?? ''))}</span>
+          {pending ? <span className="chip bg-sky-50 text-sky-700">En attente de commit</span> : null}
           {kind === 'video' && isScheduled(String(fm.pubDate ?? ''), String(fm.pubTime ?? '')) ? (
             <span className="chip bg-amber-50 text-amber-700">Programmée</span>
           ) : null}

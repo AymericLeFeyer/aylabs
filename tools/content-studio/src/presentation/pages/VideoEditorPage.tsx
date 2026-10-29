@@ -1,16 +1,22 @@
 import React, { useCallback, useMemo } from 'react';
 import { FileText, Tags, Video } from 'lucide-react';
+import type { PendingChange } from '../../domain/changes/entities/PendingChange';
 import type { ContentFile, VideoDraft } from '../../domain/content/entities/ContentItem';
 import { emptyVideo } from '../../domain/content/entities/ContentItem';
 import { fileToVideoDraft } from '../../domain/content/services/mappers';
+import { slugify, uniqueSlug } from '../../domain/content/services/slug';
+import { knownVideoCodes } from '../../domain/stats/services/hiddenVideos';
+import { draftFromYouTube, type ImportCandidate } from '../../domain/youtube/services/videoImport';
 import type { SuggestionSet } from '../../domain/content/services/suggestions';
 import type { GitHubContentRepository } from '../../infrastructure/content/GitHubContentRepository';
 import { normalizeDuration, todayIso } from '../../shared/date';
 import { EditorShell } from '../components/EditorShell';
+import { RecentVideosPicker } from '../components/RecentVideosPicker';
 import { TagCombobox } from '../components/TagCombobox';
 import { VideoCodeField } from '../components/VideoCodeField';
 import { Card, Field, Input, SectionTitle, Textarea } from '../components/ui/primitives';
 import { useDraftEditor, type EditorMode } from '../hooks/useDraftEditor';
+import { useRecentYouTubeVideos } from '../hooks/useRecentYouTubeVideos';
 
 interface Props {
   mode: EditorMode;
@@ -20,7 +26,7 @@ interface Props {
   takenSlugs: Set<string>;
   repository: GitHubContentRepository;
   onBack: () => void;
-  onSaved: (slug: string) => void;
+  onSaved: (change: PendingChange) => void;
 }
 
 const validateVideo = (draft: VideoDraft): string[] => {
@@ -64,7 +70,22 @@ export const VideoEditorPage: React.FC<Props> = ({
     onSaved,
   });
 
-  const { draft, setField, setSlug } = editor;
+  const { draft, setDraft, setField, setSlug } = editor;
+
+  // Nouvelle fiche : les dernières vidéos de la chaîne sont proposées à l'import.
+  const knownCodes = useMemo(() => knownVideoCodes(videos), [videos]);
+  const recent = useRecentYouTubeVideos(knownCodes, mode === 'create');
+
+  const importVideo = useCallback(
+    ({ video }: ImportCandidate) => {
+      setDraft((current) => {
+        const next = draftFromYouTube(video, current);
+        const base = slugify(next.title);
+        return { ...next, slug: base ? uniqueSlug(base, takenSlugs) : '' };
+      });
+    },
+    [setDraft, takenSlugs]
+  );
 
   const duplicateCode = useMemo(
     () =>
@@ -93,6 +114,17 @@ export const VideoEditorPage: React.FC<Props> = ({
       onBack={onBack}
       onSave={editor.save}
     >
+      {mode === 'create' && (
+        <RecentVideosPicker
+          candidates={recent.candidates}
+          loading={recent.loading}
+          error={recent.error}
+          selected={draft.code}
+          onPick={importVideo}
+          onReload={recent.reload}
+        />
+      )}
+
       <Card>
         <SectionTitle icon={<Video size={15} />}>Vidéo</SectionTitle>
         <div className="space-y-5 p-5">

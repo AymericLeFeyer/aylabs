@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react';
 import { FileText, Package, ShoppingCart, Tags, ThumbsDown, ThumbsUp, Ticket } from 'lucide-react';
+import type { PendingChange } from '../../domain/changes/entities/PendingChange';
 import type { ContentFile, ProductDraft } from '../../domain/content/entities/ContentItem';
 import { emptyProduct } from '../../domain/content/entities/ContentItem';
 import { fileToProductDraft } from '../../domain/content/services/mappers';
@@ -22,7 +23,7 @@ interface Props {
   takenSlugs: Set<string>;
   repository: GitHubContentRepository;
   onBack: () => void;
-  onSaved: (slug: string) => void;
+  onSaved: (change: PendingChange) => void;
 }
 
 const validateProduct = (draft: ProductDraft): string[] => {

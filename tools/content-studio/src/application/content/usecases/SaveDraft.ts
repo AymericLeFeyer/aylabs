@@ -3,7 +3,7 @@ import {
   productDraftToMarkdown,
   videoDraftToMarkdown,
 } from '../../../domain/content/services/mappers';
-import type { SaveResult } from '../../../domain/content/repositories/ContentRepository';
+import type { PendingChange } from '../../../domain/changes/entities/PendingChange';
 import { CONTENT_DIRS } from '../../../shared/config';
 import type { GitHubContentRepository } from '../../../infrastructure/content/GitHubContentRepository';
 
@@ -26,8 +26,9 @@ export class SaveDraft {
   constructor(private readonly remote: GitHubContentRepository) {}
 
   /**
-   * Le SHA distant est relu juste avant le commit : on ne pousse jamais
-   * par-dessus une version de `main` qu'on n'a pas vue.
+   * Prépare la modification sans commiter : elle rejoint les modifications en
+   * attente, commitées ensemble plus tard. Le SHA distant relu ici devient le
+   * `baseSha`, revérifié au moment du commit.
    */
   async execute(input: {
     kind: ContentKind;
@@ -35,7 +36,7 @@ export class SaveDraft {
     isNew: boolean;
     /** Slug d'origine si la fiche a été renommée. */
     originalSlug?: string;
-  }): Promise<SaveResult> {
+  }): Promise<PendingChange> {
     const { kind, draft, isNew } = input;
     const path = pathFor(kind, draft.slug);
     const content = renderDraft(kind, draft);
@@ -43,12 +44,16 @@ export class SaveDraft {
 
     if (isNew && existing) throw new SlugConflictError(draft.slug);
 
-    // Sans SHA distant (fiche neuve, renommée, ou disparue de main) le PUT crée le fichier.
-    const label = kind === 'video' ? 'video' : 'product';
+    // Sans SHA distant (fiche neuve, renommée, ou disparue de main) le commit crée le fichier.
     const action = isNew || !existing ? 'add' : 'update';
-    const message = `content(${label}): ${action} ${draft.slug}`;
-
-    return this.remote.commit({ path, content, message, sha: existing?.sha });
+    return {
+      path,
+      content,
+      scope: kind,
+      message: `content(${kind}): ${action} ${draft.slug}`,
+      baseSha: existing?.sha,
+      stagedAt: new Date().toISOString(),
+    };
   }
 
   /** Vérifie la disponibilité d'un slug côté GitHub avant sauvegarde. */

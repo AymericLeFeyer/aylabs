@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
-import { AlertCircle, ArrowLeft, CheckCircle2, Code2, GitCommit, Save } from 'lucide-react';
+import { AlertCircle, ArrowLeft, CheckCircle2, Code2, Save } from 'lucide-react';
 import { REPO } from '../../shared/config';
 import { Button, Card } from './ui/primitives';
 
 export interface SaveState {
   status: 'idle' | 'saving' | 'saved' | 'error';
   message?: string;
-  commitUrl?: string;
 }
 
 interface Props {
@@ -22,7 +21,11 @@ interface Props {
   children: React.ReactNode;
 }
 
-/** Cadre commun aux deux éditeurs : validation, aperçu du fichier, commit. */
+/**
+ * Cadre commun aux deux éditeurs : validation, aperçu du fichier, enregistrement.
+ * « Enregistrer » ne commite pas : le commit se fait depuis la barre du Studio,
+ * pour toutes les modifications en attente à la fois.
+ */
 export const EditorShell: React.FC<Props> = ({
   title,
   subtitle,
@@ -85,18 +88,7 @@ export const EditorShell: React.FC<Props> = ({
         {saveState.status === 'saved' && (
           <div className="flex items-center gap-2 rounded-lg border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-800">
             <CheckCircle2 size={16} className="shrink-0" />
-            <span>Fiche commitée sur {REPO.branch}.</span>
-            {saveState.commitUrl && (
-              <a
-                href={saveState.commitUrl}
-                target="_blank"
-                rel="noreferrer"
-                className="ml-auto inline-flex items-center gap-1 font-medium hover:underline"
-              >
-                <GitCommit size={14} />
-                Voir le commit
-              </a>
-            )}
+            <span>Fiche enregistrée, en attente de commit sur {REPO.branch}.</span>
           </div>
         )}
 
@@ -122,8 +114,8 @@ export const EditorShell: React.FC<Props> = ({
             {dirty ? 'Modifications non enregistrées' : 'Aucune modification'}
           </span>
           <Button onClick={onSave} loading={saveState.status === 'saving'} disabled={errors.length > 0}>
-            <GitCommit size={15} />
-            Commit sur {REPO.branch}
+            <Save size={15} />
+            Enregistrer
           </Button>
         </div>
       </div>

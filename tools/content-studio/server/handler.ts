@@ -9,6 +9,7 @@ import {
   sessionCookie,
   verifyOAuthState,
 } from './session';
+import { fetchRecentVideos } from './youtube';
 
 const json = (res: ServerResponse, status: number, payload: unknown, cookies: string[] = []) => {
   res.writeHead(status, {
@@ -40,11 +41,18 @@ const readBody = (req: IncomingMessage): Promise<string> =>
  * Le relais n'accepte que ce dont l'interface a besoin : lecture et écriture
  * dans le dépôt configuré. Sans cette restriction, une session ouverte
  * transformerait l'outil en proxy vers toute l'API GitHub de l'utilisateur.
+ *
+ * POST et PATCH servent au commit groupé (Git Data API) : création d'un arbre,
+ * d'un commit, puis avance de la branche configurée — et rien d'autre.
  */
 function allowedGitHubPath(path: string, method: string, config: ServerConfig): boolean {
-  if (method !== 'GET' && method !== 'PUT') return false;
   const prefix = `/repos/${config.repoOwner}/${config.repoName}/`;
-  return path.startsWith(prefix);
+  if (!path.startsWith(prefix)) return false;
+  const rest = path.slice(prefix.length);
+  if (method === 'GET' || method === 'PUT') return true;
+  if (method === 'POST') return rest === 'git/trees' || rest === 'git/commits';
+  if (method === 'PATCH') return rest === `git/refs/heads/${config.branch}`;
+  return false;
 }
 
 /**
@@ -156,6 +164,24 @@ export async function handleApi(req: IncomingMessage, res: ServerResponse): Prom
     return true;
   }
 
+  /* ─────────────── Dernières vidéos de la chaîne YouTube ─────────────── */
+
+  if (path === '/api/youtube/recent') {
+    const session = readSession(req.headers.cookie, config);
+    if (!session) {
+      json(res, 401, { error: 'Session expirée, reconnecte-toi' });
+      return true;
+    }
+    try {
+      json(res, 200, { videos: await fetchRecentVideos(config.youtubeChannelId) });
+    } catch (error) {
+      const message = error instanceof Error ? error.message : 'Erreur YouTube';
+      console.error('[api/youtube]', message);
+      json(res, 502, { error: 'Impossible de lire le flux YouTube de la chaîne' });
+    }
+    return true;
+  }
+
   /* ─────────── Relais authentifié vers l'API GitHub ─────────── */
 
   if (path.startsWith('/api/github/')) {
@@ -177,7 +203,7 @@ export async function handleApi(req: IncomingMessage, res: ServerResponse): Prom
     }
 
     try {
-      const rawBody = method === 'PUT' ? await readBody(req) : '';
+      const rawBody = method === 'GET' ? '' : await readBody(req);
       const { status, data } = await githubRequest<unknown>(target, {
         method,
         body: rawBody ? JSON.parse(rawBody) : undefined,

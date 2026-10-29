@@ -1,5 +1,6 @@
 import React from 'react';
 import { ArrowLeft, Check, Eye, EyeOff, FileQuestion, RefreshCw, Save } from 'lucide-react';
+import type { PendingChange } from '../../domain/changes/entities/PendingChange';
 import { formatFr } from '../../shared/date';
 import { useHiddenVideos } from '../hooks/useHiddenVideos';
 import { STATS_WINDOW } from '../../domain/stats/services/hiddenVideos';
@@ -9,6 +10,9 @@ interface Props {
   onBack: () => void;
   /** Codes YouTube des fiches du dépôt : sans fiche, la vidéo ne compte pas. */
   knownCodes: Set<string>;
+  /** Banlist enregistrée mais pas encore commitée, s'il y en a une. */
+  pending?: PendingChange;
+  onStage: (change: PendingChange) => void;
 }
 
 const formatCount = (value: number) =>
@@ -27,7 +31,7 @@ const formatDuration = (iso: string): string => {
   return hours ? `${hours}:${mm}:${ss}` : `${mm}:${ss}`;
 };
 
-export const HiddenVideosPage: React.FC<Props> = ({ onBack, knownCodes }) => {
+export const HiddenVideosPage: React.FC<Props> = ({ onBack, knownCodes, pending, onStage }) => {
   const {
     videos,
     hiddenCodes,
@@ -40,7 +44,7 @@ export const HiddenVideosPage: React.FC<Props> = ({ onBack, knownCodes }) => {
     toggle,
     save,
     reload,
-  } = useHiddenVideos(knownCodes);
+  } = useHiddenVideos(knownCodes, pending, onStage);
 
   const retainedCodes = new Set(retained.map((video) => video.id));
   const withoutCard = videos.filter((video) => !knownCodes.has(video.id)).length;
@@ -83,8 +87,8 @@ export const HiddenVideosPage: React.FC<Props> = ({ onBack, knownCodes }) => {
       {savedAt && !error && (
         <div className="mb-4 flex items-center gap-2 rounded-lg border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-700">
           <Check size={15} />
-          Banlist enregistrée à {savedAt.toLocaleTimeString('fr-FR')}. Le site en
-          tiendra compte à la prochaine image publiée.
+          Banlist enregistrée à {savedAt.toLocaleTimeString('fr-FR')}, en attente de
+          commit. Le site en tiendra compte à la prochaine image publiée.
         </div>
       )}
 

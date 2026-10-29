@@ -38,6 +38,11 @@ export const parseHiddenVideos = (raw: string): HiddenVideo[] => {
 export const serializeHiddenVideos = (entries: HiddenVideo[]): string =>
   `${JSON.stringify({ hidden: entries }, null, 2)}\n`;
 
+export const hiddenVideosCommitMessage = (entries: HiddenVideo[]): string =>
+  entries.length === 0
+    ? 'data(stats): clear hidden videos'
+    : `data(stats): hide ${entries.length} video${entries.length > 1 ? 's' : ''}`;
+
 /**
  * Codes YouTube des fiches du dépôt — la liste des vidéos ajoutées à la main.
  * `code` est un scalaire du frontmatter, d'où le passage par `String`.
