@@ -128,6 +128,9 @@ vidéo qui fausserait la moyenne affichée sur le Media Kit du site.
   reprend le premier paragraphe de la section `▶ VIDÉO` si elle existe, sinon le
   premier paragraphe sans lien ni hashtag. Les vidéos privées ou programmées
   n'apparaissent pas dans le flux.
+  Une vidéo absente de la liste (non répertoriée, plus ancienne, flux en retard)
+  s'importe en collant son code ou son lien dans le champ sous la grille : le
+  serveur lit alors directement la page de la vidéo.
 
 - **Duplication** — l'icône *Dupliquer* d'une fiche pré-remplit un nouveau
   formulaire en conservant la structure (tags, protocoles, catégorie) et en

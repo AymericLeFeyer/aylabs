@@ -122,6 +122,7 @@ export const VideoEditorPage: React.FC<Props> = ({
           selected={draft.code}
           onPick={importVideo}
           onReload={recent.reload}
+          onFetchCode={recent.fetchByCode}
         />
       )}
 

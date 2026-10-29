@@ -9,7 +9,7 @@ import {
   sessionCookie,
   verifyOAuthState,
 } from './session';
-import { fetchRecentVideos } from './youtube';
+import { fetchRecentVideos, fetchVideo, YouTubeVideoNotFoundError } from './youtube';
 
 const json = (res: ServerResponse, status: number, payload: unknown, cookies: string[] = []) => {
   res.writeHead(status, {
@@ -178,6 +178,31 @@ export async function handleApi(req: IncomingMessage, res: ServerResponse): Prom
       const message = error instanceof Error ? error.message : 'Erreur YouTube';
       console.error('[api/youtube]', message);
       json(res, 502, { error: 'Impossible de lire le flux YouTube de la chaîne' });
+    }
+    return true;
+  }
+
+  if (path === '/api/youtube/video') {
+    const session = readSession(req.headers.cookie, config);
+    if (!session) {
+      json(res, 401, { error: 'Session expirée, reconnecte-toi' });
+      return true;
+    }
+    const code = url.searchParams.get('code') ?? '';
+    if (!/^[A-Za-z0-9_-]{11}$/.test(code)) {
+      json(res, 400, { error: 'Code YouTube invalide (11 caractères attendus)' });
+      return true;
+    }
+    try {
+      json(res, 200, { video: await fetchVideo(code) });
+    } catch (error) {
+      if (error instanceof YouTubeVideoNotFoundError) {
+        json(res, 404, { error: error.message });
+        return true;
+      }
+      const message = error instanceof Error ? error.message : 'Erreur YouTube';
+      console.error('[api/youtube]', message);
+      json(res, 502, { error: 'Impossible de lire la page de la vidéo sur YouTube' });
     }
     return true;
   }

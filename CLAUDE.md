@@ -255,6 +255,14 @@ cd tools/content-studio && npm install && npm run dev
     planifiée sur YouTube n'est importable qu'une fois publique.
   - Le scraping de la durée est best effort : `durationSeconds: null` laisse le
     champ à saisir à la main.
+  - **Import par code** (ajouté le 2026-10-29) : champ « code ou lien » sous la
+    grille, pour les vidéos que le flux ne montre pas (non répertoriées, hors des
+    15 dernières, flux RSS en retard). `GET /api/youtube/video?code=` →
+    `fetchVideo` lit `ytInitialPlayerResponse` de la page watch (`videoDetails` +
+    `microformat.playerMicroformatRenderer.publishDate`, qui porte l'heure).
+    Vidéo privée ou inexistante → 404 avec la raison de YouTube. `isShort` vaut
+    toujours `false` (la page ne le dit pas simplement). Une vidéo qui a déjà une
+    fiche est refusée côté UI. Le champ reste utilisable si le flux RSS échoue.
 - **Programmation d'une vidéo** : `VideoDraft.pubTime` (`HH:MM`, vide = minuit)
   est saisi dans l'éditeur vidéo à côté de la date et sérialisé en `pubTime`
   juste après `pubDate`. Le tableau de bord marque « Programmée » les fiches que
@@ -282,6 +290,7 @@ esbuild). **`server/handler.ts` est monté à la fois par le serveur de producti
 | `POST /api/auth/logout` | efface la session (POST volontairement, pas GET) |
 | `GET/PUT /api/github/*` | relais authentifié, restreint au dépôt configuré (+ `POST git/trees`, `POST git/commits`, `PATCH git/refs/heads/<branche>`) |
 | `GET /api/youtube/recent` | `{ videos: [{ code, title, description, publishedAt, durationSeconds, isShort }] }` depuis le RSS de la chaîne |
+| `GET /api/youtube/video?code=` | `{ video }` (même forme) lu sur la page watch ; 400 code invalide, 404 privée/introuvable, 502 YouTube injoignable |
 
 Variables d'environnement (lues à l'exécution, jamais au build) : `APP_URL`,
 `GITHUB_CLIENT_ID`, `GITHUB_CLIENT_SECRET`, `SESSION_SECRET` obligatoires ;
@@ -353,11 +362,12 @@ une liste vide sans `sha`, et le premier commit crée le fichier. Message
 | Élément | Rôle |
 |---|---|
 | `entities/RecentYouTubeVideo.ts` | `{ code, title, description, publishedAt, durationSeconds (ou null), isShort }` |
-| `repositories/YouTubeFeedRepository.ts` | `fetchRecent()` — `infrastructure/youtube/HttpYouTubeFeedRepository` (`/api/youtube/recent`) |
+| `repositories/YouTubeFeedRepository.ts` | `fetchRecent()`, `fetchByCode(code)` — `infrastructure/youtube/HttpYouTubeFeedRepository` (`/api/youtube/recent`, `/api/youtube/video`) |
 | `services/videoImport.ts` | `parisDateTime`, `formatSeconds`, `summarizeDescription`, `draftFromYouTube`, `importCandidates` (shorts exclus, `hasCard`) |
 | `application/youtube/usecases/ListRecentVideos.ts` | `execute(knownCodes): ImportCandidate[]` |
-| `presentation/hooks/useRecentYouTubeVideos.ts` | `(knownCodes, enabled)` → `candidates`, `loading`, `error`, `reload` |
-| `presentation/components/RecentVideosPicker.tsx` | grille de sélection en tête de l'éditeur (mode `create` seulement) |
+| `application/youtube/usecases/ImportVideoByCode.ts` | `execute(code, knownCodes): ImportCandidate` |
+| `presentation/hooks/useRecentYouTubeVideos.ts` | `(knownCodes, enabled)` → `candidates`, `loading`, `error`, `reload`, `fetchByCode` |
+| `presentation/components/RecentVideosPicker.tsx` | grille de sélection en tête de l'éditeur (mode `create` seulement) + champ d'import par code |
 
 La page « Vidéos masquées » marque **« sans fiche »** (badge ambre) les vidéos de
 l'API qu'aucun fichier de `src/content/videos` ne porte : elles sont déjà hors
@@ -375,6 +385,7 @@ calculé dans `App.tsx` depuis le catalogue et passé en prop `knownCodes`.
 | `ManageHiddenVideos` | `load(pending?)`, `save(entries): PendingChange` — banlist des statistiques |
 | `CommitPendingChanges` | `execute(changes): CommitResult` — un commit pour tout |
 | `ListRecentVideos` | `execute(knownCodes): ImportCandidate[]` — import YouTube |
+| `ImportVideoByCode` | `execute(code, knownCodes): ImportCandidate` — vidéo absente du flux |
 
 ### Hooks
 

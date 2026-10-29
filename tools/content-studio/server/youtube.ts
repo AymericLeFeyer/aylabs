@@ -76,6 +76,59 @@ const fetchDuration = async (code: string): Promise<number | null> => {
   }
 };
 
+/** Fragment de `ytInitialPlayerResponse` utilisé par l'import d'une vidéo précise. */
+interface PlayerResponse {
+  playabilityStatus?: { status?: string; reason?: string };
+  videoDetails?: {
+    videoId?: string;
+    title?: string;
+    shortDescription?: string;
+    lengthSeconds?: string;
+    channelId?: string;
+  };
+  microformat?: { playerMicroformatRenderer?: { publishDate?: string; uploadDate?: string } };
+}
+
+export class YouTubeVideoNotFoundError extends Error {}
+
+const parsePlayerResponse = (html: string): PlayerResponse | null => {
+  const match = /var ytInitialPlayerResponse = (\{[\s\S]*?\});(?:var |<\/script>)/.exec(html);
+  if (!match) return null;
+  try {
+    return JSON.parse(match[1]) as PlayerResponse;
+  } catch {
+    return null;
+  }
+};
+
+/**
+ * Une vidéo par son code, lue sur sa page : sert quand le flux RSS ne la
+ * montre pas (non répertoriée, ou sortie des 15 dernières publications).
+ * Une vidéo privée n'expose rien : `YouTubeVideoNotFoundError`.
+ */
+export async function fetchVideo(code: string): Promise<RecentYouTubeVideo> {
+  const player = parsePlayerResponse(await fetchText(`${WATCH_URL}${encodeURIComponent(code)}`));
+  const details = player?.videoDetails;
+  if (!details?.videoId) {
+    throw new YouTubeVideoNotFoundError(
+      player?.playabilityStatus?.reason ?? 'Vidéo introuvable ou privée'
+    );
+  }
+  const micro = player?.microformat?.playerMicroformatRenderer;
+  const published = micro?.publishDate ?? micro?.uploadDate ?? '';
+  const parsed = new Date(published);
+  const length = Number(details.lengthSeconds);
+  return {
+    code: details.videoId,
+    title: details.title ?? '',
+    description: details.shortDescription ?? '',
+    publishedAt: Number.isNaN(parsed.getTime()) ? '' : parsed.toISOString(),
+    durationSeconds: Number.isFinite(length) && length > 0 ? length : null,
+    // La page ne dit pas simplement si c'est un short : c'est le choix de l'utilisateur.
+    isShort: false,
+  };
+}
+
 export async function fetchRecentVideos(channelId: string): Promise<RecentYouTubeVideo[]> {
   if (cache && cache.channelId === channelId && Date.now() - cache.at < CACHE_TTL_MS) {
     return cache.videos;

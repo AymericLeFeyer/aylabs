@@ -1,9 +1,9 @@
-import React from 'react';
-import { Check, RefreshCw, Youtube } from 'lucide-react';
+import React, { useState } from 'react';
+import { Check, Download, RefreshCw, Youtube } from 'lucide-react';
 import type { ImportCandidate } from '../../domain/youtube/services/videoImport';
 import { formatSeconds } from '../../domain/youtube/services/videoImport';
-import { thumbnailUrl } from './VideoCodeField';
-import { Card, SectionTitle, Spinner } from './ui/primitives';
+import { extractVideoCode, thumbnailUrl } from './VideoCodeField';
+import { Button, Card, Input, SectionTitle, Spinner } from './ui/primitives';
 
 interface Props {
   candidates: ImportCandidate[];
@@ -13,7 +13,69 @@ interface Props {
   selected: string;
   onPick: (candidate: ImportCandidate) => void;
   onReload: () => void;
+  /** Lecture d'une vidéo absente du flux, par son code. */
+  onFetchCode: (code: string) => Promise<ImportCandidate>;
 }
+
+const YOUTUBE_ID = /^[A-Za-z0-9_-]{11}$/;
+
+/**
+ * Le flux RSS ne voit ni les vidéos non répertoriées ni celles sorties des 15
+ * dernières publications : on peut alors coller le code ou le lien.
+ */
+const CodeImport: React.FC<Pick<Props, 'onPick' | 'onFetchCode'>> = ({ onPick, onFetchCode }) => {
+  const [value, setValue] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const submit = async (event: React.FormEvent) => {
+    event.preventDefault();
+    const code = extractVideoCode(value);
+    if (!YOUTUBE_ID.test(code)) {
+      setError('Code YouTube invalide : 11 caractères, ou un lien vers la vidéo');
+      return;
+    }
+    setLoading(true);
+    setError(null);
+    try {
+      const candidate = await onFetchCode(code);
+      if (candidate.hasCard) {
+        setError('Une fiche existe déjà pour cette vidéo');
+        return;
+      }
+      onPick(candidate);
+      setValue('');
+    } catch (e) {
+      setError(e instanceof Error ? e.message : 'Lecture de la vidéo impossible');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <form onSubmit={submit} className="border-t border-slate-100 px-5 py-3">
+      <p className="mb-2 text-xs text-slate-500">
+        Vidéo absente de la liste ? Colle son code ou son lien.
+      </p>
+      <div className="flex gap-2">
+        <Input
+          value={value}
+          onChange={(e) => {
+            setValue(e.target.value);
+            setError(null);
+          }}
+          placeholder="dQw4w9WgXcQ ou https://youtu.be/…"
+          className="font-mono"
+        />
+        <Button type="submit" variant="secondary" loading={loading} disabled={!value.trim() || loading}>
+          {!loading && <Download size={15} />}
+          Importer
+        </Button>
+      </div>
+      {error && <p className="mt-2 text-sm text-red-600">{error}</p>}
+    </form>
+  );
+};
 
 const formatDate = (iso: string) =>
   new Date(iso).toLocaleDateString('fr-FR', { day: '2-digit', month: 'short', year: 'numeric' });
@@ -29,6 +91,7 @@ export const RecentVideosPicker: React.FC<Props> = ({
   selected,
   onPick,
   onReload,
+  onFetchCode,
 }) => (
   <Card>
     <div className="flex items-center justify-between border-b border-slate-100 pr-3">
@@ -95,5 +158,7 @@ export const RecentVideosPicker: React.FC<Props> = ({
         </ul>
       )}
     </div>
+
+    <CodeImport onPick={onPick} onFetchCode={onFetchCode} />
   </Card>
 );
