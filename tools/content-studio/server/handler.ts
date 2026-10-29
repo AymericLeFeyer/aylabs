@@ -194,7 +194,7 @@ export async function handleApi(req: IncomingMessage, res: ServerResponse): Prom
       return true;
     }
     try {
-      json(res, 200, { video: await fetchVideo(code) });
+      json(res, 200, { video: await fetchVideo(code, config.youtubeApiKey) });
     } catch (error) {
       if (error instanceof YouTubeVideoNotFoundError) {
         json(res, 404, { error: error.message });

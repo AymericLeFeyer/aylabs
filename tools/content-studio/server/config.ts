@@ -26,6 +26,12 @@ export interface ServerConfig {
   branch: string;
   /** Chaîne dont le flux RSS alimente l'import « Nouvelle vidéo ». */
   youtubeChannelId: string;
+  /**
+   * Clé YouTube Data API v3, facultative. Depuis une IP de datacenter, la page
+   * watch répond souvent « confirmez que vous n'êtes pas un robot » : l'API est
+   * alors la seule source complète pour l'import par code.
+   */
+  youtubeApiKey: string | null;
   port: number;
 }
 
@@ -46,6 +52,7 @@ export function getConfig(): ServerConfig {
     repoName,
     branch: process.env.GITHUB_BRANCH || 'main',
     youtubeChannelId: process.env.YOUTUBE_CHANNEL_ID || 'UClCAe7FyrIwpkt9H56XRndA',
+    youtubeApiKey: process.env.YOUTUBE_API_KEY || null,
     port: Number(process.env.PORT || 8080),
   };
 }

@@ -23,3 +23,6 @@ services:
       SESSION_SECRET: ${SESSION_SECRET:?openssl rand -base64 48}
       GITHUB_REPO: ${GITHUB_REPO:-AymericLeFeyer/aylabs}
       GITHUB_BRANCH: ${GITHUB_BRANCH:-main}
+      # Facultative : sans elle, l'import par code dépend de la page YouTube,
+      # souvent bloquée (« pas un robot ») depuis l'IP d'un serveur.
+      YOUTUBE_API_KEY: ${YOUTUBE_API_KEY:-}

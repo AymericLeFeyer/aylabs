@@ -70,6 +70,7 @@ et aucun secret n'y est embarqué.
 | `GITHUB_REPO` | non | `AymericLeFeyer/aylabs` | Dépôt cible, format `owner/nom` |
 | `GITHUB_BRANCH` | non | `main` | Branche sur laquelle commiter |
 | `YOUTUBE_CHANNEL_ID` | non | `UClCAe7FyrIwpkt9H56XRndA` | Chaîne dont les dernières vidéos sont proposées à l'import |
+| `YOUTUBE_API_KEY` | non | — | Clé YouTube Data API v3 pour l'import par code. Sans elle, le serveur lit la page de la vidéo, que YouTube bloque souvent depuis l'IP d'un serveur (« confirmez que vous n'êtes pas un robot ») : l'import se réduit alors au titre |
 | `PORT` | non | `8080` | Port d'écoute |
 
 Sans une variable obligatoire, le conteneur **refuse de démarrer** avec un message
@@ -130,7 +131,9 @@ vidéo qui fausserait la moyenne affichée sur le Media Kit du site.
   n'apparaissent pas dans le flux.
   Une vidéo absente de la liste (non répertoriée, plus ancienne, flux en retard)
   s'importe en collant son code ou son lien dans le champ sous la grille : le
-  serveur lit alors directement la page de la vidéo.
+  serveur interroge l'API YouTube Data si `YOUTUBE_API_KEY` est définie, sinon la
+  page de la vidéo puis oEmbed. Les champs que YouTube n'a pas transmis sont
+  signalés en orange, à compléter à la main.
 
 - **Duplication** — l'icône *Dupliquer* d'une fiche pré-remplit un nouveau
   formulaire en conservant la structure (tags, protocoles, catégorie) et en

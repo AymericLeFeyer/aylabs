@@ -258,11 +258,19 @@ cd tools/content-studio && npm install && npm run dev
   - **Import par code** (ajouté le 2026-10-29) : champ « code ou lien » sous la
     grille, pour les vidéos que le flux ne montre pas (non répertoriées, hors des
     15 dernières, flux RSS en retard). `GET /api/youtube/video?code=` →
-    `fetchVideo` lit `ytInitialPlayerResponse` de la page watch (`videoDetails` +
-    `microformat.playerMicroformatRenderer.publishDate`, qui porte l'heure).
-    Vidéo privée ou inexistante → 404 avec la raison de YouTube. `isShort` vaut
-    toujours `false` (la page ne le dit pas simplement). Une vidéo qui a déjà une
-    fiche est refusée côté UI. Le champ reste utilisable si le flux RSS échoue.
+    `fetchVideo(code, apiKey)`, sources dans l'ordre :
+    1. **API YouTube Data v3** (`videos?part=snippet,contentDetails`) si
+       `YOUTUBE_API_KEY` est définie — complète, et **la seule fiable en prod** ;
+    2. page watch : `ytInitialPlayerResponse` (`videoDetails` +
+       `microformat.playerMicroformatRenderer.publishDate`), sinon les `<meta
+       itemprop>` schema.org (titre, date, durée, sans description) ;
+    3. oEmbed : le titre seul.
+    **Piège** : depuis l'IP du VPS, YouTube répond « Sign in to confirm you're not
+    a bot » (`LOGIN_REQUIRED`, sans `videoDetails`) — constaté le 2026-10-29, alors
+    que tout marche depuis une IP résidentielle. Ne pas conclure d'un test local
+    que le scraping marche en prod. Les champs manquants sont signalés en ambre
+    dans le picker. Vidéo privée/inexistante → 404. `isShort` vaut toujours
+    `false`. Une vidéo qui a déjà une fiche est refusée côté UI.
 - **Programmation d'une vidéo** : `VideoDraft.pubTime` (`HH:MM`, vide = minuit)
   est saisi dans l'éditeur vidéo à côté de la date et sérialisé en `pubTime`
   juste après `pubDate`. Le tableau de bord marque « Programmée » les fiches que
@@ -295,7 +303,7 @@ esbuild). **`server/handler.ts` est monté à la fois par le serveur de producti
 Variables d'environnement (lues à l'exécution, jamais au build) : `APP_URL`,
 `GITHUB_CLIENT_ID`, `GITHUB_CLIENT_SECRET`, `SESSION_SECRET` obligatoires ;
 `GITHUB_REPO`, `GITHUB_BRANCH`, `YOUTUBE_CHANNEL_ID` (défaut
-`UClCAe7FyrIwpkt9H56XRndA`), `PORT` facultatives. Sans les obligatoires, le
+`UClCAe7FyrIwpkt9H56XRndA`), `YOUTUBE_API_KEY` (import par code), `PORT` facultatives. Sans les obligatoires, le
 serveur refuse de démarrer. En développement, `vite.config.ts` recopie `.env.local`
 dans `process.env` — le code serveur ne lit pas `import.meta.env`.
 

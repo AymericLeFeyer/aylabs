@@ -27,6 +27,7 @@ const CodeImport: React.FC<Pick<Props, 'onPick' | 'onFetchCode'>> = ({ onPick, o
   const [value, setValue] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [missing, setMissing] = useState<string[]>([]);
 
   const submit = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -37,6 +38,7 @@ const CodeImport: React.FC<Pick<Props, 'onPick' | 'onFetchCode'>> = ({ onPick, o
     }
     setLoading(true);
     setError(null);
+    setMissing([]);
     try {
       const candidate = await onFetchCode(code);
       if (candidate.hasCard) {
@@ -45,6 +47,15 @@ const CodeImport: React.FC<Pick<Props, 'onPick' | 'onFetchCode'>> = ({ onPick, o
       }
       onPick(candidate);
       setValue('');
+      // Sans clé d'API, YouTube peut ne livrer que le titre au serveur.
+      const { video } = candidate;
+      setMissing(
+        [
+          !video.description && 'description',
+          !video.publishedAt && 'date et heure',
+          video.durationSeconds === null && 'durée',
+        ].filter((field): field is string => Boolean(field))
+      );
     } catch (e) {
       setError(e instanceof Error ? e.message : 'Lecture de la vidéo impossible');
     } finally {
@@ -63,6 +74,7 @@ const CodeImport: React.FC<Pick<Props, 'onPick' | 'onFetchCode'>> = ({ onPick, o
           onChange={(e) => {
             setValue(e.target.value);
             setError(null);
+            setMissing([]);
           }}
           placeholder="dQw4w9WgXcQ ou https://youtu.be/…"
           className="font-mono"
@@ -73,6 +85,11 @@ const CodeImport: React.FC<Pick<Props, 'onPick' | 'onFetchCode'>> = ({ onPick, o
         </Button>
       </div>
       {error && <p className="mt-2 text-sm text-red-600">{error}</p>}
+      {missing.length > 0 && (
+        <p className="mt-2 text-sm text-amber-700">
+          Import partiel, YouTube n'a pas tout transmis : {missing.join(', ')} à compléter.
+        </p>
+      )}
     </form>
   );
 };

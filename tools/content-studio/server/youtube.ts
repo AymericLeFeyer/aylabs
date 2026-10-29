@@ -76,6 +76,9 @@ const fetchDuration = async (code: string): Promise<number | null> => {
   }
 };
 
+const API_URL = 'https://www.googleapis.com/youtube/v3/videos';
+const OEMBED_URL = 'https://www.youtube.com/oembed?format=json&url=';
+
 /** Fragment de `ytInitialPlayerResponse` utilisé par l'import d'une vidéo précise. */
 interface PlayerResponse {
   playabilityStatus?: { status?: string; reason?: string };
@@ -84,12 +87,54 @@ interface PlayerResponse {
     title?: string;
     shortDescription?: string;
     lengthSeconds?: string;
-    channelId?: string;
   };
   microformat?: { playerMicroformatRenderer?: { publishDate?: string; uploadDate?: string } };
 }
 
 export class YouTubeVideoNotFoundError extends Error {}
+
+const toIso = (value: string | undefined): string => {
+  const parsed = new Date(value ?? '');
+  return Number.isNaN(parsed.getTime()) ? '' : parsed.toISOString();
+};
+
+const positiveOrNull = (value: number): number | null =>
+  Number.isFinite(value) && value > 0 ? value : null;
+
+/** `PT1H2M5S` → 3725. */
+const isoDurationSeconds = (value: string): number | null => {
+  const match = /^PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?$/.exec(value);
+  if (!match) return null;
+  const [, h = '0', m = '0', s = '0'] = match;
+  return positiveOrNull(Number(h) * 3600 + Number(m) * 60 + Number(s));
+};
+
+/** Source complète et fiable, mais demande une clé. */
+const fromDataApi = async (code: string, apiKey: string): Promise<RecentYouTubeVideo> => {
+  const response = await fetch(
+    `${API_URL}?part=snippet,contentDetails&id=${encodeURIComponent(code)}&key=${encodeURIComponent(apiKey)}`,
+    { signal: AbortSignal.timeout(TIMEOUT_MS) }
+  );
+  if (!response.ok) throw new Error(`YouTube Data API → ${response.status}`);
+  const payload = (await response.json()) as {
+    items?: {
+      id: string;
+      snippet?: { title?: string; description?: string; publishedAt?: string };
+      contentDetails?: { duration?: string };
+    }[];
+  };
+  const item = payload.items?.[0];
+  // L'API ne renvoie rien pour une vidéo privée d'une autre chaîne ou inexistante.
+  if (!item) throw new YouTubeVideoNotFoundError('Vidéo introuvable ou privée');
+  return {
+    code: item.id,
+    title: item.snippet?.title ?? '',
+    description: item.snippet?.description ?? '',
+    publishedAt: toIso(item.snippet?.publishedAt),
+    durationSeconds: isoDurationSeconds(item.contentDetails?.duration ?? ''),
+    isShort: false,
+  };
+};
 
 const parsePlayerResponse = (html: string): PlayerResponse | null => {
   const match = /var ytInitialPlayerResponse = (\{[\s\S]*?\});(?:var |<\/script>)/.exec(html);
@@ -101,32 +146,86 @@ const parsePlayerResponse = (html: string): PlayerResponse | null => {
   }
 };
 
+const metaContent = (html: string, attribute: string): string => {
+  const match = new RegExp(`<meta ${attribute} content="([^"]*)"`).exec(html);
+  return match ? decodeXml(match[1]) : '';
+};
+
 /**
- * Une vidéo par son code, lue sur sa page : sert quand le flux RSS ne la
- * montre pas (non répertoriée, ou sortie des 15 dernières publications).
- * Une vidéo privée n'expose rien : `YouTubeVideoNotFoundError`.
+ * Page watch : `ytInitialPlayerResponse` quand YouTube sert le lecteur, sinon
+ * les métadonnées schema.org de la page (titre, date, durée, sans description).
+ * `null` si la page n'a rien d'exploitable (contrôle anti-robot, vidéo privée).
  */
-export async function fetchVideo(code: string): Promise<RecentYouTubeVideo> {
-  const player = parsePlayerResponse(await fetchText(`${WATCH_URL}${encodeURIComponent(code)}`));
+const fromWatchPage = async (
+  code: string
+): Promise<{ video: RecentYouTubeVideo | null; reason: string | null }> => {
+  const html = await fetchText(`${WATCH_URL}${encodeURIComponent(code)}`);
+  const player = parsePlayerResponse(html);
   const details = player?.videoDetails;
-  if (!details?.videoId) {
-    throw new YouTubeVideoNotFoundError(
-      player?.playabilityStatus?.reason ?? 'Vidéo introuvable ou privée'
-    );
+  if (details?.videoId) {
+    const micro = player?.microformat?.playerMicroformatRenderer;
+    return {
+      video: {
+        code: details.videoId,
+        title: details.title ?? '',
+        description: details.shortDescription ?? '',
+        publishedAt: toIso(micro?.publishDate ?? micro?.uploadDate),
+        durationSeconds: positiveOrNull(Number(details.lengthSeconds)),
+        isShort: false,
+      },
+      reason: null,
+    };
   }
-  const micro = player?.microformat?.playerMicroformatRenderer;
-  const published = micro?.publishDate ?? micro?.uploadDate ?? '';
-  const parsed = new Date(published);
-  const length = Number(details.lengthSeconds);
-  return {
-    code: details.videoId,
-    title: details.title ?? '',
-    description: details.shortDescription ?? '',
-    publishedAt: Number.isNaN(parsed.getTime()) ? '' : parsed.toISOString(),
-    durationSeconds: Number.isFinite(length) && length > 0 ? length : null,
-    // La page ne dit pas simplement si c'est un short : c'est le choix de l'utilisateur.
-    isShort: false,
-  };
+  const title = metaContent(html, 'itemprop="name"');
+  if (metaContent(html, 'itemprop="identifier"') === code && title) {
+    return {
+      video: {
+        code,
+        title,
+        description: '',
+        publishedAt: toIso(metaContent(html, 'itemprop="datePublished"')),
+        durationSeconds: isoDurationSeconds(metaContent(html, 'itemprop="duration"')),
+        isShort: false,
+      },
+      reason: null,
+    };
+  }
+  return { video: null, reason: player?.playabilityStatus?.reason ?? null };
+};
+
+/** Dernier recours, rarement bloqué : le titre seul. */
+const fromOEmbed = async (code: string): Promise<RecentYouTubeVideo | null> => {
+  const response = await fetch(
+    `${OEMBED_URL}${encodeURIComponent(`${WATCH_URL}${code}`)}`,
+    { headers: BROWSER_HEADERS, signal: AbortSignal.timeout(TIMEOUT_MS) }
+  );
+  if (!response.ok) return null;
+  const payload = (await response.json().catch(() => null)) as { title?: string } | null;
+  if (!payload?.title) return null;
+  return { code, title: payload.title, description: '', publishedAt: '', durationSeconds: null, isShort: false };
+};
+
+/**
+ * Une vidéo par son code, pour celles que le flux RSS ne montre pas (non
+ * répertoriée, sortie des 15 dernières publications). Sources, de la plus
+ * complète à la plus pauvre : API Data (si clé), page watch, oEmbed. Les
+ * champs inconnus restent vides et se saisissent à la main.
+ */
+export async function fetchVideo(code: string, apiKey: string | null): Promise<RecentYouTubeVideo> {
+  if (apiKey) return fromDataApi(code, apiKey);
+
+  let reason: string | null = null;
+  try {
+    const page = await fromWatchPage(code);
+    if (page.video) return page.video;
+    reason = page.reason;
+  } catch (error) {
+    console.warn('[api/youtube] page watch illisible', error instanceof Error ? error.message : error);
+  }
+
+  const oembed = await fromOEmbed(code).catch(() => null);
+  if (oembed) return oembed;
+  throw new YouTubeVideoNotFoundError(reason ?? 'Vidéo introuvable ou privée');
 }
 
 export async function fetchRecentVideos(channelId: string): Promise<RecentYouTubeVideo[]> {
