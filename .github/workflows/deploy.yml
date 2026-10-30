@@ -6,8 +6,10 @@ on:
     branches:
       - main
     paths-ignore:
-      # Le Studio a son propre workflow : inutile de reconstruire le site.
+      # Le Studio et le fetcher ont leur propre workflow : inutile de
+      # reconstruire le site.
       - "tools/content-studio/**"
+      - "tools/aylabs-fetcher/**"
 
 concurrency:
   group: site-image

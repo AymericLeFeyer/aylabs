@@ -1,0 +1,20 @@
+{
+  "name": "aylabs-fetcher",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "start": "node --env-file-if-exists=.env src/index.ts",
+    "once": "node --env-file-if-exists=.env src/index.ts --once",
+    "dry-run": "node --env-file-if-exists=.env src/index.ts --dry-run",
+    "test": "node --test \"src/**/*.test.ts\"",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "typescript": "^5.8.0"
+  }
+}

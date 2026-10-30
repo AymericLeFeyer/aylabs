@@ -1,6 +1,6 @@
 # AyLabs — instructions projet
 
-> Dernière mise à jour : 2026-10-29
+> Dernière mise à jour : 2026-10-30
 
 Site vitrine de la chaîne AyLabs (domotique, homelab, impression 3D) : vidéos,
 produits testés, tutoriels. **React 18 + Vite + TypeScript + Tailwind**, contenu en
@@ -12,8 +12,33 @@ o2switch a été retiré du workflow le 2026-08-31.
 
 | Workflow | Déclencheur | Effet |
 |---|---|---|
-| `deploy.yml` | push `main` sauf `tools/content-studio/**`, ou manuel | build Vite + image `ghcr.io/aymericlefeyer/aylabs-site` sur GHCR |
+| `deploy.yml` | push `main` sauf `tools/content-studio/**` et `tools/aylabs-fetcher/**`, ou manuel | build Vite + image `ghcr.io/aymericlefeyer/aylabs-site` sur GHCR |
 | `content-studio-image.yml` | push `main` sur `tools/content-studio/**` ou `src/content/**`, ou manuel | publie `ghcr.io/aymericlefeyer/aylabs-content-studio` |
+| `aylabs-fetcher-image.yml` | push `main` sur `tools/aylabs-fetcher/**`, ou manuel | typecheck, tests, publie `ghcr.io/aymericlefeyer/aylabs-fetcher` |
+
+## tools/aylabs-fetcher — statistiques YouTube
+
+Service Node 24 sans dépendance à l'exécution (TypeScript exécuté directement, donc
+syntaxe effaçable et imports en `.ts`), qui remplace le workflow n8n « YouTube Stats
+Fetcher ». Toutes les 4 h, calé sur l'horloge UTC (`nextRunAt`) :
+`channels` + `search` (50 vidéos) + `videos` → `buildReport` → `PUT contents` de
+`public/youtube-stats.json` → Discord (`@everyone` en cas d'échec).
+
+- **Démarrer le conteneur ne lance pas de passage** : il attend le prochain créneau.
+  Forcer : `docker exec aylabs-fetcher node src/index.ts --once`. Sans écriture :
+  `npm run dry-run`.
+- Variables : `YOUTUBE_API_KEY`, `FETCHER_GITHUB_TOKEN` obligatoires ;
+  `DISCORD_WEBHOOK_URL`, `YOUTUBE_CHANNEL_ID`, `GITHUB_REPO`, `GITHUB_BRANCH`
+  facultatives.
+- **Jeton personnel fine-grained obligatoire** (Contents en écriture) : un push fait
+  avec le `GITHUB_TOKEN` d'Actions ne déclencherait pas `deploy.yml`.
+- Aucun commit si le fichier est identique. Sinon chaque commit reconstruit l'image
+  du site, soit jusqu'à 6 builds par jour.
+- Les vidéos sont écrites **à plat**, sans l'enveloppe n8n `{ json, pairedItem }` ;
+  `normalizeVideos` et `parseChannelVideos` acceptent toujours les deux formes.
+- La clé YouTube passe en en-tête `X-Goog-Api-Key`, jamais dans l'URL, pour ne pas
+  fuiter dans les erreurs relayées sur Discord.
+- Quota : 102 unités par passage, 612 par jour.
 
 Les secrets FTP (`FTP_HOST`, `FTP_USERNAME`, `FTP_PASSWORD`, `FTP_PATH`, `BASE_PATH`)
 ne sont plus utilisés par aucun workflow ; ils restent définis dans le dépôt.
@@ -26,8 +51,8 @@ cPanel o2switch, indépendamment du déploiement : elles survivent à ce changem
 config SPA dans `docker/nginx.conf` (fallback `index.html`, cache long sur
 `/assets/`, `index.html` et `youtube-stats.json` en `expires -1`).
 
-`docker/portainer-stack.yml` est la stack Portainer des **deux** services tirés de
-GHCR : `site` sur `8080:80`, `content-studio` sur `8081:8080` (TLS et domaines
+`docker/portainer-stack.yml` est la stack Portainer des **trois** services tirés de
+GHCR : `site` sur `8080:80`, `content-studio` sur `8081:8080`, `aylabs-fetcher` sans port (TLS et domaines
 gérés par le reverse proxy). `tools/content-studio/docker-compose.yml` reste le
 compose du Studio seul, avec son bloc `build:` pour reconstruire depuis les
 sources.
@@ -137,7 +162,8 @@ src/
 │   ├── products/      # 48 fiches
 │   └── tutorials/
 tools/content-studio/  # outil de gestion du contenu — SPA + serveur Node (voir plus bas)
-public/youtube-stats.json  # stats de chaîne, alimentées par n8n (15 vidéos récentes)
+tools/aylabs-fetcher/  # service qui met à jour youtube-stats.json toutes les 4 h
+public/youtube-stats.json  # stats de chaîne, alimentées par aylabs-fetcher (50 vidéos récentes)
 public/hidden-videos.json  # vidéos exclues des stats, pilotées par le Studio
 ```
 
@@ -562,7 +588,7 @@ Le mot « commentaires » qui reste dans le Media Kit désigne ceux de **YouTube
 
 ### Statistiques de chaîne et banlist
 
-`public/youtube-stats.json` (écrit par n8n) contient les **20 dernières vidéos**
+`public/youtube-stats.json` (écrit par aylabs-fetcher, par n8n avant le 2026-10-30) contient les **50 dernières vidéos**
 de la chaîne, shorts et lives compris. `public/hidden-videos.json` liste en plus
 les vidéos à exclure des calculs :
 
@@ -602,7 +628,7 @@ la banlist, qui ne sert plus qu'à masquer une vidéo qui a pourtant une fiche.
   (`RECENT_WINDOW_DAYS`), pas le mois calendaire — c'est ce que faisait déjà n8n,
   malgré l'ancien libellé « ce mois », corrigé en « ces 30 jours ».
 - `stats.videoCount` (total de la chaîne, affiché en gros) vient de l'API YouTube
-  et **n'est pas affecté** par ces filtres : on ne connaît que les 20 dernières
+  et **n'est pas affecté** par ces filtres : on ne connaît que les 50 dernières
   vidéos, en déduire les écartées donnerait un total faux.
 - La banlist est un fichier du `public/` : comme `youtube-stats.json`, elle n'est
   prise en compte **qu'après reconstruction de l'image**. Les fiches, elles, sont

@@ -7,6 +7,7 @@
 # Les images sont publiées par les workflows GitHub :
 #   deploy.yml                → aylabs-site
 #   content-studio-image.yml  → aylabs-content-studio
+#   aylabs-fetcher-image.yml  → aylabs-fetcher
 #
 # Les ports sont publiés sur toutes les interfaces (et non sur 127.0.0.1) : un
 # reverse proxy qui tourne lui-même dans un conteneur ne peut pas joindre la
@@ -44,3 +45,19 @@ services:
       # Facultative : sans elle, l'import par code dépend de la page YouTube,
       # souvent bloquée (« pas un robot ») depuis l'IP d'un serveur.
       YOUTUBE_API_KEY: ${YOUTUBE_API_KEY:-}
+
+  # ── Fetcher des statistiques YouTube (toutes les 4 h) ──────────────────────
+  # Sans port : il ne fait que des appels sortants. Le jeton a son propre nom pour
+  # ne pas se confondre avec un GITHUB_TOKEN d'Actions, dont les pushs ne
+  # déclenchent aucun workflow.
+  aylabs-fetcher:
+    image: ghcr.io/aymericlefeyer/aylabs-fetcher:latest
+    container_name: aylabs-fetcher
+    restart: unless-stopped
+    pull_policy: always
+    environment:
+      YOUTUBE_API_KEY: ${YOUTUBE_API_KEY:?Clé de l API YouTube Data v3}
+      FETCHER_GITHUB_TOKEN: ${FETCHER_GITHUB_TOKEN:?Jeton fine-grained, Contents en écriture}
+      DISCORD_WEBHOOK_URL: ${DISCORD_WEBHOOK_URL:-}
+      GITHUB_REPO: ${GITHUB_REPO:-AymericLeFeyer/aylabs}
+      GITHUB_BRANCH: ${GITHUB_BRANCH:-main}
