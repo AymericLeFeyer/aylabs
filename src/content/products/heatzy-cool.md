@@ -9,6 +9,7 @@ protocols:
 compatible:
   - "Smart Life"
   - "Tuya"
+videoCode: "rIEfcw-E9mE"
 buyLinks:
   - "https://heatzy.com?bg_ref=oOCkK1IiHR"
   - "https://link.amazon/B0d7gO1Da"
