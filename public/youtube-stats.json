@@ -2,7 +2,7 @@
   "stats": {
     "subscriberCount": 14300,
     "viewCount": 1193509,
-    "videoCount": 137,
+    "videoCount": 138,
     "channelTitle": "AyLabs",
     "channelDescription": "Informatique, Domotique, Développement, Homelab, Impression 3D...  🤓\nJ'aime découvrir de nouvelles choses et les partager sur cette chaîne ✨\n",
     "thumbnails": {
@@ -27,11 +27,52 @@
   },
   "videos": [
     {
+      "id": "FxgULXEhqtk",
+      "title": "Unboxing de la valise LEVEL8 Adventure Carry-on",
+      "publishedAt": "2026-11-03T09:08:33Z",
+      "viewCount": 127,
+      "likeCount": 2,
+      "commentCount": 2,
+      "duration": "PT2M",
+      "thumbnails": {
+        "default": {
+          "url": "https://i.ytimg.com/vi/FxgULXEhqtk/default.jpg",
+          "width": 120,
+          "height": 90
+        },
+        "medium": {
+          "url": "https://i.ytimg.com/vi/FxgULXEhqtk/mqdefault.jpg",
+          "width": 320,
+          "height": 180
+        },
+        "high": {
+          "url": "https://i.ytimg.com/vi/FxgULXEhqtk/hqdefault.jpg",
+          "width": 480,
+          "height": 360
+        },
+        "standard": {
+          "url": "https://i.ytimg.com/vi/FxgULXEhqtk/sddefault.jpg",
+          "width": 640,
+          "height": 480
+        },
+        "maxres": {
+          "url": "https://i.ytimg.com/vi/FxgULXEhqtk/maxresdefault.jpg",
+          "width": 1280,
+          "height": 720
+        },
+        "fhd": {
+          "url": "https://i.ytimg.com/vi/FxgULXEhqtk/fhddefault.jpg",
+          "width": 1920,
+          "height": 1080
+        }
+      }
+    },
+    {
       "id": "PCyhYrQ64VI",
       "title": "Gladys Assistant : IA et MCP !",
       "publishedAt": "2026-11-02T09:04:55Z",
-      "viewCount": 440,
-      "likeCount": 10,
+      "viewCount": 459,
+      "likeCount": 12,
       "commentCount": 3,
       "duration": "PT1M11S",
       "thumbnails": {
@@ -71,8 +112,8 @@
       "id": "wY1vPVkXaXg",
       "title": "Biloute Corporation pour vulgariser les assistants vocaux",
       "publishedAt": "2026-11-01T09:04:46Z",
-      "viewCount": 1355,
-      "likeCount": 31,
+      "viewCount": 1386,
+      "likeCount": 32,
       "commentCount": 5,
       "duration": "PT1M59S",
       "thumbnails": {
@@ -112,9 +153,9 @@
       "id": "O0nKMDDeQBE",
       "title": "Je construis une IA 100 % locale pour ma maison (Ayko #1)",
       "publishedAt": "2026-10-31T16:00:22Z",
-      "viewCount": 11297,
-      "likeCount": 293,
-      "commentCount": 57,
+      "viewCount": 11625,
+      "likeCount": 298,
+      "commentCount": 59,
       "duration": "PT24M23S",
       "thumbnails": {
         "default": {
@@ -148,8 +189,8 @@
       "id": "J6TI1CDf4sc",
       "title": "Je construis une IA 100 % locale pour ma maison (Ayko #1)",
       "publishedAt": "2026-10-31T15:58:14Z",
-      "viewCount": 1634,
-      "likeCount": 18,
+      "viewCount": 1662,
+      "likeCount": 20,
       "commentCount": 1,
       "duration": "PT48S",
       "thumbnails": {
@@ -189,7 +230,7 @@
       "id": "gw3r1oDzNUU",
       "title": "Unboxing Robot Eilik",
       "publishedAt": "2026-10-30T09:04:52Z",
-      "viewCount": 365,
+      "viewCount": 366,
       "likeCount": 8,
       "commentCount": 0,
       "duration": "PT1M32S",
@@ -271,7 +312,7 @@
       "id": "m9gTnrbZJp0",
       "title": "J'ai transformé mes toilettes en WC connectés, et c'était super facile !",
       "publishedAt": "2026-10-28T15:56:23Z",
-      "viewCount": 1038,
+      "viewCount": 1040,
       "likeCount": 16,
       "commentCount": 6,
       "duration": "PT48S",
@@ -302,7 +343,7 @@
       "id": "f8N0q_BaA3o",
       "title": "Ce que j'emporte quand je voyage (tech, bagages, accessoires...)",
       "publishedAt": "2026-10-24T15:00:15Z",
-      "viewCount": 4111,
+      "viewCount": 4116,
       "likeCount": 68,
       "commentCount": 2,
       "duration": "PT25M14S",
@@ -374,7 +415,7 @@
       "id": "CoYkW3YuLas",
       "title": "Création de magnet avec l'impression 3D",
       "publishedAt": "2026-10-23T09:15:06Z",
-      "viewCount": 1721,
+      "viewCount": 1723,
       "likeCount": 21,
       "commentCount": 0,
       "duration": "PT38S",
@@ -518,7 +559,7 @@
       "id": "BLq3BfRxGp8",
       "title": "GLADYS ASSISTANT - Intégrations externes et personnalisées",
       "publishedAt": "2026-10-11T15:03:53Z",
-      "viewCount": 1088,
+      "viewCount": 1087,
       "likeCount": 26,
       "commentCount": 2,
       "duration": "PT2M28S",
@@ -554,8 +595,8 @@
       "id": "_LRE-npVcuE",
       "title": "Mon HOMELAB Proxmox après 2 ans d'utilisation",
       "publishedAt": "2026-10-10T15:03:12Z",
-      "viewCount": 1046,
-      "likeCount": 15,
+      "viewCount": 1047,
+      "likeCount": 16,
       "commentCount": 0,
       "duration": "PT41S",
       "thumbnails": {
@@ -590,8 +631,8 @@
       "id": "On434-R2M5M",
       "title": "Mon HOMELAB Proxmox après 2 ans d'utilisation",
       "publishedAt": "2026-10-10T15:00:13Z",
-      "viewCount": 14763,
-      "likeCount": 311,
+      "viewCount": 14780,
+      "likeCount": 313,
       "commentCount": 53,
       "duration": "PT27M32S",
       "thumbnails": {
@@ -770,7 +811,7 @@
       "id": "KvrQyt4JIu8",
       "title": "ECOVACS DEEBOT X12S OMNICYCLONE",
       "publishedAt": "2026-09-24T15:04:28Z",
-      "viewCount": 985,
+      "viewCount": 986,
       "likeCount": 10,
       "commentCount": 2,
       "duration": "PT2M57S",
@@ -842,7 +883,7 @@
       "id": "-uoKow2kLtk",
       "title": "La FACE CACHÉE de la DOMOTIQUE",
       "publishedAt": "2026-09-23T15:00:18Z",
-      "viewCount": 28700,
+      "viewCount": 28707,
       "likeCount": 444,
       "commentCount": 77,
       "duration": "PT17M30S",
@@ -878,7 +919,7 @@
       "id": "L5lQ-IwOVwQ",
       "title": "1.000.000 de vues 🤯",
       "publishedAt": "2026-09-22T18:12:48Z",
-      "viewCount": 2756,
+      "viewCount": 2762,
       "likeCount": 41,
       "commentCount": 18,
       "duration": "PT2M48S",
@@ -1094,7 +1135,7 @@
       "id": "5nVj0SXp9_w",
       "title": "J’ai testé 4 SPOTS CONNECTÉS : lequel est le meilleur ?",
       "publishedAt": "2026-09-17T15:00:06Z",
-      "viewCount": 15551,
+      "viewCount": 15561,
       "likeCount": 222,
       "commentCount": 33,
       "duration": "PT18M54S",
@@ -1274,8 +1315,8 @@
       "id": "Nbd7fX_I7CA",
       "title": "On construit sa DOMOTIQUE à partir de ZÉRO ! (Home Assistant, Zigbee, Proxmox…)",
       "publishedAt": "2026-09-05T15:00:16Z",
-      "viewCount": 43622,
-      "likeCount": 580,
+      "viewCount": 43668,
+      "likeCount": 581,
       "commentCount": 82,
       "duration": "PT27M34S",
       "thumbnails": {
@@ -1346,7 +1387,7 @@
       "id": "z6JUL-R6f4Q",
       "title": "Mon setup VPS complet pour héberger tous mes services (Wireguard, Traefik, Docker ...)",
       "publishedAt": "2026-08-19T15:00:23Z",
-      "viewCount": 15230,
+      "viewCount": 15231,
       "likeCount": 465,
       "commentCount": 52,
       "duration": "PT14M15S",
@@ -1500,7 +1541,7 @@
       "id": "EfeivCC_8Tw",
       "title": "Je visite une maison connectée ! - Domotique des abonnés #2 (Chauffage, Energie, ESP Home, Tesla …)",
       "publishedAt": "2026-04-17T15:00:35Z",
-      "viewCount": 17523,
+      "viewCount": 17531,
       "likeCount": 270,
       "commentCount": 77,
       "duration": "PT1H51M17S",
@@ -1618,7 +1659,7 @@
       "id": "ShaX-RX7mG8",
       "title": "J'ai créé une app de gestion de repas pour Home Assistant avec Claude Code (sans rien coder)",
       "publishedAt": "2026-04-01T15:00:39Z",
-      "viewCount": 11911,
+      "viewCount": 11912,
       "likeCount": 594,
       "commentCount": 178,
       "duration": "PT21M50S",
@@ -1737,7 +1778,7 @@
       "title": "La POMPE à CHALEUR, ça a tout changé ! (économies, domotique, confort ...)",
       "publishedAt": "2026-02-28T16:00:13Z",
       "viewCount": 5207,
-      "likeCount": 205,
+      "likeCount": 206,
       "commentCount": 41,
       "duration": "PT8M29S",
       "thumbnails": {
@@ -1772,7 +1813,7 @@
       "id": "xupZvl2rgs8",
       "title": "Des nouvelles de mon HOMELAB Proxmox ! (9 mois depuis la dernière fois)",
       "publishedAt": "2026-02-22T16:01:20Z",
-      "viewCount": 19631,
+      "viewCount": 19634,
       "likeCount": 547,
       "commentCount": 89,
       "duration": "PT22M32S",
@@ -1839,45 +1880,9 @@
           "height": 720
         }
       }
-    },
-    {
-      "id": "4hQpSOgz4qA",
-      "title": "WiFi, Zigbee, Matter, Bluetooth… MAIS POURQUOI ?? (Shelly Power Strip Gen 4)",
-      "publishedAt": "2026-02-12T16:00:10Z",
-      "viewCount": 6544,
-      "likeCount": 256,
-      "commentCount": 70,
-      "duration": "PT16M16S",
-      "thumbnails": {
-        "default": {
-          "url": "https://i.ytimg.com/vi/4hQpSOgz4qA/default.jpg",
-          "width": 120,
-          "height": 90
-        },
-        "medium": {
-          "url": "https://i.ytimg.com/vi/4hQpSOgz4qA/mqdefault.jpg",
-          "width": 320,
-          "height": 180
-        },
-        "high": {
-          "url": "https://i.ytimg.com/vi/4hQpSOgz4qA/hqdefault.jpg",
-          "width": 480,
-          "height": 360
-        },
-        "standard": {
-          "url": "https://i.ytimg.com/vi/4hQpSOgz4qA/sddefault.jpg",
-          "width": 640,
-          "height": 480
-        },
-        "maxres": {
-          "url": "https://i.ytimg.com/vi/4hQpSOgz4qA/maxresdefault.jpg",
-          "width": 1280,
-          "height": 720
-        }
-      }
     }
   ],
-  "averageViews": 5735,
-  "engagementRate": 2.7,
-  "recentVideosCount": 16
+  "averageViews": 5617,
+  "engagementRate": 2.6,
+  "recentVideosCount": 17
 }
