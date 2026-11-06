@@ -14,7 +14,7 @@ compatible:
   - "Frigate"
   - "Gladys Assistant"
   - "eWeLink"
-videoCode: "mv94I_2TMtg"
+videoCode: "ihGFagaoNyM"
 buyLinks:
   - "https://www.domadoo.fr/fr/produits-compatibles-home-assistant/9946-sonoff-cam-s3w-camera-de-fenetre-connectee-wifi-3mp-6979033600799.html?domid=79"
   - "https://link.amazon/B0cdHHaRc"
