@@ -2,7 +2,7 @@
   "stats": {
     "subscriberCount": 14600,
     "viewCount": 1233252,
-    "videoCount": 143,
+    "videoCount": 144,
     "channelTitle": "AyLabs",
     "channelDescription": "Informatique, Domotique, Développement, Homelab, Impression 3D...  🤓\nJ'aime découvrir de nouvelles choses et les partager sur cette chaîne ✨\n",
     "thumbnails": {
@@ -27,10 +27,51 @@
   },
   "videos": [
     {
+      "id": "bYk6-yy3_qc",
+      "title": "Une caméra qui filme à travers la vitre, ça marche vraiment ? (Sonoff CAM GlassView)",
+      "publishedAt": "2026-11-11T15:57:41Z",
+      "viewCount": 0,
+      "likeCount": 0,
+      "commentCount": 1,
+      "duration": "PT53S",
+      "thumbnails": {
+        "default": {
+          "url": "https://i.ytimg.com/vi/bYk6-yy3_qc/default.jpg",
+          "width": 120,
+          "height": 90
+        },
+        "medium": {
+          "url": "https://i.ytimg.com/vi/bYk6-yy3_qc/mqdefault.jpg",
+          "width": 320,
+          "height": 180
+        },
+        "high": {
+          "url": "https://i.ytimg.com/vi/bYk6-yy3_qc/hqdefault.jpg",
+          "width": 480,
+          "height": 360
+        },
+        "standard": {
+          "url": "https://i.ytimg.com/vi/bYk6-yy3_qc/sddefault.jpg",
+          "width": 640,
+          "height": 480
+        },
+        "maxres": {
+          "url": "https://i.ytimg.com/vi/bYk6-yy3_qc/maxresdefault.jpg",
+          "width": 1280,
+          "height": 720
+        },
+        "fhd": {
+          "url": "https://i.ytimg.com/vi/bYk6-yy3_qc/fhddefault.jpg",
+          "width": 1920,
+          "height": 1080
+        }
+      }
+    },
+    {
       "id": "I0ImdKVqfRA",
       "title": "Heatzy Cool, pour domotiser ses clims !",
       "publishedAt": "2026-11-08T09:06:25Z",
-      "viewCount": 1123,
+      "viewCount": 1127,
       "likeCount": 13,
       "commentCount": 1,
       "duration": "PT32S",
@@ -71,7 +112,7 @@
       "id": "S4NJOWU29EY",
       "title": "Comment domotiser sa pompe à chaleur ? (Heatzy Cool)",
       "publishedAt": "2026-11-07T15:57:19Z",
-      "viewCount": 1246,
+      "viewCount": 1260,
       "likeCount": 13,
       "commentCount": 1,
       "duration": "PT30S",
@@ -112,7 +153,7 @@
       "id": "yp8VylmdS5I",
       "title": "Unboxing Reolink Floodlight",
       "publishedAt": "2026-11-05T15:55:00Z",
-      "viewCount": 365,
+      "viewCount": 367,
       "likeCount": 3,
       "commentCount": 0,
       "duration": "PT1M2S",
@@ -153,7 +194,7 @@
       "id": "HUo2IEjUHx8",
       "title": "Ce petit robot est tout mignon ! (Eilik)",
       "publishedAt": "2026-11-04T15:59:32Z",
-      "viewCount": 715,
+      "viewCount": 720,
       "likeCount": 11,
       "commentCount": 1,
       "duration": "PT1M",
@@ -276,7 +317,7 @@
       "id": "wY1vPVkXaXg",
       "title": "Biloute Corporation pour vulgariser les assistants vocaux",
       "publishedAt": "2026-11-01T09:04:46Z",
-      "viewCount": 1492,
+      "viewCount": 1491,
       "likeCount": 35,
       "commentCount": 5,
       "duration": "PT1M59S",
@@ -317,7 +358,7 @@
       "id": "O0nKMDDeQBE",
       "title": "Je construis une IA 100 % locale pour ma maison (Ayko #1)",
       "publishedAt": "2026-10-31T16:00:22Z",
-      "viewCount": 20996,
+      "viewCount": 21065,
       "likeCount": 417,
       "commentCount": 68,
       "duration": "PT24M23S",
@@ -512,7 +553,7 @@
       "id": "f8N0q_BaA3o",
       "title": "Ce que j'emporte quand je voyage (tech, bagages, accessoires...)",
       "publishedAt": "2026-10-24T15:00:15Z",
-      "viewCount": 4371,
+      "viewCount": 4372,
       "likeCount": 70,
       "commentCount": 2,
       "duration": "PT25M14S",
@@ -584,7 +625,7 @@
       "id": "CoYkW3YuLas",
       "title": "Création de magnet avec l'impression 3D",
       "publishedAt": "2026-10-23T09:15:06Z",
-      "viewCount": 1761,
+      "viewCount": 1763,
       "likeCount": 21,
       "commentCount": 0,
       "duration": "PT38S",
@@ -666,7 +707,7 @@
       "id": "chg3vM7dLBs",
       "title": "2 semaines au JAPON : ce que j'en ai pensé",
       "publishedAt": "2026-10-17T15:00:02Z",
-      "viewCount": 2528,
+      "viewCount": 2529,
       "likeCount": 34,
       "commentCount": 8,
       "duration": "PT2H2M9S",
@@ -743,7 +784,7 @@
       "id": "BLq3BfRxGp8",
       "title": "GLADYS ASSISTANT - Intégrations externes et personnalisées",
       "publishedAt": "2026-10-11T15:03:53Z",
-      "viewCount": 1139,
+      "viewCount": 1142,
       "likeCount": 26,
       "commentCount": 2,
       "duration": "PT2M28S",
@@ -784,7 +825,7 @@
       "id": "_LRE-npVcuE",
       "title": "Mon HOMELAB Proxmox après 2 ans d'utilisation",
       "publishedAt": "2026-10-10T15:03:12Z",
-      "viewCount": 1081,
+      "viewCount": 1082,
       "likeCount": 16,
       "commentCount": 0,
       "duration": "PT41S",
@@ -825,7 +866,7 @@
       "id": "On434-R2M5M",
       "title": "Mon HOMELAB Proxmox après 2 ans d'utilisation",
       "publishedAt": "2026-10-10T15:00:13Z",
-      "viewCount": 15951,
+      "viewCount": 15966,
       "likeCount": 331,
       "commentCount": 53,
       "duration": "PT27M32S",
@@ -861,7 +902,7 @@
       "id": "b_tAMePczRA",
       "title": "GRILLPLATS : la relève de l'INSPELNING ? (Oui, c'est IKEA)",
       "publishedAt": "2026-10-03T15:11:59Z",
-      "viewCount": 2648,
+      "viewCount": 2653,
       "likeCount": 28,
       "commentCount": 1,
       "duration": "PT58S",
@@ -902,7 +943,7 @@
       "id": "g1Xjwpv1i4E",
       "title": "LiberNovo Maxis Electric",
       "publishedAt": "2026-10-01T15:06:33Z",
-      "viewCount": 608,
+      "viewCount": 609,
       "likeCount": 8,
       "commentCount": 1,
       "duration": "PT2M2S",
@@ -984,7 +1025,7 @@
       "id": "_hJALI5aLOw",
       "title": "24h dans ma vie de créateur de contenu",
       "publishedAt": "2026-09-30T15:00:36Z",
-      "viewCount": 9802,
+      "viewCount": 9806,
       "likeCount": 112,
       "commentCount": 23,
       "duration": "PT16M13S",
@@ -1020,7 +1061,7 @@
       "id": "KvrQyt4JIu8",
       "title": "ECOVACS DEEBOT X12S OMNICYCLONE",
       "publishedAt": "2026-09-24T15:04:28Z",
-      "viewCount": 1107,
+      "viewCount": 1115,
       "likeCount": 12,
       "commentCount": 2,
       "duration": "PT2M57S",
@@ -1102,7 +1143,7 @@
       "id": "-uoKow2kLtk",
       "title": "La FACE CACHÉE de la DOMOTIQUE",
       "publishedAt": "2026-09-23T15:00:18Z",
-      "viewCount": 31642,
+      "viewCount": 31693,
       "likeCount": 458,
       "commentCount": 79,
       "duration": "PT17M30S",
@@ -1138,7 +1179,7 @@
       "id": "L5lQ-IwOVwQ",
       "title": "1.000.000 de vues 🤯",
       "publishedAt": "2026-09-22T18:12:48Z",
-      "viewCount": 3067,
+      "viewCount": 3070,
       "likeCount": 41,
       "commentCount": 18,
       "duration": "PT2M48S",
@@ -1256,7 +1297,7 @@
       "id": "h8Pv8snkrK8",
       "title": "Une idée de modélisation en tête ? Essayer MESHY",
       "publishedAt": "2026-09-19T10:00:15Z",
-      "viewCount": 1464,
+      "viewCount": 1469,
       "likeCount": 12,
       "commentCount": 2,
       "duration": "PT1M30S",
@@ -1379,7 +1420,7 @@
       "id": "5nVj0SXp9_w",
       "title": "J’ai testé 4 SPOTS CONNECTÉS : lequel est le meilleur ?",
       "publishedAt": "2026-09-17T15:00:06Z",
-      "viewCount": 16500,
+      "viewCount": 16513,
       "likeCount": 229,
       "commentCount": 35,
       "duration": "PT18M54S",
@@ -1415,7 +1456,7 @@
       "id": "3Vwg8SWktUc",
       "title": "Oakley #Meta HSTN Clear",
       "publishedAt": "2026-09-16T15:06:32Z",
-      "viewCount": 909,
+      "viewCount": 911,
       "likeCount": 5,
       "commentCount": 3,
       "duration": "PT42S",
@@ -1497,7 +1538,7 @@
       "id": "ew9vYAzJOp0",
       "title": "Le rangement PARFAIT pour ma batterie ANKER 165W 25000mAh",
       "publishedAt": "2026-09-10T08:34:47Z",
-      "viewCount": 1299,
+      "viewCount": 1305,
       "likeCount": 20,
       "commentCount": 2,
       "duration": "PT1M45S",
@@ -1579,8 +1620,8 @@
       "id": "Nbd7fX_I7CA",
       "title": "On construit sa DOMOTIQUE à partir de ZÉRO ! (Home Assistant, Zigbee, Proxmox…)",
       "publishedAt": "2026-09-05T15:00:16Z",
-      "viewCount": 45397,
-      "likeCount": 598,
+      "viewCount": 45436,
+      "likeCount": 599,
       "commentCount": 82,
       "duration": "PT27M34S",
       "thumbnails": {
@@ -1615,7 +1656,7 @@
       "id": "ks6Kt_LK0GQ",
       "title": "[LIVE] Des news de Gladys Assistant ! Discussions avec son fondateur",
       "publishedAt": "2026-08-30T09:33:13Z",
-      "viewCount": 3970,
+      "viewCount": 3974,
       "likeCount": 47,
       "commentCount": 21,
       "duration": "PT2H32M57S",
@@ -1651,7 +1692,7 @@
       "id": "z6JUL-R6f4Q",
       "title": "Mon setup VPS complet pour héberger tous mes services (Wireguard, Traefik, Docker ...)",
       "publishedAt": "2026-08-19T15:00:23Z",
-      "viewCount": 15527,
+      "viewCount": 15536,
       "likeCount": 467,
       "commentCount": 52,
       "duration": "PT14M15S",
@@ -1805,7 +1846,7 @@
       "id": "EfeivCC_8Tw",
       "title": "Je visite une maison connectée ! - Domotique des abonnés #2 (Chauffage, Energie, ESP Home, Tesla …)",
       "publishedAt": "2026-04-17T15:00:35Z",
-      "viewCount": 18121,
+      "viewCount": 18131,
       "likeCount": 272,
       "commentCount": 77,
       "duration": "PT1H51M17S",
@@ -1923,7 +1964,7 @@
       "id": "ShaX-RX7mG8",
       "title": "J'ai créé une app de gestion de repas pour Home Assistant avec Claude Code (sans rien coder)",
       "publishedAt": "2026-04-01T15:00:39Z",
-      "viewCount": 12053,
+      "viewCount": 12054,
       "likeCount": 596,
       "commentCount": 178,
       "duration": "PT21M50S",
@@ -1959,50 +2000,9 @@
           "height": 1080
         }
       }
-    },
-    {
-      "id": "TS3px7NJj0o",
-      "title": "J’ai auto-hébergé mon gestionnaire de mots de passe (Vaultwarden)",
-      "publishedAt": "2026-03-17T16:00:52Z",
-      "viewCount": 6810,
-      "likeCount": 218,
-      "commentCount": 60,
-      "duration": "PT9M3S",
-      "thumbnails": {
-        "default": {
-          "url": "https://i.ytimg.com/vi/TS3px7NJj0o/default.jpg",
-          "width": 120,
-          "height": 90
-        },
-        "medium": {
-          "url": "https://i.ytimg.com/vi/TS3px7NJj0o/mqdefault.jpg",
-          "width": 320,
-          "height": 180
-        },
-        "high": {
-          "url": "https://i.ytimg.com/vi/TS3px7NJj0o/hqdefault.jpg",
-          "width": 480,
-          "height": 360
-        },
-        "standard": {
-          "url": "https://i.ytimg.com/vi/TS3px7NJj0o/sddefault.jpg",
-          "width": 640,
-          "height": 480
-        },
-        "maxres": {
-          "url": "https://i.ytimg.com/vi/TS3px7NJj0o/maxresdefault.jpg",
-          "width": 1280,
-          "height": 720
-        },
-        "fhd": {
-          "url": "https://i.ytimg.com/vi/TS3px7NJj0o/fhddefault.jpg",
-          "width": 1920,
-          "height": 1080
-        }
-      }
     }
   ],
-  "averageViews": 5202,
-  "engagementRate": 2.4,
-  "recentVideosCount": 18
+  "averageViews": 5072,
+  "engagementRate": 2.3,
+  "recentVideosCount": 19
 }
