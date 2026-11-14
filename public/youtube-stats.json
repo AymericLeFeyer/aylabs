@@ -27,10 +27,46 @@
   },
   "videos": [
     {
+      "id": "NArAVtsL84s",
+      "title": "[LIVE] Le choc des maisons connectées : MakerNix vs AyLabs (+ nos homelabs)",
+      "publishedAt": "2026-11-14T15:17:41Z",
+      "viewCount": 0,
+      "likeCount": 1,
+      "commentCount": 0,
+      "duration": "P0D",
+      "thumbnails": {
+        "default": {
+          "url": "https://i.ytimg.com/vi/NArAVtsL84s/default.jpg?v=6af87b97",
+          "width": 120,
+          "height": 90
+        },
+        "medium": {
+          "url": "https://i.ytimg.com/vi/NArAVtsL84s/mqdefault.jpg?v=6af87b97",
+          "width": 320,
+          "height": 180
+        },
+        "high": {
+          "url": "https://i.ytimg.com/vi/NArAVtsL84s/hqdefault.jpg?v=6af87b97",
+          "width": 480,
+          "height": 360
+        },
+        "standard": {
+          "url": "https://i.ytimg.com/vi/NArAVtsL84s/sddefault.jpg?v=6af87b97",
+          "width": 640,
+          "height": 480
+        },
+        "maxres": {
+          "url": "https://i.ytimg.com/vi/NArAVtsL84s/maxresdefault.jpg?v=6af87b97",
+          "width": 1280,
+          "height": 720
+        }
+      }
+    },
+    {
       "id": "xrL3iN_bZ2w",
       "title": "Une caméra qui regarde par la fenêtre : Sonoff CAM GlassView !",
       "publishedAt": "2026-11-12T09:11:49Z",
-      "viewCount": 885,
+      "viewCount": 894,
       "likeCount": 6,
       "commentCount": 1,
       "duration": "PT57S",
@@ -71,7 +107,7 @@
       "id": "ihGFagaoNyM",
       "title": "Une caméra qui filme à travers la vitre, ça marche vraiment ? (Sonoff CAM GlassView)",
       "publishedAt": "2026-11-11T16:00:20Z",
-      "viewCount": 5140,
+      "viewCount": 5246,
       "likeCount": 75,
       "commentCount": 6,
       "duration": "PT10M37S",
@@ -189,7 +225,7 @@
       "id": "S4NJOWU29EY",
       "title": "Comment domotiser sa pompe à chaleur ? (Heatzy Cool)",
       "publishedAt": "2026-11-07T15:57:19Z",
-      "viewCount": 1371,
+      "viewCount": 1375,
       "likeCount": 13,
       "commentCount": 1,
       "duration": "PT30S",
@@ -271,7 +307,7 @@
       "id": "HUo2IEjUHx8",
       "title": "Ce petit robot est tout mignon ! (Eilik)",
       "publishedAt": "2026-11-04T15:59:32Z",
-      "viewCount": 748,
+      "viewCount": 750,
       "likeCount": 11,
       "commentCount": 1,
       "duration": "PT1M",
@@ -435,7 +471,7 @@
       "id": "O0nKMDDeQBE",
       "title": "Je construis une IA 100 % locale pour ma maison (Ayko #1)",
       "publishedAt": "2026-10-31T16:00:22Z",
-      "viewCount": 21637,
+      "viewCount": 21664,
       "likeCount": 426,
       "commentCount": 72,
       "duration": "PT24M23S",
@@ -471,7 +507,7 @@
       "id": "J6TI1CDf4sc",
       "title": "Je construis une IA 100 % locale pour ma maison (Ayko #1)",
       "publishedAt": "2026-10-31T15:58:14Z",
-      "viewCount": 1862,
+      "viewCount": 1864,
       "likeCount": 22,
       "commentCount": 1,
       "duration": "PT48S",
@@ -553,7 +589,7 @@
       "id": "SRrl02VY8Hs",
       "title": "Review des toilettes connectées Sanyipace SU02B !",
       "publishedAt": "2026-10-29T09:05:25Z",
-      "viewCount": 593,
+      "viewCount": 594,
       "likeCount": 8,
       "commentCount": 2,
       "duration": "PT1M50S",
@@ -630,7 +666,7 @@
       "id": "f8N0q_BaA3o",
       "title": "Ce que j'emporte quand je voyage (tech, bagages, accessoires...)",
       "publishedAt": "2026-10-24T15:00:15Z",
-      "viewCount": 4439,
+      "viewCount": 4442,
       "likeCount": 70,
       "commentCount": 2,
       "duration": "PT25M14S",
@@ -902,7 +938,7 @@
       "id": "_LRE-npVcuE",
       "title": "Mon HOMELAB Proxmox après 2 ans d'utilisation",
       "publishedAt": "2026-10-10T15:03:12Z",
-      "viewCount": 1091,
+      "viewCount": 1094,
       "likeCount": 16,
       "commentCount": 0,
       "duration": "PT41S",
@@ -943,8 +979,8 @@
       "id": "On434-R2M5M",
       "title": "Mon HOMELAB Proxmox après 2 ans d'utilisation",
       "publishedAt": "2026-10-10T15:00:13Z",
-      "viewCount": 16358,
-      "likeCount": 334,
+      "viewCount": 16381,
+      "likeCount": 335,
       "commentCount": 55,
       "duration": "PT27M32S",
       "thumbnails": {
@@ -1103,7 +1139,7 @@
       "title": "24h dans ma vie de créateur de contenu",
       "publishedAt": "2026-09-30T15:00:36Z",
       "viewCount": 9818,
-      "likeCount": 112,
+      "likeCount": 113,
       "commentCount": 23,
       "duration": "PT16M13S",
       "thumbnails": {
@@ -1138,7 +1174,7 @@
       "id": "KvrQyt4JIu8",
       "title": "ECOVACS DEEBOT X12S OMNICYCLONE",
       "publishedAt": "2026-09-24T15:04:28Z",
-      "viewCount": 1186,
+      "viewCount": 1198,
       "likeCount": 12,
       "commentCount": 2,
       "duration": "PT2M57S",
@@ -1220,9 +1256,9 @@
       "id": "-uoKow2kLtk",
       "title": "La FACE CACHÉE de la DOMOTIQUE",
       "publishedAt": "2026-09-23T15:00:18Z",
-      "viewCount": 32800,
+      "viewCount": 32889,
       "likeCount": 462,
-      "commentCount": 77,
+      "commentCount": 79,
       "duration": "PT17M30S",
       "thumbnails": {
         "default": {
@@ -1461,7 +1497,7 @@
       "id": "5nVj0SXp9_w",
       "title": "J’ai testé 4 SPOTS CONNECTÉS : lequel est le meilleur ?",
       "publishedAt": "2026-09-17T15:00:06Z",
-      "viewCount": 17071,
+      "viewCount": 17101,
       "likeCount": 233,
       "commentCount": 35,
       "duration": "PT18M54S",
@@ -1497,7 +1533,7 @@
       "id": "3Vwg8SWktUc",
       "title": "Oakley #Meta HSTN Clear",
       "publishedAt": "2026-09-16T15:06:32Z",
-      "viewCount": 923,
+      "viewCount": 924,
       "likeCount": 5,
       "commentCount": 3,
       "duration": "PT42S",
@@ -1579,7 +1615,7 @@
       "id": "ew9vYAzJOp0",
       "title": "Le rangement PARFAIT pour ma batterie ANKER 165W 25000mAh",
       "publishedAt": "2026-09-10T08:34:47Z",
-      "viewCount": 1332,
+      "viewCount": 1337,
       "likeCount": 20,
       "commentCount": 2,
       "duration": "PT1M45S",
@@ -1661,8 +1697,8 @@
       "id": "Nbd7fX_I7CA",
       "title": "On construit sa DOMOTIQUE à partir de ZÉRO ! (Home Assistant, Zigbee, Proxmox…)",
       "publishedAt": "2026-09-05T15:00:16Z",
-      "viewCount": 46172,
-      "likeCount": 609,
+      "viewCount": 46230,
+      "likeCount": 610,
       "commentCount": 82,
       "duration": "PT27M34S",
       "thumbnails": {
@@ -1733,7 +1769,7 @@
       "id": "z6JUL-R6f4Q",
       "title": "Mon setup VPS complet pour héberger tous mes services (Wireguard, Traefik, Docker ...)",
       "publishedAt": "2026-08-19T15:00:23Z",
-      "viewCount": 15619,
+      "viewCount": 15632,
       "likeCount": 469,
       "commentCount": 52,
       "duration": "PT14M15S",
@@ -1769,7 +1805,7 @@
       "id": "0uRSUuuhoB0",
       "title": "3 mois d'open source sur une app codée par IA (mon retour d'xp)",
       "publishedAt": "2026-07-25T15:00:30Z",
-      "viewCount": 3935,
+      "viewCount": 3936,
       "likeCount": 163,
       "commentCount": 22,
       "duration": "PT10M29S",
@@ -1805,7 +1841,7 @@
       "id": "MyI5UWv-EEM",
       "title": "Le rétrogaming, bien plus que de la nostalgie",
       "publishedAt": "2026-07-06T15:00:38Z",
-      "viewCount": 1596,
+      "viewCount": 1598,
       "likeCount": 50,
       "commentCount": 19,
       "duration": "PT15M43S",
@@ -1846,7 +1882,7 @@
       "id": "eLHA8UAjzeA",
       "title": "J’ai dit adieu à Google mais le plus dur reste à faire (DÉGAFAMISATION)",
       "publishedAt": "2026-05-06T15:01:12Z",
-      "viewCount": 10645,
+      "viewCount": 10646,
       "likeCount": 531,
       "commentCount": 116,
       "duration": "PT14M26S",
@@ -1887,7 +1923,7 @@
       "id": "EfeivCC_8Tw",
       "title": "Je visite une maison connectée ! - Domotique des abonnés #2 (Chauffage, Energie, ESP Home, Tesla …)",
       "publishedAt": "2026-04-17T15:00:35Z",
-      "viewCount": 18391,
+      "viewCount": 18398,
       "likeCount": 274,
       "commentCount": 77,
       "duration": "PT1H51M17S",
@@ -1959,50 +1995,9 @@
           "height": 720
         }
       }
-    },
-    {
-      "id": "RTjjz_3TAB0",
-      "title": "[LIVE] Organizr - Pour un homelab mieux rangé ! (avec James)",
-      "publishedAt": "2026-04-02T06:59:06Z",
-      "viewCount": 944,
-      "likeCount": 16,
-      "commentCount": 0,
-      "duration": "PT1H1M40S",
-      "thumbnails": {
-        "default": {
-          "url": "https://i.ytimg.com/vi/RTjjz_3TAB0/default.jpg",
-          "width": 120,
-          "height": 90
-        },
-        "medium": {
-          "url": "https://i.ytimg.com/vi/RTjjz_3TAB0/mqdefault.jpg",
-          "width": 320,
-          "height": 180
-        },
-        "high": {
-          "url": "https://i.ytimg.com/vi/RTjjz_3TAB0/hqdefault.jpg",
-          "width": 480,
-          "height": 360
-        },
-        "standard": {
-          "url": "https://i.ytimg.com/vi/RTjjz_3TAB0/sddefault.jpg",
-          "width": 640,
-          "height": 480
-        },
-        "maxres": {
-          "url": "https://i.ytimg.com/vi/RTjjz_3TAB0/maxresdefault.jpg",
-          "width": 1280,
-          "height": 720
-        },
-        "fhd": {
-          "url": "https://i.ytimg.com/vi/RTjjz_3TAB0/fhddefault.jpg",
-          "width": 1920,
-          "height": 1080
-        }
-      }
     }
   ],
-  "averageViews": 4998,
+  "averageViews": 4987,
   "engagementRate": 2.1,
-  "recentVideosCount": 21
+  "recentVideosCount": 22
 }
