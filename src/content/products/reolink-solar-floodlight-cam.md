@@ -11,7 +11,7 @@ buyLinks:
   - "https://link.amazon/B09honvJO"
 promoCode:
   code: "AyLabs5"
-  percent: 5
+  percent: 2
   expiresAt: null
   platform: "Reolink"
 promoPrice: 80
