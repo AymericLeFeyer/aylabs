@@ -6,6 +6,7 @@ tags:
   - "Caméra"
 protocols:
   - "Wi-Fi"
+videoCode: "_dRbFxcLUsg"
 buyLinks:
   - "https://reolink.com/fr/product/reolink-solar-floodlight-cam/?aff=1073"
   - "https://link.amazon/B09honvJO"
