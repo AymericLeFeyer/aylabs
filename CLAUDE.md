@@ -308,6 +308,22 @@ cd tools/content-studio && npm install && npm run dev
   le sérialiseur et vérifie l'absence de perte. **À lancer après toute modification
   de `frontmatter.ts` ou `mappers.ts`.**
 
+### Création d'une fiche depuis l'URL (Creator Studio)
+
+Le Creator Studio (dépôt `aylabs-creator-studio`) ouvre l'éditeur **préremplie** par
+l'adresse : `/?creer=video|produit` + les champs du brouillon (noms de `VideoDraft` /
+`ProductDraft`), listes répétées. Vidéo : `title`, `description`, `pubDate` (AAAA-MM-JJ),
+`pubTime`, `code`, `duration`, `body`, `tag`×N. Produit : `title`, `image`, `description`,
+`category`, `price`, `videoCode`, `pubDate`, `buyLink`×N, `tag`×N.
+
+- `shared/prefill.ts` : `parsePrefill` (pur, valide date/prix), `capturePrefill` appelé dans
+  `main.tsx` **avant le rendu** — la connexion GitHub renvoie à la racine et perdrait les
+  paramètres, la demande est donc mise en `sessionStorage` puis reprise une fois (`takePrefill`)
+  par `Studio`, qui ouvre l'éditeur en mode `create`. L'adresse est nettoyée au passage.
+- Le slug se déduit du titre (`uniqueSlug`). Rien n'est enregistré : on finit la fiche et on
+  commite comme d'habitude. Le contrat est partagé avec
+  `web/src/domain/aylabs/services/contentStudioUrl.ts` du Creator Studio : à garder aligné.
+
 ### Couche serveur (`server/`)
 
 Le SPA est servi par un serveur Node maison, sans dépendance runtime (bundlé par

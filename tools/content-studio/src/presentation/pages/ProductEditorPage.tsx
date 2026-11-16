@@ -6,6 +6,7 @@ import { emptyProduct } from '../../domain/content/entities/ContentItem';
 import { fileToProductDraft } from '../../domain/content/services/mappers';
 import type { SuggestionSet } from '../../domain/content/services/suggestions';
 import type { GitHubContentRepository } from '../../infrastructure/content/GitHubContentRepository';
+import { slugify, uniqueSlug } from '../../domain/content/services/slug';
 import { todayIso } from '../../shared/date';
 import { EditorShell } from '../components/EditorShell';
 import { ImageField } from '../components/ImageField';
@@ -24,6 +25,8 @@ interface Props {
   repository: GitHubContentRepository;
   onBack: () => void;
   onSaved: (change: PendingChange) => void;
+  /** Champs préremplis par l'URL, pour une nouvelle fiche. */
+  prefill?: Partial<ProductDraft>;
 }
 
 const validateProduct = (draft: ProductDraft): string[] => {
@@ -56,9 +59,14 @@ export const ProductEditorPage: React.FC<Props> = ({
   repository,
   onBack,
   onSaved,
+  prefill,
 }) => {
   const initial = useMemo<ProductDraft>(() => {
-    if (!source) return emptyProduct(todayIso());
+    if (!source) {
+      const draft = { ...emptyProduct(todayIso()), ...prefill };
+      const base = slugify(draft.title);
+      return { ...draft, slug: base ? uniqueSlug(base, takenSlugs) : '' };
+    }
     const draft = fileToProductDraft(source);
     if (mode === 'duplicate') {
       // On garde la structure (tags, protocoles, catégorie) et on repart à neuf sur l'identité.
@@ -74,7 +82,7 @@ export const ProductEditorPage: React.FC<Props> = ({
       };
     }
     return draft;
-  }, [source, mode]);
+  }, [source, mode, prefill, takenSlugs]);
 
   const editor = useDraftEditor<ProductDraft>({
     kind: 'product',

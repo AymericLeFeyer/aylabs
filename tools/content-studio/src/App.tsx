@@ -4,6 +4,7 @@ import type { PendingChange } from './domain/changes/entities/PendingChange';
 import type { ContentKind } from './domain/content/entities/ContentItem';
 import type { GitHubUser } from './domain/auth/entities/GitHubUser';
 import { REPO, STATS_FILES } from './shared/config';
+import { takePrefill, type Prefill } from './shared/prefill';
 import { PendingChangesPanel } from './presentation/components/PendingChangesPanel';
 import { DashboardPage } from './presentation/pages/DashboardPage';
 import { HiddenVideosPage } from './presentation/pages/HiddenVideosPage';
@@ -19,7 +20,7 @@ import type { EditorMode } from './presentation/hooks/useDraftEditor';
 type Route =
   | { name: 'dashboard' }
   | { name: 'hidden-videos' }
-  | { name: 'editor'; kind: ContentKind; mode: EditorMode; slug?: string };
+  | { name: 'editor'; kind: ContentKind; mode: EditorMode; slug?: string; prefill?: Prefill };
 
 export const App: React.FC = () => {
   const { phase, session, error, login, logout } = useSession();
@@ -37,7 +38,13 @@ const Studio: React.FC<{ user: GitHubUser; onLogout: () => void }> = ({ user, on
   const pending = usePendingChanges();
   const { catalog, videos, products, suggestions, byKind, slugs, syncing, syncError, sync, repository } =
     useCatalog(pending.changes);
-  const [route, setRoute] = useState<Route>({ name: 'dashboard' });
+  // Une fiche demandée par l'URL (depuis le Creator Studio) ouvre directement l'éditeur.
+  const [route, setRoute] = useState<Route>(() => {
+    const prefill = takePrefill();
+    return prefill
+      ? { name: 'editor', kind: prefill.kind, mode: 'create', prefill }
+      : { name: 'dashboard' };
+  });
 
   // Codes des fiches du dépôt : le Media Kit n'affiche que ces vidéos-là.
   const knownCodes = useMemo(() => knownVideoCodes(videos), [videos]);
@@ -78,9 +85,17 @@ const Studio: React.FC<{ user: GitHubUser; onLogout: () => void }> = ({ user, on
       onSaved: handleSaved,
     };
     return route.kind === 'video' ? (
-      <VideoEditorPage key={`${route.mode}-${route.slug ?? 'new'}`} {...common} />
+      <VideoEditorPage
+        key={`${route.mode}-${route.slug ?? 'new'}`}
+        {...common}
+        prefill={route.prefill?.kind === 'video' ? route.prefill.draft : undefined}
+      />
     ) : (
-      <ProductEditorPage key={`${route.mode}-${route.slug ?? 'new'}`} {...common} />
+      <ProductEditorPage
+        key={`${route.mode}-${route.slug ?? 'new'}`}
+        {...common}
+        prefill={route.prefill?.kind === 'product' ? route.prefill.draft : undefined}
+      />
     );
   }
 

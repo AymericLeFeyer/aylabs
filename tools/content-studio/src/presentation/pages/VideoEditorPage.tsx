@@ -27,6 +27,8 @@ interface Props {
   repository: GitHubContentRepository;
   onBack: () => void;
   onSaved: (change: PendingChange) => void;
+  /** Champs préremplis par l'URL, pour une nouvelle fiche. */
+  prefill?: Partial<VideoDraft>;
 }
 
 const validateVideo = (draft: VideoDraft): string[] => {
@@ -49,16 +51,21 @@ export const VideoEditorPage: React.FC<Props> = ({
   repository,
   onBack,
   onSaved,
+  prefill,
 }) => {
   const initial = useMemo<VideoDraft>(() => {
-    if (!source) return emptyVideo(todayIso());
+    if (!source) {
+      const draft = { ...emptyVideo(todayIso()), ...prefill };
+      const base = slugify(draft.title);
+      return { ...draft, slug: base ? uniqueSlug(base, takenSlugs) : '' };
+    }
     const draft = fileToVideoDraft(source);
     // Une duplication repart d'une fiche vierge côté identité : ni slug, ni vidéo, ni date héritée.
     if (mode === 'duplicate') {
       return { ...draft, slug: '', title: `${draft.title} (copie)`, code: '', pubDate: todayIso() };
     }
     return draft;
-  }, [source, mode]);
+  }, [source, mode, prefill, takenSlugs]);
 
   const editor = useDraftEditor<VideoDraft>({
     kind: 'video',
