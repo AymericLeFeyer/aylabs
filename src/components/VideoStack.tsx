@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { Play, Clock, Calendar, ChevronLeft, ChevronRight } from "lucide-react";
 import { Video } from "../types";
 
@@ -19,34 +19,6 @@ const formatDate = (value: string) => {
   });
 };
 
-/**
- * Place chaque carte selon sa distance à la carte du dessus. Les cartes déjà
- * vues (position la plus élevée) repartent vers la gauche : la pile se dépile
- * dans un sens lisible.
- */
-const cardStyle = (position: number, total: number): React.CSSProperties => {
-  const isOutgoing = position === total - 1 && total > 3;
-
-  if (isOutgoing) {
-    return {
-      transform: "translateX(-28%) scale(0.9) rotate(-2deg)",
-      opacity: 0,
-      filter: "blur(4px)",
-      zIndex: 0,
-    };
-  }
-
-  const depth = Math.min(position, 3);
-  return {
-    transform: `translateX(${depth * 6.5}%) translateY(${depth * -0.5}%) scale(${
-      1 - depth * 0.07
-    })`,
-    opacity: [1, 0.6, 0.28, 0][depth],
-    filter: depth === 0 ? "none" : `blur(${depth}px)`,
-    zIndex: 30 - depth * 10,
-  };
-};
-
 export const VideoStack: React.FC<VideoStackProps> = ({ videos }) => {
   const [index, setIndex] = useState(0);
   const total = videos.length;
@@ -57,30 +29,40 @@ export const VideoStack: React.FC<VideoStackProps> = ({ videos }) => {
     setIndex((current) => (current + direction + total) % total);
 
   const current = videos[index];
+  const touchStart = useRef<number | null>(null);
+
+  const onTouchEnd = (event: React.TouchEvent) => {
+    if (touchStart.current === null) return;
+    const delta = event.changedTouches[0].clientX - touchStart.current;
+    touchStart.current = null;
+    if (Math.abs(delta) > 50) go(delta < 0 ? 1 : -1);
+  };
 
   return (
     <div>
-      {/* La pile : toutes les cartes restent montées et glissent d'un cran, ce
-          qui donne le mouvement de dépilement. */}
-      <div className="relative pr-[13%]">
-        <div className="relative aspect-video">
+      {/* Carrousel : une piste horizontale qui glisse d'une vidéo à l'autre. */}
+      <div
+        className="overflow-hidden rounded-2xl"
+        onTouchStart={(event) => (touchStart.current = event.touches[0].clientX)}
+        onTouchEnd={onTouchEnd}
+      >
+        <div
+          className="flex transition-transform duration-[600ms] ease-[cubic-bezier(0.22,0.61,0.36,1)] motion-reduce:transition-none"
+          style={{ transform: `translateX(-${index * 100}%)` }}
+        >
           {videos.map((video, videoIndex) => {
-            const position = (videoIndex - index + total) % total;
-            const isTop = position === 0;
+            const isCurrent = videoIndex === index;
 
             return (
               <div
                 key={video.id}
-                className="absolute inset-0 transition-all duration-[600ms] ease-[cubic-bezier(0.22,0.61,0.36,1)] motion-reduce:transition-none"
-                style={cardStyle(position, total)}
-                aria-hidden={!isTop}
+                className="aspect-video w-full shrink-0"
+                aria-hidden={!isCurrent}
               >
                 <a
                   href={`/video/${video.id}`}
-                  tabIndex={isTop ? undefined : -1}
-                  className={`group block h-full overflow-hidden rounded-2xl border border-ink-line bg-ink-soft shadow-2xl shadow-black/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-bright ${
-                    isTop ? "" : "pointer-events-none"
-                  }`}
+                  tabIndex={isCurrent ? undefined : -1}
+                  className="group block h-full overflow-hidden rounded-2xl border border-ink-line bg-ink-soft shadow-2xl shadow-black/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-bright"
                 >
                   <div className="relative h-full">
                     <img
@@ -93,33 +75,29 @@ export const VideoStack: React.FC<VideoStackProps> = ({ videos }) => {
                         )}/hqdefault.jpg`;
                       }}
                       alt=""
+                      loading={videoIndex < 2 ? "eager" : "lazy"}
+                      draggable={false}
                       className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
                     />
                     <div
                       className="absolute inset-0 bg-gradient-to-t from-ink via-ink/30 to-transparent"
                       aria-hidden="true"
                     />
-                    <div
-                      className={`absolute inset-0 transition-opacity duration-500 ${
-                        isTop ? "opacity-100" : "opacity-0"
-                      }`}
+                    <span className="absolute left-4 top-4 rounded-full bg-ink/80 px-3 py-1 text-xs font-semibold text-brand-bright backdrop-blur">
+                      {videoIndex === 0 ? "Dernière vidéo" : "Déjà sortie"}
+                    </span>
+                    <span className="absolute right-4 top-4 flex items-center gap-1.5 rounded-full bg-ink/80 px-3 py-1 text-xs text-gray-300 backdrop-blur">
+                      <Clock className="h-3 w-3" aria-hidden="true" />
+                      {video.duration}
+                    </span>
+                    <span
+                      className="absolute inset-0 flex items-center justify-center"
+                      aria-hidden="true"
                     >
-                      <span className="absolute left-4 top-4 rounded-full bg-ink/80 px-3 py-1 text-xs font-semibold text-brand-bright backdrop-blur">
-                        {videoIndex === 0 ? "Dernière vidéo" : "Déjà sortie"}
+                      <span className="flex h-16 w-16 items-center justify-center rounded-full bg-white/10 backdrop-blur transition-all duration-300 group-hover:scale-110 group-hover:bg-[#E5322D]">
+                        <Play className="ml-1 h-7 w-7 fill-white text-white" />
                       </span>
-                      <span className="absolute right-4 top-4 flex items-center gap-1.5 rounded-full bg-ink/80 px-3 py-1 text-xs text-gray-300 backdrop-blur">
-                        <Clock className="h-3 w-3" aria-hidden="true" />
-                        {video.duration}
-                      </span>
-                      <span
-                        className="absolute inset-0 flex items-center justify-center"
-                        aria-hidden="true"
-                      >
-                        <span className="flex h-16 w-16 items-center justify-center rounded-full bg-white/10 backdrop-blur transition-all duration-300 group-hover:scale-110 group-hover:bg-[#E5322D]">
-                          <Play className="ml-1 h-7 w-7 fill-white text-white" />
-                        </span>
-                      </span>
-                    </div>
+                    </span>
                   </div>
                 </a>
               </div>
@@ -131,7 +109,7 @@ export const VideoStack: React.FC<VideoStackProps> = ({ videos }) => {
       {/* Titre de la vidéo courante, hors de la pile pour rester lisible.
           La hauteur est réservée pour deux lignes : la zone ne bouge plus d'une
           vidéo à l'autre, quel que soit le titre. */}
-      <div key={current.id} className="animate-swap mt-6 pr-[13%]">
+      <div key={current.id} className="animate-swap mt-6">
         <a
           href={`/video/${current.id}`}
           className="group block min-h-[3.5rem] focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-bright md:min-h-[4.25rem]"
@@ -153,7 +131,7 @@ export const VideoStack: React.FC<VideoStackProps> = ({ videos }) => {
         </div>
       </div>
 
-      {/* Commandes : la pile ne bouge que sur action */}
+      {/* Commandes : le carrousel ne bouge que sur action */}
       {total > 1 && (
         <div className="mt-6 flex items-center gap-4">
           <div className="flex gap-2">

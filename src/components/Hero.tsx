@@ -15,7 +15,7 @@ export const Hero: React.FC = () => {
 
   // loadVideos trie déjà du plus récent au plus ancien et écarte les fiches
   // dont la date/heure de sortie n'est pas passée.
-  const latestVideos = videos.slice(0, 5);
+  const latestVideos = videos.slice(0, 10);
 
   useEffect(() => {
     if (!location.hash) return;
