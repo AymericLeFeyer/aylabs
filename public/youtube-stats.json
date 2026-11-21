@@ -1,7 +1,7 @@
 {
   "stats": {
     "subscriberCount": 14800,
-    "viewCount": 1277959,
+    "viewCount": 1278911,
     "videoCount": 152,
     "channelTitle": "AyLabs",
     "channelDescription": "Informatique, Domotique, Développement, Homelab, Impression 3D...  🤓\nJ'aime découvrir de nouvelles choses et les partager sur cette chaîne ✨\n",
@@ -27,11 +27,47 @@
   },
   "videos": [
     {
+      "id": "zyS5HpjwoVE",
+      "title": "Je remplace le WiFi de ma Box par du WiFi Mesh (TP-Link Deco BE68) : speed tests avant et après",
+      "publishedAt": "2026-11-21T16:00:33Z",
+      "viewCount": 1415,
+      "likeCount": 42,
+      "commentCount": 13,
+      "duration": "PT16M38S",
+      "thumbnails": {
+        "default": {
+          "url": "https://i.ytimg.com/vi/zyS5HpjwoVE/default.jpg",
+          "width": 120,
+          "height": 90
+        },
+        "medium": {
+          "url": "https://i.ytimg.com/vi/zyS5HpjwoVE/mqdefault.jpg",
+          "width": 320,
+          "height": 180
+        },
+        "high": {
+          "url": "https://i.ytimg.com/vi/zyS5HpjwoVE/hqdefault.jpg",
+          "width": 480,
+          "height": 360
+        },
+        "standard": {
+          "url": "https://i.ytimg.com/vi/zyS5HpjwoVE/sddefault.jpg",
+          "width": 640,
+          "height": 480
+        },
+        "maxres": {
+          "url": "https://i.ytimg.com/vi/zyS5HpjwoVE/maxresdefault.jpg",
+          "width": 1280,
+          "height": 720
+        }
+      }
+    },
+    {
       "id": "J6G8-hsRFt0",
       "title": "Wi-Fi Mesh : fini les zones mortes ?",
       "publishedAt": "2026-11-21T15:56:09Z",
-      "viewCount": 0,
-      "likeCount": 2,
+      "viewCount": 182,
+      "likeCount": 4,
       "commentCount": 0,
       "duration": "PT47S",
       "thumbnails": {
@@ -71,8 +107,8 @@
       "id": "-jMkqLYhXvg",
       "title": "Mon Noël géré par une équipe d'IA grâce à Atoms",
       "publishedAt": "2026-11-20T15:00:15Z",
-      "viewCount": 349,
-      "likeCount": 10,
+      "viewCount": 357,
+      "likeCount": 9,
       "commentCount": 2,
       "duration": "PT1M27S",
       "thumbnails": {
@@ -112,7 +148,7 @@
       "id": "TEdjZxKFLjI",
       "title": "Reolink Floodlight : sans fil, solaire et lumineuse",
       "publishedAt": "2026-11-19T09:01:09Z",
-      "viewCount": 307,
+      "viewCount": 309,
       "likeCount": 5,
       "commentCount": 2,
       "duration": "PT49S",
@@ -153,7 +189,7 @@
       "id": "_dRbFxcLUsg",
       "title": "Caméra extérieure sans fil, sans travaux : mon test Reolink Solar Floodlight",
       "publishedAt": "2026-11-18T16:00:19Z",
-      "viewCount": 2537,
+      "viewCount": 2566,
       "likeCount": 53,
       "commentCount": 11,
       "duration": "PT9M4S",
@@ -189,7 +225,7 @@
       "id": "OHKN3IyNgIw",
       "title": "Une caméra 100% sans fil",
       "publishedAt": "2026-11-18T15:55:42Z",
-      "viewCount": 313,
+      "viewCount": 321,
       "likeCount": 4,
       "commentCount": 0,
       "duration": "PT54S",
@@ -225,7 +261,7 @@
       "id": "NArAVtsL84s",
       "title": "[LIVE] Le choc des maisons connectées : Makernix vs AyLabs",
       "publishedAt": "2026-11-18T09:53:15Z",
-      "viewCount": 2747,
+      "viewCount": 2755,
       "likeCount": 24,
       "commentCount": 0,
       "duration": "PT2H57M41S",
@@ -302,7 +338,7 @@
       "id": "ihGFagaoNyM",
       "title": "Une caméra qui filme à travers la vitre, ça marche vraiment ? (Sonoff CAM GlassView)",
       "publishedAt": "2026-11-11T16:00:20Z",
-      "viewCount": 7086,
+      "viewCount": 7099,
       "likeCount": 95,
       "commentCount": 9,
       "duration": "PT10M37S",
@@ -338,7 +374,7 @@
       "id": "bYk6-yy3_qc",
       "title": "Une caméra qui filme à travers la vitre, ça marche vraiment ? (Sonoff CAM GlassView)",
       "publishedAt": "2026-11-11T15:57:41Z",
-      "viewCount": 833,
+      "viewCount": 834,
       "likeCount": 5,
       "commentCount": 1,
       "duration": "PT53S",
@@ -420,7 +456,7 @@
       "id": "S4NJOWU29EY",
       "title": "Comment domotiser sa pompe à chaleur ? (Heatzy Cool)",
       "publishedAt": "2026-11-07T15:57:19Z",
-      "viewCount": 1408,
+      "viewCount": 1407,
       "likeCount": 13,
       "commentCount": 1,
       "duration": "PT30S",
@@ -502,7 +538,7 @@
       "id": "HUo2IEjUHx8",
       "title": "Ce petit robot est tout mignon ! (Eilik)",
       "publishedAt": "2026-11-04T15:59:32Z",
-      "viewCount": 788,
+      "viewCount": 790,
       "likeCount": 11,
       "commentCount": 1,
       "duration": "PT1M",
@@ -625,7 +661,7 @@
       "id": "wY1vPVkXaXg",
       "title": "Biloute Corporation pour vulgariser les assistants vocaux",
       "publishedAt": "2026-11-01T09:04:46Z",
-      "viewCount": 1499,
+      "viewCount": 1498,
       "likeCount": 35,
       "commentCount": 5,
       "duration": "PT1M59S",
@@ -666,8 +702,8 @@
       "id": "O0nKMDDeQBE",
       "title": "Je construis une IA 100 % locale pour ma maison (Ayko #1)",
       "publishedAt": "2026-10-31T16:00:22Z",
-      "viewCount": 22748,
-      "likeCount": 446,
+      "viewCount": 22776,
+      "likeCount": 448,
       "commentCount": 72,
       "duration": "PT24M23S",
       "thumbnails": {
@@ -743,7 +779,7 @@
       "id": "gw3r1oDzNUU",
       "title": "Unboxing Robot Eilik",
       "publishedAt": "2026-10-30T09:04:52Z",
-      "viewCount": 459,
+      "viewCount": 463,
       "likeCount": 10,
       "commentCount": 0,
       "duration": "PT1M32S",
@@ -784,7 +820,7 @@
       "id": "SRrl02VY8Hs",
       "title": "Review des toilettes connectées Sanyipace SU02B !",
       "publishedAt": "2026-10-29T09:05:25Z",
-      "viewCount": 604,
+      "viewCount": 605,
       "likeCount": 8,
       "commentCount": 2,
       "duration": "PT1M50S",
@@ -825,7 +861,7 @@
       "id": "m9gTnrbZJp0",
       "title": "J'ai transformé mes toilettes en WC connectés, et c'était super facile !",
       "publishedAt": "2026-10-28T15:56:23Z",
-      "viewCount": 1082,
+      "viewCount": 1081,
       "likeCount": 16,
       "commentCount": 6,
       "duration": "PT48S",
@@ -1051,7 +1087,7 @@
       "id": "zpxfTl1LDso",
       "title": "2 semaines au JAPON : ce que j'en ai pensé",
       "publishedAt": "2026-10-17T14:57:02Z",
-      "viewCount": 1355,
+      "viewCount": 1354,
       "likeCount": 12,
       "commentCount": 6,
       "duration": "PT44S",
@@ -1174,7 +1210,7 @@
       "id": "On434-R2M5M",
       "title": "Mon HOMELAB Proxmox après 2 ans d'utilisation",
       "publishedAt": "2026-10-10T15:00:13Z",
-      "viewCount": 17202,
+      "viewCount": 17212,
       "likeCount": 341,
       "commentCount": 55,
       "duration": "PT27M32S",
@@ -1210,7 +1246,7 @@
       "id": "b_tAMePczRA",
       "title": "GRILLPLATS : la relève de l'INSPELNING ? (Oui, c'est IKEA)",
       "publishedAt": "2026-10-03T15:11:59Z",
-      "viewCount": 2703,
+      "viewCount": 2706,
       "likeCount": 28,
       "commentCount": 1,
       "duration": "PT58S",
@@ -1330,46 +1366,10 @@
       }
     },
     {
-      "id": "_hJALI5aLOw",
-      "title": "24h dans ma vie de créateur de contenu",
-      "publishedAt": "2026-09-30T15:00:36Z",
-      "viewCount": 9844,
-      "likeCount": 113,
-      "commentCount": 23,
-      "duration": "PT16M13S",
-      "thumbnails": {
-        "default": {
-          "url": "https://i.ytimg.com/vi/_hJALI5aLOw/default.jpg",
-          "width": 120,
-          "height": 90
-        },
-        "medium": {
-          "url": "https://i.ytimg.com/vi/_hJALI5aLOw/mqdefault.jpg",
-          "width": 320,
-          "height": 180
-        },
-        "high": {
-          "url": "https://i.ytimg.com/vi/_hJALI5aLOw/hqdefault.jpg",
-          "width": 480,
-          "height": 360
-        },
-        "standard": {
-          "url": "https://i.ytimg.com/vi/_hJALI5aLOw/sddefault.jpg",
-          "width": 640,
-          "height": 480
-        },
-        "maxres": {
-          "url": "https://i.ytimg.com/vi/_hJALI5aLOw/maxresdefault.jpg",
-          "width": 1280,
-          "height": 720
-        }
-      }
-    },
-    {
       "id": "KvrQyt4JIu8",
       "title": "ECOVACS DEEBOT X12S OMNICYCLONE",
       "publishedAt": "2026-09-24T15:04:28Z",
-      "viewCount": 1404,
+      "viewCount": 1405,
       "likeCount": 13,
       "commentCount": 2,
       "duration": "PT2M57S",
@@ -1451,7 +1451,7 @@
       "id": "-uoKow2kLtk",
       "title": "La FACE CACHÉE de la DOMOTIQUE",
       "publishedAt": "2026-09-23T15:00:18Z",
-      "viewCount": 34372,
+      "viewCount": 34379,
       "likeCount": 466,
       "commentCount": 79,
       "duration": "PT17M30S",
@@ -1528,7 +1528,7 @@
       "id": "kqOh1jD-nR0",
       "title": "Nouvelle livraison Domadoo #domotique",
       "publishedAt": "2026-09-20T08:12:29Z",
-      "viewCount": 1423,
+      "viewCount": 1422,
       "likeCount": 23,
       "commentCount": 8,
       "duration": "PT41S",
@@ -1692,7 +1692,7 @@
       "id": "5nVj0SXp9_w",
       "title": "J’ai testé 4 SPOTS CONNECTÉS : lequel est le meilleur ?",
       "publishedAt": "2026-09-17T15:00:06Z",
-      "viewCount": 17940,
+      "viewCount": 17943,
       "likeCount": 238,
       "commentCount": 35,
       "duration": "PT18M54S",
@@ -1728,7 +1728,7 @@
       "id": "3Vwg8SWktUc",
       "title": "Oakley #Meta HSTN Clear",
       "publishedAt": "2026-09-16T15:06:32Z",
-      "viewCount": 963,
+      "viewCount": 964,
       "likeCount": 5,
       "commentCount": 3,
       "duration": "PT42S",
@@ -1810,7 +1810,7 @@
       "id": "ew9vYAzJOp0",
       "title": "Le rangement PARFAIT pour ma batterie ANKER 165W 25000mAh",
       "publishedAt": "2026-09-10T08:34:47Z",
-      "viewCount": 1390,
+      "viewCount": 1392,
       "likeCount": 21,
       "commentCount": 2,
       "duration": "PT1M45S",
@@ -1851,7 +1851,7 @@
       "id": "9B4vS9Gbx60",
       "title": "Unboxing UGREEN HA100 #ugreennas",
       "publishedAt": "2026-09-07T21:36:34Z",
-      "viewCount": 1308,
+      "viewCount": 1307,
       "likeCount": 21,
       "commentCount": 0,
       "duration": "PT1M13S",
@@ -1892,7 +1892,7 @@
       "id": "Nbd7fX_I7CA",
       "title": "On construit sa DOMOTIQUE à partir de ZÉRO ! (Home Assistant, Zigbee, Proxmox…)",
       "publishedAt": "2026-09-05T15:00:16Z",
-      "viewCount": 48277,
+      "viewCount": 48310,
       "likeCount": 626,
       "commentCount": 82,
       "duration": "PT27M34S",
@@ -1964,7 +1964,7 @@
       "id": "z6JUL-R6f4Q",
       "title": "Mon setup VPS complet pour héberger tous mes services (Wireguard, Traefik, Docker ...)",
       "publishedAt": "2026-08-19T15:00:23Z",
-      "viewCount": 15832,
+      "viewCount": 15835,
       "likeCount": 473,
       "commentCount": 52,
       "duration": "PT14M15S",
@@ -1997,7 +1997,7 @@
       }
     }
   ],
-  "averageViews": 4597,
+  "averageViews": 4435,
   "engagementRate": 1.8,
-  "recentVideosCount": 24
+  "recentVideosCount": 25
 }
