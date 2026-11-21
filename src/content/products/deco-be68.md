@@ -6,7 +6,7 @@ tags:
   - "Réseau"
 protocols:
   - "Wi-Fi"
-videoCode: "MbXFoVwwgl4"
+videoCode: "zyS5HpjwoVE"
 buyLinks:
   - "https://link.amazon/B01ML1JJk"
 pubDate: "Nov 21 2026"
