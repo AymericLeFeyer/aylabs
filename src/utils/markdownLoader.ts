@@ -126,8 +126,14 @@ export const loadTutorials = async () => {
   }));
 };
 
+/** Ajoute `https://` à un lien saisi sans protocole (sinon `new URL` plante et le href devient relatif). */
+const withProtocol = (link: string): string =>
+  /^[a-z][a-z0-9+.-]*:\/\//i.test(link.trim()) ? link.trim() : `https://${link.trim().replace(/^\/\//, '')}`;
+
 export const loadProducts = async () => {
-  return loadContentFromFiles('/products/', (parsed, slug) => ({
+  return loadContentFromFiles('/products/', (parsed, slug) => {
+    const buyLinks: string[] | undefined = parsed.frontmatter.buyLinks?.map(withProtocol);
+    return {
     id: slug,
     name: parsed.frontmatter.title,
     slug,
@@ -139,14 +145,14 @@ export const loadProducts = async () => {
     testedDate: parsed.frontmatter.pubDate,
     videoUrl: parsed.frontmatter.videoCode ? `https://youtube.com/watch?v=${parsed.frontmatter.videoCode}` : '',
     videoCode: parsed.frontmatter.videoCode,
-    amazonLink: parsed.frontmatter.buyLinks?.find((link: string) => link.includes('amzn.to') || link.includes('amazon')),
-    domadooLink: parsed.frontmatter.buyLinks?.find((link: string) => link.includes('domadoo')),
-    geekbuyingLink: parsed.frontmatter.buyLinks?.find((link: string) => link.includes('geekbuying')),
-    minixLink: parsed.frontmatter.buyLinks?.find((link: string) => link.includes('minix')),
-    reolinkLink: parsed.frontmatter.buyLinks?.find((link: string) => link.includes('reolink')),
-    bambuLink: parsed.frontmatter.buyLinks?.find((link: string) => link.includes('bambu')),
-    merossLink: parsed.frontmatter.buyLinks?.find((link: string) => link.includes('meross')),
-    otherLinks: parsed.frontmatter.buyLinks?.filter((link: string) =>
+    amazonLink: buyLinks?.find((link: string) => link.includes('amzn.to') || link.includes('amazon')),
+    domadooLink: buyLinks?.find((link: string) => link.includes('domadoo')),
+    geekbuyingLink: buyLinks?.find((link: string) => link.includes('geekbuying')),
+    minixLink: buyLinks?.find((link: string) => link.includes('minix')),
+    reolinkLink: buyLinks?.find((link: string) => link.includes('reolink')),
+    bambuLink: buyLinks?.find((link: string) => link.includes('bambu')),
+    merossLink: buyLinks?.find((link: string) => link.includes('meross')),
+    otherLinks: buyLinks?.filter((link: string) =>
       !link.includes('amzn.to') && !link.includes('amazon') &&
       !link.includes('domadoo') && !link.includes('geekbuying') &&
       !link.includes('minix') && !link.includes('reolink') &&
@@ -160,8 +166,8 @@ export const loadProducts = async () => {
     protocols: parsed.frontmatter.protocols || [],
     compatible: parsed.frontmatter.compatible || [],
     content: parsed.content
-  }));
-
+    };
+  });
 };
 
 export const loadVideos = async () => {
