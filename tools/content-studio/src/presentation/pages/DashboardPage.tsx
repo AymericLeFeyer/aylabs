@@ -8,6 +8,8 @@ import {
   Plus,
   RefreshCw,
   Search,
+  ShoppingCart,
+  Ticket,
   Video,
 } from 'lucide-react';
 import type { ContentFile, ContentKind } from '../../domain/content/entities/ContentItem';
@@ -221,29 +223,42 @@ const Row: React.FC<{
             <span className="chip bg-amber-50 text-amber-700">Programmée</span>
           ) : null}
           {kind === 'video' && fm.duration ? <span>· {String(fm.duration)}</span> : null}
-          {kind === 'product' && fm.price !== undefined ? <span>· {String(fm.price)} €</span> : null}
-          {kind === 'product' && fm.promoCode ? (
-            <span className="chip bg-orange-50 text-orange-700">
-              {String((fm.promoCode as Record<string, unknown>).code)}
+          {kind === 'product' && links.length > 0 ? (
+            <span
+              className={`chip inline-flex items-center gap-1 ${
+                links.some((l) => !l.known) ? 'bg-amber-50 text-amber-700' : 'bg-emerald-50 text-emerald-700'
+              }`}
+              title={links.map((l) => (l.known ? l.label : `${l.label} (lien générique, label modifiable)`)).join('\n')}
+            >
+              <ShoppingCart size={12} />
+              {links.length} site{links.length > 1 ? 's' : ''}
             </span>
           ) : null}
-          {kind === 'product' &&
-            links.map((link, i) => (
-              <span
-                key={i}
-                className={`chip ${link.known ? 'bg-emerald-50 text-emerald-700' : 'bg-amber-50 text-amber-700'}`}
-                title={link.known ? 'Bouton dédié sur le site' : 'Lien générique : label modifiable dans la fiche'}
-              >
-                {link.label}
+          {kind === 'product' && fm.promoCode ? (
+            <span
+              className="chip inline-flex items-center bg-orange-50 text-orange-700"
+              title={`Code promo : ${String((fm.promoCode as Record<string, unknown>).code)}`}
+            >
+              <Ticket size={13} />
+            </span>
+          ) : null}
+        </span>
+        {tags.length > 0 && (
+          <span className="mt-1 flex flex-wrap items-center gap-1 text-xs">
+            {tags.slice(0, 3).map((tag) => (
+              <span key={tag} className="chip bg-slate-100 text-slate-600">
+                {tag}
               </span>
             ))}
-          {tags.slice(0, 3).map((tag) => (
-            <span key={tag} className="chip bg-slate-100 text-slate-600">
-              {tag}
-            </span>
-          ))}
-        </span>
+          </span>
+        )}
       </button>
+
+      {kind === 'product' && fm.price !== undefined ? (
+        <span className="shrink-0 text-lg font-semibold tabular-nums text-slate-800">
+          {String(fm.price)} €
+        </span>
+      ) : null}
 
       <div className="flex shrink-0 items-center gap-1 opacity-0 transition focus-within:opacity-100 group-hover:opacity-100">
         {code && (
