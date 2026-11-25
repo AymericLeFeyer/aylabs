@@ -11,7 +11,7 @@ import { trackYoutubeClick } from "../utils/trackEvents";
 export const Hero: React.FC = () => {
   const location = useLocation();
   const { videos, loading } = useVideos();
-  const { stats } = useYouTubeStats();
+  const { stats, viewsById } = useYouTubeStats();
 
   // loadVideos trie déjà du plus récent au plus ancien et écarte les fiches
   // dont la date/heure de sortie n'est pas passée.
@@ -118,7 +118,7 @@ export const Hero: React.FC = () => {
             {loading || latestVideos.length === 0 ? (
               <div className="mr-[13%] aspect-video w-auto animate-pulse rounded-2xl border border-ink-line bg-white/5" />
             ) : (
-              <VideoStack videos={latestVideos} />
+              <VideoStack videos={latestVideos} viewsByCode={viewsById} />
             )}
           </div>
         </div>

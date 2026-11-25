@@ -1,10 +1,16 @@
-import React, { useRef, useState } from "react";
-import { Play, Clock, Calendar, ChevronLeft, ChevronRight } from "lucide-react";
+import React, { useEffect, useRef, useState } from "react";
+import { Play, Clock, Calendar, Eye, ChevronLeft, ChevronRight } from "lucide-react";
 import { Video } from "../types";
+import { formatCompactCount } from "../utils/formatCount";
 
 interface VideoStackProps {
   videos: Video[];
+  /** Vues par code YouTube ; une vidéo absente (non remontée par l'API) n'affiche rien. */
+  viewsByCode?: Record<string, number>;
 }
+
+/** Durée d'affichage d'une vidéo avant le passage à la suivante. */
+const AUTOPLAY_MS = 6000;
 
 const getVideoCode = (url: string) =>
   url.split("v=")[1] || url.split("/").pop() || "";
@@ -19,9 +25,24 @@ const formatDate = (value: string) => {
   });
 };
 
-export const VideoStack: React.FC<VideoStackProps> = ({ videos }) => {
+export const VideoStack: React.FC<VideoStackProps> = ({ videos, viewsByCode }) => {
   const [index, setIndex] = useState(0);
+  const [paused, setPaused] = useState(false);
+  const touchStart = useRef<number | null>(null);
   const total = videos.length;
+
+  // Défilement automatique : le minuteur repart à chaque changement d'index,
+  // donc une action manuelle redonne le temps complet à la vidéo affichée.
+  // Pause au survol et au focus ; coupé si l'utilisateur préfère moins d'animations.
+  useEffect(() => {
+    if (total < 2 || paused) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const timer = window.setTimeout(
+      () => setIndex((current) => (current + 1) % total),
+      AUTOPLAY_MS,
+    );
+    return () => window.clearTimeout(timer);
+  }, [index, paused, total]);
 
   if (total === 0) return null;
 
@@ -29,7 +50,6 @@ export const VideoStack: React.FC<VideoStackProps> = ({ videos }) => {
     setIndex((current) => (current + direction + total) % total);
 
   const current = videos[index];
-  const touchStart = useRef<number | null>(null);
 
   const onTouchEnd = (event: React.TouchEvent) => {
     if (touchStart.current === null) return;
@@ -39,7 +59,12 @@ export const VideoStack: React.FC<VideoStackProps> = ({ videos }) => {
   };
 
   return (
-    <div>
+    <div
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+      onFocus={() => setPaused(true)}
+      onBlur={() => setPaused(false)}
+    >
       {/* Carrousel : une piste horizontale qui glisse d'une vidéo à l'autre. */}
       <div
         className="overflow-hidden rounded-2xl"
@@ -52,6 +77,7 @@ export const VideoStack: React.FC<VideoStackProps> = ({ videos }) => {
         >
           {videos.map((video, videoIndex) => {
             const isCurrent = videoIndex === index;
+            const views = viewsByCode?.[getVideoCode(video.url)];
 
             return (
               <div
@@ -90,6 +116,12 @@ export const VideoStack: React.FC<VideoStackProps> = ({ videos }) => {
                       <Clock className="h-3 w-3" aria-hidden="true" />
                       {video.duration}
                     </span>
+                    {views !== undefined && (
+                      <span className="absolute bottom-4 right-4 flex items-center gap-1.5 rounded-full bg-ink/80 px-3 py-1 text-xs text-gray-300 backdrop-blur">
+                        <Eye className="h-3 w-3" aria-hidden="true" />
+                        {formatCompactCount(views)} vues
+                      </span>
+                    )}
                     <span
                       className="absolute inset-0 flex items-center justify-center"
                       aria-hidden="true"
@@ -131,7 +163,7 @@ export const VideoStack: React.FC<VideoStackProps> = ({ videos }) => {
         </div>
       </div>
 
-      {/* Commandes : le carrousel ne bouge que sur action */}
+      {/* Commandes : flèches, points et compteur */}
       {total > 1 && (
         <div className="mt-6 flex items-center gap-4">
           <div className="flex gap-2">

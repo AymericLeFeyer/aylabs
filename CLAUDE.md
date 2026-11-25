@@ -145,6 +145,18 @@ fuseau, écran, thème, connexion…).
   clic n'est pas suivi (aucune détection automatique).
 - Les lecteurs YouTube intégrés (iframe) ne sont pas suivis, seulement les liens.
 
+## Services — `/services`
+
+Page « Conseil domotique » (`src/pages/Services.tsx`), ajoutée le 2026-11-26 : aide aux
+abonnés sur place autour de Lille ou en visio, payante, **tarifs non affichés** (envoyés
+par mail après lecture du besoin). Pas de formulaire : un bouton `mailto:` à
+`CONTACT_EMAIL` avec objet et corps préremplis, suivi par `trackContactClick`
+(`placement: "services"`). Forfaits (avec ou sans SAV) et mention « pas responsable en
+cas de panne » dans la page. Menu : groupe **Services** dans `navGroups` (une entrée
+pour l'instant, d'autres services s'ajoutent comme `NavItem`). `ServicesSection`
+(accueil, avant le Media Kit) y renvoie. Le menu burger s'affiche jusqu'à 1024 px
+(`lg:`) : avec les icônes de volet, la barre ne tient plus en dessous.
+
 ## Structure
 
 ```
@@ -554,8 +566,10 @@ le fond, et la carte qui vient de passer repart vers la gauche en tournant. Elle
 restent montées d'un cran à l'autre — c'est ce qui donne le glissement plutôt
 qu'un remplacement d'image ; **ne pas remettre l'index dans la `key`**. Le bloc
 titre/date rejoue `animate-swap` (`src/index.css`) à chaque changement grâce à sa
-`key`. **Défilement manuel uniquement** — flèches, points et compteur ; jamais
-d'autoplay. Seule la carte du dessus est cliquable et focusable
+`key`. **Défilement automatique** toutes les 6 s (`AUTOPLAY_MS`), en pause au survol et
+au focus, désactivé avec `prefers-reduced-motion` ; le minuteur repart à chaque
+changement d'index, donc un clic sur les flèches ou les points redonne le temps
+complet. Commandes : flèches, points et compteur. Seule la carte du dessus est cliquable et focusable
 (`pointer-events-none` + `tabIndex={-1}` sur les autres). La miniature tente
 `maxresdefault.jpg` et retombe sur `hqdefault.jpg` via `onError` — les vieilles
 vidéos n'ont pas de maxres.
@@ -565,7 +579,8 @@ Le `useEffect` de défilement vers l'ancre (`/#media-kit` depuis le footer) vit
 
 ### Sections de la page d'accueil
 
-`Home.tsx` enchaîne `Hero`, `ProductSections`, `PartnersSection`, `MediaKitSection`.
+`Home.tsx` enchaîne `Hero`, `ProductSections`, `PartnersSection`, `ServicesSection`
+(encart vers `/services`), `MediaKitSection`.
 L'ancienne `VideoSection` (« Mes dernières vidéos ») a été **supprimée** le
 2026-09-08 : la pile du hero fait le travail. L'ancre `#videos` n'existe donc plus
 sur la page d'accueil.

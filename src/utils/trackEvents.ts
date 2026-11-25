@@ -29,6 +29,7 @@ export type Placement =
   | "contact"
   | "media-kit"
   | "support"
+  | "services"
   | "video-header"
   | "views-chart"
   | "article";

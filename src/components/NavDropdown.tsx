@@ -22,6 +22,7 @@ export const NavDropdown: React.FC<NavDropdownProps> = ({
   const containerRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const active = isGroupActive(group, location.pathname);
+  const GroupIcon = group.icon;
 
   // Le volet suit le pointeur, mais on laisse un délai pour traverser
   // l'espace entre le bouton et le panneau sans le perdre.
@@ -78,12 +79,13 @@ export const NavDropdown: React.FC<NavDropdownProps> = ({
         aria-haspopup="true"
         aria-controls={panelId}
         onClick={() => (isOpen ? onClose() : onOpen())}
-        className={`flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-medium transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-bright ${
+        className={`flex items-center gap-1.5 rounded-lg px-2 py-2 text-sm xl:px-3 font-medium transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-bright ${
           active || isOpen
             ? "bg-white/10 text-white"
             : "text-gray-300 hover:bg-white/5 hover:text-white"
         }`}
       >
+        {GroupIcon && <GroupIcon className="h-4 w-4" aria-hidden="true" />}
         <span>{group.label}</span>
         <ChevronDown
           className={`h-4 w-4 transition-transform duration-200 ${

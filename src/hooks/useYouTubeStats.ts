@@ -28,6 +28,7 @@ interface YouTubeStats {
 export const useYouTubeStats = () => {
   const [stats, setStats] = useState<YouTubeStats | null>(null);
   const [recentVideos, setRecentVideos] = useState<YouTubeVideo[]>([]);
+  const [viewsById, setViewsById] = useState<Record<string, number>>({});
   const [recentVideosCount, setRecentVideosCount] = useState<number>(0);
   const [averageViews, setAverageViews] = useState<number>(0);
   const [engagementRate, setEngagementRate] = useState<number>(0.0);
@@ -55,6 +56,8 @@ export const useYouTubeStats = () => {
 
         setStats(data.stats);
         setRecentVideos(selected);
+        // Vues de toutes les vidéos remontées (banlist comprise), par code YouTube.
+        setViewsById(Object.fromEntries(all.map((video) => [video.id, video.viewCount])));
 
         if (selected.length > 0) {
           // Les valeurs du JSON sont calculées par n8n sur toutes les vidéos :
@@ -81,6 +84,7 @@ export const useYouTubeStats = () => {
   return {
     stats,
     recentVideos,
+    viewsById,
     recentVideosCount,
     averageViews,
     engagementRate: Math.round(engagementRate * 10) / 10, // Arrondi à 1 décimale

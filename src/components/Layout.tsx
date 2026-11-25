@@ -89,7 +89,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
                 </span>
               </Link>
 
-              <div className="hidden items-center gap-1 md:flex">
+              <div className="hidden items-center gap-1 lg:flex">
                 {navGroups
                   .filter((group) => !group.trailing)
                   .map((group) => (
@@ -114,7 +114,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
                     <Link
                       key={item.label}
                       to={item.to}
-                      className={`flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-medium transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-bright ${
+                      className={`flex items-center gap-1.5 whitespace-nowrap rounded-lg px-2 py-2 xl:px-3 text-sm font-medium transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-bright ${
                         active
                           ? "bg-brand text-white"
                           : "text-gray-300 hover:bg-white/5 hover:text-white"
@@ -151,7 +151,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
                     aria-label="Rechercher sur le site"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    className="w-40 rounded-lg border border-ink-line bg-white/5 py-2 pl-10 pr-4 text-sm text-white placeholder-gray-500 transition-colors focus:border-brand focus:bg-white/10 focus:outline-none focus:ring-1 focus:ring-brand lg:w-52 xl:w-64"
+                    className="w-28 rounded-lg border border-ink-line bg-white/5 py-2 pl-10 pr-4 text-sm text-white placeholder-gray-500 transition-colors focus:border-brand focus:bg-white/10 focus:outline-none focus:ring-1 focus:ring-brand xl:w-64"
                   />
                   <Search
                     className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-500"
@@ -190,7 +190,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
               </div>
 
               {/* Version mobile */}
-              <div className="flex min-w-0 items-center gap-2 md:hidden">
+              <div className="flex min-w-0 items-center gap-2 lg:hidden">
                 <form onSubmit={handleSearch} className="relative min-w-0 max-w-36 flex-1">
                   <input
                     type="search"
@@ -252,7 +252,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
             {isMobileMenuOpen && (
               <div
                 id="menu-mobile"
-                className="-mx-4 border-t border-ink-line px-4 pb-4 pt-2 sm:-mx-6 sm:px-6 md:hidden"
+                className="-mx-4 border-t border-ink-line px-4 pb-4 pt-2 sm:-mx-6 sm:px-6 lg:hidden"
               >
                 {navGroups
                   .filter((group) => !group.trailing)

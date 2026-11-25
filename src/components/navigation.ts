@@ -7,6 +7,10 @@ import {
   ShoppingCart,
   FileText,
   Server,
+  Wrench,
+  Clapperboard,
+  ShoppingBag,
+  Radio,
   type LucideIcon,
 } from "lucide-react";
 
@@ -26,6 +30,8 @@ export interface NavItem {
 
 export interface NavGroup {
   label: string;
+  /** Icône affichée devant le libellé du volet. */
+  icon?: LucideIcon;
   items: NavItem[];
   /** Placé après les entrées directes, juste avant la recherche. */
   trailing?: boolean;
@@ -34,6 +40,7 @@ export interface NavGroup {
 export const navGroups: NavGroup[] = [
   {
     label: "Contenu",
+    icon: Clapperboard,
     items: [
       {
         label: "Vidéos",
@@ -54,6 +61,7 @@ export const navGroups: NavGroup[] = [
   },
   {
     label: "Produits",
+    icon: ShoppingBag,
     items: [
       {
         label: "Produits testés",
@@ -68,6 +76,19 @@ export const navGroups: NavGroup[] = [
         to: "/deals",
         icon: ShoppingCart,
         match: ["/deals"],
+      },
+    ],
+  },
+  {
+    label: "Services",
+    icon: Wrench,
+    items: [
+      {
+        label: "Conseil domotique",
+        hint: "Un coup de main pour votre installation",
+        to: "/services",
+        icon: Radio,
+        match: ["/services"],
       },
     ],
   },

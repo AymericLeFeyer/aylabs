@@ -13,6 +13,7 @@ import { Contact } from "./pages/Contact";
 import { HelmetProvider } from "react-helmet-async";
 import { Support } from "./pages/Support";
 import { Deals } from "./pages/Deals";
+import { Services } from "./pages/Services";
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
             <Route path="/reseaux" element={<Contact />} />
             <Route path="/deals" element={<Deals />} />
             <Route path="/support" element={<Support />} />
+            <Route path="/services" element={<Services />} />
           </Routes>
         </Layout>
       </Router>

@@ -3,6 +3,7 @@ import { SEO } from "../components/SEO";
 import { Hero } from "../components/Hero";
 import { MediaKitSection } from "../components/MediaKitSection";
 import { PartnersSection } from "../components/PartnersSection";
+import { ServicesSection } from "../components/ServicesSection";
 import { ProductSections } from "../components/ProductsSection";
 
 export const Home: React.FC = () => {
@@ -16,6 +17,7 @@ export const Home: React.FC = () => {
       <Hero />
       <ProductSections />
       <PartnersSection />
+      <ServicesSection />
       <MediaKitSection />
     </div>
   );
