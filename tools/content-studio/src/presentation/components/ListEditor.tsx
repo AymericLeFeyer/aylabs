@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { ChevronDown, ChevronUp, ExternalLink, Plus, Trash2 } from 'lucide-react';
-import { detectPlatform, isKnownPlatform } from '../../domain/content/services/buyLinks';
+import { defaultGenericLabel, detectPlatform, isKnownPlatform, joinBuyLink, splitBuyLink } from '../../domain/content/services/buyLinks';
 import { Button, Input } from './ui/primitives';
 
 interface Props {
@@ -66,33 +66,8 @@ export const ListEditor: React.FC<Props> = ({
           </div>
 
           <div className="min-w-0 flex-1">
-            <Input
-              value={item}
-              onChange={(e) => update(index, e.target.value)}
-              spellCheck={variant === 'text'}
-              className={variant === 'link' ? 'text-xs' : ''}
-            />
-            {variant === 'link' && item.trim() && (
-              <div className="mt-1 flex items-center gap-2 text-xs">
-                <span
-                  className={`chip ${
-                    isKnownPlatform(item) ? 'bg-emerald-50 text-emerald-700' : 'bg-amber-50 text-amber-700'
-                  }`}
-                >
-                  {detectPlatform(item)}
-                </span>
-                {!isKnownPlatform(item) && (
-                  <span className="text-amber-600">affiché comme lien générique sur le site</span>
-                )}
-                <a
-                  href={item}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="ml-auto inline-flex items-center gap-1 text-slate-400 hover:text-brand"
-                >
-                  Tester <ExternalLink size={11} />
-                </a>
-              </div>
+            {variant === 'link' ? <LinkRow item={item} onChange={(next) => update(index, next)} /> : (
+              <Input value={item} onChange={(e) => update(index, e.target.value)} spellCheck />
             )}
           </div>
 
@@ -126,5 +101,43 @@ export const ListEditor: React.FC<Props> = ({
         </Button>
       </div>
     </div>
+  );
+};
+
+/** Ligne d'un lien d'achat : URL + plateforme détectée, et label perso pour les liens génériques. */
+const LinkRow: React.FC<{ item: string; onChange: (next: string) => void }> = ({ item, onChange }) => {
+  const { url, label } = splitBuyLink(item);
+  const known = isKnownPlatform(url);
+  return (
+    <>
+      <Input
+        value={url}
+        onChange={(e) => onChange(known ? e.target.value : joinBuyLink(e.target.value, label))}
+        className="text-xs"
+      />
+      {url && (
+        <div className="mt-1 flex flex-wrap items-center gap-2 text-xs">
+          <span className={`chip ${known ? 'bg-emerald-50 text-emerald-700' : 'bg-amber-50 text-amber-700'}`}>
+            {detectPlatform(url)}
+          </span>
+          {!known && (
+            <input
+              value={label}
+              onChange={(e) => onChange(joinBuyLink(url, e.target.value))}
+              placeholder={`Label affiché (défaut : ${defaultGenericLabel(url)})`}
+              className="min-w-[200px] flex-1 rounded border border-amber-200 bg-amber-50/50 px-2 py-1 text-xs text-slate-700 placeholder:text-amber-600/60 focus:border-amber-400 focus:outline-none"
+            />
+          )}
+          <a
+            href={url}
+            target="_blank"
+            rel="noreferrer"
+            className="ml-auto inline-flex items-center gap-1 text-slate-400 hover:text-brand"
+          >
+            Tester <ExternalLink size={11} />
+          </a>
+        </div>
+      )}
+    </>
   );
 };

@@ -69,16 +69,14 @@ export const ProductEditorPage: React.FC<Props> = ({
     }
     const draft = fileToProductDraft(source);
     if (mode === 'duplicate') {
-      // On garde la structure (tags, protocoles, catégorie) et on repart à neuf sur l'identité.
+      // On garde la structure (tags, protocoles, catégorie), la date et la vidéo ; on repart à neuf sur l'identité.
       return {
         ...draft,
         slug: '',
         title: `${draft.title} (copie)`,
         image: '',
-        videoCode: '',
         buyLinks: [],
         promoCode: null,
-        pubDate: todayIso(),
       };
     }
     return draft;

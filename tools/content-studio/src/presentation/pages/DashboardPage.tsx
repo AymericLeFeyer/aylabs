@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useMemo } from 'react';
 import {
   Copy,
   ExternalLink,
@@ -13,6 +13,7 @@ import {
 import type { ContentFile, ContentKind } from '../../domain/content/entities/ContentItem';
 import { formatFr, isScheduled, toIsoDate } from '../../shared/date';
 import { REPO } from '../../shared/config';
+import { defaultGenericLabel, detectPlatform, isKnownPlatform, splitBuyLink } from '../../domain/content/services/buyLinks';
 import { thumbnailUrl } from '../components/VideoCodeField';
 import { Button, Card, Input, Spinner } from '../components/ui/primitives';
 
@@ -24,6 +25,11 @@ interface Props {
   outOfSync: string[];
   /** Fichiers enregistrés mais pas encore commités. */
   pendingPaths: Set<string>;
+  /** Onglet et recherche, gardés par le parent pour les retrouver au retour d'un éditeur. */
+  kind: ContentKind;
+  onKindChange: (kind: ContentKind) => void;
+  query: string;
+  onQueryChange: (query: string) => void;
   onSync: () => void;
   onCreate: (kind: ContentKind) => void;
   onEdit: (kind: ContentKind, slug: string) => void;
@@ -42,14 +48,15 @@ export const DashboardPage: React.FC<Props> = ({
   syncError,
   outOfSync,
   pendingPaths,
+  kind,
+  onKindChange,
+  query,
+  onQueryChange,
   onSync,
   onCreate,
   onEdit,
   onDuplicate,
 }) => {
-  const [kind, setKind] = useState<ContentKind>('video');
-  const [query, setQuery] = useState('');
-
   const items = kind === 'video' ? videos : products;
 
   const filtered = useMemo(() => {
@@ -124,7 +131,7 @@ export const DashboardPage: React.FC<Props> = ({
           {TABS.map((tab) => (
             <button
               key={tab.kind}
-              onClick={() => setKind(tab.kind)}
+              onClick={() => onKindChange(tab.kind)}
               className={`inline-flex items-center gap-1.5 rounded-md px-3.5 py-1.5 text-sm font-medium transition ${
                 kind === tab.kind ? 'bg-brand text-white' : 'text-slate-600 hover:bg-slate-100'
               }`}
@@ -142,7 +149,7 @@ export const DashboardPage: React.FC<Props> = ({
           <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
           <Input
             value={query}
-            onChange={(e) => setQuery(e.target.value)}
+            onChange={(e) => onQueryChange(e.target.value)}
             placeholder="Rechercher un titre, un tag, un slug..."
             className="pl-9"
           />
@@ -183,6 +190,11 @@ const Row: React.FC<{
   const code = String((kind === 'video' ? fm.code : fm.videoCode) ?? '');
   const image = kind === 'product' ? String(fm.image ?? '') : '';
   const tags = (fm.tags as string[] | undefined) ?? [];
+  const links = ((fm.buyLinks as string[] | undefined) ?? []).map((raw) => {
+    const { url, label } = splitBuyLink(raw);
+    const known = isKnownPlatform(url);
+    return { known, label: known ? detectPlatform(url) : label || defaultGenericLabel(url) };
+  });
 
   return (
     <li className="group flex items-center gap-4 px-5 py-3 hover:bg-slate-50">
@@ -215,6 +227,16 @@ const Row: React.FC<{
               {String((fm.promoCode as Record<string, unknown>).code)}
             </span>
           ) : null}
+          {kind === 'product' &&
+            links.map((link, i) => (
+              <span
+                key={i}
+                className={`chip ${link.known ? 'bg-emerald-50 text-emerald-700' : 'bg-amber-50 text-amber-700'}`}
+                title={link.known ? 'Bouton dédié sur le site' : 'Lien générique : label modifiable dans la fiche'}
+              >
+                {link.label}
+              </span>
+            ))}
           {tags.slice(0, 3).map((tag) => (
             <span key={tag} className="chip bg-slate-100 text-slate-600">
               {tag}

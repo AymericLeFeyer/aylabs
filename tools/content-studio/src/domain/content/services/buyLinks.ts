@@ -9,6 +9,28 @@ const KNOWN: { id: string; label: string; test: (url: string) => boolean }[] = [
   { id: 'meross', label: 'Meross', test: (u) => u.includes('meross') },
 ];
 
+/** Un lien d'achat peut porter un label perso : `Mon label | https://...` (liens génériques seulement). */
+export const splitBuyLink = (raw: string): { url: string; label: string } => {
+  const idx = raw.indexOf(' | ');
+  if (idx === -1) return { url: raw.trim(), label: '' };
+  return { url: raw.slice(idx + 3).trim(), label: raw.slice(0, idx).trim() };
+};
+
+export const joinBuyLink = (url: string, label: string): string => {
+  const clean = label.replace(/["|]/g, '').trim();
+  return clean ? `${clean} | ${url.trim()}` : url.trim();
+};
+
+/** Libellé affiché sur le site pour un lien générique sans label perso (cf. ProductDetail). */
+export const defaultGenericLabel = (url: string): string => {
+  try {
+    const host = new URL(url.includes('://') ? url : `https://${url}`).hostname.replace(/^www\./, '').split('.')[0];
+    return host.charAt(0).toUpperCase() + host.slice(1);
+  } catch {
+    return 'Lien';
+  }
+};
+
 export const detectPlatform = (url: string): string => {
   const lower = url.toLowerCase();
   const known = KNOWN.find((k) => k.test(lower));

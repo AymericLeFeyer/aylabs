@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { EyeOff, LogOut } from 'lucide-react';
 import type { PendingChange } from './domain/changes/entities/PendingChange';
 import type { ContentKind } from './domain/content/entities/ContentItem';
@@ -45,6 +45,15 @@ const Studio: React.FC<{ user: GitHubUser; onLogout: () => void }> = ({ user, on
       ? { name: 'editor', kind: prefill.kind, mode: 'create', prefill }
       : { name: 'dashboard' };
   });
+
+  // Onglet et recherche du tableau de bord : remontés ici pour survivre à l'ouverture d'un éditeur.
+  const [dashKind, setDashKind] = useState<ContentKind>('video');
+  const [dashQuery, setDashQuery] = useState('');
+
+  // Chaque changement d'écran repart en haut de page.
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [route.name]);
 
   // Codes des fiches du dépôt : le Media Kit n'affiche que ces vidéos-là.
   const knownCodes = useMemo(() => knownVideoCodes(videos), [videos]);
@@ -115,6 +124,10 @@ const Studio: React.FC<{ user: GitHubUser; onLogout: () => void }> = ({ user, on
         syncError={syncError}
         outOfSync={catalog.outOfSync}
         pendingPaths={pendingPaths}
+        kind={dashKind}
+        onKindChange={setDashKind}
+        query={dashQuery}
+        onQueryChange={setDashQuery}
         onSync={sync}
         onCreate={(kind) => setRoute({ name: 'editor', kind, mode: 'create' })}
         onEdit={(kind, slug) => setRoute({ name: 'editor', kind, mode: 'edit', slug })}

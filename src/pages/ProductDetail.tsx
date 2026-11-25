@@ -311,11 +311,12 @@ export const ProductDetail: React.FC = () => {
                       </a>
                     ))}
 
-                    {product.otherLinks?.map((link) => {
+                    {product.otherLinks?.map(({ url: link, label: customLabel }) => {
                       const host = new URL(link).hostname
                         .replace(/^www\./, "")
                         .split(".")[0];
-                      const label = host.charAt(0).toUpperCase() + host.slice(1);
+                      const label =
+                        customLabel ?? host.charAt(0).toUpperCase() + host.slice(1);
                       return (
                         <a
                           key={link}

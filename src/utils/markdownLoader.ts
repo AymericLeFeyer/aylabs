@@ -130,9 +130,19 @@ export const loadTutorials = async () => {
 const withProtocol = (link: string): string =>
   /^[a-z][a-z0-9+.-]*:\/\//i.test(link.trim()) ? link.trim() : `https://${link.trim().replace(/^\/\//, '')}`;
 
+/** Un lien d'achat peut porter un label perso : `Mon label | https://...` (utilisé pour les liens génériques). */
+export const splitBuyLink = (raw: string): { url: string; label?: string } => {
+  const idx = raw.indexOf(' | ');
+  if (idx === -1) return { url: withProtocol(raw) };
+  const label = raw.slice(0, idx).trim();
+  return { url: withProtocol(raw.slice(idx + 3)), label: label || undefined };
+};
+
 export const loadProducts = async () => {
   return loadContentFromFiles('/products/', (parsed, slug) => {
-    const buyLinks: string[] | undefined = parsed.frontmatter.buyLinks?.map(withProtocol);
+    const parsedLinks = (parsed.frontmatter.buyLinks as string[] | undefined)?.map(splitBuyLink);
+    const buyLinks: string[] | undefined = parsedLinks?.map((l) => l.url);
+    const labels = new Map(parsedLinks?.map((l) => [l.url, l.label]));
     return {
     id: slug,
     name: parsed.frontmatter.title,
@@ -157,7 +167,7 @@ export const loadProducts = async () => {
       !link.includes('domadoo') && !link.includes('geekbuying') &&
       !link.includes('minix') && !link.includes('reolink') &&
       !link.includes('bambu') && !link.includes('meross')
-    ) || [],
+    ).map((url: string) => ({ url, label: labels.get(url) })) || [],
     promoCode: parsed.frontmatter.promoCode || null,
     pros: parsed.frontmatter.pros || [],
     cons: parsed.frontmatter.cons || [],

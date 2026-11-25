@@ -49,7 +49,7 @@ export interface Product {
   promoPrice: number | null | undefined;
   promoCode?: { code: string; percent: number; expiresAt: string | null; platform: string } | null;
   merossLink?: string;
-  otherLinks?: string[];
+  otherLinks?: { url: string; label?: string }[];
 }
 
 export interface Tutorial {
