@@ -15,7 +15,7 @@ compatible:
   - "MQTT"
 videoCode: "0qcGxWy3zsY"
 buyLinks:
-  - "https://www.awin1.com/cread.php?awinmid=91325&awinaffid=3020305&ued=https%3A%2F%2Ffr.x-sense.com%2Fproducts%2Fkit-de-detecteurs-de-fumee-et-de-monoxyde-de-carbone-avec-station-de-base-incluse-sc07-mr11"
+  - "X-SENSE | https://www.awin1.com/cread.php?awinmid=91325&awinaffid=3020305&ued=https%3A%2F%2Ffr.x-sense.com%2Fproducts%2Fkit-de-detecteurs-de-fumee-et-de-monoxyde-de-carbone-avec-station-de-base-incluse-sc07-mr11"
   - "https://link.amazon/B04D2RenJ"
 promoCode:
   code: "AYLABS"

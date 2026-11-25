@@ -6,7 +6,7 @@ tags:
   - "Fun"
 videoCode: "ZOgbsFK7vc4"
 buyLinks:
-  - "https://store.energizelab.com/products/eilik?ref=binviaek"
+  - "Energizelab | https://store.energizelab.com/products/eilik?ref=binviaek"
 pubDate: "Nov 04 2026"
 category: "Périphériques"
 price: 130

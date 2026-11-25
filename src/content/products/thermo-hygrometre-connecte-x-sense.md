@@ -15,7 +15,7 @@ compatible:
   - "MQTT"
 videoCode: "0qcGxWy3zsY"
 buyLinks:
-  - "https://www.awin1.com/cread.php?awinmid=91325&awinaffid=3020305&ued=https%3A%2F%2Ffr.x-sense.com%2Fproducts%2Fx-sense-thermometre-dinterieur-wifi-hygrometre-avec-application-dalerte-sth51%3F_pos%3D1%26_psq%3D-tag%253Abulk%2Bsth%26_psid%3D911863a3c%26_ss%3De%26variant%3D50703712682177"
+  - "X-SENSE | https://www.awin1.com/cread.php?awinmid=91325&awinaffid=3020305&ued=https%3A%2F%2Ffr.x-sense.com%2Fproducts%2Fx-sense-thermometre-dinterieur-wifi-hygrometre-avec-application-dalerte-sth51%3F_pos%3D1%26_psq%3D-tag%253Abulk%2Bsth%26_psid%3D911863a3c%26_ss%3De%26variant%3D50703712682177"
   - "https://link.amazon/B06ePWXXt"
 promoCode:
   code: "AYLABS"

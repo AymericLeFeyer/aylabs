@@ -7,7 +7,7 @@ tags:
   - "Confort"
 videoCode: "_hJALI5aLOw"
 buyLinks:
-  - "https://fr.libernovo.com/products/libernovo-maxis-dynamic-ergonomic-chair?ref=AYLABS"
+  - "Libernovo | https://fr.libernovo.com/products/libernovo-maxis-dynamic-ergonomic-chair?ref=AYLABS"
 pubDate: "Sep 30 2026"
 category: "Périphériques"
 price: 1969

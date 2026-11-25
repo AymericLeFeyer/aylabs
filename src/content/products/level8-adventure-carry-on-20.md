@@ -6,7 +6,7 @@ tags:
   - "Voyage"
 videoCode: "dVAPjhlZ7vk"
 buyLinks:
-  - "https://eu.level8cases.com/products/adventure-carry-on-20?country=FR&variant=46573106135263&utm_source=google&utm_medium=cpc&utm_campaign=Google+Shopping&stkn=435b74693d15&gad_source=1&gad_campaignid=23030553110&gclid=Cj0KCQiAk_DXBhCoARIsAHE-omOEY8ouWcijQjLeIc5nadWuiaQUhxQz9qMoIXGMvsZEYsDdqb9e5LwaAvJjEALw_wcB&_su_rec=rfxXo_cyP3so0qlRT7-Kzy4XcNKnnUL45JaS0JkcIQR_aYabQ_yZq7yNGU3SMhpg0Mz0y7hstXA4edcLf8IBGGSu5mzUrWRG0gQlS15PzyLvrzIonNZKJSiYHtI6lFZ_uBkCFEB9ElUOHSwLW_gZmM2RICorkVBN73VIhu031aANTtMrgUcGFD7hprDYgVegySLoHCb-md-E8RNYqfuNSXEDbNsJoopGmlrJeiAJaCHivhRUycvCIW5mKf0PSkFwhxqV8KDUGKuiyQ&_su_rec_id=d51f50e4-c06a-4ed1-9dab-323da1749a69-1794908404&shpxid=2b004e1e-ee53-4e9d-afb6-1d8a5541a32c"
+  - "LEVEL8 | https://eu.level8cases.com/products/adventure-carry-on-20?country=FR&variant=46573106135263&utm_source=google&utm_medium=cpc&utm_campaign=Google+Shopping&stkn=435b74693d15&gad_source=1&gad_campaignid=23030553110&gclid=Cj0KCQiAk_DXBhCoARIsAHE-omOEY8ouWcijQjLeIc5nadWuiaQUhxQz9qMoIXGMvsZEYsDdqb9e5LwaAvJjEALw_wcB&_su_rec=rfxXo_cyP3so0qlRT7-Kzy4XcNKnnUL45JaS0JkcIQR_aYabQ_yZq7yNGU3SMhpg0Mz0y7hstXA4edcLf8IBGGSu5mzUrWRG0gQlS15PzyLvrzIonNZKJSiYHtI6lFZ_uBkCFEB9ElUOHSwLW_gZmM2RICorkVBN73VIhu031aANTtMrgUcGFD7hprDYgVegySLoHCb-md-E8RNYqfuNSXEDbNsJoopGmlrJeiAJaCHivhRUycvCIW5mKf0PSkFwhxqV8KDUGKuiyQ&_su_rec_id=d51f50e4-c06a-4ed1-9dab-323da1749a69-1794908404&shpxid=2b004e1e-ee53-4e9d-afb6-1d8a5541a32c"
 promoCode:
   code: "L8BF26"
   percent: 20

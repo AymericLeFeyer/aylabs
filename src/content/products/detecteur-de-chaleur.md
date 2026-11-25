@@ -14,7 +14,7 @@ compatible:
   - "MQTT"
 videoCode: "0qcGxWy3zsY"
 buyLinks:
-  - "https://www.awin1.com/cread.php?awinmid=91325&awinaffid=3020305&ued=https%3A%2F%2Ffr.x-sense.com%2Fproducts%2Fdetecteur-de-chaleur-sans-fil-interconnecte-xh02-m%3F_pos%3D1%26_sid%3D10cf332b2%26_ss%3Dr"
+  - "X-SENSE | https://www.awin1.com/cread.php?awinmid=91325&awinaffid=3020305&ued=https%3A%2F%2Ffr.x-sense.com%2Fproducts%2Fdetecteur-de-chaleur-sans-fil-interconnecte-xh02-m%3F_pos%3D1%26_sid%3D10cf332b2%26_ss%3Dr"
   - "https://link.amazon/B0diowaqf"
 promoCode:
   code: "AYLABS"

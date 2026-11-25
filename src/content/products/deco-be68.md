@@ -9,7 +9,7 @@ protocols:
 videoCode: "zyS5HpjwoVE"
 buyLinks:
   - "https://link.amazon/B01ML1JJk"
-  - "tplinkfr.pxf.io/yZNJQ2"
+  - "TP-LINK | tplinkfr.pxf.io/yZNJQ2"
 pubDate: "Nov 21 2026"
 category: "Réseau"
 price: 599

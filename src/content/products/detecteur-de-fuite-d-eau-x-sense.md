@@ -14,7 +14,7 @@ compatible:
   - "MQTT"
 videoCode: "0qcGxWy3zsY"
 buyLinks:
-  - "https://www.awin1.com/cread.php?awinmid=91325&awinaffid=3020305&ued=https%3A%2F%2Ffr.x-sense.com%2Fproducts%2Fdetecteur-de-fuite-d-eau-intelligent-sws0a%3F_pos%3D2%26_psq%3D-tag%253Abulk%2Bfuite%2Bd%2527eau%26_psid%3D3f9de9845%26_ss%3De%26variant%3D50703713960129"
+  - "X-SENSE | https://www.awin1.com/cread.php?awinmid=91325&awinaffid=3020305&ued=https%3A%2F%2Ffr.x-sense.com%2Fproducts%2Fdetecteur-de-fuite-d-eau-intelligent-sws0a%3F_pos%3D2%26_psq%3D-tag%253Abulk%2Bfuite%2Bd%2527eau%26_psid%3D3f9de9845%26_ss%3De%26variant%3D50703713960129"
   - "https://link.amazon/B01lb7t4Z"
 promoCode:
   code: "AYLABS"
