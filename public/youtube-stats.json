@@ -2,7 +2,7 @@
   "stats": {
     "subscriberCount": 14900,
     "viewCount": 1317408,
-    "videoCount": 153,
+    "videoCount": 155,
     "channelTitle": "AyLabs",
     "channelDescription": "Informatique, Domotique, Développement, Homelab, Impression 3D...  🤓\nJ'aime découvrir de nouvelles choses et les partager sur cette chaîne ✨\n",
     "thumbnails": {
@@ -27,12 +27,53 @@
   },
   "videos": [
     {
+      "id": "do-7Bm6mL1g",
+      "title": "Level8 20 pouces : toutes les features",
+      "publishedAt": "2026-11-26T09:01:53Z",
+      "viewCount": 44,
+      "likeCount": 0,
+      "commentCount": 0,
+      "duration": "PT53S",
+      "thumbnails": {
+        "default": {
+          "url": "https://i.ytimg.com/vi/do-7Bm6mL1g/default.jpg",
+          "width": 120,
+          "height": 90
+        },
+        "medium": {
+          "url": "https://i.ytimg.com/vi/do-7Bm6mL1g/mqdefault.jpg",
+          "width": 320,
+          "height": 180
+        },
+        "high": {
+          "url": "https://i.ytimg.com/vi/do-7Bm6mL1g/hqdefault.jpg",
+          "width": 480,
+          "height": 360
+        },
+        "standard": {
+          "url": "https://i.ytimg.com/vi/do-7Bm6mL1g/sddefault.jpg",
+          "width": 640,
+          "height": 480
+        },
+        "maxres": {
+          "url": "https://i.ytimg.com/vi/do-7Bm6mL1g/maxresdefault.jpg",
+          "width": 1280,
+          "height": 720
+        },
+        "qhd": {
+          "url": "https://i.ytimg.com/vi/do-7Bm6mL1g/qhddefault.jpg",
+          "width": 2560,
+          "height": 1440
+        }
+      }
+    },
+    {
       "id": "dVAPjhlZ7vk",
       "title": "Ma valise cabine se compresse grâce à une fermeture ! (Level8 Adventure Carry-On 20\")",
       "publishedAt": "2026-11-25T16:00:28Z",
-      "viewCount": 770,
-      "likeCount": 9,
-      "commentCount": 1,
+      "viewCount": 845,
+      "likeCount": 10,
+      "commentCount": 2,
       "duration": "PT9M28S",
       "thumbnails": {
         "default": {
@@ -66,7 +107,7 @@
       "id": "U1Jo_rFqFLo",
       "title": "La valise cabine qui compresse toute seule",
       "publishedAt": "2026-11-25T15:55:52Z",
-      "viewCount": 200,
+      "viewCount": 210,
       "likeCount": 2,
       "commentCount": 0,
       "duration": "PT48S",
@@ -102,9 +143,9 @@
       "id": "zyS5HpjwoVE",
       "title": "Je remplace le WiFi de ma Box par du WiFi Mesh (TP-Link Deco BE68) : speed tests avant et après",
       "publishedAt": "2026-11-21T16:00:33Z",
-      "viewCount": 23259,
-      "likeCount": 186,
-      "commentCount": 49,
+      "viewCount": 23919,
+      "likeCount": 189,
+      "commentCount": 51,
       "duration": "PT16M38S",
       "thumbnails": {
         "default": {
@@ -138,7 +179,7 @@
       "id": "J6G8-hsRFt0",
       "title": "Wi-Fi Mesh : fini les zones mortes ?",
       "publishedAt": "2026-11-21T15:56:09Z",
-      "viewCount": 813,
+      "viewCount": 816,
       "likeCount": 6,
       "commentCount": 0,
       "duration": "PT47S",
@@ -261,7 +302,7 @@
       "id": "_dRbFxcLUsg",
       "title": "Caméra extérieure sans fil, sans travaux : mon test Reolink Solar Floodlight",
       "publishedAt": "2026-11-18T16:00:19Z",
-      "viewCount": 2893,
+      "viewCount": 2896,
       "likeCount": 57,
       "commentCount": 11,
       "duration": "PT9M4S",
@@ -333,7 +374,7 @@
       "id": "NArAVtsL84s",
       "title": "[LIVE] Le choc des maisons connectées : Makernix vs AyLabs",
       "publishedAt": "2026-11-18T09:53:15Z",
-      "viewCount": 2936,
+      "viewCount": 2938,
       "likeCount": 25,
       "commentCount": 0,
       "duration": "PT2H57M41S",
@@ -410,7 +451,7 @@
       "id": "ihGFagaoNyM",
       "title": "Une caméra qui filme à travers la vitre, ça marche vraiment ? (Sonoff CAM GlassView)",
       "publishedAt": "2026-11-11T16:00:20Z",
-      "viewCount": 7411,
+      "viewCount": 7425,
       "likeCount": 100,
       "commentCount": 9,
       "duration": "PT10M37S",
@@ -774,7 +815,7 @@
       "id": "O0nKMDDeQBE",
       "title": "Je construis une IA 100 % locale pour ma maison (Ayko #1)",
       "publishedAt": "2026-10-31T16:00:22Z",
-      "viewCount": 23325,
+      "viewCount": 23339,
       "likeCount": 450,
       "commentCount": 72,
       "duration": "PT24M23S",
@@ -933,7 +974,7 @@
       "id": "m9gTnrbZJp0",
       "title": "J'ai transformé mes toilettes en WC connectés, et c'était super facile !",
       "publishedAt": "2026-10-28T15:56:23Z",
-      "viewCount": 1083,
+      "viewCount": 1084,
       "likeCount": 16,
       "commentCount": 6,
       "duration": "PT48S",
@@ -969,7 +1010,7 @@
       "id": "f8N0q_BaA3o",
       "title": "Ce que j'emporte quand je voyage (tech, bagages, accessoires...)",
       "publishedAt": "2026-10-24T15:00:15Z",
-      "viewCount": 4620,
+      "viewCount": 4623,
       "likeCount": 76,
       "commentCount": 2,
       "duration": "PT25M14S",
@@ -1082,7 +1123,7 @@
       "id": "eQADtxI_U4Q",
       "title": "Oakley Meta : test, fonctionnalités, autonomie… ça vaut le coup ?",
       "publishedAt": "2026-10-20T17:53:24Z",
-      "viewCount": 773,
+      "viewCount": 774,
       "likeCount": 6,
       "commentCount": 1,
       "duration": "PT57S",
@@ -1282,7 +1323,7 @@
       "id": "On434-R2M5M",
       "title": "Mon HOMELAB Proxmox après 2 ans d'utilisation",
       "publishedAt": "2026-10-10T15:00:13Z",
-      "viewCount": 17546,
+      "viewCount": 17556,
       "likeCount": 346,
       "commentCount": 55,
       "duration": "PT27M32S",
@@ -1477,7 +1518,7 @@
       "id": "KvrQyt4JIu8",
       "title": "ECOVACS DEEBOT X12S OMNICYCLONE",
       "publishedAt": "2026-09-24T15:04:28Z",
-      "viewCount": 1531,
+      "viewCount": 1539,
       "likeCount": 15,
       "commentCount": 2,
       "duration": "PT2M57S",
@@ -1559,7 +1600,7 @@
       "id": "-uoKow2kLtk",
       "title": "La FACE CACHÉE de la DOMOTIQUE",
       "publishedAt": "2026-09-23T15:00:18Z",
-      "viewCount": 34902,
+      "viewCount": 34924,
       "likeCount": 469,
       "commentCount": 79,
       "duration": "PT17M30S",
@@ -1677,7 +1718,7 @@
       "id": "h8Pv8snkrK8",
       "title": "Une idée de modélisation en tête ? Essayer MESHY",
       "publishedAt": "2026-09-19T10:00:15Z",
-      "viewCount": 2059,
+      "viewCount": 2063,
       "likeCount": 13,
       "commentCount": 2,
       "duration": "PT1M30S",
@@ -1718,7 +1759,7 @@
       "id": "W2xMWF4JC7c",
       "title": "GLADYS ASSISTANT - Appliquée à l'éclairage connecté",
       "publishedAt": "2026-09-18T12:18:50Z",
-      "viewCount": 1736,
+      "viewCount": 1737,
       "likeCount": 26,
       "commentCount": 2,
       "duration": "PT2M",
@@ -1759,7 +1800,7 @@
       "id": "BUS6gqoMX98",
       "title": "J’ai testé 4 SPOTS CONNECTÉS : lequel est le meilleur ? #domotique #lights",
       "publishedAt": "2026-09-17T17:01:14Z",
-      "viewCount": 1241,
+      "viewCount": 1242,
       "likeCount": 18,
       "commentCount": 2,
       "duration": "PT48S",
@@ -1800,7 +1841,7 @@
       "id": "5nVj0SXp9_w",
       "title": "J’ai testé 4 SPOTS CONNECTÉS : lequel est le meilleur ?",
       "publishedAt": "2026-09-17T15:00:06Z",
-      "viewCount": 18310,
+      "viewCount": 18314,
       "likeCount": 239,
       "commentCount": 35,
       "duration": "PT18M54S",
@@ -1954,50 +1995,9 @@
           "height": 1672
         }
       }
-    },
-    {
-      "id": "9B4vS9Gbx60",
-      "title": "Unboxing UGREEN HA100 #ugreennas",
-      "publishedAt": "2026-09-07T21:36:34Z",
-      "viewCount": 1308,
-      "likeCount": 21,
-      "commentCount": 0,
-      "duration": "PT1M13S",
-      "thumbnails": {
-        "default": {
-          "url": "https://i.ytimg.com/vi/9B4vS9Gbx60/default.jpg",
-          "width": 120,
-          "height": 90
-        },
-        "medium": {
-          "url": "https://i.ytimg.com/vi/9B4vS9Gbx60/mqdefault.jpg",
-          "width": 320,
-          "height": 180
-        },
-        "high": {
-          "url": "https://i.ytimg.com/vi/9B4vS9Gbx60/hqdefault.jpg",
-          "width": 480,
-          "height": 360
-        },
-        "standard": {
-          "url": "https://i.ytimg.com/vi/9B4vS9Gbx60/sddefault.jpg",
-          "width": 640,
-          "height": 480
-        },
-        "maxres": {
-          "url": "https://i.ytimg.com/vi/9B4vS9Gbx60/maxresdefault.jpg",
-          "width": 1280,
-          "height": 720
-        },
-        "shortsAspectRatio": {
-          "url": "https://i.ytimg.com/vi/9B4vS9Gbx60/sardefault.jpg",
-          "width": 941,
-          "height": 1672
-        }
-      }
     }
   ],
-  "averageViews": 3812,
+  "averageViews": 3804,
   "engagementRate": 1.6,
-  "recentVideosCount": 24
+  "recentVideosCount": 25
 }
