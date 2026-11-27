@@ -157,6 +157,20 @@ pour l'instant, d'autres services s'ajoutent comme `NavItem`). `ServicesSection`
 (accueil, avant le Media Kit) y renvoie. Le menu burger s'affiche jusqu'à 1024 px
 (`lg:`) : avec les icônes de volet, la barre ne tient plus en dessous.
 
+## Évènements — `/events`
+
+Entrée **Évènements** du volet **Plus** (ajoutée le 2026-11-27). `src/data/events.ts`
+liste les évènements (`EVENTS`, `isUpcoming` les range en « À venir » / « Passés »),
+`src/pages/Events.tsx` les affiche. Chaque évènement a sa page codée à la main et sa
+route dans `App.tsx` :
+
+- `/events/salon-robotik-2026` (`SalonRobotik2026.tsx`) : infos pratiques, « j'y
+  expose », goodies, présentation du salon. Liens sortants suivis avec
+  `placement: "event"`.
+- `/events/salon-robotik-2026/expo` (`SalonRobotik2026Expo.tsx`) : le matériel du
+  stand, groupé par `EXPO_GROUPS` (`src/data/salonRobotik2026.ts`, des **slugs de
+  fiches produit**), rendu en `ProductCard`. Une fiche absente est ignorée.
+
 ## Structure
 
 ```

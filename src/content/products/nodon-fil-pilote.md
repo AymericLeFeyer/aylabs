@@ -1,6 +1,6 @@
 ---
 title: "NodOn Module Chauffage Fil Pilote"
-image: "https://cdn1.domadoo.fr/27368-large_default/nodon-module-chauffage-fil-pilote-connecte-zigbee-30.jpg"
+image: "https://m.media-amazon.com/images/W/BW_MEDIAX_AVIF_MEASUREMENT_1306696-T4/images/I/712zlObWflL._AC_SL1500_.jpg"
 description: "Module Zigbee 3.0 pour radiateurs électriques à fil pilote, permettant une gestion intelligente du chauffage avec suivi de consommation et installation sans travaux."
 tags:
   - "Gestion chauffage"

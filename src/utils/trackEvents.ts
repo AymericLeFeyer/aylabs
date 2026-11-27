@@ -30,6 +30,7 @@ export type Placement =
   | "media-kit"
   | "support"
   | "services"
+  | "event"
   | "video-header"
   | "views-chart"
   | "article";

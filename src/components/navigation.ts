@@ -11,6 +11,7 @@ import {
   Clapperboard,
   ShoppingBag,
   Radio,
+  CalendarDays,
   type LucideIcon,
 } from "lucide-react";
 
@@ -96,6 +97,13 @@ export const navGroups: NavGroup[] = [
     label: "Plus",
     trailing: true,
     items: [
+      {
+        label: "Évènements",
+        hint: "Salons et rencontres où me croiser",
+        to: "/events",
+        icon: CalendarDays,
+        match: ["/events"],
+      },
       {
         label: "Docs",
         hint: "Ma documentation technique",

@@ -14,6 +14,9 @@ import { HelmetProvider } from "react-helmet-async";
 import { Support } from "./pages/Support";
 import { Deals } from "./pages/Deals";
 import { Services } from "./pages/Services";
+import { Events } from "./pages/Events";
+import { SalonRobotik2026 } from "./pages/SalonRobotik2026";
+import { SalonRobotik2026Expo } from "./pages/SalonRobotik2026Expo";
 
 function App() {
   return (
@@ -34,6 +37,9 @@ function App() {
             <Route path="/deals" element={<Deals />} />
             <Route path="/support" element={<Support />} />
             <Route path="/services" element={<Services />} />
+            <Route path="/events" element={<Events />} />
+            <Route path="/events/salon-robotik-2026" element={<SalonRobotik2026 />} />
+            <Route path="/events/salon-robotik-2026/expo" element={<SalonRobotik2026Expo />} />
           </Routes>
         </Layout>
       </Router>
