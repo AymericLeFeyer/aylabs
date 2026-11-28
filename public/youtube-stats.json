@@ -1,7 +1,7 @@
 {
   "stats": {
     "subscriberCount": 14900,
-    "viewCount": 1326301,
+    "viewCount": 1330480,
     "videoCount": 155,
     "channelTitle": "AyLabs",
     "channelDescription": "Informatique, Domotique, Développement, Homelab, Impression 3D...  🤓\nJ'aime découvrir de nouvelles choses et les partager sur cette chaîne ✨\n",
@@ -30,7 +30,7 @@
       "id": "do-7Bm6mL1g",
       "title": "Level8 20 pouces : toutes les features",
       "publishedAt": "2026-11-26T09:01:53Z",
-      "viewCount": 165,
+      "viewCount": 167,
       "likeCount": 0,
       "commentCount": 0,
       "duration": "PT53S",
@@ -71,7 +71,7 @@
       "id": "dVAPjhlZ7vk",
       "title": "Ma valise cabine se compresse grâce à une fermeture ! (Level8 Adventure Carry-On 20\")",
       "publishedAt": "2026-11-25T16:00:28Z",
-      "viewCount": 1184,
+      "viewCount": 1189,
       "likeCount": 13,
       "commentCount": 7,
       "duration": "PT9M28S",
@@ -107,8 +107,8 @@
       "id": "U1Jo_rFqFLo",
       "title": "La valise cabine qui compresse toute seule",
       "publishedAt": "2026-11-25T15:55:52Z",
-      "viewCount": 279,
-      "likeCount": 2,
+      "viewCount": 281,
+      "likeCount": 3,
       "commentCount": 0,
       "duration": "PT48S",
       "thumbnails": {
@@ -143,7 +143,7 @@
       "id": "zyS5HpjwoVE",
       "title": "Je remplace le WiFi de ma Box par du WiFi Mesh (TP-Link Deco BE68) : speed tests avant et après",
       "publishedAt": "2026-11-21T16:00:33Z",
-      "viewCount": 29699,
+      "viewCount": 29904,
       "likeCount": 208,
       "commentCount": 50,
       "duration": "PT16M38S",
@@ -302,7 +302,7 @@
       "id": "_dRbFxcLUsg",
       "title": "Caméra extérieure sans fil, sans travaux : mon test Reolink Solar Floodlight",
       "publishedAt": "2026-11-18T16:00:19Z",
-      "viewCount": 2949,
+      "viewCount": 2950,
       "likeCount": 58,
       "commentCount": 11,
       "duration": "PT9M4S",
@@ -374,7 +374,7 @@
       "id": "NArAVtsL84s",
       "title": "[LIVE] Le choc des maisons connectées : Makernix vs AyLabs",
       "publishedAt": "2026-11-18T09:53:15Z",
-      "viewCount": 2962,
+      "viewCount": 2963,
       "likeCount": 25,
       "commentCount": 0,
       "duration": "PT2H57M41S",
@@ -451,7 +451,7 @@
       "id": "ihGFagaoNyM",
       "title": "Une caméra qui filme à travers la vitre, ça marche vraiment ? (Sonoff CAM GlassView)",
       "publishedAt": "2026-11-11T16:00:20Z",
-      "viewCount": 7502,
+      "viewCount": 7504,
       "likeCount": 101,
       "commentCount": 9,
       "duration": "PT10M37S",
@@ -651,7 +651,7 @@
       "id": "HUo2IEjUHx8",
       "title": "Ce petit robot est tout mignon ! (Eilik)",
       "publishedAt": "2026-11-04T15:59:32Z",
-      "viewCount": 844,
+      "viewCount": 845,
       "likeCount": 11,
       "commentCount": 1,
       "duration": "PT1M",
@@ -815,7 +815,7 @@
       "id": "O0nKMDDeQBE",
       "title": "Je construis une IA 100 % locale pour ma maison (Ayko #1)",
       "publishedAt": "2026-10-31T16:00:22Z",
-      "viewCount": 23515,
+      "viewCount": 23524,
       "likeCount": 450,
       "commentCount": 72,
       "duration": "PT24M23S",
@@ -892,7 +892,7 @@
       "id": "gw3r1oDzNUU",
       "title": "Unboxing Robot Eilik",
       "publishedAt": "2026-10-30T09:04:52Z",
-      "viewCount": 510,
+      "viewCount": 511,
       "likeCount": 10,
       "commentCount": 0,
       "duration": "PT1M32S",
@@ -933,7 +933,7 @@
       "id": "SRrl02VY8Hs",
       "title": "Review des toilettes connectées Sanyipace SU02B !",
       "publishedAt": "2026-10-29T09:05:25Z",
-      "viewCount": 618,
+      "viewCount": 619,
       "likeCount": 8,
       "commentCount": 2,
       "duration": "PT1M50S",
@@ -1010,7 +1010,7 @@
       "id": "f8N0q_BaA3o",
       "title": "Ce que j'emporte quand je voyage (tech, bagages, accessoires...)",
       "publishedAt": "2026-10-24T15:00:15Z",
-      "viewCount": 4636,
+      "viewCount": 4637,
       "likeCount": 76,
       "commentCount": 2,
       "duration": "PT25M14S",
@@ -1241,7 +1241,7 @@
       "id": "BLq3BfRxGp8",
       "title": "GLADYS ASSISTANT - Intégrations externes et personnalisées",
       "publishedAt": "2026-10-11T15:03:53Z",
-      "viewCount": 1257,
+      "viewCount": 1258,
       "likeCount": 28,
       "commentCount": 2,
       "duration": "PT2M28S",
@@ -1323,7 +1323,7 @@
       "id": "On434-R2M5M",
       "title": "Mon HOMELAB Proxmox après 2 ans d'utilisation",
       "publishedAt": "2026-10-10T15:00:13Z",
-      "viewCount": 17651,
+      "viewCount": 17652,
       "likeCount": 346,
       "commentCount": 55,
       "duration": "PT27M32S",
@@ -1393,47 +1393,6 @@
           "url": "https://i.ytimg.com/vi/b_tAMePczRA/sardefault.jpg",
           "width": 420,
           "height": 746
-        }
-      }
-    },
-    {
-      "id": "g1Xjwpv1i4E",
-      "title": "LiberNovo Maxis Electric",
-      "publishedAt": "2026-10-01T15:06:33Z",
-      "viewCount": 637,
-      "likeCount": 8,
-      "commentCount": 1,
-      "duration": "PT2M2S",
-      "thumbnails": {
-        "default": {
-          "url": "https://i.ytimg.com/vi/g1Xjwpv1i4E/default.jpg",
-          "width": 120,
-          "height": 90
-        },
-        "medium": {
-          "url": "https://i.ytimg.com/vi/g1Xjwpv1i4E/mqdefault.jpg",
-          "width": 320,
-          "height": 180
-        },
-        "high": {
-          "url": "https://i.ytimg.com/vi/g1Xjwpv1i4E/hqdefault.jpg",
-          "width": 480,
-          "height": 360
-        },
-        "standard": {
-          "url": "https://i.ytimg.com/vi/g1Xjwpv1i4E/sddefault.jpg",
-          "width": 640,
-          "height": 480
-        },
-        "maxres": {
-          "url": "https://i.ytimg.com/vi/g1Xjwpv1i4E/maxresdefault.jpg",
-          "width": 1280,
-          "height": 720
-        },
-        "shortsAspectRatio": {
-          "url": "https://i.ytimg.com/vi/g1Xjwpv1i4E/sardefault.jpg",
-          "width": 941,
-          "height": 1672
         }
       }
     },
@@ -1600,8 +1559,8 @@
       "id": "-uoKow2kLtk",
       "title": "La FACE CACHÉE de la DOMOTIQUE",
       "publishedAt": "2026-09-23T15:00:18Z",
-      "viewCount": 35361,
-      "likeCount": 470,
+      "viewCount": 35393,
+      "likeCount": 471,
       "commentCount": 79,
       "duration": "PT17M30S",
       "thumbnails": {
@@ -1718,7 +1677,7 @@
       "id": "h8Pv8snkrK8",
       "title": "Une idée de modélisation en tête ? Essayer MESHY",
       "publishedAt": "2026-09-19T10:00:15Z",
-      "viewCount": 2102,
+      "viewCount": 2103,
       "likeCount": 13,
       "commentCount": 2,
       "duration": "PT1M30S",
@@ -1797,51 +1756,10 @@
       }
     },
     {
-      "id": "BUS6gqoMX98",
-      "title": "J’ai testé 4 SPOTS CONNECTÉS : lequel est le meilleur ? #domotique #lights",
-      "publishedAt": "2026-09-17T17:01:14Z",
-      "viewCount": 1244,
-      "likeCount": 18,
-      "commentCount": 2,
-      "duration": "PT48S",
-      "thumbnails": {
-        "default": {
-          "url": "https://i.ytimg.com/vi/BUS6gqoMX98/default.jpg",
-          "width": 120,
-          "height": 90
-        },
-        "medium": {
-          "url": "https://i.ytimg.com/vi/BUS6gqoMX98/mqdefault.jpg",
-          "width": 320,
-          "height": 180
-        },
-        "high": {
-          "url": "https://i.ytimg.com/vi/BUS6gqoMX98/hqdefault.jpg",
-          "width": 480,
-          "height": 360
-        },
-        "standard": {
-          "url": "https://i.ytimg.com/vi/BUS6gqoMX98/sddefault.jpg",
-          "width": 640,
-          "height": 480
-        },
-        "maxres": {
-          "url": "https://i.ytimg.com/vi/BUS6gqoMX98/maxresdefault.jpg",
-          "width": 1280,
-          "height": 720
-        },
-        "shortsAspectRatio": {
-          "url": "https://i.ytimg.com/vi/BUS6gqoMX98/sardefault.jpg",
-          "width": 987,
-          "height": 1755
-        }
-      }
-    },
-    {
       "id": "5nVj0SXp9_w",
       "title": "J’ai testé 4 SPOTS CONNECTÉS : lequel est le meilleur ?",
       "publishedAt": "2026-09-17T15:00:06Z",
-      "viewCount": 18447,
+      "viewCount": 18455,
       "likeCount": 240,
       "commentCount": 35,
       "duration": "PT18M54S",
@@ -1995,9 +1913,86 @@
           "height": 1672
         }
       }
+    },
+    {
+      "id": "9B4vS9Gbx60",
+      "title": "Unboxing UGREEN HA100 #ugreennas",
+      "publishedAt": "2026-09-07T21:36:34Z",
+      "viewCount": 1309,
+      "likeCount": 21,
+      "commentCount": 0,
+      "duration": "PT1M13S",
+      "thumbnails": {
+        "default": {
+          "url": "https://i.ytimg.com/vi/9B4vS9Gbx60/default.jpg",
+          "width": 120,
+          "height": 90
+        },
+        "medium": {
+          "url": "https://i.ytimg.com/vi/9B4vS9Gbx60/mqdefault.jpg",
+          "width": 320,
+          "height": 180
+        },
+        "high": {
+          "url": "https://i.ytimg.com/vi/9B4vS9Gbx60/hqdefault.jpg",
+          "width": 480,
+          "height": 360
+        },
+        "standard": {
+          "url": "https://i.ytimg.com/vi/9B4vS9Gbx60/sddefault.jpg",
+          "width": 640,
+          "height": 480
+        },
+        "maxres": {
+          "url": "https://i.ytimg.com/vi/9B4vS9Gbx60/maxresdefault.jpg",
+          "width": 1280,
+          "height": 720
+        },
+        "shortsAspectRatio": {
+          "url": "https://i.ytimg.com/vi/9B4vS9Gbx60/sardefault.jpg",
+          "width": 941,
+          "height": 1672
+        }
+      }
+    },
+    {
+      "id": "Nbd7fX_I7CA",
+      "title": "On construit sa DOMOTIQUE à partir de ZÉRO ! (Home Assistant, Zigbee, Proxmox…)",
+      "publishedAt": "2026-09-05T15:00:16Z",
+      "viewCount": 50159,
+      "likeCount": 641,
+      "commentCount": 82,
+      "duration": "PT27M34S",
+      "thumbnails": {
+        "default": {
+          "url": "https://i.ytimg.com/vi/Nbd7fX_I7CA/default.jpg",
+          "width": 120,
+          "height": 90
+        },
+        "medium": {
+          "url": "https://i.ytimg.com/vi/Nbd7fX_I7CA/mqdefault.jpg",
+          "width": 320,
+          "height": 180
+        },
+        "high": {
+          "url": "https://i.ytimg.com/vi/Nbd7fX_I7CA/hqdefault.jpg",
+          "width": 480,
+          "height": 360
+        },
+        "standard": {
+          "url": "https://i.ytimg.com/vi/Nbd7fX_I7CA/sddefault.jpg",
+          "width": 640,
+          "height": 480
+        },
+        "maxres": {
+          "url": "https://i.ytimg.com/vi/Nbd7fX_I7CA/maxresdefault.jpg",
+          "width": 1280,
+          "height": 720
+        }
+      }
     }
   ],
-  "averageViews": 3957,
-  "engagementRate": 1.6,
+  "averageViews": 4954,
+  "engagementRate": 1.5,
   "recentVideosCount": 24
 }
